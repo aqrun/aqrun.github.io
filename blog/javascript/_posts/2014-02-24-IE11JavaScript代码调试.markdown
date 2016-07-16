@@ -2,7 +2,6 @@
 layout: post
 title:  "IE11JavaScript代码调试!"
 date:   2014-02-24 17:49:00
-categories: javascript
 ---
 
 <h3>IE11JavaScript代码调试</h3>

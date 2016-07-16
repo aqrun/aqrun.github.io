@@ -1,98 +1,44 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="zh-cn">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="qycode">
-    <meta name="author" content="MeanOfWind">
-    <link rel="shortcut icon" href="">
-
-    <title>{{ page.title }}-奇异代码网</title>
-
-    <!-- 最新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/main.css">
-
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
-    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-</head>
+{% include header.html %}
 <body>
 
-<div class="navbar navbar-static-top navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="http://qycode.com">奇异代码网</a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="http://qycode.com">首页</a></li>
-                <li><a href="about">关于我</a></li>
-                <li><a href="php">PHP</a></li>
-                <li><a href="javascript">JavaScript</a></li>
-                <li><a href="java">Java</a></li>
-            </ul>
-        </div><!-- /.nav-collapse -->
-    </div><!-- .container -->
-</div><!-- .navbar -->
+{% include navbar.html param="value" %}
 
 <div class="container">
 
-    <div class="row row-offcanvas row-offcanvas-right">
+  <div class="row row-offcanvas row-offcanvas-right">
 
-        <div class="col-xs-12 col-sm-9">
-            <p class="pull-right visible-xs">
-                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-            </p>
-            <div class="jumbotron">
-                <h1>{{ page.title }}</h1>
-                <p>{{ page.des }}</p>
-            </div>
-            <div class="row">
+    <div class="col-xs-12 col-sm-91">
+      <p class="pull-right visible-xs">
+        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+      </p>
 
-                {{ content }}
+      <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+        <li class="active">{{page.title}}</li>
+      </ol>
 
 
-            </div><!--/row-->
-        </div><!--/span-->
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-            <div class="list-group">
-                <a href="http://qycode.com" class="list-group-item active">QYCode</a>
-                <a href="http://www.symfony.org" class="list-group-item">Symfony2</a>
-                <a href="#" class="list-group-item">ZendFrameWork2</a>
-                <a href="#" class="list-group-item">Yii</a>
-                <a href="#" class="list-group-item">Laravel</a>
-                <a href="http://www.Drupla.org" class="list-group-item">Drupal</a>
-                <a href="http://www.joomla.org" class="list-group-item">Joomla</a>
-                <a href="http://www.github.com" class="list-group-item">Github</a>
-                <a href="http://www.monda.cc" class="list-group-item">Monda</a>
-            </div>
-        </div><!--/span-->
-    </div><!--/row-->
+      <div class="row" style="margin:0;">
+
+        {{ content }}
 
 
-    <hr>
+      </div><!--/row-->
+    </div><!--/span-->
 
-    <footer>
-        <p>&copy; MeanOfWind 2013</p>
-    </footer>
+  </div><!--/row-->
+
+
+  {% include footer.html %}
+
 </div> <!-- .container -->
+
+<script>
+  $('.nav .id_' + g.menuId).addClass('active');
+</script>
 
 </body>
 </html>

@@ -1,10 +1,12 @@
 ---
-layout: main
-title: 首页
+layout: default
+title: PHP
+menuId: 101
 ---
-<section id="l-main">
 
-  {% for post in site.posts %}
+<section id="l-main" class="catesect">
+
+  {% for post in site.categories.php  %}
   <article class="row">
     <div class="date col-lg-2 col-md-2 col-sm-2">
       <p class="day">{{post.date|date: '%d'}}</p>
@@ -26,5 +28,6 @@ title: 首页
     <button class="continue btn btn-default"><a href="{{post.url}}">阅读全文</a></button>
   </article>
   {% endfor %}
+
 
 </section>
