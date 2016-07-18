@@ -4,6 +4,7 @@ highlighter: rouge
 permalink: /:categories/:year/:month/:day-:title.html
 paginate: 5
 paginate_path: '/blog/page:num'
+#excerpt_separator: 'excerpt'
 
 
 gems: [jekyll-paginate]
@@ -34,6 +35,14 @@ mainMenus:
     id: 105
     name: IOS
     href: /blog/ios/
+  ubuntu:
+    id: 107
+    name: Ubuntu
+    href: /blog/ubuntu/
+  drupal:
+    id: 108
+    name: Drupal
+    href: /blog/drupal/
   diary:
     id: 106
     name: 随笔
