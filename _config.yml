@@ -47,3 +47,5 @@ mainMenus:
     id: 106
     name: 随笔
     href: /blog/diary/
+
+customechange: test
