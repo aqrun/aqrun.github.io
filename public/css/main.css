@@ -80,3 +80,24 @@ article.row{
   margin-left:15px;
   margin-right:15px;
 }
+
+.post ul{
+  padding: 0 0 0 40px;
+  list-style-type: disc;
+  line-height:30px;
+  font-size:16px;
+}
+.post ol{
+  font-size:16px;
+  line-height:30px;
+}
+.post p{
+  font-size:16px;
+  line-height:30px;
+}
+.post pre{
+  font-size:14px;
+}
+.meta{
+  color:#999;
+}

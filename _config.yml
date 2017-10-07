@@ -1,4 +1,4 @@
-name: QYCode
+name: AQRUN
 markdown: redcarpet
 highlighter: rouge
 permalink: /:categories/:year/:month/:day-:title.html
@@ -7,7 +7,7 @@ paginate_path: '/blog/page:num'
 #excerpt_separator: 'excerpt'
 
 
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 
 #主导航菜单
 mainMenus:
