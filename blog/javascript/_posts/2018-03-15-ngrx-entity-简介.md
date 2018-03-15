@@ -2,12 +2,12 @@
 layout: post
 title: @ngrx/entity 简介
 tags: angular ngrx ngrx/entity
-excerpt: @ngrx/entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。
+excerpt: '@ngrx/entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。'
 ---
 
 # @ngrx/entity 简介
 
-> (原文链接：https://medium.com/ngrx/introducing-ngrx-entity-598176456e15)[https://medium.com/ngrx/introducing-ngrx-entity-598176456e15]
+> [原文链接：https://medium.com/ngrx/introducing-ngrx-entity-598176456e15](https://medium.com/ngrx/introducing-ngrx-entity-598176456e15)
 
 关于使用NgRx构建应用程序最常见的抱怨之一是开发人员必须编写的样板代码数量。 试图解决样板问题时的挑战在于，为了从体系结构中获得全部优势，必需的明确性至关重要。 我们认为，通过开发有针对性的库，我们可以帮助减少一些这种样板，同时保留NgRx提供的所有好处。
 
