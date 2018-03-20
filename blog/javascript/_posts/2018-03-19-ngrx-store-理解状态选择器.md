@@ -2,7 +2,7 @@
 layout: post
 title: 'NgRx Store 理解状态选择器(state selectors)'
 tags: angular ngrx state selectors
-excerpt: '我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Effects 中获取 Firebase 数据库中的数据'
+excerpt: '选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureSelector`、`createSelector`, 以及它们的区别'
 ---
 
 > [原文链接：https://toddmotto.com/ngrx-store-understanding-state-selectors](https://toddmotto.com/ngrx-store-understanding-state-selectors)
@@ -155,7 +155,7 @@ export const getProductsState = createFeatureSelector<ProductsState>('products')
 
 因此，`createFeatureSelector`返回一个选择器函数，该函数查找并返回指定的特征状态。 传递给它的泛型类型是我们从选择器函数获得的特征状态的类型。 在这种情况下，选择器将返回类型为`ProductState`的特征状态。 我们的`ProductState`将由各种reducer管理，马上我们会查看。
 
-现在我们可以通过`getProductsState`轻松访问产品状态切片，我们可以在我们的组件中使用它，如下所示：
+现在我们可以通过`getProductsState`轻松访问产品状态切片，可以在组件中使用它，如下所示：
 
 ```ts
 this.store
@@ -163,3 +163,230 @@ this.store
     .map(state => state.pizzas)
     .map(pizzas => pizza.entities);
 ```
+
+为了获得我们需要的状态，我们必须依靠通过`.map()`进行映射来从顶级特征状态中提取它。 我们在每次`map`调用时都会*漫步*在`ProductState`中。 这很好，但它又是重复的，没有重用性，并且很难作单元测试。 这就是`createSelector`发挥作用的地方，我们将研究如何将它与我们新的`createFeatureSelector`结合起来。
+
+## 状态切片选择器
+
+由于是纯函数返回一个状态切片，选择器函数可以被组合在一起以供组件使用，它们可以由我们整体状态的各个部分组成 - 这就是状态管理变得更重要的地方，因为我们需要得到事情从一开始就是正确的。
+
+要开始组合，我们需要定义一个起点 - 我们的最顶层特征。 通过使用`createFeatureSelector`，我们可以轻松获得对顶层状态属性的引用。 一旦我们有了这个引用，我们就可以将它与其他选择器组合起来，这些选择器指向我们的特征状态下面的状态 - 有效地遍历状态树直到我们到达期望的属性。 我们在前一节使用纯函数的一个例子中做了类似的事情。 让我们看看我们在Store内如何做到这一点。
+
+我们从定义和管理状态的角度开始：reducer。 我们将使用我的[免费NGRX课程](https://ultimateangular.com/ngrx-store-effects)中的应用程序：
+
+```ts
+// src/products/store/reducers/index.ts
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+
+import * as fromPizzas from './pizzas.reducer';
+import * as fromToppings from './toppings.reducer';
+
+export interface ProductsState {
+    pizzas: fromPizzas.PizzaState;
+    toppings: fromToppings.ToppingState;
+}
+
+export const reducers: ActionReducerMap<ProductsState> = {
+    pizzas: fromPizzas.reducer,
+    toppings: fromToppings.reducer,
+};
+
+export const getProductsState = createFeatureSelector<ProductsState>('products');
+```
+
+`ProductsState`表示此特征模块的特征状态。 它由另外两个状态树组成：状态树：`PizzaState`和`ToppingsState`。 我们的产品状态由我们的`reducers`（一个包含两个reducer - pizzas和Toppings的`ActionReducerMap`）管理，并且每个分别管理各个低一级状态。 让我们直观地将状态树看作是一个JavaScript对象：
+
+```ts
+//RootState
+state = {
+    //ProductState
+    products: {
+        //pizzaState
+        pizzas: {
+            entities: {},
+            loaded: false,
+            loading: true,
+        },
+        // ToppingsState
+        toppings: {
+            entities: {},
+            loaded: false,
+            loading: true,
+        },
+    }
+}
+```
+
+为了找到我们的pizza entities，我们需要按照我们在开始时看到的方式走这条路：
+
+```
+state -> products -> pizzas -> entities
+```
+
+现在我们可以引入`createSelector`来获取对状态树下面的属性的引用 - 这允许我们以简单的方式获取pizzas。
+
+我们已经将`getProductsState`定义为一个特征选择器，它可以给我们返回与`ProductsState`对应的状态切片。 剩下的就是把它与其他选择器合并，开始在我们的状态树上构建一个链。 这感觉就像我们有时设置了很多样板，而且我们在某些地方，但是一旦设置完成 - 我们已经准备好使用它几千次而且几乎没有什么调整 - 选择器使用起来非常棒，适用于大数据集和多个状态。
+
+那么，让我们深入一个层级，并使用`createSelector`跳转到另一个层级：
+
+```ts
+// src/products/store/reducers/index.ts
+export interface ProductsState {
+    pizzas: fromPizzas.PizzaState;
+    toppings: fromToppings.ToppingsState;
+}
+
+export const getProductsState = careteFeatureSelector<ProductsState>('products');
+
+export const getPizzaState = createSelector(
+    getProductsState,
+    (state: ProductsState) => state.pizzas
+);
+```
+
+注意我们如何传递`getProductsState`作为第一个参数 - 所以我们可以从这一点开始我们的状态查找。 就这样，我们可以获取状态树更深层的属性。
+
+`createSelector`函数最多可以接受八个选择器函数作为参数，每个函数引用不同的状态切片。 `createSelector`最后一个参数可以被当作我们的“生成器函数(projector function)”。 让我们来看看`createSelector`的TypeScript定义，以便在继续之前进一步掌握它：
+
+```ts
+export function createSelector<State, S1, S2, S3, Result>(
+    s1: Selector<State, S1>,
+    s2: Selector<State, S2>,
+    s3: Selector<State, S3>,
+    projector: (s1: S1, s2: S2, s3: S3) => Result
+): MemoizedSelector<State, Result>;
+```
+
+我们不需要为这里的太多类型而惊慌失措 - 但让我们看看s1，s2和s3。 请注意，在生成器中，我们以s1，s2和s3作为函数参数 - 按照我们提供的顺序。 这比我的第一个必须嵌套函数调用示例要好得多。 更具可读性和简洁性。
+
+简而言之：传递给生成器函数的参数顺序和之前列出的选择器顺序一样。
+
+生成器函数的作用非常强大。 我们可以在状态树中的任何位置请求各种状态属性，我们可以派生，转换或合并来自传递给它的状态切片的数据，并将此修改的数据作为单个对象返回 - 通常用于组件使用。 再次，它是干净简洁的 - 而且这种状态逻辑不在我们的组件内部。 我们的组件只是调用，就是这样。
+
+在创建`getPizzaState`之前，为了在组件中获得pizza entities，我们需要这样做：
+
+```ts
+this.store.select(fromStore.getProductsState)
+    .map(state => state.pizzas)
+    .map(pizza => pizza.entities);
+```
+
+然而，通过我们最新创建的`getPizzaState`函数，我们现在只需一个map调用：
+
+```ts
+this.store.select(fromStore.getPizzas).map(pizzas => pizza.entities);
+```
+
+You can likely guess how we can now complete our journey and reference those entities - but the way we gain access is a little different and typically begins in our reducer, let’s take a look:
+
+您可能猜到我们现在如何完成我们的旅程并引用这些实体 - 但我们访问的方式有点不同，通常从我们的reducer开始，让我们看看：
+
+```ts
+// src/products/store/reducers/pizzas.reducer.ts
+export interface PizzaState {
+    entities: { [id: number]: Pizzas};
+    loaded: boolean;
+    loading: boolean;
+}
+
+export cosnt initialState: PizzaState {
+    entities: {},
+    loaded: false;
+    loading: false;
+}
+
+export function reducer(
+    state = initialState,
+    action: fromPizzas.PizzasAction
+): PizzaState {
+    //...switches and stuff
+}
+
+export const getPizzasEntities = (state: PizzaState) => state.entities;
+export const getPizzasLoaded = (state: PizzaState) => state.loaded;
+export const getPizzasLoading = (state: PizzasState) => state.loading;
+```
+
+在`PizzaState` reducer 中需要注意的是在底部输出的那些函数。 这些是状态属性选择器 - 纯函数。 这里是导出当前状级别所有其他属性的好地方，这样我们就可以在下一级轻松组合它们 - 已通过导入语句访问它们。
+
+回到我们的顶级reducer文件`index.ts`，我们将编写一个选择器，可以返回我们喜爱的pizza entities：
+
+```ts
+// src/products/store/reducers/index.ts
+import * as fromPizzas from './pizzas.reducer';
+
+export cosnt getProductsState = createFeatureSelector<ProductsState>('products');
+
+export const getPizzaState = createSelector(
+    getProductsState,
+    (state: ProductsState) => state.pizzas 
+);
+
+export const getPizzasEntities = createSelector(
+    getPizzaState,
+    fromPizzas.getPizzasEntities
+);
+```
+
+我们使用`fromPizzas.getPizzasEntities`作为`createSelector`的生成器函数，它将返回对pizza属性entities的引用。
+
+我们可以放弃遗留在组件代码中的最后一个.map（）吗？...
+
+```ts
+this.store.select(fromStore.getPizzas).map(pizza => pizza.entities);
+```
+
+为什么不行。 我们现在可以如下获取entities：
+
+```ts
+this.store.select(fromStore.getPizzasEntities);
+```
+
+会返回如下数据：
+
+```ts
+{
+    1: { name: 'Pizza 1', id: 1},
+    2: { name: 'Pizza 2', id: 2}
+}
+```
+
+这很棒，而且正是我们所需要的。 然而，对于Angular或任何其他框架/解决方案，我们应该将这个数据结构视为一个数组。 在Angular的中，我们可以很好地将它用于ngFor。
+
+实体(entities)是一种表示通过使用唯一ID作为其数据引用的数据结构的方法。 它使数据查找起来非常简单，快速，可组合 - 但这是另一篇文章的故事。
+
+那么，如果我们想要将基于实体的选择器转换为数组格式，以便通过ngFor使用呢？ 我们可以创建另一个选择器，并使用生成器函数将我们的数据结构映射到一个阵列，非常容易：
+
+```ts
+// src/products/store/reducers/index.ts
+export const getPizzasEntities = createSelector(
+    getPizzaState,
+    fromPizzas.getPizzasEntities
+);
+
+export const getAllPizzas = createSelector(
+    getPizzasEntities,
+    entities => {
+        return Object.keys(entities).map(id => entities[id]);
+    }
+);
+```
+
+这有几个关键的好处。 在状态管理中，我们可能希望通过ID（标准化为实体）来查找项目，我们可以通过引用`getPizzasEntities`来实现，例如我们可以将一个路由参数id传递给我们的选择器，并返回单个实体。 没有循环，没有map，只是一个对象查找。 对于某些组件，我们实际上可能需要实体，对于某些组件（如列表视图），我们对相同的数据更感兴趣，但是作为一个数组！
+
+选择器也被记忆，这意味着它们很快，只有在需要时才会重新计算。
+
+随着我们的任务完成，我们现在可以将这一个选择器传入我们的`store.select`中，我们完成了：
+
+```ts
+// an array of pizzas, what else could you ever ask for?
+this.store.select(fromStore.getAllPizzas);
+```
+
+瞧^_^！
+
+## 总结
+
+选择器刚开始掌握使用时是有些复杂，我鼓励你看看我的[例子NGRX应用程序](https://github.com/UltimateAngular/ngrx-store-effects-app/tree/27-testing-effects/src/products/store/selectors)，看看事情如何在一个更大的图景融合在一起。
+
+选择器是我们如何通过引用我们数据结构的不同部分的函数来组合状态。 然后，我们可以合并它们，将它们合并，从它们中提取属性并将它们与其他属性结合起来（这对于使用实体和id可以从我们的状态中获取属性并将它们引入新的选择器来组成新状态而特别容易）。 可能性是无止境的，并且易于管理。 一旦我们通过选择器编写了我们的数据结构，我们就可以将其发送到我们的组件以供使用。
