@@ -15,7 +15,8 @@ tags: nginx drupal7
    
 以下列出三个主要配置文件内容：
 
-{% highlight ssh linenos %}
+<pre class="line-numbers">
+    <code class="language-nginx">
 #＝＝＝＝＝＝＝＝＝＝＝＝＝
 #默认配置文件
 #nginx.conf
@@ -149,5 +150,6 @@ server {
 
    
 }
-{% endhighlight %}
+</code>
+</pre>
 

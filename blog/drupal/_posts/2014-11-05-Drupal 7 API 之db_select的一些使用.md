@@ -9,16 +9,19 @@ Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法�
 
 #### 1. 单表查询（最基本使用方法）
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-php">
 $result = db_select('contact', 'c')  //选择表contact,名一个别名c
  ->fields('c') //查询c表中的字段，后面不跟参数就是查询所有
  ->execute()  //执行操作
  ->fetchAssoc(); //处理结果集
-{% endhighlight %}
+</code>
+</pre>
 
 #### 2. 条件查询（condition）
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-php">
     $result = db_select('node', 'n')
     ->fields('n')
     ->condition('nid', 5,'=')  //nid等于5的条件
@@ -26,11 +29,13 @@ $result = db_select('contact', 'c')  //选择表contact,名一个别名c
     ->condition('uid', array(1,5,7),'IN') //使用IN操作，当然还可以使用 NOT IN
     ->execute()
     ->fetchAssoc();
-{% endhighlight %}
+</code>
+</pre>
 
 #### 3. 联合查询（Join）
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-php">
  $query = db_select('field_data_field_slide','f'); //主表
 
  $query->join('node', 'n', 'fa.entity_id = n.nid'); // 联合node表,条件是nid
@@ -46,11 +51,13 @@ $result = db_select('contact', 'c')  //选择表contact,名一个别名c
   $query->range(0,4); //取得4条数据
 
    $result = $query->execute();
-{% endhighlight %}
+</code>
+</pre>
 
 #### 4. 添加字段（addField）
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-php">
     $query = db_select('taxonomy_term_hierarchy','h'); //选择表
     $query->join('taxonomy_term_data','d','h.tid = d.tid'); // 联合查询
     $query->addField('d', 'tid'); // 添加字段
@@ -58,11 +65,13 @@ $result = db_select('contact', 'c')  //选择表contact,名一个别名c
     $query->condition('d.vid',$vid); // 再添加一个条件 and ....
     $query->addTag('ditusearch_generate_path'); // 添加Tag 可选项，这个就是方便其他地方可以改变这   个查询$query 比如如果添加了tag 可以使用 hook_query_alter 对其进行查询 如果你使用过views开发，views 也可以了类似的hook
     $tid = $query->execute()->fetchCol();
-{% endhighlight %}
+</code>
+</pre>
 
 #### 5. 分页使用（pager）
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-javascript">
   $query = db_select('node', 'n')
       ->condition('type', 'article')
       ->fields('n');
@@ -73,11 +82,12 @@ $result = db_select('contact', 'c')  //选择表contact,名一个别名c
    }
     $output .= theme(‘pager’); //添加分页theme
     Return $output; 
-{% endhighlight %}
+</code></pre>
 
 #### 6. 多表联合分页
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-javascript">
   $query = db_select('field_data_field_news','fa')->extend('PagerDefault'); //多表联合查询extend条件必须放在db_select之后
 
   $query->join('node','n','fa.entity_id = n.nid');
@@ -97,6 +107,6 @@ $result = db_select('contact', 'c')  //选择表contact,名一个别名c
   $query->limit(14);
 
    $result = $query->execute();
-{% endhighlight %}
+</code></pre>
 
 http://drupalchina.cn/node/2026  

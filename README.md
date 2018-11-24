@@ -20,7 +20,7 @@ My Blog
 ## Install jekyll
 
 * `gem instlal jekyll`
-* `gem install jekyll-paginate`
+* `gem install jekyll-paginate-v2 route kramdown pygments.rb`
 
 
 

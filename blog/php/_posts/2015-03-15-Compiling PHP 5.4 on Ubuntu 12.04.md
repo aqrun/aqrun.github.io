@@ -15,7 +15,8 @@ So where to start. Dependencies first I think
 
 Ubuntu allows you to install dependencies for building source apt-get build-deps. We will use this and install any extras we may need.
 
-{% highlight shell linenos %}
+<pre class="line-numbers">
+    <code class="language-shell">
 
     apt-get install \
     libxml2 \
@@ -50,12 +51,13 @@ Ubuntu allows you to install dependencies for building source apt-get build-deps
     libsnmp-dev \
     libxslt1.1 \
     libxslt1-dev
-    
-{% endhighlight %}
+        
+</code></pre>
 
 And now the configure
 
-{% highlight shell linenos %}
+<pre class="line-numbers">
+    <code class="language-shell">
 
     ./configure \
     --prefix=/usr/local/php \
@@ -111,7 +113,8 @@ And now the configure
     --enable-zend-signals \
     --enable-maintainer-zts
 
-{%endhighlight%}
+</code>
+</pre>
 
 Once these are done then we follow the standard make process. Notice we are also running make test… very important as it givges more data for the developers to work with.
 

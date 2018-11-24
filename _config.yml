@@ -1,7 +1,8 @@
 name: AQRUN
 markdown: kramdown
-highlighter: rouge
 permalink: /:categories/:year/:month/:day-:title.html
+#highlighter: rouge
+
 
 # Build settings
 exclude: ['node_modules', 'dev', 'package.json', 'gulpfile.js', '.gitignore', 'README.md', 'yarn.lock']
@@ -102,12 +103,6 @@ sns:
 # Tags 设置标签
 recommend-tags: true # whether or not display recommend-tags on the sidebar
 recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
-
-# Markdown
-markdown: kramdown
-highlighter: rouge
-kramdown:
-  input: GFM
 
 # RSS
 RSS: false
