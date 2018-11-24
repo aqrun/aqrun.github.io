@@ -1,7 +1,8 @@
+if(location.href.indexOf('aqrun.com')>=0){
+    location.href="//aqrun.oicnp.com";
+}
 $(document).ready(function(){
     var nav = $('.g-nav');
-
-    $('.nav .id_' + g.menuId).addClass('active');
 
     /**
      * Responsive Navigation
