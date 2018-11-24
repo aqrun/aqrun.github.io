@@ -1,14 +1,32 @@
 ---
-layout: default
-title: Javascript
 menuId: 102
+layout: default
+home-title: Javascript
+description: 落红不是无情物，化作春泥更护花。
+pagination: 
+  enabled: true
+  category: javascript
+  paginator_path: '/blog/javascript/page:num/'
 ---
 
-<section id="l-main" class="catesect">
+{% include header.html %}
 
-    {% for post in site.categories.javascript  %}
-  {% include article.html post=post%}
-    {% endfor %}
+<div
+    class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}"
+    data-theme="{{ site.theme-color }}"
+    style="{% if page.header-img %}background: url({{ page.header-img | prepend: site.baseurl }}) no-repeat center center; background-size: cover;{% endif %}"
+>
+    <h2>{{ page.home-title }}</h2>
+    <h3>{{ page.description }}</h3>
+</div>
 
 
-</section>
+<main class="g-container home-content">
+  {% include articleList.html %}
+
+  {% include sidebar.html %}
+
+</main>
+
+    
+{% include footer.html %}

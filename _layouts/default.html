@@ -1,44 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-{% include header.html %}
+<html>
+{% include head.html %}
 <body>
-
-{% include navbar.html param="value" %}
-
-<div class="container">
-
-  <div class="row row-offcanvas row-offcanvas-right">
-
-    <div class="col-xs-12 col-sm-91">
-      <p class="pull-right visible-xs">
-        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-      </p>
-
-      <ol class="breadcrumb">
-        <li><a href="/">首页</a></li>
-        <li class="active">{{page.title}}</li>
-      </ol>
-
-
-
-      <div class="row" style="margin:0;">
-
-        {{ content }}
-
-
-      </div><!--/row-->
-    </div><!--/span-->
-
-  </div><!--/row-->
-
-
-  {% include footer.html %}
-
-</div> <!-- .container -->
-
-<script>
-  $('.nav .id_' + g.menuId).addClass('active');
-</script>
-
+    <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+    <input id="nm-switch" type="hidden" value="{{ site.nightMode }}">
+    <div class="visible">
+      {{ content }}
+    </div>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/assets/js/prism.js"></script>
+    <script src="/assets/js/index.min.js"></script>
 </body>
 </html>

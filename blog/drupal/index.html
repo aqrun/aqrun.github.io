@@ -1,14 +1,32 @@
 ---
-layout: default
-title: Drupal
 menuId: 108
+layout: default
+home-title: Drupal
+description: 去年今日此门中，人面桃花相映红。
+pagination: 
+  enabled: true
+  category: drupal
+  paginator_path: '/blog/druapl/page:num/'
 ---
 
-<section id="l-main" class="catesect">
+{% include header.html %}
 
-    {% for post in site.categories.drupal  %}
-      {% include article.html post=post%}
-    {% endfor %}
+<div
+    class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}"
+    data-theme="{{ site.theme-color }}"
+    style="{% if page.header-img %}background: url({{ page.header-img | prepend: site.baseurl }}) no-repeat center center; background-size: cover;{% endif %}"
+>
+    <h2>{{ page.home-title }}</h2>
+    <h3>{{ page.description }}</h3>
+</div>
 
 
-</section>
+<main class="g-container home-content">
+  {% include articleList.html %}
+
+  {% include sidebar.html %}
+
+</main>
+
+    
+{% include footer.html %}

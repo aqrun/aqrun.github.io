@@ -1,11 +1,28 @@
 ---
-layout: main
-title: 首页
+menuId: 100
+layout: default
+home-title: '满江红·怒发冲冠'
+description: '怒发冲冠，凭阑处、潇潇雨歇。抬望眼，仰天长啸，壮怀激烈。三十功名尘与土，八千里路云和月。莫等闲、白了少年头，空悲切。<br/>靖康耻，犹未雪。臣子恨，何时灭。驾长车，踏破贺兰山缺。壮志饥餐胡虏肉，笑谈渴饮匈奴血。待从头、收拾旧山河，朝天阙。' 
+pagination: 
+  enabled: true
 ---
-<section id="l-main">
 
-  {% for post in site.posts %}
-    {% include article.html post=post%}
-  {% endfor %}
+{% include header.html %}
 
-</section>
+<div
+    class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}"
+    data-theme="{{ site.theme-color }}"
+    style="{% if page.header-img %}background: url({{ page.header-img | prepend: site.baseurl }}) no-repeat center center; background-size: cover;{% endif %}"
+>
+    <h2>{{ page.home-title }}</h2>
+    <h3>{{ page.description }}</h3>
+</div>
+
+<main class="g-container home-content">
+    {% include articleList.html %}
+
+    {% include sidebar.html %}
+
+</main>
+
+{% include footer.html %}

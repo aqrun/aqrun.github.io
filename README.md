@@ -1,7 +1,31 @@
-aqrun.com
+AQRUN.com
 ==========
 
-我的个人主页
+My Blog
+
+## Rvm install
+
+* http://www.rvm.io/
+
+## Ruby install
+
+* `rvm list known`
+* `rvm install 2.5`
+
+## Set china gem sources
+
+* `gem source -a https://gems.ruby-china.com`
+* `gem sources --remove https://rubygems.org/`
+
+## Install jekyll
+
+* `gem instlal jekyll`
+* `gem install jekyll-paginate`
 
 
-> jekyll serve -w --host=0.0.0.0
+
+## Run server
+
+```shell
+jekyll serve -w --host=0.0.0.0 --incremental
+```
