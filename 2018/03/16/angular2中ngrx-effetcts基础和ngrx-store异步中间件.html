@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="angular2 中 ngrx-effetcts 基础和 ngrx-store 异步中间件 - AQRUN的独立博客">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://aqrun.com/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html">
+    <meta property="og:url" content="http://0.0.0.0:4000/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html">
     <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
     <meta property="og:site_name" content="AQRUN的独立博客">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -184,11 +184,11 @@ Author: Ray-Eldath
       <div class="post-tags">
         
           
-            <a href="http://aqrun.com/tags#angular" class="post-tag">angular</a>
+            <a href="http://0.0.0.0:4000/tags#angular" class="post-tag">angular</a>
           
-            <a href="http://aqrun.com/tags#ngrx" class="post-tag">ngrx</a>
+            <a href="http://0.0.0.0:4000/tags#ngrx" class="post-tag">ngrx</a>
           
-            <a href="http://aqrun.com/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
+            <a href="http://0.0.0.0:4000/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
           
         
       </div>
@@ -365,7 +365,7 @@ yarn add @ngrx/effects
 
 <p>我们在这里使用了很多switchMaps，所以理解它背后的原力很重要。 以下是来自reactive.io <a href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-switchMap">switchMap文档</a>页面的屏幕截图：</p>
 
-<p><img src="http://aqrun.com/public/images/js/rximg1.jpg" alt="img" /></p>
+<p><img src="http://0.0.0.0:4000/public/images/js/rximg1.jpg" alt="img" /></p>
 
 <p>看看这里的描述。 switchMap的第一个（也是唯一的）参数是一个函数，该函数应用于由源Observable发出的项目并返回Observable。 还值得注意的是，我们这里的胖箭头是lambda表达式匿名函数。 由于函数体observable，它只是一行，我们可以忽略大括号和return关键字。 例如，除了一些额外的日志记录之外，下面的代码与上面的代码片段相同：</p>
 
