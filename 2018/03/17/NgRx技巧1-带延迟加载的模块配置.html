@@ -10,7 +10,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="NgRx技巧1-带延迟加载的模块配置 - AQRUN的独立博客">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://0.0.0.0:4000/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html">
+    <meta property="og:url" content="http://aqrun.com/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html">
     <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
     <meta property="og:site_name" content="AQRUN的独立博客">
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
@@ -184,11 +184,11 @@ Author: Ray-Eldath
       <div class="post-tags">
         
           
-            <a href="http://0.0.0.0:4000/tags#angular" class="post-tag">angular</a>
+            <a href="http://aqrun.com/tags#angular" class="post-tag">angular</a>
           
-            <a href="http://0.0.0.0:4000/tags#ngrx" class="post-tag">ngrx</a>
+            <a href="http://aqrun.com/tags#ngrx" class="post-tag">ngrx</a>
           
-            <a href="http://0.0.0.0:4000/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
+            <a href="http://aqrun.com/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
           
         
       </div>
@@ -224,7 +224,7 @@ Author: Ray-Eldath
 
 <p>例如，假设我们的应用程序有一个“settings”区域和一个“Todos”区域，如果我们最初加载应用程序的“Todos”区域而不访问“settings”，该状态的一部分将在第一个操作分派时被移除，因为还没有可用的reducer来处理该功能的状态：</p>
 
-<p><img src="http://0.0.0.0:4000/public/images/js/ngrxtipimg1.png" alt="settings removed" /></p>
+<p><img src="http://aqrun.com/public/images/js/ngrxtipimg1.png" alt="settings removed" /></p>
 
 <p>由于settings功能尚未加载，因此settings部分被删除。</p>
 
@@ -262,7 +262,7 @@ Author: Ray-Eldath
 
 <p>随着您的功能模块被加载，它们将替换默认的 reducer。 在此之前，他们会在任何派发的操作上返回初始状态，以防止这些功能从状态移除：</p>
 
-<p><img src="http://0.0.0.0:4000/public/images/js/ngrxtipimg2.png" alt="settings removed" /></p>
+<p><img src="http://aqrun.com/public/images/js/ngrxtipimg2.png" alt="settings removed" /></p>
 
 <p>“settings” 现在被保留</p>
 
