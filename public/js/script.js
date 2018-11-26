@@ -1,3 +1,6 @@
+/**
+ * scp -r _site/ root@47.100.6.70:/var/www/aqrun
+ */
 (function ($) {
   window.g = window.g || {};
   g.mainMenus = {
