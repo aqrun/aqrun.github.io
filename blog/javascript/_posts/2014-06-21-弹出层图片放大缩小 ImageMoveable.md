@@ -15,7 +15,8 @@ excerpt: '<pre>
 </pre>'
 ---
 
-{% highlight javascript linenos %}
+<pre class="line-numbers">
+    <code class="language-javascript">
     /**
      * 弹出层图片放大缩小 ImageMoveable(selector)
      * ========================================
@@ -389,4 +390,5 @@ excerpt: '<pre>
     })(jQuery, _, Backbone);
     </pre>
     
-{% endhighlight %}
+</code>
+</pre>

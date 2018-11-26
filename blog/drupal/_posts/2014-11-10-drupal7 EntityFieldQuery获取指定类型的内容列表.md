@@ -3,14 +3,13 @@ layout: post
 title: drupal7 EntityFieldQuery获取指定类型的内容列表
 tags: drupal7 EntityFieldQuery
 excerpt: '
-EntityFieldQuery获取指定类型的内容列表<br/>
-{% highlight php linenos %}
-'
+EntityFieldQuery获取指定类型的内容列表<br/>'
 ---
 
 EntityFieldQuery获取指定类型的内容列表
 
-{% highlight php linenos %}
+<pre class="line-numbers">
+    <code class="language-php">
 
 //先获取指定类型内容nid列表
 $query = new EntityFieldQuery();
@@ -28,6 +27,6 @@ foeach($nodesData as $n){
    //处理相关数据
 }
 
-{% endhighlight %}
+</code></pre>
 
 EntityFieldQuery 类在 entity.inc文件

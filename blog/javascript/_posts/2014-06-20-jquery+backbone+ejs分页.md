@@ -4,15 +4,18 @@ title: Jquery + Backbone + ejs分页
 tags: backbone 分页 
 ---
 
-{% highlight javascript linenos%}
+<pre class="line-numbers">
+    <code class="language-javascript">
 <!--分页模板-->
 <script type="text/template" id="tpl_pager">
     <a data-index="[%= index %]" title="[%= title %]"
        class="[% if(current){ %]current [% } %][%= addclass %]">[%= text %]</a>
 </script>
-{% endhighlight %}
+    </code>
+</pre>
 
-{% highlight javascript linenos%}
+<pre class="line-numbers">
+    <code class="language-javascript">
 //model
 var PagerModel = Backbone.Model.extend({
             defaults:{
@@ -106,5 +109,6 @@ var PagerModel = Backbone.Model.extend({
 console 测试代码   mPager.set({page:3}) 
 
 
-{% endhighlight %}
+ </code>
+ </pre>
 
