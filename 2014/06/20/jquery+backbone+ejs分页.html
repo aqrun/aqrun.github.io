@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery + Backbone + ejs分页 - AQRUN的独立博客</title>
+    <meta name="author"  content="AQRUN">
+    <meta name="description" content="Jquery + Backbone + ejs分页">
+    <meta name="keywords"  content="backbone, 分页">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Jquery + Backbone + ejs分页 - AQRUN的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://0.0.0.0:4000/2014/06/20/jquery+backbone+ejs%E5%88%86%E9%A1%B5.html">
+    <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
+    <meta property="og:site_name" content="AQRUN的独立博客">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link rel="stylesheet" href="/assets/prism/prism.css">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css?v=0.4">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/php/">PHP</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/javascript/">Javascript</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/java/">Java</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/android/">Android</a>
+                </li>
+            
+                <li 
+                
+                    class="id_105"
+                
+                  >
+                    <a href="/blog/ios/">IOS</a>
+                </li>
+            
+                <li 
+                
+                    class="id_107"
+                
+                  >
+                    <a href="/blog/ubuntu/">Ubuntu</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/drupal/">Drupal</a>
+                </li>
+            
+                <li 
+                
+                    class="id_106"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://0.0.0.0:4000/tags#backbone" class="post-tag">backbone</a>
+          
+            <a href="http://0.0.0.0:4000/tags#%E5%88%86%E9%A1%B5" class="post-tag">分页</a>
+          
+        
+      </div>
+      <h1>Jquery + Backbone + ejs分页</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>AQRUN</span>
+        <time class="post-meta-item" datetime="14-06-20"><i class="iconfont icon-date"></i>20 Jun 2014</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <pre class="line-numbers">
+    <code class="language-javascript">
+<!--分页模板-->
+<script type="text/template" id="tpl_pager">
+    <a data-index="[%= index %]" title="[%= title %]"
+       class="[% if(current){ %]current [% } %][%= addclass %]">[%= text %]</a>
+</script>
+    </code>
+</pre>
+
+<pre class="line-numbers">
+    <code class="language-javascript">
+//model
+var PagerModel = Backbone.Model.extend({
+            defaults:{
+                page:17,
+                total:20
+            }
+        });
+
+        //翻页视图
+        window.Pager = Backbone.View.extend({
+            el:"#pager",
+            template: "tpl_pager",
+            initialize:function(){
+                _.bindAll(this,"handlePager");
+                this.listenTo(this.model,"change",this.render);
+            },
+            events:{
+                "click a" : "handlePager"
+            },
+            //处理页码点击事件
+            handlePager: function(e){
+                var $s = $(e.target);
+                if($s.hasClass("dot") || $s.hasClass("current")){
+                    return;
+                }
+                var page = parseInt($s.attr("data-index"));
+                var data = {
+                    action: "prosource",
+                    meetid: mMeeting.meetid,
+                    page: page
+                };
+                //请求产品列表
+                $.getJSON(mMeeting.url, data,function(data){
+                    proSources.add(data.data);  //保存检索到的数据
+                    //获取数据成功 更新DOM
+                    new EJS({element:"tpl_pro_item"}).update(mMeeting.sourceid,{data:data.data});
+                    //设置页码
+                    mPager.set({page:page,total:data.total});
+                });
+                //console.log(e.target);
+            },
+            render: function(){
+                var page = this.model.get("page"),   //当前页码
+                    total = this.model.get("total"); //总页数
+                var show = 5;   //显示几个页码控制块
+                var start = Math.ceil(page-show/2)&lt;1?1:Math.ceil(page-show/2); //起始页码
+                var end = Math.ceil(page+show/2-1)&gt;total?total:Math.ceil(page+show/2-1); //结束
+
+                var html = '';
+                if(page&gt;1){  //显示上一页
+                    html += this.tpl(page-1,false,"prev","&lt;","上一页");
+                }
+                if(start &gt; 1){
+                    html += this.tpl(1,false,"item",1,"第1页");  //显示第一页
+                }
+                if(start &gt; 2){
+                    html += this.tpl(1,false,'dot', '...','');
+                }
+                for(var i=start; i&lt;=end; i++){ //显示中间页码
+                    html += this.tpl(i,(page==i?true:false),'item',i,"第"+i+"页");
+                }
+                if(end&lt;total-1){
+                    html += this.tpl(1,false,'dot', '...','');
+                }
+                if(end &lt; total){ //显示最后一页
+                    html += this.tpl(total,false,"item",total,"第"+total+"页");  //显示第一页
+                }
+                if(page&lt;total-1){ //显示下一页
+                    html += this.tpl(page+1,false,"next","&gt;","下一页");
+                }
+
+                this.$el.html(html);//添加dom到页面
+            },
+            tpl: function(index,current,addclass,text,title){
+                var data = {
+                    index:index,      //页码
+                    current: current, //是否是当前页
+                    addclass:addclass, //要添加的class
+                    text:text,        //显示的文本
+                    title: title      //title属性文字
+                };
+                return new EJS({element:this.template}).render(data);
+            }
+        });
+
+        window.mPager = new PagerModel;
+        var pager= new Pager({model:mPager});
+        pager.render(); 
+
+//////////////////
+console 测试代码   mPager.set({page:3}) 
+
+
+ </code>
+ </pre>
+
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">AQRUN</div>
+      <div class="bio">
+        <p>前端开发者，热爱技术&设计，简单乐观爱创造</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2014/06/20/php-autoload%E4%B9%8Bcomposer%E7%AF%87.html" class="read-next-link"></a>
+        <section>
+          <span>php autoload之composer篇</span>
+          <p>Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer.org/doc/...</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2014/02/24/IE11JavaScript%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95.html" class="read-next-link"></a>
+          <section>
+            <span>IE11JavaScript代码调试!</span>
+            <p>IE11JavaScript代码调试IE11javascript 代码调试功能 支持断点</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>AQRUN的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2018
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js"></script>
+  <script src="/assets/js/index.min.js?v=0.1"></script>
+</body>
+
+</html>

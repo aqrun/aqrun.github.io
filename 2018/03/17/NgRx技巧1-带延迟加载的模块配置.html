@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NgRx技巧1-带延迟加载的模块配置 - AQRUN的独立博客</title>
+    <meta name="author"  content="AQRUN">
+    <meta name="description" content="NgRx技巧1-带延迟加载的模块配置">
+    <meta name="keywords"  content="angular, ngrx, ngrx/entity">
+    <!-- Open Graph -->
+    <meta property="og:title" content="NgRx技巧1-带延迟加载的模块配置 - AQRUN的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://0.0.0.0:4000/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html">
+    <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
+    <meta property="og:site_name" content="AQRUN的独立博客">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link rel="stylesheet" href="/assets/prism/prism.css">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css?v=0.4">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/php/">PHP</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/javascript/">Javascript</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/java/">Java</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/android/">Android</a>
+                </li>
+            
+                <li 
+                
+                    class="id_105"
+                
+                  >
+                    <a href="/blog/ios/">IOS</a>
+                </li>
+            
+                <li 
+                
+                    class="id_107"
+                
+                  >
+                    <a href="/blog/ubuntu/">Ubuntu</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/drupal/">Drupal</a>
+                </li>
+            
+                <li 
+                
+                    class="id_106"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://0.0.0.0:4000/tags#angular" class="post-tag">angular</a>
+          
+            <a href="http://0.0.0.0:4000/tags#ngrx" class="post-tag">ngrx</a>
+          
+            <a href="http://0.0.0.0:4000/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
+          
+        
+      </div>
+      <h1>NgRx技巧1-带延迟加载的模块配置</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>AQRUN</span>
+        <time class="post-meta-item" datetime="18-03-17"><i class="iconfont icon-date"></i>17 Mar 2018</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="https://medium.com/youngers-consulting/ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d">原文链接：https://medium.com/youngers-consulting/ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d</a></p>
+</blockquote>
+
+<ul>
+  <li><a href="http://aqrun.com/blog/javascript/2018/03/17-NgRx技巧1-带延迟加载的模块配置.html">NgRx技巧 1-带延迟加载的模块配置</a></li>
+  <li><a href="">NgRx技巧 2-选择器和测试</a></li>
+  <li><a href="">NgRx技巧 3-操作 Actions</a></li>
+</ul>
+
+<p>如果您的Angular项目针对延迟加载进行了调整，并使用按需加载的独立模块进行加载，这些模块通过`StoreModule.forFeature(…) 定义了自己的 state 片段，您可以像这样定义根模块：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">StoreModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({}</span> <span class="k">as</span> <span class="nx">any</span><span class="p">,</span> <span class="p">{</span> <span class="na">initialState</span><span class="p">:</span> <span class="nx">getInitialState</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>但是，在我们使用所有状态初始化应用程序时，我们不提供任何 reducer。 这种方法的问题是，如果 reducer 不可用，那么任何尚未加载的功能将在操作分派时从状态中删除。</p>
+
+<p>例如，假设我们的应用程序有一个“settings”区域和一个“Todos”区域，如果我们最初加载应用程序的“Todos”区域而不访问“settings”，该状态的一部分将在第一个操作分派时被移除，因为还没有可用的reducer来处理该功能的状态：</p>
+
+<p><img src="http://0.0.0.0:4000/public/images/js/ngrxtipimg1.png" alt="settings removed" /></p>
+
+<p>由于settings功能尚未加载，因此settings部分被删除。</p>
+
+<p>防止这种情况的一种方法（不影响应用程序中的所有reducer）是，首先对所有功能设置一个默认reducer，该reducer只取得当前状态并返回：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ActionReducerMap</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@ngrx/store'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">settings</span> <span class="k">from</span> <span class="s1">'./settings/settings.actions'</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">todos</span> <span class="k">from</span> <span class="s1">'./todos/todos.actions'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">ApplicationState</span> <span class="p">{</span>
+    <span class="nl">settings</span><span class="p">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">SettingsState</span><span class="p">;</span>
+    <span class="nl">todos</span><span class="p">:</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">TodosState</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">defaultReducer</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">T</span><span class="p">){</span> <span class="k">return</span> <span class="nx">state</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">initailReducerMap</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">settings</span><span class="p">:</span> <span class="nx">defaultReducer</span><span class="p">,</span>
+    <span class="na">todos</span><span class="p">:</span> <span class="nx">defaultReducer</span><span class="p">,</span>
+<span class="p">}</span> <span class="k">as</span> <span class="nx">ActionReducerMap</span><span class="o">&lt;</span><span class="nx">ApplicationState</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">getInitailState</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">settings</span><span class="p">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">initialState</span><span class="p">,</span>
+        <span class="na">todos</span><span class="p">:</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">initialState</span><span class="p">,</span>
+    <span class="p">}</span> <span class="k">as</span> <span class="nx">ApplicationState</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>然后如下更新NgRx初始化：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">StoreModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">initialReducerMap</span><span class="p">,</span> <span class="p">{</span> <span class="na">initialState</span><span class="p">:</span> <span class="nx">getInitialState</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>随着您的功能模块被加载，它们将替换默认的 reducer。 在此之前，他们会在任何派发的操作上返回初始状态，以防止这些功能从状态移除：</p>
+
+<p><img src="http://0.0.0.0:4000/public/images/js/ngrxtipimg2.png" alt="settings removed" /></p>
+
+<p>“settings” 现在被保留</p>
+
+<p>随着您的继续开发，如果添加新功能并更新了ApplicationState接口，它应该会导致编译错误，直到initialReducerMap更新。</p>
+
+<p>然后，您的store选择器可以安全地假定功能状态部分将始终存在，而无需执行未定义(undefined)的检查。</p>
+
+<p>在下一篇文章中，我将详细介绍选择器和测试。</p>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">AQRUN</div>
+      <div class="bio">
+        <p>前端开发者，热爱技术&设计，简单乐观爱创造</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html" class="read-next-link"></a>
+        <section>
+          <span>NgRx Store 理解状态选择器(state selectors)</span>
+          <p>选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureS...</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html" class="read-next-link"></a>
+          <section>
+            <span>angular2 中 ngrx-effetcts 基础和 ngrx-store 异步中间件</span>
+            <p>我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Ef...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>AQRUN的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2018
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js"></script>
+  <script src="/assets/js/index.min.js?v=0.1"></script>
+</body>
+
+</html>

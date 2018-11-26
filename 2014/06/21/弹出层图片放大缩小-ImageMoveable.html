@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹出层图片放大缩小ImageMoveable - AQRUN的独立博客</title>
+    <meta name="author"  content="AQRUN">
+    <meta name="description" content="弹出层图片放大缩小ImageMoveable">
+    <meta name="keywords"  content="starzoom, 图片操作">
+    <!-- Open Graph -->
+    <meta property="og:title" content="弹出层图片放大缩小ImageMoveable - AQRUN的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://0.0.0.0:4000/2014/06/21/%E5%BC%B9%E5%87%BA%E5%B1%82%E5%9B%BE%E7%89%87%E6%94%BE%E5%A4%A7%E7%BC%A9%E5%B0%8F-ImageMoveable.html">
+    <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
+    <meta property="og:site_name" content="AQRUN的独立博客">
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+    <link rel="stylesheet" href="/assets/css/github-markdown.css">
+    <link rel="stylesheet" href="/assets/prism/prism.css">
+    <link rel="stylesheet" href="/assets/css/share.min.css">
+    <link rel="stylesheet" href="/assets/css/app.min.css?v=0.4">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/php/">PHP</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/javascript/">Javascript</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/java/">Java</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/android/">Android</a>
+                </li>
+            
+                <li 
+                
+                    class="id_105"
+                
+                  >
+                    <a href="/blog/ios/">IOS</a>
+                </li>
+            
+                <li 
+                
+                    class="id_107"
+                
+                  >
+                    <a href="/blog/ubuntu/">Ubuntu</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/drupal/">Drupal</a>
+                </li>
+            
+                <li 
+                
+                    class="id_106"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://0.0.0.0:4000/tags#starzoom" class="post-tag">starzoom</a>
+          
+            <a href="http://0.0.0.0:4000/tags#%E5%9B%BE%E7%89%87%E6%93%8D%E4%BD%9C" class="post-tag">图片操作</a>
+          
+        
+      </div>
+      <h1>弹出层图片放大缩小ImageMoveable</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>AQRUN</span>
+        <time class="post-meta-item" datetime="14-06-21"><i class="iconfont icon-date"></i>21 Jun 2014</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <pre class="line-numbers">
+    <code class="language-javascript">
+    /**
+     * 弹出层图片放大缩小 ImageMoveable(selector)
+     * ========================================
+     *
+     * 实现描述：点击页面相关dom出现弹出框进行相关图片缩放移动等细节查看
+     * dependency:
+     *    [jQuery](http://jquery.com/)
+     *    [underscore](http://underscorejs.org/)
+     *    [Backbone.js](http://backbonejs.org/)
+     *
+     * author: MeanOfWind
+     * QQ: 316841740
+     * created time: 2014.6.12
+     *
+     *
+     * dom标签属性：
+     *    tagName: any
+     *    id: any (not required)
+     *    class: any 如果页面有多个图片处理传递class 程序会遍历所有的对象单独实例化
+     *    src: any (not required)
+     *    data-config: 配置选项 参数格式：为JSON格式 不加花括号 键名不加引号 键值如为字符串加单引号
+     *            可选参数：
+     *            width:  弹出框及图片宽 default 0
+     *            height: 弹出框及图片高 default 0
+     *            scale:  图片缩放比例   default 1/8
+     *            src:    图片url 如果是img标签存在src属性可不用指定
+     *--------------------------------------------
+     *
+     * 函数调用示例:
+     *
+     *  (function($){
+     *    $(function(){
+     *      ImageMoveable( ".img_moveable" );
+     *    })
+     *  })(jQuery)
+     *
+     *
+     * Tips:
+     * 定点缩放 主要算法实现:
+     * 缩放后图片位置(top)＝图片的当前位置(top) [+ 或 -] （鼠标按下时距图片左上角距离(disX)＊缩放因子(scale)）
+     *
+     */
+    (function($, _, Backbone){
+      //弹出框样式
+      var css = '.clear{clear:both;height:0;display:block}.imdia{z-index:1000;position:absolute;top:0;left:0}.imdia .dh{cursor:move;height:30px}.imdia .dh .dtit{margin:0;padding:0;display:block;float:left}.imdia .dh .btn{display:block;float:left;cursor:pointer;height:20px;line-height:20px;padding:0 10px;border-radius:3px;font-family:"微软雅黑";font-size:14px;color:#fff;background-color:#0082cb;margin:5px 5px 0}.imdia .dh .btn.zoom{background-color:#ccccd1;opacity:.5}.imdia .dh .btn.active{background-color:#0082cb;opacity:1}.imdia .dh .close{float:right}.imdia .dcon{background-color:#fff;width:100px;height:50px;position:relative;overflow:hidden;border-shadow:10px 10px 5px #888}.imdia .dcon img{display:block;position:absolute;top:0;left:0}#imdiabg{display:block;width:100%;height:100%;background-color:#000;opacity:.7;position:fixed;z-index:900;top:0;left:0}';
+      var gnum = 0; //保存当前实例序号 自加用于生成唯一ID
+      var diaClassName = "imdia";// 弹出框class
+      var bgid = diaClassName + "bg"; //弹出框背景层ID
+      var zoomIn = true;//big 放大缩小控制
+      /**
+       * 弹出框model
+       * @type {*}
+       */
+      var DialogModel = Backbone.Model.extend({
+        defaults:{
+          id: "dia_",
+          width:0,
+          height:0,
+          diaheight: 0,
+          marginLeft:0,
+          marginTop:0,
+          top:0,
+          left:0
+        },
+        initialize: function(){
+          var app = this.get("app");
+          //根据当前appid 设置相关参数
+          this.set({id: this.get("id")+app.id});
+          this.set({diaheight: (this.get("height") + 30)});
+          this.setPosition();
+        },
+        setPosition: function(){
+          var scrolltop = $(window).scrollTop();
+          var winh = $(window).height();
+          var top = winh&gt;this.get("height")? ((winh-this.get("height"))/2) : scrolltop;
+          var scrollleft = $(window).scrollLeft();
+          var winw = $(window).width();
+          var left = winw&gt;this.get("width")? (winw-this.get("width"))/2 : scrollleft;
+          this.set({top: top + scrolltop});
+          this.set({left: left + scrollleft});
+        }
+      });
+      /**
+       * 图片model
+       * @type {*}
+       */
+      var ImageModel = Backbone.Model.extend({
+        defaults: {
+          id: "img_",
+          width:0,
+          height:0,
+          top:0,
+          left:0,
+          scale: 1/8, //
+          src: ''
+        },
+        initialize: function(){
+          var app = this.get("app");
+          //根据当前appid 设置相关参数
+          this.set({id: this.get("id")+app.id});
+          this.set({scale: eval(this.get("scale"))});
+        }
+      });
+      /**
+       * dialog view
+       * @type {*}
+       */
+      var DialogView = Backbone.View.extend({
+        tagName: "div",
+        className: diaClassName,
+        mouseDown: false, //鼠标是否按下
+        mouseMove: false,
+        disX: 0, //鼠标按下位置和dialog left距离
+        disY: 0,
+        //弹出框html模板
+        template: '&lt;div class="dh"&gt;\
+                      &lt;h4 class="dtit"&gt;&lt;/h4&gt;\
+                      &lt;div class="btn zoom zoom_in active"&gt;放大&lt;/div&gt;\
+                      &lt;div class="btn zoom zoom_out"&gt;缩小&lt;/div&gt;\
+                      &lt;div class="btn close"&gt;关闭&lt;/div&gt;&lt;div class="clear"&gt;&lt;/div&gt;\
+                    &lt;/div&gt;\
+                    &lt;div class="dcon"&gt;&lt;/div&gt;\
+                    &lt;div class="db"&gt;&lt;/div&gt;&lt;div class="clear"&gt;&lt;/div&gt;',
+        initialize: function(){
+          _.bindAll(this, "setPosition","dh_mousemove");
+          this.listenTo(this.model,"change",this.setPosition); //监听model　change
+          $("body").mousemove(this.dh_mousemove); //绑定鼠标move事件
+        },
+        events: {
+          "click .close": "diaClose",
+          "mousedown .dh": "dh_mousedown",
+          "mouseup .dh": "dh_mouseup",
+          "click .zoom_in": "zoom_in",
+          "click .zoom_out": "zoom_out"
+         // "mousemove .dh": "dh_mousemove"
+        },
+        render: function(){
+          this.$el.attr("id",this.model.get("id"));
+          this.$el.html(this.template);
+          this.$el.find(".dcon").append(this.model.get("app").imageView.el);
+          this.$el.css({ //dia 样式
+            display:"none",
+            left: this.model.get("left")+ "px",
+            top: this.model.get("top") + "px",
+            width:this.model.get("width") + "px",
+            height: this.model.get("diaheight") + "px"
+          });//内容样式
+          this.$el.find(".dcon").css({
+            width:this.model.get("width") + "px",
+            height: this.model.get("height") + "px"
+          });
+          //console.log(this)
+          return this;
+        },
+        //关闭
+        diaClose: function(){
+          this.hide();
+        },
+        show: function(){
+          $("#"+bgid).css("display","block");
+          this.$el.show();
+        },
+        hide: function(){
+          $("#"+bgid).css("display","none");
+          this.$el.hide();
+        },
+        setPosition: function(){
+          this.$el.css({
+            top: this.model.get("top") + "px",
+            left: this.model.get("left") + "px"
+          });
+        },
+        //处理托动
+        dh_mousedown: function(e){
+          this.mouseDown = true;
+          this.disX = Math.abs(e.pageX - this.model.get("left"));
+          this.disY = Math.abs(e.pageY - this.model.get("top"));
+          //console.log(this.disX);
+          //console.log(this.mouseDownX)
+        },
+        dh_mouseup: function(){
+          this.mouseDown = false;
+          this.mouseMove = false;
+        },
+        dh_mousemove: function(e){
+          this.mouseMove = true;
+          //console.log(3)
+          if(this.mouseDown){
+            var x = e.pageX; //当前鼠标位置
+            var y = e.pageY;
+            this.model.set({top: y-this.disY});
+            this.model.set({left: x-this.disX});
+            //console.log(x-this.mouseDownX)
+          }
+        },
+        //放大
+        zoom_in: function(e){
+          zoomIn = true;// 全局变量
+          //改变button class切换对应颜色
+          this.$el.find(".zoom").removeClass("active");
+          $(e.target).addClass("active");
+        },
+        //缩小
+        zoom_out: function(e){
+          zoomIn = false;
+          this.$el.find(".zoom").removeClass("active");
+          $(e.target).addClass("active");
+        }
+      });
+     
+    
+      /**
+       * 图片view类
+       * @type {*}
+       */
+      var ImageView = Backbone.View.extend({
+        tagName:"img",
+        disX:0,   //鼠标按下时的点 离 图片左上角距离
+        disY:0,
+        dconX: 0,  //图片外层div
+        dconY: 0,
+        mouseDown: false, //鼠标没有按下
+        mouseMove: false, //鼠标没有移动
+        initialize: function(){
+          _.bindAll(this, "img_mouse_move","setPosition");
+          this.$el.attr({//设置当前image  dom id及src值
+            id: this.model.get("id"),
+            src: this.model.get('src')
+          });
+          this.$el.css({
+            width: this.model.get("width") + "px",
+            height: this.model.get("height") + "px"
+          });
+          //监听鼠标移动事件
+          $(document).mousemove(this.img_mouse_move);
+          this.listenTo(this.model,"change",this.setPosition); //监听model　change
+        },
+        render: function(){
+          return this;
+        },
+        events: {
+          "mousedown": "imgmousedown",//鼠标按下
+          "mouseup": "imgmouseup"     //鼠标弹起
+        },
+        //鼠标按下具体处理
+        imgmousedown: function(e){
+          this.mouseDown = true;
+          var $con = this.model.get("app").dialogView.$el.find(".dcon");
+          //dcon 左上角相对屏幕
+          this.dconX = $con.offset().left;
+          this.dconY = $con.offset().top;
+          //图片相对屏幕
+          var imgY = this.$el.offset().top;
+          var imgX = this.$el.offset().left;
+          //按下时鼠标位置
+          var mouseX = e.pageX;
+          var mouseY = e.pageY;
+          // 计算鼠标距离图片左上角距离
+          this.disX = Math.abs(mouseX - imgX);
+          this.disY = Math.abs(mouseY - imgY);
+          //console.log(disx);
+          //console.log(this.$el.offset())
+        },
+        /**
+         * 鼠标弹起事件具体处理
+         * 如果鼠标按下并未移动则进行图片缩放操作
+         */
+        imgmouseup: function(){
+          //console.log(2)
+          if(this.mouseDown &amp;&amp; !this.mouseMove){
+            var w = this.model.get("width");//图片当前尺寸
+            var h = this.model.get("height");
+            var scale = this.model.get("scale");  //绽放比例
+            var width, height,top=this.model.get("top"),//图片当前位置
+                left=this.model.get("left");
+            //定点缩放 主要算法实现
+            //缩放后图片位置(top) ＝  图片的当前位置(top) [+ 或 -] （鼠标按下时距图片左上角距离(disX)＊缩放因子(scale)）
+            if(zoomIn){ //放大
+              width = w+w*scale;
+              height = h+h*scale;
+              top = top - this.disY*scale;
+              left = left - this.disX*scale;
+            }else{
+              width = w-w*scale;
+              height = h-h*scale;
+              top = top + this.disY*scale;
+              left = left + this.disX*scale;
+            }
+            //重设图片model数据
+            this.model.set({
+              "width":width,
+              "height": height,
+              top:top,
+              left: left
+            });
+          }
+          this.mouseDown = false;
+          this.mouseMove = false;
+        },
+        //鼠标移动具体处理
+        img_mouse_move: function(e){
+          var top,left;
+          if(this.mouseDown){
+            this.mouseMove = true;
+            //或取图片相对于容器div.dcon 的top left
+            //e.pageX: 事件触发时鼠标相对于document的坐标
+            //算法： 图片位置＝鼠标坐标－容器坐标－鼠标在当前图片坐标系的位置
+            top = e.pageY - this.dconY - this.disY;
+            left = e.pageX - this.dconX - this.disX;
+            //console.log(left)
+            this.model.set({top: top});
+            this.model.set({left: left});
+          }
+        },
+        //根据model值重设当前图片位置及尺寸
+        setPosition: function(){
+          this.$el.css({
+            top: this.model.get("top") + "px",
+            left: this.model.get("left") + "px",
+            width: this.model.get("width") + "px",
+            height: this.model.get("height") + "px"
+          });
+        }
+      });
+    
+      /**
+       * 主控制类 实例化相关资源
+       * @type {*}
+       */
+      var App = Backbone.View.extend({
+        initialize: function(options){
+          _.bindAll(this,"winScroll");
+          this.id = "g_img_idx_" + gnum++; //设置当前操作对象单一ＩＤ
+          options.data.app = this;   //当前引用到对应实例
+          //Model实例
+          this.dialogModel = new DialogModel(options.data);  //弹出框model
+          this.imageModel = new ImageModel(options.data);  //图片model
+          //View 实例化
+          this.imageView = new ImageView({model:this.imageModel});//图片view
+          this.dialogView = new DialogView({model:this.dialogModel});
+          //console.log(options);
+          //console.log(this.imageView.render().el);
+          //console.log(this.el)
+          $(window).scroll(this.winScroll);
+          this.render();
+        },
+        render: function(){
+          $("body").append(this.dialogView.render().el);
+        },
+        events:{
+          "click": "elClick"
+        },
+        //当前对象点击
+        elClick: function(){
+          this.dialogView.show();
+        },
+        //预留window sroll事件
+        winScroll: function(){
+          this.dialogModel.setPosition();
+        }
+      });
+     
+      //工具函数
+      // parse data-config attr string to json
+      function attrToJson(data_config){
+        var arr = data_config.split(","); //split to array
+        for(var i = 0; i&lt;arr add return add andd parse to json param selector constructor imagemoveable="function(selector){" return foreach every selector the starter function var var data="attrToJson(data_config);" var src="src;" new bg mask var&gt;&lt;/div&gt;";
+        var $css = "&lt;style&gt;"+ css +"&lt;/style&gt;";
+        $("body").append(bg).append($css);//添加弹出层背景 及对应CSS样式
+      }
+    })(jQuery, _, Backbone);
+    
+</code>
+</pre>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">AQRUN</div>
+      <div class="bio">
+        <p>前端开发者，热爱技术&设计，简单乐观爱创造</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2014/11/05/Drupal-7-API-%E4%B9%8Bdb_select%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8.html" class="read-next-link"></a>
+        <section>
+          <span>Drupal 7 API 之db_select的一些使用</span>
+          <p>Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更...</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2014/06/20/php-autoload%E4%B9%8Bcomposer%E7%AF%87.html" class="read-next-link"></a>
+          <section>
+            <span>php autoload之composer篇</span>
+            <p>Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer.org/doc/...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>AQRUN的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2018
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js"></script>
+  <script src="/assets/js/index.min.js?v=0.1"></script>
+</body>
+
+</html>
