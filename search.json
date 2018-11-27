@@ -1,6 +1,12 @@
 [
   
     {
+      "title"    : "Ubuntu Win10 目录共享Samba配置",
+      "tags"     : "ubuntu samba global symlinks",
+      "url"      : "/2018/11/27/Samba-Configuration.html"
+    } ,
+  
+    {
       "title"    : "Ubuntu 18.04 源码编译安装 Emacs 26.1",
       "tags"     : "terminal emacs compile build source",
       "url"      : "/2018/07/27/Ubuntu-18.04-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-Emacs-26.1.html"

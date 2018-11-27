@@ -3,11 +3,288 @@
   <channel>
     <title>AQRUN的独立博客</title>
     <description>热爱技术。很高兴能在这里与你分享我对技术和生活的思考。</description>
-    <link>http://0.0.0.0:4000/</link>
-    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Nov 2018 08:14:40 +0000</pubDate>
-    <lastBuildDate>Mon, 26 Nov 2018 08:14:40 +0000</lastBuildDate>
+    <link>http://aqrun.com/</link>
+    <atom:link href="http://aqrun.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 27 Nov 2018 08:27:57 +0000</pubDate>
+    <lastBuildDate>Tue, 27 Nov 2018 08:27:57 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Ubuntu Win10 目录共享Samba配置</title>
+        <description>&lt;pre class=&quot;line-numbers&quot;&gt;
+&lt;code class=&quot;language-ini&quot;&gt;
+    [global]
+        follow symlinks = yes
+        wide links = yes
+        allow insecure wide links = yes
+    ## Browsing/Identification ###
+
+    # Change this to the workgroup/NT-domain name your Samba server will part of
+        workgroup = WORKGROUP
+
+    # server string is the equivalent of the NT Description field
+        server string = %h server (Samba, Ubuntu)
+
+    # Windows Internet Name Serving Support Section:
+    # WINS Support - Tells the NMBD component of Samba to enable its WINS Server
+    #   wins support = no
+
+    # WINS Server - Tells the NMBD components of Samba to be a WINS Client
+    # Note: Samba can be either a WINS Server, or a WINS Client, but NOT both
+    ;   wins server = w.x.y.z
+
+    # This will prevent nmbd to search for NetBIOS names through DNS.
+        dns proxy = no
+
+    #### Networking ####
+
+    # The specific set of interfaces / networks to bind to
+    # This can be either the interface name or an IP address/netmask;
+    # interface names are normally preferred
+    ;   interfaces = 127.0.0.0/8 eth0
+
+    # Only bind to the named interfaces and/or networks; you must use the
+    # 'interfaces' option above to use this.
+    # It is recommended that you enable this feature if your Samba machine is
+    # not protected by a firewall or is a firewall itself.  However, this
+    # option cannot handle dynamic or non-broadcast interfaces correctly.
+    ;   bind interfaces only = yes
+
+
+
+    #### Debugging/Accounting ####
+
+    # This tells Samba to use a separate log file for each machine
+    # that connects
+        log file = /var/log/samba/log.%m
+
+    # Cap the size of the individual log files (in KiB).
+        max log size = 1000
+
+    # If you want Samba to only log through syslog then set the following
+    # parameter to 'yes'.
+    #   syslog only = no
+
+    # We want Samba to log a minimum amount of information to syslog. Everything
+    # should go to /var/log/samba/log.{smbd,nmbd} instead. If you want to log
+    # through syslog you should set the following parameter to something higher.
+        syslog = 0
+
+    # Do something sensible when Samba crashes: mail the admin a backtrace
+        panic action = /usr/share/samba/panic-action %d
+
+
+    ####### Authentication #######
+
+    # Server role. Defines in which mode Samba will operate. Possible
+    # values are &quot;standalone server&quot;, &quot;member server&quot;, &quot;classic primary
+    # domain controller&quot;, &quot;classic backup domain controller&quot;, &quot;active
+    # directory domain controller&quot;. 
+    #
+    # Most people will want &quot;standalone sever&quot; or &quot;member server&quot;.
+    # Running as &quot;active directory domain controller&quot; will require first
+    # running &quot;samba-tool domain provision&quot; to wipe databases and create a
+    # new domain.
+        server role = standalone server
+
+    # If you are using encrypted passwords, Samba will need to know what
+    # password database type you are using.  
+        passdb backend = tdbsam
+
+        obey pam restrictions = yes
+
+    # This boolean parameter controls whether Samba attempts to sync the Unix
+    # password with the SMB password when the encrypted SMB password in the
+    # passdb is changed.
+        unix password sync = yes
+
+    # For Unix password sync to work on a Debian GNU/Linux system, the following
+    # parameters must be set (thanks to Ian Kahan &amp;lt;&amp;lt;kahan@informatik.tu-muenchen.de&amp;gt; for
+    # sending the correct chat script for the passwd program in Debian Sarge).
+        passwd program = /usr/bin/passwd %u
+        passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+
+    # This boolean controls whether PAM will be used for password changes
+    # when requested by an SMB client instead of the program listed in
+    # 'passwd program'. The default is 'no'.
+        pam password change = yes
+
+    # This option controls how unsuccessful authentication attempts are mapped
+    # to anonymous connections
+        map to guest = bad user
+
+    ########## Domains ###########
+
+    #
+    # The following settings only takes effect if 'server role = primary
+    # classic domain controller', 'server role = backup domain controller'
+    # or 'domain logons' is set 
+    #
+
+    # It specifies the location of the user's
+    # profile directory from the client point of view) The following
+    # required a [profiles] share to be setup on the samba server (see
+    # below)
+    ;   logon path = \\%N\profiles\%U
+    # Another common choice is storing the profile in the user's home directory
+    # (this is Samba's default)
+    #   logon path = \\%N\%U\profile
+
+    # The following setting only takes effect if 'domain logons' is set
+    # It specifies the location of a user's home directory (from the client
+    # point of view)
+    ;   logon drive = H:
+    #   logon home = \\%N\%U
+
+    # The following setting only takes effect if 'domain logons' is set
+    # It specifies the script to run during logon. The script must be stored
+    # in the [netlogon] share
+    # NOTE: Must be store in 'DOS' file format convention
+    ;   logon script = logon.cmd
+
+    # This allows Unix users to be created on the domain controller via the SAMR
+    # RPC pipe.  The example command creates a user account with a disabled Unix
+    # password; please adapt to your needs
+    ; add user script = /usr/sbin/adduser --quiet --disabled-password --gecos &quot;&quot; %u
+
+    # This allows machine accounts to be created on the domain controller via the 
+    # SAMR RPC pipe.  
+    # The following assumes a &quot;machines&quot; group exists on the system
+    ; add machine script  = /usr/sbin/useradd -g machines -c &quot;%u machine account&quot; -d /var/lib/samba -s /bin/false %u
+
+    # This allows Unix groups to be created on the domain controller via the SAMR
+    # RPC pipe.  
+    ; add group script = /usr/sbin/addgroup --force-badname %g
+
+    ############ Misc ############
+
+    # Using the following line enables you to customise your configuration
+    # on a per machine basis. The %m gets replaced with the netbios name
+    # of the machine that is connecting
+    ;   include = /home/samba/etc/smb.conf.%m
+
+    # Some defaults for winbind (make sure you're not using the ranges
+    # for something else.)
+    ;   idmap uid = 10000-20000
+    ;   idmap gid = 10000-20000
+    ;   template shell = /bin/bash
+
+    # Setup usershare options to enable non-root users to share folders
+    # with the net usershare command.
+
+    # Maximum number of usershare. 0 (default) means that usershare is disabled.
+    ;   usershare max shares = 100
+
+    # Allow users who've been granted usershare privileges to create
+    # public shares, not just authenticated ones
+        usershare allow guests = yes
+
+    #======================= Share Definitions =======================
+
+    # Un-comment the following (and tweak the other settings below to suit)
+    # to enable the default home directory shares. This will share each
+    # user's home directory as \\server\username
+    ;[homes]
+    ;   comment = Home Directories
+    ;   browseable = no
+
+    # By default, the home directories are exported read-only. Change the
+    # next parameter to 'no' if you want to be able to write to them.
+    ;   read only = yes
+
+    # File creation mask is set to 0700 for security reasons. If you want to
+    # create files with group=rw permissions, set next parameter to 0775.
+    ;   create mask = 0700
+
+    # Directory creation mask is set to 0700 for security reasons. If you want to
+    # create dirs. with group=rw permissions, set next parameter to 0775.
+    ;   directory mask = 0700
+
+    # By default, \\server\username shares can be connected to by anyone
+    # with access to the samba server.
+    # Un-comment the following parameter to make sure that only &quot;username&quot;
+    # can connect to \\server\username
+    # This might need tweaking when using external authentication schemes
+    ;   valid users = %S
+
+    # Un-comment the following and create the netlogon directory for Domain Logons
+    # (you need to configure Samba to act as a domain controller too.)
+    ;[netlogon]
+    ;   comment = Network Logon Service
+    ;   path = /home/samba/netlogon
+    ;   guest ok = yes
+    ;   read only = yes
+
+    # Un-comment the following and create the profiles directory to store
+    # users profiles (see the &quot;logon path&quot; option above)
+    # (you need to configure Samba to act as a domain controller too.)
+    # The path below should be writable by all users so that their
+    # profile directory may be created the first time they log on
+    ;[profiles]
+    ;   comment = Users profiles
+    ;   path = /home/samba/profiles
+    ;   guest ok = no
+    ;   browseable = no
+    ;   create mask = 0600
+    ;   directory mask = 0700
+
+    [printers]
+        comment = All Printers
+        browseable = no
+        path = /var/spool/samba
+        printable = yes
+        guest ok = no
+        read only = yes
+        create mask = 0700
+
+    # Windows clients look for this share name as a source of downloadable
+    # printer drivers
+    [print$]
+        comment = Printer Drivers
+        path = /var/lib/samba/printers
+        browseable = yes
+        read only = yes
+        guest ok = no
+    # Uncomment to allow remote administration of Windows print drivers.
+    # You may need to replace 'lpadmin' with the name of the group your
+    # admin users are members of.
+    # Please note that you also need to set appropriate Unix permissions
+    # to the drivers directory for these users to have write rights in it
+    ;   write list = root, @lpadmin
+
+    [share]
+        comment = share folder
+        browseable = yes
+        path = /home/testuser/share
+        create mask = 0777
+        directory mask = 0755
+        valid users = testuser
+        force user = testuser
+        force group = testuser
+        public = yes
+        available = yes
+        writeable = yes
+&lt;/code&gt;
+&lt;/pre&gt;
+</description>
+        <pubDate>Tue, 27 Nov 2018 00:00:00 +0000</pubDate>
+        <link>http://aqrun.com/2018/11/27/Samba-Configuration.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/11/27/Samba-Configuration.html</guid>
+        
+        <category>ubuntu</category>
+        
+        <category>samba</category>
+        
+        <category>global</category>
+        
+        <category>symlinks</category>
+        
+        
+        <category>blog</category>
+        
+        <category>ubuntu</category>
+        
+      </item>
     
       <item>
         <title>Ubuntu 18.04 源码编译安装 Emacs 26.1</title>
@@ -62,8 +339,8 @@
 &lt;p&gt;完！&lt;/p&gt;
 </description>
         <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/07/27/Ubuntu-18.04-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-Emacs-26.1.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/07/27/Ubuntu-18.04-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-Emacs-26.1.html</guid>
+        <link>http://aqrun.com/2018/07/27/Ubuntu-18.04-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-Emacs-26.1.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/07/27/Ubuntu-18.04-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-Emacs-26.1.html</guid>
         
         <category>terminal</category>
         
@@ -94,8 +371,8 @@
 &lt;p&gt;Emacs 默认鼠标是移动光标位置不能像vim一样复制文本，但通过上面的配置也能开启复制功能，也可以直接使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;M+x xterm-mouse-mode&lt;/code&gt; 临时启用和关闭&lt;/p&gt;
 </description>
         <pubDate>Sat, 09 Jun 2018 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/06/09/%E6%8E%A7%E5%88%B6%E5%8F%B0emacs%E5%90%AF%E7%94%A8%E9%BC%A0%E6%A0%87%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/06/09/%E6%8E%A7%E5%88%B6%E5%8F%B0emacs%E5%90%AF%E7%94%A8%E9%BC%A0%E6%A0%87%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD.html</guid>
+        <link>http://aqrun.com/2018/06/09/%E6%8E%A7%E5%88%B6%E5%8F%B0emacs%E5%90%AF%E7%94%A8%E9%BC%A0%E6%A0%87%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/06/09/%E6%8E%A7%E5%88%B6%E5%8F%B0emacs%E5%90%AF%E7%94%A8%E9%BC%A0%E6%A0%87%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD.html</guid>
         
         <category>terminal</category>
         
@@ -476,8 +753,8 @@
 &lt;p&gt;选择器是我们如何通过引用我们数据结构的不同部分的函数来组合状态。 然后，我们可以合并它们，将它们合并，从它们中提取属性并将它们与其他属性结合起来（这对于使用实体和id可以从我们的状态中获取属性并将它们引入新的选择器来组成新状态而特别容易）。 可能性是无止境的，并且易于管理。 一旦我们通过选择器编写了我们的数据结构，我们就可以将其发送到我们的组件以供使用。&lt;/p&gt;
 </description>
         <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html</guid>
+        <link>http://aqrun.com/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html</guid>
         
         <category>angular</category>
         
@@ -515,7 +792,7 @@
 
 &lt;p&gt;例如，假设我们的应用程序有一个“settings”区域和一个“Todos”区域，如果我们最初加载应用程序的“Todos”区域而不访问“settings”，该状态的一部分将在第一个操作分派时被移除，因为还没有可用的reducer来处理该功能的状态：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://0.0.0.0:4000/public/images/js/ngrxtipimg1.png&quot; alt=&quot;settings removed&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://aqrun.com/public/images/js/ngrxtipimg1.png&quot; alt=&quot;settings removed&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;由于settings功能尚未加载，因此settings部分被删除。&lt;/p&gt;
 
@@ -553,7 +830,7 @@
 
 &lt;p&gt;随着您的功能模块被加载，它们将替换默认的 reducer。 在此之前，他们会在任何派发的操作上返回初始状态，以防止这些功能从状态移除：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://0.0.0.0:4000/public/images/js/ngrxtipimg2.png&quot; alt=&quot;settings removed&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://aqrun.com/public/images/js/ngrxtipimg2.png&quot; alt=&quot;settings removed&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;“settings” 现在被保留&lt;/p&gt;
 
@@ -564,8 +841,8 @@
 &lt;p&gt;在下一篇文章中，我将详细介绍选择器和测试。&lt;/p&gt;
 </description>
         <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html</guid>
+        <link>http://aqrun.com/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html</guid>
         
         <category>angular</category>
         
@@ -742,7 +1019,7 @@ yarn add @ngrx/effects
 
 &lt;p&gt;我们在这里使用了很多switchMaps，所以理解它背后的原力很重要。 以下是来自reactive.io &lt;a href=&quot;http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-switchMap&quot;&gt;switchMap文档&lt;/a&gt;页面的屏幕截图：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://0.0.0.0:4000/public/images/js/rximg1.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://aqrun.com/public/images/js/rximg1.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;看看这里的描述。 switchMap的第一个（也是唯一的）参数是一个函数，该函数应用于由源Observable发出的项目并返回Observable。 还值得注意的是，我们这里的胖箭头是lambda表达式匿名函数。 由于函数体observable，它只是一行，我们可以忽略大括号和return关键字。 例如，除了一些额外的日志记录之外，下面的代码与上面的代码片段相同：&lt;/p&gt;
 
@@ -767,8 +1044,8 @@ yarn add @ngrx/effects
 &lt;p&gt;虽然前面的例子更加简洁，并且您可能会在某个时候重构这个例子，但直接在上面查看这个例子可能会帮助您理解代码中发生了什么。&lt;/p&gt;
 </description>
         <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html</guid>
+        <link>http://aqrun.com/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html</guid>
         
         <category>angular</category>
         
@@ -936,8 +1213,8 @@ yarn add @ngrx/effects
 &lt;p&gt;随着 NgRx4，我们宣布创建我们的 &lt;a href=&quot;https://opencollective.com/ngrx&quot;&gt;OpenCollective&lt;/a&gt;，您可以帮助支持NgRx的开发。 我们非常感谢来自支持者、赞助商和社区的支持。 作为这些贡献的结果，Entity 是第一个创建的库。 Entity 是为NgRx平台创建更多库的第一步。 考虑&lt;a href=&quot;https://opencollective.com/ngrx&quot;&gt;通过OpenCollective&lt;/a&gt;支持这些开发工作。&lt;/p&gt;
 </description>
         <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/15/ngrx-entity-%E7%AE%80%E4%BB%8B.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/15/ngrx-entity-%E7%AE%80%E4%BB%8B.html</guid>
+        <link>http://aqrun.com/2018/03/15/ngrx-entity-%E7%AE%80%E4%BB%8B.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/03/15/ngrx-entity-%E7%AE%80%E4%BB%8B.html</guid>
         
         <category>angular</category>
         
@@ -982,8 +1259,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
 做到这五点，你会发现，你的成长会加速不止一点。&lt;/p&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/10/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%96%B9%E5%BC%8F.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/10/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%96%B9%E5%BC%8F.html</guid>
+        <link>http://aqrun.com/2017/10/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%96%B9%E5%BC%8F.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2017/10/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%96%B9%E5%BC%8F.html</guid>
         
         <category>程序员</category>
         
@@ -1008,8 +1285,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
 &lt;/p&gt;&lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Wed, 17 Aug 2016 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2016/08/17/%E6%AD%A3%E6%96%87%E5%86%85%E5%AE%B9%E6%8C%89%E6%8D%A2%E8%A1%8C%E7%94%A8%E6%A0%87%E7%AD%BE%E5%8C%85%E8%A3%85.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2016/08/17/%E6%AD%A3%E6%96%87%E5%86%85%E5%AE%B9%E6%8C%89%E6%8D%A2%E8%A1%8C%E7%94%A8%E6%A0%87%E7%AD%BE%E5%8C%85%E8%A3%85.html</guid>
+        <link>http://aqrun.com/2016/08/17/%E6%AD%A3%E6%96%87%E5%86%85%E5%AE%B9%E6%8C%89%E6%8D%A2%E8%A1%8C%E7%94%A8%E6%A0%87%E7%AD%BE%E5%8C%85%E8%A3%85.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2016/08/17/%E6%AD%A3%E6%96%87%E5%86%85%E5%AE%B9%E6%8C%89%E6%8D%A2%E8%A1%8C%E7%94%A8%E6%A0%87%E7%AD%BE%E5%8C%85%E8%A3%85.html</guid>
         
         <category>php</category>
         
@@ -1037,59 +1314,127 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
 
 &lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-nginx&quot;&gt;
-#＝＝＝＝＝＝＝＝＝＝＝＝＝
-#默认配置文件
-#nginx.conf
-#user  nobody;
-worker_processes  1;
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
-#pid        logs/nginx.pid;
-events {
-    worker_connections  1024;
-}
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    autoindex        on;
-    sendfile        on;
-    keepalive_timeout  65;
-    include tools-*.conf;  #引入各种配置文件
-    include vhost/*.conf; 
-}
-#==============================
+    #＝＝＝＝＝＝＝＝＝＝＝＝＝
+    #默认配置文件
+    #nginx.conf
+    #user  nobody;
+    worker_processes  1;
+    #error_log  logs/error.log;
+    #error_log  logs/error.log  notice;
+    #error_log  logs/error.log  info;
+    #pid        logs/nginx.pid;
+    events {
+        worker_connections  1024;
+    }
+    http {
+        include       mime.types;
+        default_type  application/octet-stream;
+        autoindex        on;
+        sendfile        on;
+        keepalive_timeout  65;
+        include tools-*.conf;  #引入各种配置文件
+        include vhost/*.conf; 
+    }
+    #==============================
 
-#========================
-#默认访问控制
-#localhost.conf
-server {
-    listen 80; # IPv4
-    server_name localhost;
-    ## Parameterization using hostname of access and log filenames.
-    access_log logs/localhost_access.log;
-    error_log logs/localhost_error.log;
-    ## Root and index files.
-    root D:/xampp/htdocs;
-    index  index.php index.html index.htm;
-    ## If no favicon exists return a 204 (no content error).
-    location = /favicon.ico {
-        try_files $uri =204;
-        log_not_found off;
-        access_log off;
-    }
-    ## Don't log robots.txt requests.
-    location = /robots.txt {
-        allow all;
-        log_not_found off;
-        access_log off;
-    }
-    ## Try the requested URI as files before handling it to PHP.
+    #========================
+    #默认访问控制
+    #localhost.conf
+    server {
+        listen 80; # IPv4
+        server_name localhost;
+        ## Parameterization using hostname of access and log filenames.
+        access_log logs/localhost_access.log;
+        error_log logs/localhost_error.log;
+        ## Root and index files.
+        root D:/xampp/htdocs;
+        index  index.php index.html index.htm;
+        ## If no favicon exists return a 204 (no content error).
+        location = /favicon.ico {
+            try_files $uri =204;
+            log_not_found off;
+            access_log off;
+        }
+        ## Don't log robots.txt requests.
+        location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+        }
+        ## Try the requested URI as files before handling it to PHP.
+            location / {
+        
+            } # / location
+
+            ## Regular PHP processing.
+            location ~ \.php$ {
+                try_files  $uri =404;
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+                include        fastcgi_params;
+            }
+
+            ## Static files
+            location ~* \.(?:css|gif|htc|ico|js|jpe?g|png|swf)$ {
+                expires max;
+                log_not_found off;
+                ## No need to bleed constant updates. Send the all shebang in one
+                ## fell swoop.
+                tcp_nodelay off;
+                ## Set the OS file cache.
+                open_file_cache max=1000 inactive=120s;
+                open_file_cache_valid 45s;
+                open_file_cache_min_uses 2;
+                open_file_cache_errors off;
+            }
+
+            ## Keep a tab on the 'big' static files.
+            location ~* ^.+\.(?:ogg|pdf|pptx?)$ {
+                expires 30d;
+                ## No need to bleed constant updates. Send the all shebang in one
+                ## fell swoop.
+                tcp_nodelay off;
+            }
+            #子目录访问 rewrite方式   
+            #   http://localhost/drupal/user         会rewrite到       http://localhost/drupal/index.php?q=user
+            location /drupal{
+                    #使用“-f”和“!-f”运算符检查文件是否存在
+                    #使用“-d”和“!-d”运算符检查目录是否存在
+                if (!-f $request_filename) {
+                    rewrite  ^/drupal/(.*)$  /drupal/index.php?q=$1  last;
+                    break;
+                }
+                if (!-d $request_filename) {
+                    rewrite  ^/drupal/(.*)$  /drupal/index.php?q=$1  last;
+                    break;
+                }
+            }
+    } # end http server
+    #==================================
+
+
+    #===================================
+    #  www.drupal.my    虚拟跟径指向  localhost/drupal
+    #www.drupal.my.conf
+    server {
+        listen   80; ## listen for ipv4; this line is default and implied
+
+        root D:/xampp/htdocs/drupal;
+        index index.html index.php;
+
+        server_name www.drupal.my;
         location / {
-       
-        } # / location
+                index  index.php index.html;
+                #rewrite
+                # 使用“-e”和“!-e”运算符检查文件、目录或符号链接是否存在；
+                if (!-e $request_filename) {
+                    rewrite ^/(.*)$ /index.php?q=$1 last;
+                }
+            }
+        
+        error_page 404 /404.php;
 
-        ## Regular PHP processing.
         location ~ \.php$ {
             try_files  $uri =404;
             fastcgi_pass   127.0.0.1:9000;
@@ -1097,86 +1442,18 @@ server {
             fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
             include        fastcgi_params;
         }
+        #rewrite rules
+        #include vhost/www.drupal.my.rules;
 
-        ## Static files
-        location ~* \.(?:css|gif|htc|ico|js|jpe?g|png|swf)$ {
-            expires max;
-            log_not_found off;
-            ## No need to bleed constant updates. Send the all shebang in one
-            ## fell swoop.
-            tcp_nodelay off;
-            ## Set the OS file cache.
-            open_file_cache max=1000 inactive=120s;
-            open_file_cache_valid 45s;
-            open_file_cache_min_uses 2;
-            open_file_cache_errors off;
-        }
-
-        ## Keep a tab on the 'big' static files.
-        location ~* ^.+\.(?:ogg|pdf|pptx?)$ {
-            expires 30d;
-            ## No need to bleed constant updates. Send the all shebang in one
-            ## fell swoop.
-            tcp_nodelay off;
-        }
-        #子目录访问 rewrite方式   
-        #   http://localhost/drupal/user         会rewrite到       http://localhost/drupal/index.php?q=user
-        location /drupal{
-                #使用“-f”和“!-f”运算符检查文件是否存在
-                #使用“-d”和“!-d”运算符检查目录是否存在
-            if (!-f $request_filename) {
-                rewrite  ^/drupal/(.*)$  /drupal/index.php?q=$1  last;
-                break;
-            }
-            if (!-d $request_filename) {
-                rewrite  ^/drupal/(.*)$  /drupal/index.php?q=$1  last;
-                break;
-            }
-        }
-} # end http server
-#==================================
-
-
-#===================================
-#  www.drupal.my    虚拟跟径指向  localhost/drupal
-#www.drupal.my.conf
-server {
-    listen   80; ## listen for ipv4; this line is default and implied
-
-    root D:/xampp/htdocs/drupal;
-    index index.html index.php;
-
-    server_name www.drupal.my;
-     location / {
-            index  index.php index.html;
-            #rewrite
-            # 使用“-e”和“!-e”运算符检查文件、目录或符号链接是否存在；
-             if (!-e $request_filename) {
-                rewrite ^/(.*)$ /index.php?q=$1 last;
-            }
-        }
-       
-    error_page 404 /404.php;
-
-    location ~ \.php$ {
-        try_files  $uri =404;
-        fastcgi_pass   127.0.0.1:9000;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-        include        fastcgi_params;
+    
     }
-    #rewrite rules
-    #include vhost/www.drupal.my.rules;
-
-   
-}
 &lt;/code&gt;
 &lt;/pre&gt;
 
 </description>
         <pubDate>Wed, 22 Jun 2016 15:33:10 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html</guid>
+        <link>http://aqrun.com/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html</guid>
         
         <category>nginx</category>
         
@@ -1186,117 +1463,6 @@ server {
         <category>blog</category>
         
         <category>drupal</category>
-        
-      </item>
-    
-      <item>
-        <title>移动页面基本结构</title>
-        <description>&lt;h3 id=&quot;viewport&quot;&gt;Viewport&lt;/h3&gt;
-
-&lt;pre class=&quot;line-numbers&quot;&gt;
-  &lt;code class=&quot;language-javascript&quot;&gt;
-
-    // meta:
-    // &amp;lt;meta content=&quot;width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot; name=&quot;viewport&quot;&amp;gt;
-
-    (function(init_width){
-      var isAndroid=navigator.userAgent.match(/(Android)/i)
-      , viewPort = document.querySelector(&quot;meta[name=viewport]&quot;);
-      window.html_font_size = isAndroid?100:window.innerWidth*100/init_width;
-      
-      function setHtmlWidth(){
-        document.querySelector(&quot;html&quot;).style.fontSize = html_font_size + &quot;px&quot;;
-      }
-      
-      if (isAndroid) {
-        content = &quot;target-densitydpi=320,width=&quot;+init_width+&quot;,user-scalable=no&quot;;
-        viewPort.setAttribute(&quot;content&quot;,content);
-      }else{
-        setHtmlWidth();window.onresize = setHtmlWidth;
-      }
-    })(640)
-&lt;/code&gt;
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;css-reset&quot;&gt;CSS reset&lt;/h3&gt;
-
-&lt;pre class=&quot;line-numbers&quot;&gt;
-    &lt;code class=&quot;language-css&quot;&gt;
-    /*css reset*/
-    html{font-size:100px}
-    body{
-      font-size: 0.12rem;
-      font-family: &quot;微软雅黑&quot;,&quot;宋体&quot;,&quot;arial&quot;;
-      font-weight: normal;
-      overflow-x: hidden;
-    }
-    body, ul, ol, p, h1, h2, h3, h4, h5, h6, dl, dt, dd ,form ,textarea ,input{margin:0;}
-      ul,ol{list-style:none;}
-      ul,ol,input{padding:0;}
-      table{margin:0 auto;width:100%;border-collapse:collapse;}
-      a img{border:0;
-    }
-    input[type=&quot;button&quot;], input[type=&quot;submit&quot;], input[type=&quot;reset&quot;] {
-      -webkit-appearance: none;
-    }
-    .clearfix:after {
-      content: &quot; &quot;;
-      display: block;
-      clear: both;
-      height: 0;
-    }
-    img{width:100%;}
-      .max_width{
-      width:6.4rem;
-      margin:0 auto;
-      position: relative;
-    }
-    .clear{
-      width:100%;
-      height:0;
-      clear:both;
-    }
-    .clear30{
-      height: 30px;
-    }
-    .clearfix {
-      zoom: 1;
-    }
-    img,object,audio,vedio{
-      max-width: 100%;
-    }
-    a{
-      text-decoration: none;
-    }
-&lt;/code&gt;
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;html&quot;&gt;html&lt;/h3&gt;
-
-&lt;pre&gt;
-&lt;code class=&quot;language-html&quot;&gt;
-&amp;lt;div class=&quot;wrap clearfix&quot;&amp;gt;
-  &amp;lt;div class=&quot;max_width&quot;&amp;gt;
-  
-  &amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;
-&lt;/pre&gt;
-</description>
-        <pubDate>Fri, 17 Jul 2015 00:00:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2015/07/17/%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2015/07/17/%E7%A7%BB%E5%8A%A8%E9%A1%B5%E9%9D%A2%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84.html</guid>
-        
-        <category>移动</category>
-        
-        <category>web</category>
-        
-        <category>rem</category>
-        
-        
-        <category>blog</category>
-        
-        <category>javascript</category>
         
       </item>
     
