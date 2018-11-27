@@ -5,8 +5,8 @@
     <description>热爱技术。很高兴能在这里与你分享我对技术和生活的思考。</description>
     <link>http://aqrun.com/</link>
     <atom:link href="http://aqrun.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 27 Nov 2018 08:33:53 +0000</pubDate>
-    <lastBuildDate>Tue, 27 Nov 2018 08:33:53 +0000</lastBuildDate>
+    <pubDate>Tue, 27 Nov 2018 10:09:20 +0000</pubDate>
+    <lastBuildDate>Tue, 27 Nov 2018 10:09:20 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -1230,6 +1230,61 @@ yarn add @ngrx/effects
       </item>
     
       <item>
+        <title>About Me</title>
+        <description>&lt;p&gt;画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不一定与技术相关，技术本只是世界上的一个小目录，技术是为了实现某个目的的手段。&lt;/p&gt;
+
+&lt;p&gt;我们也许在很多地方扮演不同的角色去适应环境，但在这里，一切都由自己控制。未来的日子里，希望在这里写下一些自己的思考和感悟。如果可以的话，创造一些美好的事物。&lt;/p&gt;
+
+&lt;h2 id=&quot;理想的工作环境&quot;&gt;理想的工作环境&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;高配的电脑&lt;/li&gt;
+  &lt;li&gt;超快的网速&lt;/li&gt;
+  &lt;li&gt;宽松的环境&lt;/li&gt;
+  &lt;li&gt;很少的会议&lt;/li&gt;
+  &lt;li&gt;整洁的代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;关于自己&quot;&gt;关于自己&lt;/h2&gt;
+
+&lt;p&gt;做努力的自己&lt;/p&gt;
+
+&lt;h2 id=&quot;技术标签&quot;&gt;技术标签&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Html&lt;/li&gt;
+  &lt;li&gt;CSS, SASS&lt;/li&gt;
+  &lt;li&gt;JQuery, ReactJS, VueJS&lt;/li&gt;
+  &lt;li&gt;PHP
+    &lt;ul&gt;
+      &lt;li&gt;YII2&lt;/li&gt;
+      &lt;li&gt;Laravel&lt;/li&gt;
+      &lt;li&gt;Thinkphp&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;MySQL&lt;/li&gt;
+  &lt;li&gt;Ubuntu&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+        <link>http://aqrun.com/2018/01/23/About-me.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2018/01/23/About-me.html</guid>
+        
+        <category>adbout</category>
+        
+        <category>me</category>
+        
+        <category>myself</category>
+        
+        
+        <category>blog</category>
+        
+        <category>diary</category>
+        
+      </item>
+    
+      <item>
         <title>程序员自我学习提高方式</title>
         <description>&lt;h2 id=&quot;项目&quot;&gt;项目&lt;/h2&gt;
 
@@ -1296,173 +1351,6 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
         <category>blog</category>
         
         <category>php</category>
-        
-      </item>
-    
-      <item>
-        <title>Drupal 7 在 nginx服务器 子目录及虚拟机访问时配置伪静态</title>
-        <description>&lt;h2 id=&quot;文件目录结构&quot;&gt;文件目录结构：&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/nginx
-/nginx/conf
-/nginx/conf/nginx.conf         #默认nginx配置文件
-/nginx/conf/vhost
-/nginx/conf/vhost/localhost.conf    #
-/nginx/conf/vhost/*.conf       #各虚拟主机配置文件
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;以下列出三个主要配置文件内容：&lt;/p&gt;
-
-&lt;pre class=&quot;line-numbers&quot;&gt;
-    &lt;code class=&quot;language-nginx&quot;&gt;
-    #＝＝＝＝＝＝＝＝＝＝＝＝＝
-    #默认配置文件
-    #nginx.conf
-    #user  nobody;
-    worker_processes  1;
-    #error_log  logs/error.log;
-    #error_log  logs/error.log  notice;
-    #error_log  logs/error.log  info;
-    #pid        logs/nginx.pid;
-    events {
-        worker_connections  1024;
-    }
-    http {
-        include       mime.types;
-        default_type  application/octet-stream;
-        autoindex        on;
-        sendfile        on;
-        keepalive_timeout  65;
-        include tools-*.conf;  #引入各种配置文件
-        include vhost/*.conf; 
-    }
-    #==============================
-
-    #========================
-    #默认访问控制
-    #localhost.conf
-    server {
-        listen 80; # IPv4
-        server_name localhost;
-        ## Parameterization using hostname of access and log filenames.
-        access_log logs/localhost_access.log;
-        error_log logs/localhost_error.log;
-        ## Root and index files.
-        root D:/xampp/htdocs;
-        index  index.php index.html index.htm;
-        ## If no favicon exists return a 204 (no content error).
-        location = /favicon.ico {
-            try_files $uri =204;
-            log_not_found off;
-            access_log off;
-        }
-        ## Don't log robots.txt requests.
-        location = /robots.txt {
-            allow all;
-            log_not_found off;
-            access_log off;
-        }
-        ## Try the requested URI as files before handling it to PHP.
-            location / {
-        
-            } # / location
-
-            ## Regular PHP processing.
-            location ~ \.php$ {
-                try_files  $uri =404;
-                fastcgi_pass   127.0.0.1:9000;
-                fastcgi_index  index.php;
-                fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-                include        fastcgi_params;
-            }
-
-            ## Static files
-            location ~* \.(?:css|gif|htc|ico|js|jpe?g|png|swf)$ {
-                expires max;
-                log_not_found off;
-                ## No need to bleed constant updates. Send the all shebang in one
-                ## fell swoop.
-                tcp_nodelay off;
-                ## Set the OS file cache.
-                open_file_cache max=1000 inactive=120s;
-                open_file_cache_valid 45s;
-                open_file_cache_min_uses 2;
-                open_file_cache_errors off;
-            }
-
-            ## Keep a tab on the 'big' static files.
-            location ~* ^.+\.(?:ogg|pdf|pptx?)$ {
-                expires 30d;
-                ## No need to bleed constant updates. Send the all shebang in one
-                ## fell swoop.
-                tcp_nodelay off;
-            }
-            #子目录访问 rewrite方式   
-            #   http://localhost/drupal/user         会rewrite到       http://localhost/drupal/index.php?q=user
-            location /drupal{
-                    #使用“-f”和“!-f”运算符检查文件是否存在
-                    #使用“-d”和“!-d”运算符检查目录是否存在
-                if (!-f $request_filename) {
-                    rewrite  ^/drupal/(.*)$  /drupal/index.php?q=$1  last;
-                    break;
-                }
-                if (!-d $request_filename) {
-                    rewrite  ^/drupal/(.*)$  /drupal/index.php?q=$1  last;
-                    break;
-                }
-            }
-    } # end http server
-    #==================================
-
-
-    #===================================
-    #  www.drupal.my    虚拟跟径指向  localhost/drupal
-    #www.drupal.my.conf
-    server {
-        listen   80; ## listen for ipv4; this line is default and implied
-
-        root D:/xampp/htdocs/drupal;
-        index index.html index.php;
-
-        server_name www.drupal.my;
-        location / {
-                index  index.php index.html;
-                #rewrite
-                # 使用“-e”和“!-e”运算符检查文件、目录或符号链接是否存在；
-                if (!-e $request_filename) {
-                    rewrite ^/(.*)$ /index.php?q=$1 last;
-                }
-            }
-        
-        error_page 404 /404.php;
-
-        location ~ \.php$ {
-            try_files  $uri =404;
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-            include        fastcgi_params;
-        }
-        #rewrite rules
-        #include vhost/www.drupal.my.rules;
-
-    
-    }
-&lt;/code&gt;
-&lt;/pre&gt;
-
-</description>
-        <pubDate>Wed, 22 Jun 2016 15:33:10 +0000</pubDate>
-        <link>http://aqrun.com/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html</link>
-        <guid isPermaLink="true">http://aqrun.com/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html</guid>
-        
-        <category>nginx</category>
-        
-        <category>drupal7</category>
-        
-        
-        <category>blog</category>
-        
-        <category>drupal</category>
         
       </item>
     

@@ -12,14 +12,14 @@ gtag('js', new Date());
 
 gtag('config', 'UA-129747013-1');
 </script>
-    <title>NgRx技巧1-带延迟加载的模块配置 - AQRUN的独立博客</title>
+    <title>About Me - AQRUN的独立博客</title>
     <meta name="author"  content="AQRUN">
-    <meta name="description" content="NgRx技巧1-带延迟加载的模块配置">
-    <meta name="keywords"  content="angular, ngrx, ngrx/entity">
+    <meta name="description" content="About Me">
+    <meta name="keywords"  content="adbout, me, myself">
     <!-- Open Graph -->
-    <meta property="og:title" content="NgRx技巧1-带延迟加载的模块配置 - AQRUN的独立博客">
+    <meta property="og:title" content="About Me - AQRUN的独立博客">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://aqrun.com/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html">
+    <meta property="og:url" content="http://aqrun.com/2018/01/23/About-me.html">
     <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
     <meta property="og:site_name" content="AQRUN的独立博客">
 
@@ -196,18 +196,18 @@ Author: Ray-Eldath
       <div class="post-tags">
         
           
-            <a href="http://aqrun.com/tags#angular" class="post-tag">angular</a>
+            <a href="http://aqrun.com/tags#adbout" class="post-tag">adbout</a>
           
-            <a href="http://aqrun.com/tags#ngrx" class="post-tag">ngrx</a>
+            <a href="http://aqrun.com/tags#me" class="post-tag">me</a>
           
-            <a href="http://aqrun.com/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
+            <a href="http://aqrun.com/tags#myself" class="post-tag">myself</a>
           
         
       </div>
-      <h1>NgRx技巧1-带延迟加载的模块配置</h1>
+      <h1>About Me</h1>
       <div class="post-meta">
         <span class="post-meta-item"><i class="iconfont icon-author"></i>AQRUN</span>
-        <time class="post-meta-item" datetime="18-03-17"><i class="iconfont icon-date"></i>17 Mar 2018</time>
+        <time class="post-meta-item" datetime="18-01-23"><i class="iconfont icon-date"></i>23 Jan 2018</time>
       </div>
     </div>
     
@@ -217,72 +217,41 @@ Author: Ray-Eldath
     
 
     <article class="markdown-body">
-      <blockquote>
-  <p><a href="https://medium.com/youngers-consulting/ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d">原文链接：https://medium.com/youngers-consulting/ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d</a></p>
-</blockquote>
+      <p>画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不一定与技术相关，技术本只是世界上的一个小目录，技术是为了实现某个目的的手段。</p>
+
+<p>我们也许在很多地方扮演不同的角色去适应环境，但在这里，一切都由自己控制。未来的日子里，希望在这里写下一些自己的思考和感悟。如果可以的话，创造一些美好的事物。</p>
+
+<h2 id="理想的工作环境">理想的工作环境</h2>
 
 <ul>
-  <li><a href="http://aqrun.com/blog/javascript/2018/03/17-NgRx技巧1-带延迟加载的模块配置.html">NgRx技巧 1-带延迟加载的模块配置</a></li>
-  <li><a href="">NgRx技巧 2-选择器和测试</a></li>
-  <li><a href="">NgRx技巧 3-操作 Actions</a></li>
+  <li>高配的电脑</li>
+  <li>超快的网速</li>
+  <li>宽松的环境</li>
+  <li>很少的会议</li>
+  <li>整洁的代码</li>
 </ul>
 
-<p>如果您的Angular项目针对延迟加载进行了调整，并使用按需加载的独立模块进行加载，这些模块通过`StoreModule.forFeature(…) 定义了自己的 state 片段，您可以像这样定义根模块：</p>
+<h2 id="关于自己">关于自己</h2>
 
-<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">StoreModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({}</span> <span class="k">as</span> <span class="nx">any</span><span class="p">,</span> <span class="p">{</span> <span class="na">initialState</span><span class="p">:</span> <span class="nx">getInitialState</span> <span class="p">})</span>
-</code></pre></div></div>
+<p>做努力的自己</p>
 
-<p>但是，在我们使用所有状态初始化应用程序时，我们不提供任何 reducer。 这种方法的问题是，如果 reducer 不可用，那么任何尚未加载的功能将在操作分派时从状态中删除。</p>
+<h2 id="技术标签">技术标签</h2>
 
-<p>例如，假设我们的应用程序有一个“settings”区域和一个“Todos”区域，如果我们最初加载应用程序的“Todos”区域而不访问“settings”，该状态的一部分将在第一个操作分派时被移除，因为还没有可用的reducer来处理该功能的状态：</p>
+<ul>
+  <li>Html</li>
+  <li>CSS, SASS</li>
+  <li>JQuery, ReactJS, VueJS</li>
+  <li>PHP
+    <ul>
+      <li>YII2</li>
+      <li>Laravel</li>
+      <li>Thinkphp</li>
+    </ul>
+  </li>
+  <li>MySQL</li>
+  <li>Ubuntu</li>
+</ul>
 
-<p><img src="http://aqrun.com/public/images/js/ngrxtipimg1.png" alt="settings removed" /></p>
-
-<p>由于settings功能尚未加载，因此settings部分被删除。</p>
-
-<p>防止这种情况的一种方法（不影响应用程序中的所有reducer）是，首先对所有功能设置一个默认reducer，该reducer只取得当前状态并返回：</p>
-
-<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ActionReducerMap</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@ngrx/store'</span><span class="p">;</span>
-
-<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">settings</span> <span class="k">from</span> <span class="s1">'./settings/settings.actions'</span><span class="p">;</span>
-<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">todos</span> <span class="k">from</span> <span class="s1">'./todos/todos.actions'</span><span class="p">;</span>
-
-<span class="k">export</span> <span class="kr">interface</span> <span class="nx">ApplicationState</span> <span class="p">{</span>
-    <span class="nl">settings</span><span class="p">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">SettingsState</span><span class="p">;</span>
-    <span class="nl">todos</span><span class="p">:</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">TodosState</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">export</span> <span class="kd">function</span> <span class="nx">defaultReducer</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">T</span><span class="p">){</span> <span class="k">return</span> <span class="nx">state</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">initailReducerMap</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">settings</span><span class="p">:</span> <span class="nx">defaultReducer</span><span class="p">,</span>
-    <span class="na">todos</span><span class="p">:</span> <span class="nx">defaultReducer</span><span class="p">,</span>
-<span class="p">}</span> <span class="k">as</span> <span class="nx">ActionReducerMap</span><span class="o">&lt;</span><span class="nx">ApplicationState</span><span class="o">&gt;</span><span class="p">;</span>
-
-<span class="k">export</span> <span class="kd">function</span> <span class="nx">getInitailState</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="na">settings</span><span class="p">:</span> <span class="nx">settings</span><span class="p">.</span><span class="nx">initialState</span><span class="p">,</span>
-        <span class="na">todos</span><span class="p">:</span> <span class="nx">todos</span><span class="p">.</span><span class="nx">initialState</span><span class="p">,</span>
-    <span class="p">}</span> <span class="k">as</span> <span class="nx">ApplicationState</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>然后如下更新NgRx初始化：</p>
-
-<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">StoreModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">initialReducerMap</span><span class="p">,</span> <span class="p">{</span> <span class="na">initialState</span><span class="p">:</span> <span class="nx">getInitialState</span> <span class="p">})</span>
-</code></pre></div></div>
-
-<p>随着您的功能模块被加载，它们将替换默认的 reducer。 在此之前，他们会在任何派发的操作上返回初始状态，以防止这些功能从状态移除：</p>
-
-<p><img src="http://aqrun.com/public/images/js/ngrxtipimg2.png" alt="settings removed" /></p>
-
-<p>“settings” 现在被保留</p>
-
-<p>随着您的继续开发，如果添加新功能并更新了ApplicationState接口，它应该会导致编译错误，直到initialReducerMap更新。</p>
-
-<p>然后，您的store选择器可以安全地假定功能状态部分将始终存在，而无需执行未定义(undefined)的检查。</p>
-
-<p>在下一篇文章中，我将详细介绍选择器和测试。</p>
 
     </article>
 
@@ -335,10 +304,10 @@ Author: Ray-Eldath
     <section class="post-footer-item read-next">
       
       <div class="read-next-item">
-        <a href="/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html" class="read-next-link"></a>
+        <a href="/2018/03/15/ngrx-entity-%E7%AE%80%E4%BB%8B.html" class="read-next-link"></a>
         <section>
-          <span>NgRx Store 理解状态选择器(state selectors)</span>
-          <p>选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureS...</p>
+          <span>@ngrx/entity 简介</span>
+          <p>@ngrx/entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Red...</p>
         </section>
         
      </div>
@@ -346,10 +315,10 @@ Author: Ray-Eldath
 
       
       <div class="read-next-item">
-        <a href="/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html" class="read-next-link"></a>
+        <a href="/2017/10/07/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%8F%90%E9%AB%98%E6%96%B9%E5%BC%8F.html" class="read-next-link"></a>
           <section>
-            <span>angular2 中 ngrx-effetcts 基础和 ngrx-store 异步中间件</span>
-            <p>我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Ef...</p>
+            <span>程序员自我学习提高方式</span>
+            <p>产品上想多一点，设计上想多一点，技术上做深一点，思维框架上学多一点。</p>
           </section>
           
       </div>

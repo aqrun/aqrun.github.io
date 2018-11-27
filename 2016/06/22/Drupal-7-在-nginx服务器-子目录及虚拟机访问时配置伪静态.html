@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
     <title>Drupal 7 在 nginx服务器 子目录及虚拟机访问时配置伪静态 - AQRUN的独立博客</title>
     <meta name="author"  content="AQRUN">
     <meta name="description" content="Drupal 7 在 nginx服务器 子目录及虚拟机访问时配置伪静态">
@@ -13,14 +22,17 @@
     <meta property="og:url" content="http://aqrun.com/2016/06/22/Drupal-7-%E5%9C%A8-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8-%E5%AD%90%E7%9B%AE%E5%BD%95%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%97%B6%E9%85%8D%E7%BD%AE%E4%BC%AA%E9%9D%99%E6%80%81.html">
     <meta property="og:description" content="热爱技术。很高兴能在这里与你分享我对技术和生活的思考。">
     <meta property="og:site_name" content="AQRUN的独立博客">
+
     <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
-    <link rel="stylesheet" href="/assets/css/github-markdown.css">
-    <link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
-    <link rel="stylesheet" href="/assets/css/share.min.css">
-    <link rel="stylesheet" href="/assets/css/app.min.css?v=0.5">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=0.5">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
 	
 	<!--
 Author: Ray-Eldath
@@ -369,7 +381,7 @@ Author: Ray-Eldath
       </div>
       <div class="author-name" rel="author">AQRUN</div>
       <div class="bio">
-        <p>天行健，君子以自强不息。地势坤，君子以厚德载物。</p>
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
       </div>
       
       <ul class="sns-links">
@@ -468,8 +480,8 @@ Author: Ray-Eldath
 
   
 
-  <script src="/assets/prism/prism.js?v=0.1"></script>
-  <script src="/assets/js/index.min.js?v=0.1"></script>
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
 </body>
 
 </html>
