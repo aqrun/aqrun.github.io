@@ -52,7 +52,7 @@ a {
 
 /*** Main style ***/
 .g-container {
-  width: 960px; }
+  width: 1200px; }
 
 .g-header {
   position: fixed;
@@ -182,7 +182,7 @@ a {
 
 .article-list {
   float: left;
-  width: 695px; }
+  width: 935px; }
   .article-list .article-item {
     width: 100%;
     margin-bottom: 16px;
@@ -488,7 +488,7 @@ a {
   margin: 0 auto; }
 
 .post-wrapper {
-  width: 720px; }
+  width: 1200px; }
 
 .post-header {
   position: relative;
@@ -601,7 +601,7 @@ a {
   padding: 40px 0 80px; }
   .post-content .post-subtitle {
     position: relative;
-    width: 720px;
+    width: 1200px;
     font-size: 18px;
     color: #a6a6a6;
     font-weight: normal;
@@ -625,7 +625,7 @@ a {
 
 .markdown-body {
   font-family: "Merriweather-Light", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-  width: 720px;
+  width: 1200px;
   box-sizing: border-box;
   padding: 0 0 32px; }
   .markdown-body .highlight {
@@ -648,7 +648,7 @@ a {
 
 .post-footer-item {
   margin: 0 auto;
-  width: 720px; }
+  width: 1200px; }
 
 .author-detail {
   position: relative;
@@ -658,7 +658,7 @@ a {
 
 .read-next {
   display: flex;
-  width: 720px;
+  width: 1200px;
   margin: 60px auto; }
 
 .read-next-item {
@@ -873,7 +873,7 @@ a {
     .home-banner h3 {
       font-size: 22px; } }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1200px) {
   .g-container {
     width: auto; }
   .article-list {
