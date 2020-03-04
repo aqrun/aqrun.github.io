@@ -2,17 +2,7 @@
 layout: post
 title: 弹出层图片放大缩小ImageMoveable
 tags: starzoom 图片操作
-excerpt: '<pre>
-  /**<br/>
-   * 弹出层图片放大缩小 ImageMoveable(selector)<br/>
-   * ========================================<br/>
-   *<br/>
-   * 实现描述：点击页面相关dom出现弹出框进行相关图片缩放移动等细节查看<br/>
-   * dependency:<br/>
-   *    [jQuery](http://jquery.com/)<br/>
-   *    [underscore](http://underscorejs.org/)<br/>
-   *    [Backbone.js](http://backbonejs.org/)<br/>
-</pre>'
+excerpt: '实现描述：点击页面相关dom出现弹出框进行相关图片缩放移动等细节查看'
 ---
 
 <pre class="line-numbers">
@@ -132,14 +122,14 @@ excerpt: '<pre>
         disX: 0, //鼠标按下位置和dialog left距离
         disY: 0,
         //弹出框html模板
-        template: '<div class="dh">\
-                      <h4 class="dtit"></h4>\
-                      <div class="btn zoom zoom_in active">放大</div>\
-                      <div class="btn zoom zoom_out">缩小</div>\
-                      <div class="btn close">关闭</div><div class="clear"></div>\
-                    </div>\
-                    <div class="dcon"></div>\
-                    <div class="db"></div><div class="clear"></div>',
+        template: '&lt;div class="dh"&gt;\
+                      &lt;h4 class="dtit"&gt;&lt;/h4&gt;\
+                      &lt;div class="btn zoom zoom_in active"&gt;放大&lt;/div&gt;\
+                      &lt;div class="btn zoom zoom_out"&gt;缩小&lt;/div&gt;\
+                      &lt;div class="btn close"&gt;关闭&lt;/div&gt;&lt;div class="clear"&gt;&lt;/div&gt;\
+                    &lt;/div&gt;\
+                    &lt;div class="dcon"&gt;&lt;/div&gt;\
+                    &lt;div class="db"&gt;&lt;/div&gt;&lt;div class="clear"&gt;&lt;/div&gt;',
         initialize: function(){
           _.bindAll(this, "setPosition","dh_mousemove");
           this.listenTo(this.model,"change",this.setPosition); //监听model　change
@@ -383,12 +373,11 @@ excerpt: '<pre>
       // parse data-config attr string to json
       function attrToJson(data_config){
         var arr = data_config.split(","); //split to array
-        for(var i = 0; i<arr add return add andd parse to json param selector constructor imagemoveable="function(selector){" return foreach every selector the starter function var var data="attrToJson(data_config);" var src="src;" new bg mask var></div>";
-        var $css = "<style>"+ css +"</style>";
+        for(var i = 0; i&lt;arr add return add andd parse to json param selector constructor imagemoveable="function(selector){" return foreach every selector the starter function var var data="attrToJson(data_config);" var src="src;" new bg mask var&gt;&lt;/div&gt;";
+        var $css = "&lt;style&gt;"+ css +"&lt;/style&gt;";
         $("body").append(bg).append($css);//添加弹出层背景 及对应CSS样式
       }
     })(jQuery, _, Backbone);
-    </pre>
     
 </code>
 </pre>

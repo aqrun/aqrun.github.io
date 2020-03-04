@@ -25,7 +25,7 @@ PHP 4 引入了 foreach 结构，和 Perl 以及其他语言很像。这只是�
     <code class="language-php">
 
     foreach ( $i in $arrs ) {
-    echo $i;
+        echo $i;
     }
 
 </code>

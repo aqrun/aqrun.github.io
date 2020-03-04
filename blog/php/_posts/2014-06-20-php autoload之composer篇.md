@@ -7,16 +7,18 @@ tags: composer autoload
 
 Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer.org/doc/00-intro.md 本篇介绍 小项目如何使用composer生成自动加载类文件
 
-1. 创建项目 test 目录结构：
+## 1. 创建项目 test 目录结构：
 
-    /test/
-    /vendor/ //第三方包 类库
-    /module/ // 模块
-    TestClass.php //模块TestClass类
-    index.php
-    composer.json //composer.json
-
-==============
+<pre markdown="0">
+  <code class="language-">
+/test/
+/vendor/ //第三方包 类库
+/module/ // 模块
+TestClass.php //模块TestClass类
+index.php
+composer.json //composer.json
+  </code>
+</pre>
 
 //TestClass.php
 
@@ -34,7 +36,7 @@ Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer
 </code>
 </pre>
 
-2. 运行使用composer 自动构建 composer 安装方法官网有 进入控制台 路径到所建项目根路径 也就是composer.json所在路径 运行： composer install 会自动生成 /vendor/composer/* //这个目录5个文件 会根据 composer.json配置参数生成相关内容 /vendor/autoload.php 最后项目入口文件
+## 2. 运行使用composer 自动构建 composer 安装方法官网有 进入控制台 路径到所建项目根路径 也就是composer.json所在路径 运行： composer install 会自动生成 /vendor/composer/* //这个目录5个文件 会根据 composer.json配置参数生成相关内容 /vendor/autoload.php 最后项目入口文件
 
 ==============
 

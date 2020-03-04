@@ -14,7 +14,7 @@ gulp.task('scripts', function(){
 gulp.task('sass', function(){
     gulp.src('dev/sass/app.scss')
         .pipe(sass())
-        .pipe(gulp.dest('dev/sass'))
+        .pipe(gulp.dest('assets/css'))
         .pipe(cleanCSS())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('assets/css'));
