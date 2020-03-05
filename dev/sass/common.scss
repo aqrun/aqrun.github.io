@@ -124,6 +124,12 @@
     text-align: center;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 38, 55, .16);
+    background: transparent url('/assets/img/banner1.jpg') no-repeat center center;
+    background-size: cover;
+    background-color: -webkit-linear-gradient(0deg, #3CD5FF, #007AFF);
+    background-color: -o-linear-gradient(0deg, #3CD5FF, #007AFF);
+    background-color: -moz-linear-gradient(0deg, #3CD5FF, #007AFF);
+    background-color: linear-gradient(100deg, #3CD5FF, #007AFF);
     h2, h3{
         position: relative;
         z-index: 1;
@@ -144,14 +150,26 @@
         letter-spacing: 0px;
         margin-top: 8px;
     }
+    &.index-page{
+        background-image:  url('/assets/img/index-banner.jpg?v=0.2');
+    }
+    &.frontend{
+        background-image:  url('/assets/img/banner2.jpg');
+    }
+    &.server{
+        background-image:  url('/assets/img/banner3.jpg');
+    }
+    &.diary{
+        background-image:  url('/assets/img/banner4.jpg');
+    }
 }
 
-.banner-theme-default {
+/* .banner-theme-default {
     background: -webkit-linear-gradient(0deg, #3CD5FF, #007AFF);
     background: -o-linear-gradient(0deg, #3CD5FF, #007AFF);
     background: -moz-linear-gradient(0deg, #3CD5FF, #007AFF);
     background: linear-gradient(100deg, #3CD5FF, #007AFF);
-}
+} */
 .banner-theme-pink {
     background: -webkit-linear-gradient(0deg, #FFCE69, #FA709A);
     background: -o-linear-gradient(0deg, #FFCE69, #FA709A);

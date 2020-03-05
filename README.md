@@ -26,8 +26,8 @@ My Blog
 
 
 ```shell
-jekyll serve -w --host=0.0.0.0 --incremental
+jekyll serve -w --host=0.0.0.0
 ```
 
-* scp -r _site/ root@47.100.6:/var/www/aqrun
+* scp -r _site/* root@47.100.6:/var/www/aqrun/
 
