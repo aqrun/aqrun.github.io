@@ -54,6 +54,16 @@ a {
 .g-container {
   width: 1200px; }
 
+.icon-gitee {
+  background: transparent url("/assets/icons/gitee.svg") no-repeat center center;
+  background-size: contain;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px; }
+  .icon-gitee:hover {
+    background-image: url("/assets/icons/gitee-red.svg"); }
+
 .g-header {
   position: fixed;
   top: 0;

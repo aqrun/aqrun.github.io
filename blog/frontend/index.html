@@ -1,12 +1,12 @@
 ---
-menuId: 101
+menuId: 102
 layout: default
-home-title: PHP
-description: 竹外桃花三两枝，春江水暖鸭先知。
+home-title: 前端开发
+description: 落红不是无情物，化作春泥更护花。
 pagination: 
   enabled: true
-  category: php
-  paginator_path: '/blog/php/page:num/'
+  category: frontend
+  paginator_path: '/blog/frontend/page:num/'
 ---
 
 {% include header.html %}
@@ -19,6 +19,7 @@ pagination:
     <h2>{{ page.home-title }}</h2>
     <h3>{{ page.description }}</h3>
 </div>
+
 
 <main class="g-container home-content">
   {% include articleList.html %}

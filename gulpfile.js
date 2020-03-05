@@ -1,32 +1,33 @@
-var gulp = require('gulp'),
-    uglify = require('gulp-uglify'), // 压缩js文件
+const { parallel,searies, task, src, dest, watch } = require('gulp');
+
+const uglify = require('gulp-uglify'), // 压缩js文件
     sass = require('gulp-sass'), // 编译sass
     cleanCSS = require('gulp-clean-css'), // 压缩css文件
     rename = require('gulp-rename'); // 文件重命名
 
-gulp.task('scripts', function(){
-    gulp.src('dev/js/index.js')
+task('scripts', function(cb){
+    src('dev/js/index.js')
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('assets/js'))
+        .pipe(dest('assets/js'));
+    cb()
 });
 
-gulp.task('sass', function(){
-    gulp.src('dev/sass/app.scss')
+task('sass', function(cb){
+    src('dev/sass/app.scss')
         .pipe(sass())
-        .pipe(gulp.dest('assets/css'))
+        .pipe(dest('assets/css'))
         .pipe(cleanCSS())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('assets/css'));
+        .pipe(dest('assets/css'));
+    cb()
 });
 
-gulp.task('watch', function(){
-    gulp.watch('dev/sass/*.scss', ['sass']);
-    gulp.watch('dev/js/*.js', ['scripts']);
+task('watch', function(cb){
+    watch('dev/sass/*.scss', ['sass']);
+    watch('dev/js/*.js', ['scripts']);
+    cb()
 });
 
-gulp.task('default', [
-    'scripts'
-    , 'sass'
-   // , 'watch'
-]);
+
+exports.default = parallel('scripts', 'sass');

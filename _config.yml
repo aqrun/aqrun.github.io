@@ -7,9 +7,10 @@ permalink: /:categories/:year/:month/:day-:title.html
 # Build settings
 exclude: ['node_modules', 'dev', 'package.json', 'gulpfile.js', '.gitignore', 'README.md', 'yarn.lock']
 #excerpt_separator: 'excerpt'
+include: ['assets']
 
 # Site settings 配置站点
-title: 'AQRUN的独立博客'
+title: '子十的独立博客'
 description: '热爱技术。很高兴能在这里与你分享我对技术和生活的思考。'
 keyword: 'AQRUN,子十,AQRUN的独立博客, 子十的博客, 前端, javascript, vuejs, nodejs, 设计,PHP,java,react,骑行,跑步,爬山'
 url: 'http://aqrun.com' # your host
@@ -20,38 +21,40 @@ mainMenus:
     id: 100
     name: 首页
     href: '/'
-  php:
+  backend:
     id: 101
-    name: PHP
-    href: /blog/php/
-  javascript:
+    name: 后端开发
+    href: /blog/backend/
+  frontend:
     id: 102
-    name: Javascript
-    href: /blog/javascript/
-  java:
+    name: 前端开发
+    href: /blog/frontend/
+  server:
     id: 103
-    name: Java
-    href: /blog/java/
-  android:
-    id: 104
-    name: Android
-    href: /blog/android/
-  ios:
-    id: 105
-    name: IOS
-    href: /blog/ios/
-  ubuntu:
-    id: 107
-    name: Ubuntu
-    href: /blog/ubuntu/
-  drupal:
-    id: 108
-    name: Drupal
-    href: /blog/drupal/
+    name: 服务器
+    href: /blog/server/
   diary:
-    id: 106
+    id: 104
     name: 随笔
     href: /blog/diary/
+  #java:
+    #id: 103
+    #name: Java
+    #href: /blog/java/
+  #android:
+    #id: 104
+    #name: Android
+    #href: /blog/android/
+  #ios:
+    #id: 105
+    #name: IOS
+    #href: /blog/ios/
+  
+  #drupal:
+    #id: 108
+    #name: Drupal
+    #href: /blog/drupal/
+  
 
 customechange: test
 
@@ -63,7 +66,7 @@ footer:
   since: 2014
 
 # Author 配置博主信息
-author: 'AQRUN'
+author: '子十'
 nickname: '子十'
 bio: '天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。'
 avatar: '/assets/img/profile.png?v=0.1'
