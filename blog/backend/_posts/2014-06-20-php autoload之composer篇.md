@@ -9,8 +9,7 @@ Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer
 
 ## 1. 创建项目 test 目录结构：
 
-<pre markdown="0">
-  <code class="language-">
+```php
 /test/
 /vendor/ //第三方包 类库
 /module/ // 模块
@@ -33,17 +32,14 @@ composer.json //composer.json
         } 
       }
     }
-</code>
-</pre>
+```
 
 ## 2. 运行使用composer 自动构建 composer 安装方法官网有 进入控制台 路径到所建项目根路径 也就是composer.json所在路径 运行： composer install 会自动生成 /vendor/composer/* //这个目录5个文件 会根据 composer.json配置参数生成相关内容 /vendor/autoload.php 最后项目入口文件
 
 ==============
 
-<pre class="line-numbers">
-    <code class="language-shell">
-    //index.php
-    addPsr4("module2", "module2的路径");     //这句在项目调试时可以用      临时增加新的命名空间
-    echo (new TestClass())->name;   //输出 test content
-</code>
-</pre>
+```php
+//index.php
+addPsr4("module2", "module2的路径");     //这句在项目调试时可以用      临时增加新的命名空间
+echo (new TestClass())->name;   //输出 test content
+```

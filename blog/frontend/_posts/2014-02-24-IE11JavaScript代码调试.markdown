@@ -7,6 +7,6 @@ tags: js调试
 
 <h3>IE11JavaScript代码调试</h3>
 <p>
-<img src="{{ site.url }}/public/images/IE11.jpg"/>
+<img src="/public/images/IE11.jpg"/>
 </p>
 <p>IE11javascript 代码调试功能 支持断点</p>
