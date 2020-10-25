@@ -29,5 +29,8 @@ My Blog
 jekyll serve -w --host=0.0.0.0
 ```
 
-* scp -r _site/* root@47.100.6:/var/www/aqrun/
+## publish
+
+* jekyll build
+* scp -r _site/* root@47.*.*.*:/var/www/aqrun/
 

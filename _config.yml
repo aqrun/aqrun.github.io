@@ -33,6 +33,10 @@ mainMenus:
     id: 103
     name: 服务器
     href: /blog/server/
+  rust:
+    id: 108
+    name: Rust
+    href: /blog/rust/
   diary:
     id: 104
     name: 随笔
@@ -49,12 +53,6 @@ mainMenus:
     #id: 105
     #name: IOS
     #href: /blog/ios/
-  
-  #drupal:
-    #id: 108
-    #name: Drupal
-    #href: /blog/drupal/
-  
 
 customechange: test
 
