@@ -1,0 +1,218 @@
+I"�C<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<blockquote>
+  <p>控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面。</p>
+</blockquote>
+
+<p>Magento 2 模块的控制器目录包含有一个或多个动作类(Action Class)文件，动作类有一个 <code class="language-plaintext highlighter-rouge">execute</code> 方法。控制器主要有两种 <em>前端控制器</em> 和 <em>后台控制器</em>， 它们工作流都一样，后台控制器有一些小区别，多一个检测权限的方法。</p>
+
+<h2 id="控制器如何工作的">控制器如何工作的？</h2>
+
+<p>控制器接收来自终端（浏览器或控制台）的请求，如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.com/route_name/controller/action
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">route_name</code> 是在 <code class="language-plaintext highlighter-rouge">routes.xml</code> 文件中配置的唯一名称</li>
+  <li><code class="language-plaintext highlighter-rouge">controller</code> 是 <code class="language-plaintext highlighter-rouge">Controller</code> 目录下的文件夹名称</li>
+  <li><code class="language-plaintext highlighter-rouge">action</code> 是包含 <code class="language-plaintext highlighter-rouge">execute</code> 方法的类来处理请求</li>
+</ul>
+
+<p>Magento 系统里有一个很重要的类 <code class="language-plaintext highlighter-rouge">FrontController</code> (<code class="language-plaintext highlighter-rouge">Magento\Framework\App\FrontController</code>)，它主要接收请求然后通过 <code class="language-plaintext highlighter-rouge">route_name</code> 路由到指定控制器和动作，如下代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_routerList</span> <span class="k">as</span> <span class="nv">$router</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nv">$actionInstance</span> <span class="o">=</span> <span class="nv">$router</span><span class="o">-&gt;</span><span class="nf">match</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果有匹配的控制器动作类，则会调用动作类的 <code class="language-plaintext highlighter-rouge">execute()</code> 方法。</p>
+
+<h2 id="如何在-magento-2-创建控制器">如何在 Magento 2 创建控制器</h2>
+
+<p>创建控制器需要如下几步</p>
+
+<ul>
+  <li>1 创建 routes.xml 文件</li>
+  <li>2 创建控制器文件</li>
+  <li>3 创建控制器布局文件（Layout）</li>
+  <li>4 创建控制器区块文件（Block）</li>
+  <li>5 创建控制器模板文件（Template）</li>
+  <li>6 清除缓存</li>
+  <li>7 测试新增的控制器</li>
+</ul>
+
+<p>要创建控制器，要在模块的 <code class="language-plaintext highlighter-rouge">Controller</code> 文件夹添加目录并增加动作类文件。 如： 我们为 <code class="language-plaintext highlighter-rouge">Aqrun_HelloWorld</code> 模块添加一个 <code class="language-plaintext highlighter-rouge">index</code> 控制器和一个 <code class="language-plaintext highlighter-rouge">index</code> 动作。</p>
+
+<h3 id="第一步添加-routesxml-文件">第一步：添加 <code class="language-plaintext highlighter-rouge">routes.xml</code> 文件</h3>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/frontend/routes.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" ?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"standard"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+    <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>在上一章节的<a href="1.magento-2-module-development.md">如何创建模块</a>中，我们已经添加过 routes.xml 文件，如何做过了这一步可以跳过。</p>
+
+<h3 id="第二步增加控制器文件">第二步：增加控制器文件</h3>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Controller/Index/Index.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Controller\Index</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Action</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$_pageFactory</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Context</span> <span class="nv">$context</span><span class="p">,</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\View\Result\PageFactory</span> <span class="nv">$pageFactory</span>
+    <span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_pageFactory</span> <span class="o">=</span> <span class="nv">$pageFactory</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="nf">__construct</span><span class="p">(</span><span class="nv">$context</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_pageFactory</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如你所见，所有的控制器都必要继承自 <code class="language-plaintext highlighter-rouge">\Magento\Framework\App\Action\Action</code> 类，这个类会分发动作并调用动作类的 <code class="language-plaintext highlighter-rouge">execute()</code> 方法。此例我们所有的控制器逻辑都在这个 <code class="language-plaintext highlighter-rouge">execute()</code> 方法中,并给请求返回响应。</p>
+
+<h3 id="第三步创建布局文件layout">第三步：创建布局文件（Layout）</h3>
+
+<p>文件：<code class="language-plaintext highlighter-rouge">app/code/Aqrun/HeloWorld/view/frontend/layout/helloworld_index_index.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;page</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">layout=</span><span class="s">"1column"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:View/Layout/etc/page_configuration.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;referenceContainer</span> <span class="na">name=</span><span class="s">"content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;block</span> <span class="na">class=</span><span class="s">"Aqrun\HelloWorld\Block\Index"</span> <span class="na">name=</span><span class="s">"helloworld_index_index"</span> <span class="na">template=</span><span class="s">"Aqrun_HelloWorld::index.phtml"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/referenceContainer&gt;</span>
+<span class="nt">&lt;/page&gt;</span>
+</code></pre></div></div>
+
+<h3 id="第四步-创建区块文件">第四步： 创建区块文件</h3>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Block/Index.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Block</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\View\Element\Template</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="第五步创建模板文件">第五步：创建模板文件</h3>
+
+<p>文件：<code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/view/frontend/templates/index.phtml</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h2&gt;</span>欢迎你我的朋友！<span class="nt">&lt;/h2&gt;</span>
+</code></pre></div></div>
+
+<p>关于视图(布局、区块、模板)的更多内容查看<a href="">这里</a></p>
+
+<h3 id="第六步刷新缓存">第六步：刷新缓存</h3>
+
+<p>查看<a href="">如何清除Magento缓存</a></p>
+
+<h3 id="第七步运行测试">第七步：运行测试</h3>
+
+<p>浏览器访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://mage.dev/helloworld/index/index
+</code></pre></div></div>
+
+<p>或</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://mage.dev/helloworld/
+</code></pre></div></div>
+
+<h2 id="权限控制---acl">权限控制 - ACL</h2>
+
+<p>在后台控制器有权限检测的方法。如：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="k">function</span> <span class="n">_isAllowed</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_authorization</span><span class="o">-&gt;</span><span class="nf">isAllowed</span><span class="p">(</span><span class="s1">'Magento_AdminNotification::show_list'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这段代码会检测当前用户是否有权限执行这个动作，更多内容查看<a href="">后台权限控制</a></p>
+
+<h2 id="magento-2-控制器的其它方法">Magento 2 控制器的其它方法</h2>
+
+<h3 id="_forward-和-_redirect-方法"><code class="language-plaintext highlighter-rouge">_forward()</code> 和 <code class="language-plaintext highlighter-rouge">_redirect()</code> 方法</h3>
+
+<p><code class="language-plaintext highlighter-rouge">\Magento\Framework\App\Action\Action</code> 类给我们提供了2个重要的方法： <code class="language-plaintext highlighter-rouge">_forward</code> 和 <code class="language-plaintext highlighter-rouge">_redirect</code>。</p>
+
+<h4 id="forward-方法">Forward 方法</h4>
+
+<p><code class="language-plaintext highlighter-rouge">_forward()</code> 方法会修改请求转发到另一个控制器动作，但不会改变请求的URL。如，我们有2个方法 Forward 和 Hello World:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Controller\Test</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Forward</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Action</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">_forward</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果请求 <code class="language-plaintext highlighter-rouge">http://mage.dev/route_name/test/forward</code>, 页面就会显示：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>欢迎你我的朋友！
+</code></pre></div></div>
+
+<p>你也可以在转发时改变控制器、模块并传递请求参数，详细查看函数定义：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="k">function</span> <span class="n">_forward</span><span class="p">(</span><span class="nv">$action</span><span class="p">,</span> <span class="nv">$controller</span><span class="o">=</span><span class="kc">null</span><span class="p">,</span> <span class="nv">$module</span><span class="o">=</span><span class="kc">null</span><span class="p">,</span> <span class="kt">array</span> <span class="nv">$params</span><span class="o">=</span><span class="kc">null</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">getRequest</span><span class="p">();</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">initForward</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setParams</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$controller</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setControllerName</span><span class="p">(</span><span class="nv">$controller</span><span class="p">);</span>
+
+        <span class="c1">// Module should only be reset if controller has been specified</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$module</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setModuleName</span><span class="p">(</span><span class="nv">$module</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setActionName</span><span class="p">(</span><span class="nv">$action</span><span class="p">);</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setDispatched</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="redirect-方法">Redirect 方法</h4>
+
+<p>这个方法会转发到另一个控制器动作类，并且改变响应头和请求的URL。上例中如果我们把 <code class="language-plaintext highlighter-rouge">_forward()</code> 改成 <code class="language-plaintext highlighter-rouge">_redirect()</code> 方法:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">_rediect</span><span class="p">(</span><span class="s1">'*/*/hello'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>现在访问链接 <code class="language-plaintext highlighter-rouge">http://mage.dev/route_name/test/forward</code>, URL会变为 <code class="language-plaintext highlighter-rouge">http://mage.dev/route_name/test/hello</code>, 页面也会显示 “欢迎你我的朋友！”。</p>
+
+<p>到这里控制器部分就完结了，下一章节了解<a href="">如何创建模型</a></p>
+:ET

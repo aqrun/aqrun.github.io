@@ -1,0 +1,447 @@
+I"]�<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>通过 Magento 2 的模型可以很容易管理数据库数据，不需要写很多代码来实现基础的 CRUD。CRUD代表新增(create)、读取(read)、更新(update)和删除(delete)。本节主要了解如何创建数据表、模型(model)、资源模型(resource model)和资源模型集合(resource model collection)及数据库的相关操作。</p>
+
+<p>开始之前先定好要用到的数据表，表名 <code class="language-plaintext highlighter-rouge">aqrun_helloworld_post</code> ,字段如下：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">post_id</code> - 文章的唯一标识ID</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code> - 文章标题</li>
+  <li><code class="language-plaintext highlighter-rouge">url_key</code> - URL</li>
+  <li><code class="language-plaintext highlighter-rouge">post_content</code> - 文章正文</li>
+  <li><code class="language-plaintext highlighter-rouge">tags</code> - 标签</li>
+  <li><code class="language-plaintext highlighter-rouge">status</code> - 状态</li>
+  <li><code class="language-plaintext highlighter-rouge">featured_image</code> - 图片</li>
+  <li><code class="language-plaintext highlighter-rouge">created_at</code> - 创建时间</li>
+  <li><code class="language-plaintext highlighter-rouge">updated_at</code> - 更新时间</li>
+</ul>
+
+<h2 id="创建模型有如下步骤">创建模型有如下步骤：</h2>
+
+<ul>
+  <li>1 安装脚本（Setup Script）</li>
+  <li>2 创建模型（Model)</li>
+  <li>3 创建资源模型（Resource Model）</li>
+  <li>4 创建资源模型集合（Resource Model Collection）</li>
+  <li>5 工厂对象（Factory Object）</li>
+</ul>
+
+<h2 id="第一步-添加安装脚本">第一步 添加安装脚本</h2>
+
+<p>首先为我们的模型创建数据表，需要增加安装配置文件</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/Setup/InstallSchema.php
+</code></pre></div></div>
+
+<p>这个文件会在模块安装时执行一次。使用如下代码创建上面的文章表</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Setup</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Magento\Framework\DB\Ddl\Table</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">InstallSchema</span> <span class="k">implements</span> <span class="err">\</span><span class="nc">Aqrun\Framework\Setup\InstallSchemaInterface</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">install</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\Setup\SchemaSetupInterface</span> <span class="nv">$setup</span><span class="p">,</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\Setup\ModuleContextInterface</span> <span class="nv">$context</span>
+    <span class="p">){</span>
+        <span class="nv">$installer</span> <span class="o">=</span> <span class="nv">$setup</span><span class="p">;</span>
+        <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">startSetup</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$intaller</span><span class="o">-&gt;</span><span class="nf">tableExists</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">newTable</span><span class="p">(</span>
+                <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getTable</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'post_id'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_INTERGER</span><span class="p">,</span>
+                <span class="kc">null</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="s1">'identity'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s1">'nllable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="s1">'primary'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="s1">'unsigned'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s1">'Post ID'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'name'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                <span class="mi">255</span><span class="p">,</span>
+                <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">],</span>
+                <span class="s1">'Post name'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'url_key'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                <span class="mi">255</span><span class="p">,</span>
+                <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">],</span>
+                <span class="s1">'Post URL Key'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'post_content'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                <span class="s1">'64k'</span><span class="p">,</span>
+                <span class="p">[],</span>
+                <span class="s1">'Post Content'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'tags'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                <span class="mi">255</span><span class="p">,</span>
+                <span class="p">[],</span>
+                <span class="s1">'Post Tags'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'status'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_INTEGER</span><span class="p">,</span>
+                <span class="mi">1</span><span class="p">,</span>
+                <span class="p">[],</span>
+                <span class="s1">'Post Status'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'featured_image'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                <span class="mi">255</span><span class="p">,</span>
+                <span class="p">[],</span>
+                <span class="s1">'Post Featured Image'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'created_at'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TIMESTAMP</span><span class="p">,</span>
+                <span class="kc">null</span><span class="p">,</span>
+                <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span> <span class="s1">'default'</span> <span class="o">=&gt;</span> <span class="nc">Table</span><span class="o">::</span><span class="no">TIMESTAMP_INIT</span><span class="p">],</span>
+                <span class="s1">'Created At'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                <span class="s1">'updated_at'</span><span class="p">,</span>
+                <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TIMESTAMP</span><span class="p">,</span>
+                <span class="kc">null</span><span class="p">,</span>
+                <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span> <span class="s1">'default'</span> <span class="o">=&gt;</span> <span class="nc">Table</span><span class="o">::</span><span class="no">TIMESTAMP_INIT_UPDATE</span><span class="p">],</span>
+                <span class="s1">'Updated At'</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="nf">setComment</span><span class="p">(</span><span class="s1">'Post Table'</span><span class="p">);</span>
+
+            <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">createTable</span><span class="p">(</span><span class="nv">$table</span><span class="p">);</span>
+            <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">addIndex</span><span class="p">(</span>
+                <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getTable</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">),</span>
+                <span class="nv">$setup</span><span class="o">-&gt;</span><span class="nf">getIdxName</span><span class="p">(</span>
+                    <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getTable</span><span class="p">(</span><span class="s1">'mageplaza_helloworld_post'</span><span class="p">),</span>
+                    <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'url_key'</span><span class="p">,</span> <span class="s1">'post_content'</span><span class="p">,</span> <span class="s1">'tags'</span><span class="p">,</span> <span class="s1">'featured_image'</span><span class="p">],</span>
+                    <span class="err">\</span><span class="nc">Magento\Framework\DB\Adapter\AdapterInterface</span><span class="o">::</span><span class="no">INDEX_TYPE_FULLTEXT</span>
+                <span class="p">),</span>
+                <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span><span class="s1">'url_key'</span><span class="p">,</span><span class="s1">'post_content'</span><span class="p">,</span><span class="s1">'tags'</span><span class="p">,</span><span class="s1">'featured_image'</span><span class="p">,],</span>
+                <span class="err">\</span><span class="nc">Magento\Framework\DB\Adapter\AdapterInterface</span><span class="o">::</span><span class="no">INDEX_TYPE_FULLTEXT</span>
+            <span class="p">);</span>
+
+        <span class="p">}</span> <span class="c1">//if</span>
+
+        <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">endSetup</span><span class="p">();</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>以上代码实现如何创建数据表。要注意的是系统会在模块第一次安装时自动运行这个文件。如果模块已经安装，这时需要更新模块就要把创建表的代码写在 <code class="language-plaintext highlighter-rouge">UpgradeSchema.php</code> 文件，并且修改 <code class="language-plaintext highlighter-rouge">module.xml</code> 文件的 <code class="language-plaintext highlighter-rouge">setup_version</code> 安装版本号值，改大一些，<code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/module.xml</code>。</p>
+
+<p>内容如：</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/module.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:Module/etc/module.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">setup_version=</span><span class="s">"1.1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/module&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Setup/UpgradeSchema.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Setup</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Magento\Framework\Setup\UpgradeSchemaInterface</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Magento\Framework\Setup\SchemaSetupInterface</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Magento\Framework\Setup\ModuleContextInterface</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">UpgradeSchema</span> <span class="kd">implements</span> <span class="nc">UpgradeSchemaInterface</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">upgrade</span><span class="p">(</span>
+        <span class="kt">SchemaSetupInterface</span> <span class="nv">$setup</span><span class="p">,</span>
+        <span class="kt">ModuleContextInterface</span> <span class="nv">$context</span>
+    <span class="p">){</span>
+        <span class="nv">$installer</span> <span class="o">=</span> <span class="nv">$setup</span><span class="p">;</span>
+        <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">startSetup</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">version_compare</span><span class="p">(</span><span class="nv">$context</span><span class="o">-&gt;</span><span class="nf">getVersion</span><span class="p">(),</span> <span class="s1">'1.1.0'</span><span class="p">,</span> <span class="s1">'&lt;'</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">tableExists</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nv">$table</span> <span class="o">=</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">newTable</span><span class="p">(</span>
+                    <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getTable</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">)</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'post_id'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_INTERGER</span><span class="p">,</span>
+                    <span class="kc">null</span><span class="p">,</span>
+                    <span class="p">[</span>
+                        <span class="s1">'identity'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+                        <span class="s1">'nllable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="s1">'primary'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+                        <span class="s1">'unsigned'</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="s1">'Post ID'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'name'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                    <span class="mi">255</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">],</span>
+                    <span class="s1">'Post name'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'url_key'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                    <span class="mi">255</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">],</span>
+                    <span class="s1">'Post URL Key'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'post_content'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                    <span class="s1">'64k'</span><span class="p">,</span>
+                    <span class="p">[],</span>
+                    <span class="s1">'Post Content'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'tags'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                    <span class="mi">255</span><span class="p">,</span>
+                    <span class="p">[],</span>
+                    <span class="s1">'Post Tags'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'status'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_INTEGER</span><span class="p">,</span>
+                    <span class="mi">1</span><span class="p">,</span>
+                    <span class="p">[],</span>
+                    <span class="s1">'Post Status'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'featured_image'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TEXT</span><span class="p">,</span>
+                    <span class="mi">255</span><span class="p">,</span>
+                    <span class="p">[],</span>
+                    <span class="s1">'Post Featured Image'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'created_at'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TIMESTAMP</span><span class="p">,</span>
+                    <span class="kc">null</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span> <span class="s1">'default'</span> <span class="o">=&gt;</span> <span class="nc">Table</span><span class="o">::</span><span class="no">TIMESTAMP_INIT</span><span class="p">],</span>
+                    <span class="s1">'Created At'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">addColumn</span><span class="p">(</span>
+                    <span class="s1">'updated_at'</span><span class="p">,</span>
+                    <span class="nc">Table</span><span class="o">::</span><span class="no">TYPE_TIMESTAMP</span><span class="p">,</span>
+                    <span class="kc">null</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s1">'nullable'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span> <span class="s1">'default'</span> <span class="o">=&gt;</span> <span class="nc">Table</span><span class="o">::</span><span class="no">TIMESTAMP_INIT_UPDATE</span><span class="p">],</span>
+                    <span class="s1">'Updated At'</span>
+                <span class="p">)</span><span class="o">-&gt;</span><span class="nf">setComment</span><span class="p">(</span><span class="s1">'Post Table'</span><span class="p">);</span>
+
+                <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">createTable</span><span class="p">(</span><span class="nv">$table</span><span class="p">);</span>
+                <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getConnection</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">addIndex</span><span class="p">(</span>
+                    <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getTable</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">),</span>
+                    <span class="nv">$setup</span><span class="o">-&gt;</span><span class="nf">getIdxName</span><span class="p">(</span>
+                        <span class="nv">$installer</span><span class="o">-&gt;</span><span class="nf">getTable</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">),</span>
+                        <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'url_key'</span><span class="p">,</span> <span class="s1">'post_content'</span><span class="p">,</span> <span class="s1">'tags'</span><span class="p">,</span> <span class="s1">'featured_image'</span><span class="p">],</span>
+                        <span class="err">\</span><span class="nc">Magento\Framework\DB\Adapter\AdapterInterface</span><span class="o">::</span><span class="no">INDEX_TYPE_FULLTEXT</span>
+                    <span class="p">),</span>
+                    <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span><span class="s1">'url_key'</span><span class="p">,</span><span class="s1">'post_content'</span><span class="p">,</span><span class="s1">'tags'</span><span class="p">,</span><span class="s1">'featured_image'</span><span class="p">,],</span>
+                    <span class="err">\</span><span class="nc">Magento\Framework\DB\Adapter\AdapterInterface</span><span class="o">::</span><span class="no">INDEX_TYPE_FULLTEXT</span>
+                <span class="p">);</span>
+            <span class="p">}</span> <span class="c1">// if not table exists</span>
+        <span class="p">}</span><span class="c1">// if version compare</span>
+    <span class="p">}</span> <span class="c1">//</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>然后运行更新的命令：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:upgrade
+</code></pre></div></div>
+
+<p>更新完成可以继续执行静态内容发布命令：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy
+</code></pre></div></div>
+
+<p>现在数据库中应该就有 <code class="language-plaintext highlighter-rouge">aqrun_helloworld_post</code> 数据表，字段和上面一样。如果没有创建成功，或许是由于在你添加内容到 InstallSchema.php 文件前运行过上面的命令。这时需要手动清除数据表信息，在 <code class="language-plaintext highlighter-rouge">setup_module</code> 表找到并删除 <code class="language-plaintext highlighter-rouge">aqrun_helloworld_post</code> 这一行数据。然后再运行上面的命令试下。</p>
+
+<p><code class="language-plaintext highlighter-rouge">InstallSchema.php</code> 文件是用来创建数据表结构的， 如果要在安装时添加数据，需要使用 <code class="language-plaintext highlighter-rouge">InstallData.php</code> 文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/Setup/InstallData.php
+</code></pre></div></div>
+
+<p>如何使用可以到系统找如下文件查看：</p>
+
+<ul>
+  <li>vendor/magento/module-tax/Setup/InstallData.php</li>
+  <li>vender/magento/module-customer/Setup/InstallData.php</li>
+  <li>vendor/magento/module-catalog/Setup/InstallData.php</li>
+</ul>
+
+<p>上面提到这些安装文件是模块第一次安装时使用的，如果要修改数据表并更新模块，要使用 <code class="language-plaintext highlighter-rouge">UpgradeSchema.php</code> 和 <code class="language-plaintext highlighter-rouge">UpgradeData.php</code>。</p>
+
+<h2 id="第二步-创建模型">第二步 创建模型</h2>
+
+<p>模型是MVC架构中很大一坨内容。Magento 2 模型有很多不同的功能如数据管理、安装或更新模块。这里只讨论数据的CRUD操作。我们需要创建模型、资源模型、资源模型集合来管理 <code class="language-plaintext highlighter-rouge">aqrun_helloworld_post</code> 表的数据。</p>
+
+<p>创建模型文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/Model/Post.php
+</code></pre></div></div>
+
+<p>内容：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Model</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Magento\Framework\Model\AbstractModel</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Magento\Framework\DataObject\IdentityInterface</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Post</span> <span class="kd">extends</span> <span class="nc">AbstractModel</span> <span class="kd">implements</span> <span class="nc">IdentityInterface</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="no">CACHE_TAG</span> <span class="o">=</span> <span class="s1">'aqrun_helloworld_post'</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$_cacheTag</span> <span class="o">=</span> <span class="s1">'aqrun_helloworld_post'</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$_eventPrefix</span> <span class="o">=</span> <span class="s1">'aqrun_helloworld_post'</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">_construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">_init</span><span class="p">(</span><span class="s1">'Aqrun\HelloWorld\Model\ResourceModel\Post'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getIdentities</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span><span class="k">self</span><span class="o">::</span><span class="no">CACHE_TAG</span> <span class="mf">.</span> <span class="s1">'_'</span> <span class="mf">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">getId</span><span class="p">()];</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getDefaultValues</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$values</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="k">return</span> <span class="nv">$values</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>模型继承自 <code class="language-plaintext highlighter-rouge">AbstractModel</code> 类 <code class="language-plaintext highlighter-rouge">Magento\Framework\Model\AbstractModel</code> 并实现接口 <code class="language-plaintext highlighter-rouge">Magento\Framework\DataObject\IdentityInterface</code>， <code class="language-plaintext highlighter-rouge">IdentityInterface</code> 强制模型类必须实现返回模型唯一ID的 <code class="language-plaintext highlighter-rouge">getIdentities()</code> 方法。如果在数据库内容修改之后需要缓存清除之类的操作来显示前端内容就必须使用这个接口。</p>
+
+<p><code class="language-plaintext highlighter-rouge">__construct()</code> 构造方法在模型初始化时会执行，每一个CURD模型都必须使用构造方法调用 <code class="language-plaintext highlighter-rouge">_init()</code> 方法。<code class="language-plaintext highlighter-rouge">_init()</code> 方法定义了实际获取数据库信息的资源模型。如代码我们定义了资源模型： `Aqrun\Post\Model\ResourceModel\Post’。最后是一些变量：</p>
+
+<ul>
+  <li>$_eventPrefix 触发事件时的前缀</li>
+  <li>$_eventObject  获取事件对象的名称</li>
+  <li>$_cacheTag 缓存用的唯一ID</li>
+</ul>
+
+<h2 id="第三步-创建资源模型">第三步 创建资源模型</h2>
+
+<p>如你所见，模型文件包含所有数据库相关处理逻辑，并不运行实际的SQL操作，而这些操作是在资源模型中定义的。现在添加资源模型：<code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Model/ResourceModel/Post.php</code></p>
+
+<p>代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\Helloworld\Model\ResourceModel</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Post</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\Model\ResourceModel\Db\AbstractDb</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Magento</span><span class="err">、</span><span class="nc">Framework\Model\ResouceModel\Db\Context</span> <span class="nv">$context</span>
+    <span class="p">){</span>
+        <span class="k">parent</span><span class="o">::</span><span class="nf">__construct</span><span class="p">(</span><span class="nv">$context</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">_construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">init</span><span class="p">(</span><span class="s1">'aqrun_helloworld_post'</span><span class="p">,</span> <span class="s1">'post_id'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>资源模型必须继承虚类 <code class="language-plaintext highlighter-rouge">\Magento\Framework\Model\ResourceModel\Db\AbstractDb</code>。这个类包含从数据库获取信息的功能逻辑。</p>
+
+<p>和模型类一样，资源模型类必须有 <code class="language-plaintext highlighter-rouge">__construct()</code> 构造方法，这个方法会调用定义了数据表名和主键的 <code class="language-plaintext highlighter-rouge">_init()</code> 函数。上面代码我们的表是 <code class="language-plaintext highlighter-rouge">aqrun_helloworld_post</code> 主键为 <code class="language-plaintext highlighter-rouge">post_id</code>。</p>
+
+<h2 id="第四步-创建资源模型集合---获取模型集合">第四步 创建资源模型集合 - 获取模型集合</h2>
+
+<p>模型集合可以看作是资源模型，但可以筛选和获取表数据的集合。集合模型类定义在：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/Model/ResourceModel/Post/Collection.php
+</code></pre></div></div>
+
+<p>代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Model\ResourceModel\Post</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Collection</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$_idFieldName</span> <span class="o">=</span> <span class="s1">'post_id'</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$_eventPrefix</span> <span class="o">=</span> <span class="s1">'aqrun_helloworld_post_collection'</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$_eventObject</span> <span class="o">=</span> <span class="s1">'post_collection'</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">_construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">_init</span><span class="p">(</span><span class="err">\</span><span class="nc">Aqrun\HelloWorld\Model\Post</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="err">\</span><span class="nc">Aqrun\HelloWorld\Model\ResourceModel\Post</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>集合类需要继承类： <code class="language-plaintext highlighter-rouge">\Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection</code> 并且在构造函数初始化模型和资源模型。</p>
+
+<h2 id="第五步-工厂对象">第五步 工厂对象</h2>
+
+<p>我们已经实现了创建数据表、模型、资源模型、和集合。那如何使用他们呢？</p>
+
+<p>这里讨论一下模型的工厂对象。我们知道面向对象里，工厂方法是用来初始化对象的，而在Magento，工厂对象也做同样的事。</p>
+
+<p>工厂类名称是模型类名后面加上 ‘Factory’ 关键字。所以我们的工厂类是 <code class="language-plaintext highlighter-rouge">PostFactory</code>。 我们不需要创建这个类，Magento系统可以自动生成。当Magento的对象管理器碰到 ‘Factory’ 结尾的类名时，如果没有创建则会自动在 <code class="language-plaintext highlighter-rouge">var/generation</code> 目录生成。可以找到工厂类在：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var/generation/&lt;vendor_name&gt;/&lt;module_name&gt;/Model/ClassFactory.php
+</code></pre></div></div>
+
+<p>此例中，目录是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var/generation/Aqrun/HelloWorld/Model/PostFactory.php
+</code></pre></div></div>
+
+<p>要实例化一个模型对象我们需要使用到构造函数的依赖注入获取工厂对象，然后使用工厂对象来实例化模型对象。如下代码我们在控制器调用模型获取数据：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/Controller/Index/Index.php
+</code></pre></div></div>
+
+<p>代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Controller\Index</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Action</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$_pageFactory</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$_postFactory</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Context</span> <span class="nv">$context</span><span class="p">,</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\View\Result\PageFactory</span> <span class="nv">$pageFactory</span><span class="p">,</span>
+        <span class="err">\</span><span class="nc">Aqrun\HelloWorld\Model\PostFactory</span> <span class="nv">$postFactory</span>
+    <span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_pageFactory</span> <span class="o">=</span> <span class="nv">$pageFactory</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_postFactory</span> <span class="o">=</span> <span class="nv">$postFactory</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="nf">__contruct</span><span class="p">(</span><span class="nv">$context</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$post</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_postFactory</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+        <span class="nv">$collection</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="nf">getCollection</span><span class="p">();</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$collection</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">){</span>
+            <span class="k">echo</span> <span class="s1">'&lt;pre&gt;'</span><span class="p">;</span>
+            <span class="nb">print_r</span><span class="p">(</span><span class="nv">$item</span><span class="o">-&gt;</span><span class="nf">getData</span><span class="p">());</span>
+            <span class="k">echo</span> <span class="s1">'&lt;/pre&gt;'</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">exit</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_pageFactory</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如上控制器， PostFactory 对象会在构造函数创建，在 <code class="language-plaintext highlighter-rouge">execute()</code> 方法我们使用 <code class="language-plaintext highlighter-rouge">$post = $this-&gt;_postFactory-&gt;create();</code> 来创建模型对象。</p>
+
+<p>接下来可以使用数据库管理软件到 aqrun_helloworld_post 表添加2条假数据，测试模型是否正常工作。</p>
+
+<p>添加完数据访问URL <code class="language-plaintext highlighter-rouge">http://mage.dev/helloworld/index/index</code> 确认添加的数据列表已经显示。</p>
+
+<p>如果显示错误信息： Exception printing is disabled by default for security reasons 。可以到  var/report 目录检查错误日志。</p>
+
+<p>模型相关就完结了，下一章节了解下<a href="">视图：布局、区块、模板</a></p>
+:ET

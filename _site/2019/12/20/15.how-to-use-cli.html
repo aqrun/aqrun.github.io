@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>15.如何使用控制台命令 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="15.如何使用控制台命令 - Magento系统提供的一些命令">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="15.如何使用控制台命令 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/12/20/15.how-to-use-cli.html">
+    <meta property="og:description" content="Magento系统提供的一些命令">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>15.如何使用控制台命令</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-12-20"><i class="iconfont icon-date"></i>20 Dec 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文研究一下Magento系统提供的一些命令。Magento 通过 bin/magento 提供了很多命令，刚开始感觉会有些复杂，接下来我们就仔细了解一下：</p>
+
+<p>当运行如下命令</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento
+</code></pre></div></div>
+
+<p>或</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/magento
+</code></pre></div></div>
+
+<p>就会输出所有可用的命令列表，当括我们自定义的命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usage:                                                                                                                      
+ <span class="nb">command</span> <span class="o">[</span>options] <span class="o">[</span>arguments]                                                                                              
+                                                                                                                            
+Options:                                                                                                                    
+ <span class="nt">--help</span> <span class="o">(</span><span class="nt">-h</span><span class="o">)</span>           Display this <span class="nb">help </span>message                                                                            
+ <span class="nt">--quiet</span> <span class="o">(</span><span class="nt">-q</span><span class="o">)</span>          Do not output any message                                                                            
+ <span class="nt">--verbose</span> <span class="o">(</span><span class="nt">-v</span>|vv|vvv<span class="o">)</span> Increase the verbosity of messages: 1 <span class="k">for </span>normal output, 2 <span class="k">for </span>more verbose output and 3 <span class="k">for </span>debug   
+ <span class="nt">--version</span> <span class="o">(</span><span class="nt">-V</span><span class="o">)</span>        Display this application version                                                                     
+ <span class="nt">--ansi</span>                Force ANSI output                                                                                    
+ <span class="nt">--no-ansi</span>             Disable ANSI output                                                                                  
+ <span class="nt">--no-interaction</span> <span class="o">(</span><span class="nt">-n</span><span class="o">)</span> Do not ask any interactive question                                                                  
+                                                                                                                            
+Available commands:                                                                                                         
+ <span class="nb">help                                      </span>Displays <span class="nb">help </span><span class="k">for </span>a <span class="nb">command                                                      
+ </span>list                                      Lists commands                                                                   
+admin                                                                                                                       
+ admin:user:create                         Creates an administrator                                                         
+ admin:user:unlock                         Unlock Admin Account                                                             
+cache                                                                                                                       
+ cache:clean                               Cleans cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                                             
+ cache:disable                             Disables cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                                           
+ cache:enable                              Enables cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                                            
+ cache:flush                               Flushes cache storage used by cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                      
+ cache:status                              Checks cache status                                                              
+catalog                                                                                                                     
+ catalog:images:resize                     Creates resized product images                                                   
+ catalog:product:attributes:cleanup        Removes unused product attributes.                                               
+cron                                                                                                                        
+ cron:run                                  Runs <span class="nb">jobs </span>by schedule                                                            
+customer                                                                                                                    
+ customer:hash:upgrade                     Upgrade customer<span class="s1">'s hash according to the latest algorithm                        
+deploy                                                                                                                      
+ deploy:mode:set                           Set application mode.                                                            
+ deploy:mode:show                          Displays current application mode.                                               
+dev                                                                                                                         
+ dev:source-theme:deploy                   Collects and publishes source files for theme.                                   
+ dev:tests:run                             Runs tests                                                                       
+ dev:urn-catalog:generate                  Generates the catalog of URNs to *.xsd mappings for the IDE to highlight xml.    
+ dev:xml:convert                           Converts XML file using XSL style sheets                                         
+i18n                                                                                                                        
+ i18n:collect-phrases                      Discovers phrases in the codebase                                                
+ i18n:pack                                 Saves language package                                                           
+ i18n:uninstall                            Uninstalls language packages                                                     
+indexer                                                                                                                     
+ indexer:info                              Shows allowed Indexers                                                           
+ indexer:reindex                           Reindexes Data                                                                   
+ indexer:reset                             Resets indexer status to invalid                                                 
+ indexer:set-mode                          Sets index mode type                                                             
+ indexer:show-mode                         Shows Index Mode                                                                 
+ indexer:status                            Shows status of Indexer                                                          
+info                                                                                                                        
+ info:adminuri                             Displays the Magento Admin URI                                                   
+ info:backups:list                         Prints list of available backup files                                            
+ info:currency:list                        Displays the list of available currencies                                        
+ info:dependencies:show-framework          Shows number of dependencies on Magento framework                                
+ info:dependencies:show-modules            Shows number of dependencies between modules                                     
+ info:dependencies:show-modules-circular   Shows number of circular dependencies between modules                            
+ info:language:list                        Displays the list of available language locales                                  
+ info:timezone:list                        Displays the list of available timezones                                         
+maintenance                                                                                                                 
+ maintenance:allow-ips                     Sets maintenance mode exempt IPs                                                 
+ maintenance:disable                       Disables maintenance mode                                                        
+ maintenance:enable                        Enables maintenance mode                                                         
+ maintenance:status                        Displays maintenance mode status                                                 
+module                                                                                                                      
+ module:disable                            Disables specified modules                                                       
+ module:enable                             Enables specified modules                                                        
+ module:status                             Displays status of modules                                                       
+ module:uninstall                          Uninstalls modules installed by composer                                         
+sampledata                                                                                                                  
+ sampledata:deploy                         Deploy sample data modules                                                       
+ sampledata:remove                         Remove all sample data packages from composer.json                               
+ sampledata:reset                          Reset all sample data modules for re-installation                                
+setup                                                                                                                       
+ setup:backup                              Takes backup of Magento Application code base, media and database                
+ setup:config:set                          Creates or modifies the deployment configuration                                 
+ setup:cron:run                            Runs cron job scheduled for setup application                                    
+ setup:db-data:upgrade                     Installs and upgrades data in the DB                                             
+ setup:db-schema:upgrade                   Installs and upgrades the DB schema                                              
+ setup:db:status                           Checks if DB schema or data requires upgrade                                     
+ setup:di:compile                          Generates DI configuration and all missing classes that can be auto-generated    
+ setup:install                             Installs the Magento application                                                 
+ setup:performance:generate-fixtures       Generates fixtures                                                               
+ setup:rollback                            Rolls back Magento Application codebase, media and database                      
+ setup:static-content:deploy               Deploys static view files                                                        
+ setup:store-config:set                    Installs the store configuration                                                 
+ setup:uninstall                           Uninstalls the Magento application                                               
+ setup:upgrade                             Upgrades the Magento application, DB data, and schema                            
+theme                                                                                                                       
+ theme:uninstall                           Uninstalls theme      
+</span></code></pre></div></div>
+
+<h2 id="命令行分类">命令行分类</h2>
+
+<p>可以将上面的列表分为以下类别：</p>
+
+<ul>
+  <li>缓存 Cache</li>
+  <li>索引器 Indexer</li>
+  <li>定时任务 Cron Job</li>
+  <li>代码编译器  Code Compiler</li>
+  <li>设置系统模式  Set the magento mode</li>
+  <li>i18n 国际化翻译  i18n translation</li>
+  <li>运行单元测试   unit test</li>
+  <li>维护模式   Maintenance</li>
+  <li>模块管理  Module management</li>
+  <li>安装 Setup: Install, upgrde, uninstall, backup, rollback</li>
+  <li>主题 theme</li>
+  <li>部署 deployment</li>
+</ul>
+
+<p>接下来看下每个类别的一些示例：</p>
+
+<h2 id="缓存命令">缓存命令</h2>
+
+<p>查看缓存状态</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:status
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    config: 1
+                    layout: 1
+                block_html: 1
+               collections: 1
+                    db_ddl: 1
+                       eav: 1
+                 full_page: 1
+                 translate: 1
+        config_integration: 1
+    config_integration_api: 1
+         config_webservice: 1
+</code></pre></div></div>
+
+<p>清除缓存：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:clean
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php bin/magento cache:clean                  
+Cleaned cache types:                           
+config                                         
+layout                                         
+block_html                                     
+collections                                    
+reflection                                     
+db_ddl                                         
+eav                                            
+customer_notification                          
+full_page                                      
+config_integration                             
+config_integration_api                         
+translate                                      
+config_webservice  
+</code></pre></div></div>
+
+<p>如何刷新缓存：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:flush
+</code></pre></div></div>
+
+<p>如何启用或停用缓存：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:enable
+php bin/magento cache:disable
+
+<span class="c"># 加参数</span>
+magento cache:enable <span class="o">[</span><span class="nb">type</span><span class="o">]</span> ... <span class="o">[</span><span class="nb">type</span><span class="o">]</span>
+magento cache:disable <span class="o">[</span><span class="nb">type</span><span class="o">]</span> ... <span class="o">[</span><span class="nb">type</span><span class="o">]</span>
+
+<span class="c"># 示例 停用页面缓存</span>
+magento cache:disable full_page
+</code></pre></div></div>
+
+<h2 id="索引器命令">索引器命令</h2>
+
+<p>查看索引状态</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:info
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>design_config_grid                       Design Config Grid
+customer_grid                            Customer Grid
+catalog_category_product                 Category Products
+catalog_product_category                 Product Categories
+catalog_product_price                    Product Price
+catalog_product_attribute                Product EAV
+catalogsearch_fulltext                   Catalog Search
+cataloginventory_stock                   Stock
+catalogrule_rule                         Catalog Rule Product
+catalogrule_product                      Catalog Product Rule
+</code></pre></div></div>
+
+<p>重建索引：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:reindex
+</code></pre></div></div>
+
+<p>重置索引</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:reset
+</code></pre></div></div>
+
+<p>显示索引模式</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:show-mode
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php bin/magento indexer:show-mode
+
+Design Config Grid:                                Update on Save
+Customer Grid:                                     Update on Save
+Category Products:                                 Update on Save
+Product Categories:                                Update on Save
+Product Price:                                     Update on Save
+Product EAV:                                       Update on Save
+Catalog Search:                                    Update on Save
+Stock:                                             Update on Save
+Catalog Rule Product:                              Update on Save
+Catalog Product Rule:                              Update on Save
+</code></pre></div></div>
+
+<p>设置索引模式类型</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:set-mode <span class="o">{</span>realtime|schedule<span class="o">}</span> <span class="o">[</span>indexer]
+
+<span class="c"># 示例：</span>
+magento indexer:set-mode scedule catalog_category_product catalog_product_category
+</code></pre></div></div>
+
+<h2 id="部署命令">部署命令</h2>
+
+<p>语法：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy &lt;lang&gt; ... &lt;lang&gt; <span class="o">[</span><span class="nt">--dry-run</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>发布静态内容</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php bin/magento setup:static-content:deploy
+
+Requested languages: en_US
+=== frontend -&gt; Magento/blank -&gt; en_US ===
+...........................................
+</code></pre></div></div>
+
+<p>发布静态内容默认使用语言： en_EN</p>
+
+<p>如果要使用其它语言如简体中文： zh_Hans_CN</p>
+
+<p>运行</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy zh_Hans_CN
+</code></pre></div></div>
+
+<h2 id="使用命令获取后台uri路径">使用命令获取后台URI路径</h2>
+
+<p>可以不用查看 <code class="language-plaintext highlighter-rouge">etc/env.php</code> 文件也能知道后台路径：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento info:adminuri
+</code></pre></div></div>
+
+<h2 id="使用命令管理维护模式">使用命令管理维护模式</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 开启维护模式
+php bin/magento maintenance:enable
+
+# 关闭
+php bin/magento maintenance:disable
+</code></pre></div></div>
+
+<p>设置允许指定IP访问维护模式的网站</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento maintenance:allow-ips
+
+# 示例：
+php bin/magento maintenance:allow-ips 168.168.168.168
+</code></pre></div></div>
+
+<h2 id="设置系统开发者模式或线上模式">设置系统开发者模式或线上模式</h2>
+
+<p>有3种模式定义在 <code class="language-plaintext highlighter-rouge">Magneto\Framework\App\State</code>： default, developer, production</p>
+
+<p>显示当前系统模式</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento deploy:mode:show
+
+<span class="c"># 默认输出 default</span>
+</code></pre></div></div>
+
+<p>切换到开发者模式：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento deploy:mode:set developer
+</code></pre></div></div>
+
+<p>恭喜你老铁！你的店铺现在就是开发者模式了。开始享受写代码的快感吧 :)</p>
+
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2020/01/13/css-grid.html" class="read-next-link"></a>
+        <section>
+          <span>CSS Grid</span>
+          <p>CSS 3 grid samples</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/11/23/14.console-command-line.html" class="read-next-link"></a>
+          <section>
+            <span>14.Magento 2 中如何添加控制台命令</span>
+            <p>如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

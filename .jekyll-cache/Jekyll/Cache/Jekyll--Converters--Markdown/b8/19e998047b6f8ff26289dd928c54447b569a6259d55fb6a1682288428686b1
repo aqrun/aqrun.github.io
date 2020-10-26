@@ -1,0 +1,224 @@
+I"NL<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>System.xml是参数配置文件，用来添加参数配置字段。如果你需要添加一些管理员可以配置的参数就要用到这个功能。可以到后台 Store -&gt; Setting -&gt; Configuration 查看显示方式。</p>
+
+<h2 id="创建systemxml有如下几步">创建system.xml有如下几步</h2>
+
+<ul>
+  <li>1 添加 system.xml</li>
+  <li>2 设置默认值</li>
+  <li>3 清空缓存</li>
+  <li>4 获取配置参数</li>
+</ul>
+
+<h2 id="第一步-添加systemxml">第一步 添加System.xml</h2>
+
+<p>Magento 2 配置系统页面在逻辑上分为几个部分：标签页（Tabs）、区域（Sections）、组（Groups）、字段（Fields）。具体看图：</p>
+
+<p><img src="/public/images/magento2/5-config-sections.png" alt="configuration" /></p>
+
+<p>现在给我们的模块添加一些简单的配置参数。<code class="language-plaintext highlighter-rouge">system.xml</code> 文件在模块的 <code class="language-plaintext highlighter-rouge">etc/adminhtml</code> 目录，为模块新增一个标签名 “Aqrun”， 区域名“欢迎”，组中有一些简单的字段： enable 和 display_text。</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/system.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:module:Magento_Config:etc/system_file.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;tab</span> <span class="na">id=</span><span class="s">"aqrun"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">sortOrder=</span><span class="s">"10"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Aqrun<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/tab&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"helloworld"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">sortOrder=</span><span class="s">"130"</span>
+                 <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"1"</span> <span class="na">showInStore=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;class&gt;</span>separator-top<span class="nt">&lt;/class&gt;</span>
+            <span class="nt">&lt;label&gt;</span>欢迎<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;tab&gt;</span>aqrun<span class="nt">&lt;/tab&gt;</span>
+            <span class="nt">&lt;resource&gt;</span>Aqrun_HelloWorld::helloworld_config<span class="nt">&lt;/resource&gt;</span>
+            <span class="nt">&lt;group</span> <span class="na">id=</span><span class="s">"general"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">sortOrder=</span><span class="s">"10"</span>
+                   <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"0"</span> <span class="na">showInStore=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;label&gt;</span>基础设置<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;field</span> <span class="na">id=</span><span class="s">"enable"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">type=</span><span class="s">"select"</span>
+                       <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"0"</span> <span class="na">showInStore=</span><span class="s">"0"</span>
+                       <span class="na">sortOrder=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>模块启用<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;source_model&gt;</span>Magento\Config\Model\Config\Source\Yesno<span class="nt">&lt;/source_model&gt;</span>
+                <span class="nt">&lt;/field&gt;</span>
+                <span class="nt">&lt;field</span> <span class="na">id=</span><span class="s">"display_text"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">type=</span><span class="s">"text"</span>
+                       <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"0"</span> <span class="na">showInStore=</span><span class="s">"0"</span>
+                       <span class="na">sortOrder=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>输出内容<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;comment&gt;</span>指定页面显示的内容<span class="nt">&lt;/comment&gt;</span>
+                <span class="nt">&lt;/field&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>根据上面的代码可以看出如何添加：标签页、区域、组和字段。具体一些元素说明：</p>
+
+<ul>
+  <li>标签 Tab 节点有很多 区域 sections 和一些主要的属性及子节点：
+    <ul>
+      <li>id 属性是标签的唯一标识</li>
+      <li>sortOrder 控制标签显示顺序</li>
+      <li>translate 属性控制哪个标题需要翻译</li>
+      <li>label 子节点会显示为标签的标题</li>
+    </ul>
+  </li>
+  <li>区域 section 节点和标签一样也有 id，sortOrder, translate这些属性。还有（showInDefault, showInWebsite, showInStore）几个属性决定元素在哪个范围显示。可以在这里改变范围显示：</li>
+</ul>
+
+<p><img src="/public/images/magento2/5-scope.png" alt="scope" /></p>
+
+<p>区域元素又会有很多组group和其它一些子节点：</p>
+
+<ul>
+  <li>class 会做为html的CLSS显示，如果要改变元素的样式就会用到这个属性</li>
+  <li>label 元素的标题文字</li>
+  <li>tab 是标签ID指定这个区域显示在哪个标签页上</li>
+  <li>resource 指定权限控制，检测后台用户是否有权限查看这个配置项</li>
+  <li>group 组元素和区域元素一样有很多字段和属性</li>
+  <li>fields 字段是这个文件的主要代码，可以保存设置的数据。这个元素主要是 type 属性，控制元素如何显示，可以 文本text, 下拉选项select, 文件file 等。当前示例我们添加了2个字段type是 select 和 text。针对各种type我们会添加不同的子节点控制它的显示。</li>
+</ul>
+
+<blockquote>
+  <p>如 select/multiselect 必须定义子节点 source_model</p>
+</blockquote>
+
+<h2 id="第二步-设置默认值">第二步 设置默认值</h2>
+
+<p>在 system.xml 刚添加的字段是值是空的 “null”。要想模块在未手动设置参数前正常工作就要指定默认值。默认值是在 etc 文件夹的 config.xml 文件设置。如下代码：</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/config.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:module:Magento_Config:etc/system_file.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;system&gt;</span>
+        <span class="nt">&lt;tab</span> <span class="na">id=</span><span class="s">"aqrun"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">sortOrder=</span><span class="s">"10"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Aqrun<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/tab&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"helloworld"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">sortOrder=</span><span class="s">"130"</span>
+                 <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"1"</span> <span class="na">showInStore=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;class&gt;</span>separator-top<span class="nt">&lt;/class&gt;</span>
+            <span class="nt">&lt;label&gt;</span>欢迎<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;tab&gt;</span>aqrun<span class="nt">&lt;/tab&gt;</span>
+            <span class="nt">&lt;resource&gt;</span>Aqrun_HelloWorld::helloworld_config<span class="nt">&lt;/resource&gt;</span>
+            <span class="nt">&lt;group</span> <span class="na">id=</span><span class="s">"general"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">sortOrder=</span><span class="s">"10"</span>
+                   <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"0"</span> <span class="na">showInStore=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;label&gt;</span>基础设置<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;field</span> <span class="na">id=</span><span class="s">"enable"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">type=</span><span class="s">"select"</span>
+                       <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"0"</span> <span class="na">showInStore=</span><span class="s">"0"</span>
+                       <span class="na">sortOrder=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>模块启用<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;source_model&gt;</span>Magento\Config\Model\Config\Source\Yesno<span class="nt">&lt;/source_model&gt;</span>
+                <span class="nt">&lt;/field&gt;</span>
+                <span class="nt">&lt;field</span> <span class="na">id=</span><span class="s">"display_text"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">type=</span><span class="s">"text"</span>
+                       <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"0"</span> <span class="na">showInStore=</span><span class="s">"0"</span>
+                       <span class="na">sortOrder=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label&gt;</span>输出内容<span class="nt">&lt;/label&gt;</span>
+                    <span class="nt">&lt;comment&gt;</span>指定页面显示的内容<span class="nt">&lt;/comment&gt;</span>
+                <span class="nt">&lt;/field&gt;</span>
+            <span class="nt">&lt;/group&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;/system&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>上面代码中默认值放在 <default> 节点，格式是：</default></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;default&gt;</span>
+    <span class="nt">&lt;section&gt;</span>
+        <span class="nt">&lt;group&gt;</span>
+            <span class="nt">&lt;field&gt;</span>{value}<span class="nt">&lt;/field&gt;</span>
+        <span class="nt">&lt;/group&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+<span class="nt">&lt;/default&gt;</span>
+</code></pre></div></div>
+
+<h2 id="第三步-清空缓存">第三步 清空缓存</h2>
+
+<p>如下显示：</p>
+
+<p><img src="/public/images/magento2/5-config-result.png" alt="step 3" /></p>
+
+<p>如果出现404错误需要登录重新登录应该可以。</p>
+
+<h2 id="第四步-获取配置参数">第四步 获取配置参数</h2>
+
+<p>首先保存配置并清除缓存，然后就可以从数据库获取保存的值了。</p>
+
+<p>在 system.xml 文件中添加了2个字段 enable 和 display_text。获取值的路径就是：</p>
+
+<ul>
+  <li>helloworld/general/enable</li>
+  <li>helloworld/general/display_text</li>
+</ul>
+
+<h3 id="41-直接获取">4.1 直接获取</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">scopeConfig</span><span class="o">-&gt;</span><span class="nf">getValue</span><span class="p">(</span><span class="s1">'helloworld/general/enable'</span><span class="p">,</span> <span class="err">\</span><span class="nc">Magento\Store\Model\ScopeInterface</span><span class="o">::</span><span class="no">SCOPE_STORE</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="n">scopeConfig</span><span class="o">-&gt;</span><span class="nf">getValue</span><span class="p">(</span><span class="s1">'helloworld/general/display_text'</span><span class="p">,</span> <span class="err">\</span><span class="nc">Magento\Store\Model\ScopeInterface</span><span class="o">::</span><span class="no">SCOPE_STORE</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="42-添加帮助文件">4.2 添加帮助文件</h3>
+
+<p>新建： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Helper/Data.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Mageplaza\HelloWorld\Helper</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Magento\Framework\App\Helper\AbstractHelper</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Magento\Store\Model\ScopeInterface</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Data</span> <span class="kd">extends</span> <span class="nc">AbstractHelper</span>
+<span class="p">{</span>
+
+	<span class="k">const</span> <span class="no">XML_PATH_HELLOWORLD</span> <span class="o">=</span> <span class="s1">'helloworld/'</span><span class="p">;</span>
+
+	<span class="k">public</span> <span class="k">function</span> <span class="n">getConfigValue</span><span class="p">(</span><span class="nv">$field</span><span class="p">,</span> <span class="nv">$storeId</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">scopeConfig</span><span class="o">-&gt;</span><span class="nf">getValue</span><span class="p">(</span>
+			<span class="nv">$field</span><span class="p">,</span> <span class="nc">ScopeInterface</span><span class="o">::</span><span class="no">SCOPE_STORE</span><span class="p">,</span> <span class="nv">$storeId</span>
+		<span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="k">public</span> <span class="k">function</span> <span class="n">getGeneralConfig</span><span class="p">(</span><span class="nv">$code</span><span class="p">,</span> <span class="nv">$storeId</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
+	<span class="p">{</span>
+
+		<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">getConfigValue</span><span class="p">(</span><span class="k">self</span><span class="o">::</span><span class="no">XML_PATH_HELLOWORLD</span> <span class="mf">.</span><span class="s1">'general/'</span><span class="mf">.</span> <span class="nv">$code</span><span class="p">,</span> <span class="nv">$storeId</span><span class="p">);</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>接下来在控制器中获取值</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Controller/Index/Config.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Controller\Index</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Config</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Action</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$helperData</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Context</span> <span class="nv">$context</span><span class="p">,</span>
+        <span class="err">\</span><span class="nc">Aqrun\Helloworld\Helper\Data</span> <span class="nv">$helperData</span>
+    <span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">helperData</span> <span class="o">=</span> <span class="nv">$helperData</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="nf">__construct</span><span class="p">(</span><span class="nv">$context</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">helperData</span><span class="o">-&gt;</span><span class="nf">getGeneralConfig</span><span class="p">(</span><span class="s1">'enable'</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="s1">'&lt;br/&gt;'</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="nv">$tihs</span><span class="o">-&gt;</span><span class="n">helperData</span><span class="o">-&gt;</span><span class="nf">getGeneralConfig</span><span class="p">(</span><span class="s1">'display_text'</span><span class="p">);</span>
+        <span class="k">exit</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>运行 <code class="language-plaintext highlighter-rouge">php bin/magento cache:clean</code> 清除缓存检测结果</p>
+:ET

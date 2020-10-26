@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>11. Magento 2 拦截器插件 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="11. Magento 2 拦截器插件 - 拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的执行结果">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="11. Magento 2 拦截器插件 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/10/18/11.magento2-plugin-interceptor.html">
+    <meta property="og:description" content="拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的执行结果">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>11. Magento 2 拦截器插件</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-10-18"><i class="iconfont icon-date"></i>18 Oct 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>插件在技术上可以让你写出结构更合理的代码。拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的执行结果，拦截后可以在原函数之前(before)、之后(after)或包围(around)的方式添加新增代码。通过使用拦截器插件可以在对原类代码不做任何修改的情况下改变它的执行结果。</p>
+
+<p>本文内容目录：</p>
+
+<ul>
+  <li>插件的优点</li>
+  <li>插件的限制</li>
+  <li>创建新插件指南
+    <ul>
+      <li>声明一个插件</li>
+      <li>解释说明</li>
+      <li>实现插件</li>
+      <li>前置函数 Before</li>
+      <li>后置函数 After</li>
+      <li>包围函数 Around</li>
+      <li>检测结果</li>
+    </ul>
+  </li>
+  <li>设置插件的优先级</li>
+</ul>
+
+<p>或许可以认为事件监听器也能实现相同的功能，但它们之间也有一些不同之处。最主要的是，拦截器不仅使用依赖注入为类创建方法，并且可以为方法设置 sortOrder 属性，这样就可以检查插件链并确认执行顺序。这也是为什么插件可以实现不对类做任何修改并且也不会和其它插件有冲突。</p>
+
+<h2 id="插件的优点">插件的优点</h2>
+
+<p>做为一个模块开发者，你可以使用拦截器插件处理以下几方面：</p>
+
+<ul>
+  <li>转发对象的任何函数调用或其它代码操作，对象必须是对象管理器（Object Manager）实例化的。</li>
+  <li>修改任何对象方法的执行结果，对象必须是对象管理器（Object Manager）实例化的。</li>
+  <li>修改任何对象方法的传入参数，对象必须是对象管理器（Object Manager）实例化的。</li>
+  <li>使用同步或可预测的方式同时执行和其它模块一样的方法</li>
+</ul>
+
+<h2 id="插件的限制">插件的限制</h2>
+
+<p>拦截器插件不能操作的有：</p>
+
+<ul>
+  <li>对象的实例化在 <code class="language-plaintext highlighter-rouge">Magento\Framework\Interception</code> 加载之前</li>
+  <li>Final 方法</li>
+  <li>Final 类</li>
+  <li>任何包含有至少一个 final public 方法的类</li>
+  <li>不是 public 的方法</li>
+  <li>类方法（如静态方法）</li>
+  <li>__construct</li>
+  <li>虚拟类型 Virtual type</li>
+</ul>
+
+<h2 id="创建插件指南">创建插件指南</h2>
+
+<h3 id="声明一个插件">声明一个插件</h3>
+
+<p>声明插件是在 <code class="language-plaintext highlighter-rouge">di.xml</code> 文件中，路径 <code class="language-plaintext highlighter-rouge">&lt;MODULE_DIR&gt;/etc/di.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">name=</span><span class="s">"{ObserverdType}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;plugin</span> <span class="na">name=</span><span class="s">"{pluginName}"</span> <span class="na">type=</span><span class="s">"{PluginClassName}"</span> <span class="na">sortOrder=</span><span class="s">"1"</span> <span class="na">disabled=</span><span class="s">"false"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/type&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<h3 id="解释说明">解释说明</h3>
+
+<p>必须的属性：</p>
+
+<ul>
+  <li>type name: 要修改的类或接口名</li>
+  <li>plugin name: 插件标识，区分其它插件，也用于合并插件的配置</li>
+  <li>plugin type: 插件类名或它的虚拟类型名称。命名规则： <code class="language-plaintext highlighter-rouge">\Vendor\Module\Plugin\&lt;ModelName&gt;Plugin</code></li>
+</ul>
+
+<p>可选属性：</p>
+
+<ul>
+  <li>plugin sortOrder: 指定同一个方法绑定的所有插件执行顺序</li>
+  <li>plugin disabled: 可以快速启用或停用插件，默认值是 false。也可以在你的 di.xml 配置文件使用这个属性来停用核心或第三方的插件。</li>
+</ul>
+
+<p>如下代码，编辑 <code class="language-plaintext highlighter-rouge">app\code\Aqrun\HelloWorld\etc\di.xml</code> 文件：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> 
+    <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:ObjectManager/etc/config.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;type</span> <span class="na">name=</span><span class="s">"Aqrun\HelloWorld\Controller\Index\Example"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;plugin</span> <span class="na">name=</span><span class="s">"aqrun_helloworld_plugin"</span>
+                <span class="na">type=</span><span class="s">"Aqrun\HelloWorld\Plugin\ExamplePlugin"</span>
+                <span class="na">sortOrder=</span><span class="s">"10"</span> <span class="na">disabled=</span><span class="s">"false"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/type&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>下面的代码定义 type 节点的 name 属性指定的类，目录 <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Controller/Index/Example.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Controller\Index</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Example</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Action</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$title</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">setTitle</span><span class="p">(</span><span class="s1">'欢迎'</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">getTitle</span><span class="p">();</span>
+        <span class="k">exit</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">setTitle</span><span class="p">(</span><span class="nv">$title</span><span class="p">){</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">'&lt;br/&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">title</span> <span class="o">=</span> <span class="nv">$title</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getTitle</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">'&lt;br/&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">title</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>根据 plugin 节点的 name 属性值 我们创建 ExamplePlugin.php 文件，路径：<code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Plugin/ExamplePlugin.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ExamplePlugin</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="定义插件">定义插件</h3>
+
+<p>插件通过使用 前置before、后置after、包围around 等函数来扩展或修改公开方法的执行结果</p>
+
+<p>首先要获取一个对象，并且对象为要监听的公开方法提供权限</p>
+
+<p>插件的3个方法：</p>
+
+<ul>
+  <li>前置 - beforeDispatch()</li>
+  <li>包围 - aroundDispatch()</li>
+  <li>后置 - afterDispatch()</li>
+</ul>
+
+<h3 id="前置函数before-methods">前置函数（Before methods）</h3>
+
+<p>前置函数是在所有监听函数中最先执行的，函数名必须和被监听函数名一样只是加了 <code class="language-plaintext highlighter-rouge">before</code> 前缀。</p>
+
+<p>使用前置函数来修改被监听方法的参数，可以返回修改后的参数数组。如果有多个参数，则与原参数顺序保持一致。如果返回参数无效，则对监听的方法参数不做修改。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Aqrun\HelloWorld\Controller\Index\Example</span> <span class="k">as</span> <span class="nc">ExampleAction</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ExamplePlugin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">beforeSetTitle</span><span class="p">(</span><span class="kt">ExampleAction</span> <span class="nv">$subject</span><span class="p">,</span> <span class="nv">$title</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$title</span> <span class="mf">.</span> <span class="s1">' 来到 '</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">'&lt;/br&gt;'</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="nv">$title</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="后置函数after-methods">后置函数（After methods）</h3>
+
+<p>后置函数在被监听方法执行完成后再开始执行，函数名也和被监听方法名一样，另外再加 <code class="language-plaintext highlighter-rouge">after</code> 前缀。</p>
+
+<p>后置函数用于修改被监听方法的执行结果，因此也需要有一个返回值。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Aqrun\HelloWorld\Controller\Index\Example</span> <span class="k">as</span> <span class="nc">ExampleAction</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ExamplePlugin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">afterGetTitle</span><span class="p">(</span><span class="kt">ExampleAction</span> <span class="nv">$subject</span><span class="p">,</span> <span class="nv">$result</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">'&lt;/br&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="s1">'&lt;h1&gt;'</span> <span class="mf">.</span> <span class="nv">$result</span> <span class="mf">.</span> <span class="s1">'新世界'</span> <span class="mf">.</span> <span class="s1">'&lt;/h1&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="包围函数around-methods">包围函数（Around Methods）</h3>
+
+<p>包围函数允许代码在被监听方法运行前和后执行，因此你可以覆写方法。名称和被监听方法一样，需要添加前缀 <code class="language-plaintext highlighter-rouge">around</code></p>
+
+<p>包围函数的参数中在原始函数参数之前，有一个回调函数（callable）参数，回调函数会在插件链的下一个函数中被调用，也就是下一个插件或被监听方法也可以执行。</p>
+
+<blockquote>
+  <p>注意：如果没有声明回调函数（callable），那即不会调用下一个插件也不会调用原始方法。</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Aqrun\HelloWorld\Controller\Index\Example</span> <span class="k">as</span> <span class="nc">ExampleAction</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ExamplePlugin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">aroundGetTitle</span><span class="p">(</span><span class="kt">ExampleAction</span> <span class="nv">$subject</span><span class="p">,</span> <span class="kt">callable</span> <span class="nv">$proceed</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">' - proceed() 之前 &lt;br/&gt;'</span><span class="p">;</span>
+        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$proceed</span><span class="p">();</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">' - proceed() 之后 &lt;br/&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="检查结果">检查结果</h3>
+
+<p>ExamplePlugin.php 所有代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Aqrun\HelloWorld\Controller\Index\Example</span> <span class="k">as</span> <span class="nc">ExampleAction</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ExamplePlugin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">beforeSetTitle</span><span class="p">(</span><span class="kt">ExampleAction</span> <span class="nv">$subject</span><span class="p">,</span> <span class="nv">$title</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$title</span> <span class="mf">.</span> <span class="s1">' 来到 '</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">'&lt;/br&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nv">$title</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">afterGetTitle</span><span class="p">(</span><span class="kt">ExampleAction</span> <span class="nv">$subject</span><span class="p">,</span> <span class="nv">$result</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">'&lt;/br&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="s1">'&lt;h1&gt;'</span> <span class="mf">.</span> <span class="nv">$result</span> <span class="mf">.</span> <span class="s1">'新世界'</span> <span class="mf">.</span> <span class="s1">'&lt;/h1&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">aroundGetTitle</span><span class="p">(</span><span class="kt">ExampleAction</span> <span class="nv">$subject</span><span class="p">,</span> <span class="kt">callable</span> <span class="nv">$proceed</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">' - proceed() 之前 &lt;br/&gt;'</span><span class="p">;</span>
+        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$proceed</span><span class="p">();</span>
+        <span class="k">echo</span> <span class="k">__METHOD__</span> <span class="mf">.</span> <span class="s1">' - proceed() 之后 &lt;br/&gt;'</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>然后清空缓存查看如下所示：</p>
+
+<p><img src="/public/images/magento2/11-interceptor-result.png" alt="11-interceptor-result.png" /></p>
+
+<p>你需要小心应对原始参数，被调用的插件方法的参数必须一致并完全匹配。在处理时注意原始方法的参数签名及默认值。</p>
+
+<p>比如下面的代码 SomeType 类型的参数默认可以是 null</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Model</span><span class="p">;</span>
+<span class="kd">class</span> <span class="nc">MyUtility</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">save</span><span class="p">(</span><span class="kt">SomeType</span> <span class="nv">$obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// do something</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果用如下插件代码调用这个方法：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">MyUtilityPlugin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">aroundSave</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Aqrun\HelloWorld\Model\MyUtility</span> <span class="nv">$subject</span><span class="p">,</span> 
+        <span class="err">\</span><span class="n">callable</span> <span class="nv">$proceed</span><span class="p">,</span> 
+        <span class="nc">SomeType</span> <span class="nv">$obj</span>
+    <span class="p">){</span>
+      <span class="c1">//do something</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意： null 相当于没有参数或遗漏的参数</p>
+</blockquote>
+
+<p>如果调用函数参数为 null，PHP会报错，因此 null 不能传到插件里。保持参数一致非常重要。如果不确定参数值，可以使用变长参数和参数解包的方式实现。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Plugin</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">MyUtilityPlugin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">aroundSave</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Aqrun\HelloWorld\Model\MyUtility</span> <span class="nv">$subject</span><span class="p">,</span>
+        <span class="err">\</span><span class="n">callable</span> <span class="nv">$proceed</span><span class="p">,</span>
+        <span class="mf">...</span><span class="nv">$args</span>
+    <span class="p">){</span>
+        <span class="c1">// do something</span>
+        <span class="nv">$proceed</span><span class="p">(</span><span class="mf">...</span><span class="nv">$args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="设置插件优先级">设置插件优先级</h2>
+
+<p>对监听同一个方法的插件可以使用 <code class="language-plaintext highlighter-rouge">sortOrder</code> 属性进行排序以队列的方式逐个执行。</p>
+
+<h2 id="示例代码">示例代码</h2>
+
+<p>查看 <a href="https://gitee.com/aqrun/Aqrun_HelloWorld">https://gitee.com/aqrun/Aqrun_HelloWorld</a></p>
+
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2019/11/10/12.magento2-indexing-reindex.html" class="read-next-link"></a>
+        <section>
+          <span>12.Magento 2 索引和重建索引</span>
+          <p>如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/10/12/10.magento2-events.html" class="read-next-link"></a>
+          <section>
+            <span>10.Magento 2 事件</span>
+            <p>Magento 2 主要使用事件驱动架构，非常便于扩展系统的核心功能</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

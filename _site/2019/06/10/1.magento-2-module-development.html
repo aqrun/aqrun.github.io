@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>1. Magneto 2 模块开发 - 简单的 Hello World 模块 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="1. Magneto 2 模块开发 - 简单的 Hello World 模块 - 如何创建一个最简单的模块">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="1. Magneto 2 模块开发 - 简单的 Hello World 模块 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/06/10/1.magento-2-module-development.html">
+    <meta property="og:description" content="如何创建一个最简单的模块">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>1. Magneto 2 模块开发 - 简单的 Hello World 模块</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-06-10"><i class="iconfont icon-date"></i>10 Jun 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文主要描述如何创建一个最简单的模块。</p>
+
+<p>模块 (Module) 也就是一个包含特定业务子目录（<code class="language-plaintext highlighter-rouge">区块blocks</code>、<code class="language-plaintext highlighter-rouge">控制器controllers</code>、<code class="language-plaintext highlighter-rouge">模型models</code>、<code class="language-plaintext highlighter-rouge">帮助文件helper</code>、<code class="language-plaintext highlighter-rouge">配置相关etc</code>）的文件夹。<code class="language-plaintext highlighter-rouge">etc</code> 目录包含有后台权限控制（admin acl）、后台菜单配置、其它配置文件。模块一般在 <code class="language-plaintext highlighter-rouge">app/code</code> 目录，全路径: <code class="language-plaintext highlighter-rouge">app/code/&lt;Vendor&gt;/&lt;ModuleName&gt;</code>， Vendor 是企业名称如 Baidu。下面创建一个可以执行的模块并显示 “Hello World”。</p>
+
+<h2 id="基础部分主要内容有">基础部分主要内容有</h2>
+
+<ul>
+  <li>创建控制器（Controller）</li>
+  <li>创建模型（Model)</li>
+  <li>创建视图（View)</li>
+  <li>后台菜单（Admin Menu）</li>
+  <li>参数配置（Configuration）</li>
+  <li>后台网格（Grid）</li>
+</ul>
+
+<h2 id="创建-hello-world-模块">创建 Hello World 模块</h2>
+
+<p>创建模块需要完成如下几步：</p>
+
+<ol>
+  <li>创建模块目录</li>
+  <li>添加 <code class="language-plaintext highlighter-rouge">etc/module.xml</code> 文件</li>
+  <li>添加 <code class="language-plaintext highlighter-rouge">etc/registration.php</code> 文件</li>
+  <li>启用模块</li>
+</ol>
+
+<h3 id="第一步-新建模块文件夹">第一步： 新建模块文件夹</h3>
+
+<p>模块命名格式 <code class="language-plaintext highlighter-rouge">VendorName_ModuleName</code>。前一部分是公司名后面是模块名：如：<code class="language-plaintext highlighter-rouge">Magento_HelloWorld</code>、 <code class="language-plaintext highlighter-rouge">Aqrun_PdfInvoice</code>。我们创建如下目录：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld
+</code></pre></div></div>
+<h3 id="第二步添加-etcmodulexml-文件">第二步：添加 <code class="language-plaintext highlighter-rouge">etc/module.xml</code> 文件</h3>
+
+<p>然后需要新建 <code class="language-plaintext highlighter-rouge">etc</code> 目录并添加 <code class="language-plaintext highlighter-rouge">module.xml</code> 文件</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/etc/module.xml
+</code></pre></div></div>
+
+<p>内容：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:Module/etc/module.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">setup_version=</span><span class="s">"1.0.0"</span><span class="nt">&gt;</span>
+    <span class="err">&lt;</span>/module
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<h3 id="第三步添加-etcregistrationphp-文件">第三步：添加 <code class="language-plaintext highlighter-rouge">etc/registration.php</code> 文件</h3>
+
+<p>这一步添加 <code class="language-plaintext highlighter-rouge">registration.php</code> 文件</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/code/Aqrun/HelloWorld/registration.php
+</code></pre></div></div>
+
+<p>内容：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">use</span> <span class="nc">Magento\Framework\Component\ComponentRegistrar</span><span class="p">;</span>
+
+<span class="nc">ComponentRegistrar</span><span class="o">::</span><span class="nf">register</span><span class="p">(</span>
+    <span class="nc">ComponentRegistrar</span><span class="o">::</span><span class="no">MODULE</span><span class="p">,</span>
+    <span class="s1">'Aqrun_HelloWorld'</span><span class="p">,</span>
+    <span class="k">__DIR__</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="第四步启用模块">第四步：启用模块</h3>
+
+<p>完成第三步时我们已经创建了 HelloWorld 模块，这一步我们启用它。</p>
+
+<p>使用如下命令可以查看到我们模块处于未启用（Disabled）列表</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento module:status
+</code></pre></div></div>
+
+<p>未启用模块列表会显示出：  <code class="language-plaintext highlighter-rouge">Aqrun_HelloWorld</code></p>
+
+<p>启用指定模块运行：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento module:enable Aqrun_HelloWorld
+</code></pre></div></div>
+<p>另一种启用模块的方式是编辑 <code class="language-plaintext highlighter-rouge">app/etc/config.php</code> 文件， 把你的模块加到这个文件的列表里：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">...</span>
+<span class="s1">'Aqrun_HelloWorld'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+<span class="mf">...</span>
+</code></pre></div></div>
+
+<p>完成这一步之后浏览器打开你的网站或许会显示错误信息，可以运行如下命令更新模块</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:upgrade
+</code></pre></div></div>
+
+<p>刷新浏览器如果页面内容错乱没有样式或以执行静态内容发布命令</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy
+</code></pre></div></div>
+
+<p>接下来添加一个控制器测试模块</p>
+
+<p>添加控制器之前需要还要给模块增加一个路由配置</p>
+
+<p>Magento的路由格式有三个部分：前端名称（Frontname）、控制器（Controller）、动作（Action）。如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://mag.dev/index.php/frontname/controller/action
+</code></pre></div></div>
+
+<p>路由配置信息在 <code class="language-plaintext highlighter-rouge">routes.xml</code> 文件中 <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/frontend/routes.xml</code></p>
+
+<p>这是前端由配置在 <code class="language-plaintext highlighter-rouge">frontend/</code> 目录，后台路由在 <code class="language-plaintext highlighter-rouge">adminhtml/</code> 目录</p>
+
+<p>内容如下：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" ?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"standard"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+    <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>这个路由配置的URL路径就会是 <code class="language-plaintext highlighter-rouge">http://mag.dev/helloworld/*</code></p>
+
+<p>然后继续添加控制器和动作</p>
+
+<p>新建路径及文件：<code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Controller/Index/Test.php</code></p>
+
+<p>代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Controller\Index</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Test</span> <span class="k">extends</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Action</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$_pageFactory</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\App\Action\Context</span> <span class="nv">$context</span><span class="p">,</span>
+        <span class="err">\</span><span class="nc">Magento\Framework\View\Result\PageFactory</span> <span class="nv">$pageFactory</span>
+    <span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_pageFactory</span> <span class="o">=</span> <span class="nv">$pageFactory</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="nf">__construct</span><span class="p">(</span><span class="nv">$context</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"Hello World"</span><span class="p">;</span>
+        <span class="k">exit</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>然后执行 <code class="language-plaintext highlighter-rouge">php bin/magento cache:clean</code></p>
+
+<p>浏览器打开链接 <code class="language-plaintext highlighter-rouge">http://mag.dev/helloworld/index/test</code> 测试结果</p>
+
+<p>就会显示 Hello World。下一部分内容了解如何创建完整的控制器</p>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2019/06/11/2.create-controller.html" class="read-next-link"></a>
+        <section>
+          <span>2. 如何创建 Magento 2 控制器</span>
+          <p>控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2018/11/27/Samba-Configuration.html" class="read-next-link"></a>
+          <section>
+            <span>Ubuntu Win10 目录共享Samba配置</span>
+            <p>Samba 配置，并开启软链接访问...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

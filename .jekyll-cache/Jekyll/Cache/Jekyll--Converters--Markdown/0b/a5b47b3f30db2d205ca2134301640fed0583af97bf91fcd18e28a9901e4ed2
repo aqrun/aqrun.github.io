@@ -1,0 +1,125 @@
+I"�$<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文讨论如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作：</p>
+
+<ul>
+  <li>安装 Magento （相关的还有创建、更新数据表，添加或发布配置文件等）</li>
+  <li>清缓存</li>
+  <li>管理索引，重建索引</li>
+  <li>创建翻译文件及语言包</li>
+  <li>生成不存在的一些类如工厂类和插件的拦截器，为对像管理器生成依赖注入配置文件</li>
+  <li>发布静态文件</li>
+  <li>编译LESS到CSS</li>
+</ul>
+
+<p>开始之前确保 HelloWorld 模块还在，这个模块在前面章节也一直使用。下面开始添加我们自定义的命令：</p>
+
+<h2 id="第一步在-dixml-定义命令">第一步：在 di.xml 定义命令</h2>
+
+<p>在 di.xml 文件中可以使用 name 属性为 <code class="language-plaintext highlighter-rouge">Magento\Framework\Console\CommandList</code> 的 type 节点定义命令参数。</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/di.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;type</span> <span class="na">name=</span><span class="s">"Magento\Framework\Console\CommandList"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;arguments&gt;</span>
+        <span class="nt">&lt;argument</span> <span class="na">name=</span><span class="s">"commands"</span> <span class="na">xsi:type=</span><span class="s">"array"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"exampleSayHello"</span> <span class="na">xsi:type=</span><span class="s">"object"</span><span class="nt">&gt;</span>Aqrun\HelloWorld\Console\Sayhello<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;/argument&gt;</span>
+    <span class="nt">&lt;/arguments&gt;</span>
+<span class="nt">&lt;/type&gt;</span>
+</code></pre></div></div>
+
+<p>代码中定义了一个命令类 Sayhello。命令类中会定义命令行名称，并实现 <code class="language-plaintext highlighter-rouge">execute()</code> 方法</p>
+
+<h2 id="第二步创建命令类">第二步：创建命令类</h2>
+
+<p>根据配置文件我们创建如下类</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Console/Sayhello.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Console</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Command\Command</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Input\InputInterface</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Output\OutputInterface</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Sayhello</span> <span class="kd">extends</span> <span class="nc">Command</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">configure</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">setName</span><span class="p">(</span><span class="s1">'示例：sayhello'</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">setDiscription</span><span class="p">(</span><span class="s1">'示例命令'</span><span class="p">);</span>
+        <span class="k">parent</span><span class="o">::</span><span class="nf">configure</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">InputInterface</span> <span class="nv">$input</span><span class="p">,</span> <span class="kt">OutputInterface</span> <span class="nv">$output</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$output</span><span class="o">-&gt;</span><span class="nf">writeln</span><span class="p">(</span><span class="s1">'你好世界'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>函数中实现了两个方法：</p>
+
+<ul>
+  <li>configure() 函数用来设置名称、描述、命令行参数</li>
+  <li>execute() 函数会在控制台调用命令时执行</li>
+</ul>
+
+<p>类的定义完成后清空缓存，执行如下命令：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php magento list
+</code></pre></div></div>
+
+<p>可以输出所有可用命令，我们刚添加的自定义命令也在：</p>
+
+<p><img src="/public/images/magento2/14-cli-list1.png" alt="14-cli-list1.png" /></p>
+
+<p>现在可以在控制台运行 <code class="language-plaintext highlighter-rouge">php bin/magento example:sayhello</code>：</p>
+
+<p><img src="/public/images/magento2/14-cli-list1-result.png" alt="14-cli-list1-result.png" /></p>
+
+<p>接下来可以给命令添加一些参数。</p>
+
+<p>代码如下：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Console</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Command\Command</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Input\InputInterface</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Output\OutputInterface</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\Console\Input\InputOption</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Sayhello</span> <span class="kd">extends</span> <span class="nc">Command</span>
+<span class="p">{</span>
+
+    <span class="k">const</span> <span class="no">NAME</span> <span class="o">=</span> <span class="s1">'name'</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">configure</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$options</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="k">new</span> <span class="nc">InputOption</span><span class="p">(</span><span class="k">self</span><span class="o">::</span><span class="no">NAME</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span><span class="nc">InputOption</span><span class="o">::</span><span class="no">VALUE_REQUIRED</span><span class="p">,</span> <span class="s1">'姓名'</span><span class="p">)</span>
+        <span class="p">];</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">setName</span><span class="p">(</span><span class="s1">'example:sayhello'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="nf">setDescription</span><span class="p">(</span><span class="s1">'示例命令'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="nf">setDefinition</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span>
+        <span class="k">parent</span><span class="o">::</span><span class="nf">configure</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="kt">InputInterface</span> <span class="nv">$input</span><span class="p">,</span> <span class="kt">OutputInterface</span> <span class="nv">$output</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$input</span><span class="o">-&gt;</span><span class="nf">getOption</span><span class="p">(</span><span class="k">self</span><span class="o">::</span><span class="no">NAME</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$output</span><span class="o">-&gt;</span><span class="nf">writeln</span><span class="p">(</span><span class="s1">'你好'</span> <span class="mf">.</span> <span class="nv">$name</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$output</span><span class="o">-&gt;</span><span class="nf">writeln</span><span class="p">(</span><span class="s1">'你好世界'</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>代码中我们在 configure() 函数中定义了命令行参数 name，并在 execute() 方法中获取它的值。清空缓存然后运行 <code class="language-plaintext highlighter-rouge">php bin/magento example:sayhello --name=Aqrun</code> 就会输出 “你好Aqrun”。</p>
+:ET

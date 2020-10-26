@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>12.Magento 2 索引和重建索引 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="12.Magento 2 索引和重建索引 - 如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="12.Magento 2 索引和重建索引 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/11/10/12.magento2-indexing-reindex.html">
+    <meta property="og:description" content="如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>12.Magento 2 索引和重建索引</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-11-10"><i class="iconfont icon-date"></i>10 Nov 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文讨论如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器。为了代码演示我们继续使用 HelloWorld 模块。</p>
+
+<p>Magento 系统使用索引来变换数据如产品、分类等进而提高店铺的性能。当数据变化时，变换的数据也必须同步更新或重建索引。Magento 使用非常精致的架构在很多数据表中存储大量的店铺数据（包括产品、价格、用户、店铺等数据）。为了优化店铺性能，Magento 使用索引器把累积的数据存储到特定数据表。</p>
+
+<p>比如，你将一个产品的价格从￥8.99改到￥6.99，这时要让前台页面正常显示 Magento 就必须重建价格索引。</p>
+
+<p>如果不使用索引，Magneto就必须实时计算每一个产品的价格——要计算的有客户购物车产品规则、批量价、折扣价、阶梯价等。这样产品的价格计算会花费很长时间，长时间的等待造成的结果可能就是消费者放弃购物。</p>
+
+<p>创建自定义索引器步骤：</p>
+
+<ul>
+  <li>1 添加索引器配置文件</li>
+  <li>2 添加 Mview 配置文件</li>
+  <li>3 定义索引器类</li>
+  <li>4 运行测试</li>
+</ul>
+
+<h2 id="添加索引器配置文件">添加索引器配置文件</h2>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/indexer.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:Indexer/etc/indexer.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;indexer</span> <span class="na">id=</span><span class="s">"aqrun_helloworld_indexer"</span> 
+        <span class="na">view_id=</span><span class="s">"aqrun_helloworld_indexer"</span>
+        <span class="na">class=</span><span class="s">"Aqrun\HelloWorld\Model\Indexer\Test"</span>
+        <span class="nt">&gt;</span>
+        <span class="nt">&lt;title</span> <span class="na">translate=</span><span class="s">"true"</span><span class="nt">&gt;</span>Aqrun HelloWorld Indexer<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;description</span> <span class="na">translate=</span><span class="s">"true"</span><span class="nt">&gt;</span>你好世界自定义索引器<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;/indexer&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>上面代码中我们使用 indexer 节点定义了一个新的索引器：</p>
+
+<ul>
+  <li>id 属性是索引器的唯一标识。可以在命令行使用这个ID来检查状态、模式或重建对应的索引</li>
+  <li>view_id 是视图元素的ID，视图元素会在 mview 配置文件中进行定义</li>
+  <li>class 属性指定我们要处理索引方法的类名</li>
+</ul>
+
+<p>简单的索引还有两个子节点：</p>
+
+<ul>
+  <li>title 节点是显示在索引器列表中的文字</li>
+  <li>description 节点索引器列表中的说明文字</li>
+</ul>
+
+<h2 id="添加-mview-配置文件">添加 Mview 配置文件</h2>
+
+<p>mview.xml 文件是用于跟踪指定的实体在数据库中的变化，并运行指定的方法处理这些变化</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/mview.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+        <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:Mview/etc/mview.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;view</span> <span class="na">id=</span><span class="s">"aqrun_helloworld_indexer"</span>
+          <span class="na">class=</span><span class="s">"Aqrun\HelloWorld\Model\Indexer\Test"</span>
+          <span class="na">group=</span><span class="s">"indexer"</span> <span class="nt">&gt;</span>
+        <span class="nt">&lt;subscriptions&gt;</span>
+            <span class="nt">&lt;table</span> <span class="na">name=</span><span class="s">"catalog_product_entity"</span> <span class="na">entity_column=</span><span class="s">"entity_id"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subscription&gt;</span>
+    <span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>代码中定义了有ID属性的 view 节点，ID属性关联索引器，class 属性指定了实现有 <code class="language-plaintext highlighter-rouge">execute()</code> 方法的类。这个方法会在订阅的数据表有更新时执行。</p>
+
+<p>定义数据表需要用到表名和表的字段，这些参数也会传给 <code class="language-plaintext highlighter-rouge">execute()</code> 方法。本例我们指定的表是 <code class="language-plaintext highlighter-rouge">catalog_product_entity</code>。因此无论何时不管是一个还是多个产品被保存，都会执行 Aqrun\HelloWorld\Model\Indexer\Test 类的 execute() 方法。</p>
+
+<h2 id="定义索引器类">定义索引器类</h2>
+
+<p>根据上面的 indexer.xml 和 mview.xml 配置文件，定义索引器为： Aqrun\HelloWorld\Model\Indexer\Test</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWrold/Model/Indexer/Test.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kn">namespace</span> <span class="nn">Aqrun\HelloWorld\Model\Indexer</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Test</span> <span class="k">implements</span> <span class="err">\</span><span class="nc">Magento\Framework\Indexer\ActionInterface</span><span class="p">,</span>
+    <span class="err">\</span><span class="nc">Magento\Framework\Mview\ActionInterface</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * 被 mview 调用，允许在 "Update on schedule" 模式下处理索引
+     * @param int[] $ids
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">execute</span><span class="p">(</span><span class="nv">$ids</span><span class="p">){</span>
+        <span class="c1">//code</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * 会处理所有的数据并重建索引
+     * 在使用命令行重建索引时会执行
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">executeFull</span><span class="p">(){</span>
+        <span class="c1">//code</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * 作用于一组实体的变化（如批量操作）
+     * @param array $ids
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">executeList</span><span class="p">(</span><span class="kt">array</span> <span class="nv">$ids</span><span class="p">){</span>
+        <span class="c1">//code</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * 作用于单个实体
+     * @param int $id
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">executeRow</span><span class="p">(</span><span class="nv">$id</span><span class="p">){</span>
+        <span class="c1">// code</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>你可以在索引器类方法中添加代码向索引器表更新数据</p>
+
+<p>接下来，清空缓存并到后台菜单  system &gt; Index Management 查看代码结果</p>
+
+<p><img src="images/12-custom-indexer.png" alt="custom indexer" /></p>
+
+<h2 id="重建索引使用命令">重建索引使用命令：</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:redinex
+</code></pre></div></div>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2019/11/10/array-reduce.html" class="read-next-link"></a>
+        <section>
+          <span>数组常用操作 reduce</span>
+          <p>数组操作</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/10/18/11.magento2-plugin-interceptor.html" class="read-next-link"></a>
+          <section>
+            <span>11. Magento 2 拦截器插件</span>
+            <p>拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

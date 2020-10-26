@@ -1,0 +1,11 @@
+I"�<h2 id="文件目录结构">文件目录结构：</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/nginx
+/nginx/conf
+/nginx/conf/nginx.conf         #默认nginx配置文件
+/nginx/conf/vhost
+/nginx/conf/vhost/localhost.conf    #
+/nginx/conf/vhost/*.conf       #各虚拟主机配置文件
+</code></pre></div></div>
+
+<p>以下列出三个主要配置文件内容：</p>
+:ET

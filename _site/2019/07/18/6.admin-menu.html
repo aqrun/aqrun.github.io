@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>6.Magento 2 添加后台管理菜单 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="6.Magento 2 添加后台管理菜单 - 菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="6.Magento 2 添加后台管理菜单 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/07/18/6.admin-menu.html">
+    <meta property="og:description" content="菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>6.Magento 2 添加后台管理菜单</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-07-18"><i class="iconfont icon-date"></i>18 Jul 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本章节讨论如何在后台左侧导航菜单条添加自定义链接。</p>
+
+<p>首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。</p>
+
+<p><img src="/public/images/magento2/6-store-menu-items.png" alt="stores menu" /></p>
+
+<p>在前端时路由名称的格式为：<code class="language-plaintext highlighter-rouge">{router_name}_{controller_name}_{actions_name}</code>，后台路由格式也一样，但需要指定一个不同的名称以便让系统知道调用的是后台的路由。</p>
+
+<p>菜单到底如何添加？接下来继续使用之前的Hello World模块进行演示菜单项的添加。</p>
+
+<p>添加菜单使用 <code class="language-plaintext highlighter-rouge">menu.xml</code> 配置文件步骤如下：</p>
+
+<ul>
+  <li>1 创建 <code class="language-plaintext highlighter-rouge">menu.xml</code> 配置文件</li>
+  <li>2 添加菜单项</li>
+  <li>3 清除缓存</li>
+</ul>
+
+<h2 id="第一步-创建-menuxml">第一步 创建 menu.xml</h2>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/menu.xml</code></p>
+
+<p>代码：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:module:Magento_Backend:etc/menu.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;menu&gt;</span>
+    <span class="nt">&lt;/menu&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<h2 id="第二步-配置菜单项">第二步 配置菜单项</h2>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:module:Magento_Backend:etc/menu.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;menu&gt;</span>
+        <span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span> <span class="na">title=</span><span class="s">"你好世界"</span>
+             <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"51"</span>
+             <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::post"</span> <span class="na">title=</span><span class="s">"文章管理"</span>
+             <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"10"</span>
+             <span class="na">action=</span><span class="s">"aqrun_helloworld/post"</span> <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::post"</span>
+             <span class="na">parent=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::hello_configuration"</span> <span class="na">title=</span><span class="s">"参数设置"</span>
+             <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"99"</span>
+             <span class="na">parent=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span>
+             <span class="na">action=</span><span class="s">"adminhtml/system_config/edit/section/helloworld"</span>
+             <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::helloworld_configuration"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/menu&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>配置文件中，我们添加了名为“你好世界”的第0级菜单，以及它的两个子菜单项“文章管理”和“参数设置”。
+在 menu.xml 文件中会定义很多 ‘add’ 节点来向后台添加菜单项，它的结构如下：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::post"</span> <span class="na">title=</span><span class="s">"Manage Posts"</span> 
+    <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> 
+    <span class="na">sortOrder=</span><span class="s">"10"</span> <span class="na">action=</span><span class="s">"aqrun_helloworld/post"</span> 
+    <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::post"</span>
+    <span class="na">parent=</span><span class="s">"Aqrun_HelloWrld::helloworld"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>属性解释：</p>
+
+<ul>
+  <li>id 是对应节点的唯一标识，并且命名格式必须是 <code class="language-plaintext highlighter-rouge">{公司_模块名}::{菜单名或描述}</code></li>
+  <li>title 属性指定显示在菜单导航条上的文字</li>
+  <li>module 属性指定菜单属于哪个模块</li>
+  <li>srotOrder 属性控制菜单项显示顺序，数字越小越靠前</li>
+  <li>parent 属性关联其它菜单ID，告诉系统当前菜单是哪个菜单的子项。本例中 <code class="language-plaintext highlighter-rouge">parent="Aqrun_HelloWorld::helloworld"</code>, 由此我们知道 “管理文章”是 “你好世界”的子项，会显示在“你好世界”的菜单页里。</li>
+  <li>action 属性值是要链接到的页面URL。上面提到过路由格式是 <code class="language-plaintext highlighter-rouge">{路由名}{控制器文件夹}{动作名}</code>，因此当前菜单就链接到 HelloWorld 模块的Post控制器，动作是 Index。</li>
+  <li>resource 属性指定权限控制，控制管理员是否有权限查看当前菜单。</li>
+</ul>
+
+<p>你也可以添加一些其它子菜单，会和店铺菜单一样的格式显示。</p>
+
+<p>最后要提的是菜单的图标，显示在0级菜单名称的上面。这些图标是 ‘Admin Icons’ 字体生成的，更多关于图标的内容查看<a href="https://devdocs.magento.com/guides/v2.1/design-styleguide/iconography/iconography.html">这个链接</a></p>
+
+<h2 id="第三步-清空缓存">第三步 清空缓存</h2>
+
+<p>要确保自定义菜单正常显示需要清除一下缓存运行 <code class="language-plaintext highlighter-rouge">php bin/magento cache:clean</code></p>
+
+<p>本例显示结果如图：</p>
+
+<p><img src="/public/images/magento2/6-helloworld-menu-items.png" alt="helloworld" /></p>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2019/07/23/controlled-and-uncontrolled-form.html" class="read-next-link"></a>
+        <section>
+          <span>React 受控组件和非受控组件</span>
+          <p>React 受控组件和非受控组件有没有选择标准？</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/07/16/5.configuration-system-xml.html" class="read-next-link"></a>
+          <section>
+            <span>5.Magento2 如何添加System.xml配置参数</span>
+            <p>Magento 2 配置系统页面在逻辑上分为几个部分：标签页（Tabs）、区域（Sections）、组（Group...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

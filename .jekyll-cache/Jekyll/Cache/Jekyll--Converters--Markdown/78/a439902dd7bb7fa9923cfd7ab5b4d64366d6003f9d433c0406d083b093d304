@@ -1,0 +1,50 @@
+I"�	<p><img src="https://upload-images.jianshu.io/upload_images/61688-17511fd57565df77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GUN EMACS" /></p>
+
+<h2 id="环境准备">环境准备</h2>
+
+<p>系统更新升级</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade
+</code></pre></div></div>
+
+<p>安装源码编译需要的包</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>build-essential libncurses-dev
+</code></pre></div></div>
+
+<h2 id="下载源码包">下载源码包</h2>
+
+<p>可以到 <a href="https://www.gnu.org/software/emacs/download.html">EMACS官方下载页面</a> 或 直接使用下面的链接</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/Downloads
+<span class="nv">$ </span>wget http://mirrors.ustc.edu.cn/gnu/emacs/emacs-26.1.tar.xz
+</code></pre></div></div>
+
+<p>压缩包解压</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>xz <span class="nt">-d</span> emacs-26.1.tar.xz
+<span class="nv">$ </span><span class="nb">tar</span> <span class="nt">-xvf</span> emacs-26.1.tar
+</code></pre></div></div>
+
+<h2 id="编译安装">编译安装</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 进入上面解压的文件夹</span>
+<span class="nv">$ </span><span class="nb">cd </span>emacs-26.1
+
+<span class="c"># --without-x 仅用于控制台环境，如果需要GUI界面还要安装其它开发包</span>
+<span class="nv">$ </span>./configure <span class="nt">--without-x</span> <span class="nt">--with-gnutls</span><span class="o">=</span>no
+
+<span class="c"># 编译生成</span>
+<span class="nv">$ </span>make
+
+<span class="c"># 安装</span>
+<span class="nv">$ </span><span class="nb">sudo </span>make <span class="nb">install</span>
+
+<span class="c"># 打开EMACS 或 `emacs --version` 可以查看版本信息</span>
+<span class="nv">$ </span>emacs
+</code></pre></div></div>
+
+<p>后序可选安装 <a href="http://spacemacs.org/">Spacemacs</a> 配置环境</p>
+
+<p>完！</p>
+:ET

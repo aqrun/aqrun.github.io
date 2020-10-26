@@ -1,0 +1,27 @@
+I"|<p>目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行</p>
+
+<p>首要得卸载Ubuntu默认的ibus输入法：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get remove ibus
+</code></pre></div></div>
+
+<p>然后添加fcitx的nightlyPPA：
+在终端输入：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo add-apt-repository ppa:fcitx-team/nightly
+sudo apt-get update
+</code></pre></div></div>
+
+<p>安装fcitx以及搜狗输入法，并设置fcitx为默认。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install fcitx fcitx-config-gtk fcitx-sunpinyin fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sogoupinyin
+sudo apt-get install fcitx-table-all
+sudo apt-get install im-switch
+im-switch -s fcitx -z default
+</code></pre></div></div>
+
+<p>接下来安装搜狗输入法皮肤，下载下面的软件并安装
+http://pan.baidu.com/share/link?shareid=437349&amp;uk=3188176680</p>
+
+<p>重启。。。。。</p>
+:ET

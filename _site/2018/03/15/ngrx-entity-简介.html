@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>@ngrx/entity 简介 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="@ngrx/entity 简介 - @ngrx/entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。">
+    <meta name="keywords"  content="angular, ngrx, ngrx/entity">
+    <!-- Open Graph -->
+    <meta property="og:title" content="@ngrx/entity 简介 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2018/03/15/ngrx-entity-%E7%AE%80%E4%BB%8B.html">
+    <meta property="og:description" content="@ngrx/entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#angular" class="post-tag">angular</a>
+          
+            <a href="http://aqrun.com/tags#ngrx" class="post-tag">ngrx</a>
+          
+            <a href="http://aqrun.com/tags#ngrx/entity" class="post-tag">ngrx/entity</a>
+          
+        
+      </div>
+      <h1>@ngrx/entity 简介</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="18-03-15"><i class="iconfont icon-date"></i>15 Mar 2018</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="https://medium.com/ngrx/introducing-ngrx-entity-598176456e15">原文链接：https://medium.com/ngrx/introducing-ngrx-entity-598176456e15</a></p>
+</blockquote>
+
+<p>关于使用NgRx构建应用程序最常见的抱怨之一是开发人员必须编写的样板代码数量。 试图解决样板问题时的挑战在于，为了从体系结构中获得全部优势，必需的明确性至关重要。 我们认为，通过开发有针对性的库，我们可以帮助减少一些这种样板，同时保留NgRx提供的所有好处。</p>
+
+<p>今天，我们很高兴宣布发布@ngrx/entity，它是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。</p>
+
+<h2 id="她是如何工作的">她是如何工作的</h2>
+
+<p>@ngrx/entity允许您为不同类型的实体创建实体适配器(entity adapter)。 使用实体适配器，您可以快速编写 reducer 操作并自动生成选择器(selector)。 例如我们的 <a href="https://ngrx.github.io/platform/example-app">example application</a>，假设我们想编写一个管理书籍集合的应用程序。 Book 接口(interface)如下所示：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Book</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>编写管理这个集合的reducer的第一步是创建一个实体适配器(entity adapter)：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createEntityAdapter</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/entity</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">bookAdapter</span> <span class="o">=</span> <span class="nx">createEntityAdapter</span><span class="o">&lt;</span><span class="nx">Book</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>接下来，我们需要为我们的书籍状态声明接口：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">EntityState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/entity</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">BookState</span> <span class="kd">extends</span> <span class="nx">EntityState</span><span class="o">&lt;</span><span class="nx">Book</span><span class="o">&gt;</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>EntityState的声明如下所示：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">EntityState</span><span class="o">&lt;</span><span class="nx">V</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="na">ids</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
+    <span class="nl">entities</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="na">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="nx">V</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>我们维护一个ID列表和 Entity 字典的主要原因有两点：</p>
+
+<ol>
+  <li>我们希望快速查找特定的实体。 如果您只想从 Store 中选择一本书，使用 Entity 词典比搜索数组要快得多</li>
+  <li>我们也想维护列表的顺序。 如果你想保持列表排序，这是特别重要的！</li>
+</ol>
+
+<p>EntityState<V>的声明符合所有目标。 它也是可扩展的，所以我们可以在书籍集合中包含其他相关信息，例如当前选择的书籍。</V></p>
+
+<p>接下来，定义一些操作：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">improt</span> <span class="p">{</span> <span class="nx">Action</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kr">enum</span> <span class="nx">BookActionTypes</span> <span class="p">{</span>
+    <span class="nx">ADD_ONE</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">[Books] Add One</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">UPDATE_ONE</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">[Books] Update One</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">DELETE_ONE</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">[Books] Delete One</span><span class="dl">'</span><span class="p">,</span>
+    <span class="nx">GET_ALL</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">[Books] Get All</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AddOne</span> <span class="k">implements</span> <span class="nx">Action</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="kd">type</span> <span class="o">=</span> <span class="nx">BookActionType</span><span class="p">.</span><span class="nx">ADD_ONE</span><span class="p">;</span>
+
+    <span class="kd">constructor</span><span class="p">(</span><span class="k">public</span> <span class="nx">book</span><span class="p">:</span> <span class="nx">BookModel</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">UpdateOne</span> <span class="k">implements</span> <span class="nx">Action</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="kd">type</span> <span class="o">=</span> <span class="nx">BookActionType</span><span class="p">.</span><span class="nx">UPDATE_ONE</span><span class="p">;</span>
+    <span class="kd">constructor</span><span class="p">(</span>
+        <span class="k">public</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+        <span class="k">public</span> <span class="nx">changes</span><span class="p">:</span> <span class="nb">Partial</span><span class="o">&lt;</span><span class="nx">BookModel</span><span class="o">&gt;</span>
+    <span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">DeleteOne</span> <span class="k">implements</span> <span class="nx">Action</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="kd">type</span> <span class="o">=</span> <span class="nx">BookActionType</span><span class="p">.</span><span class="nx">DELETE_ONE</span><span class="p">;</span>
+    <span class="kd">constructor</span><span class="p">(</span>
+        <span class="k">public</span> <span class="nx">id</span><span class="p">:</span> <span class="kr">string</span>
+    <span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">GetAll</span> <span class="k">implements</span> <span class="nx">Action</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="kd">type</span> <span class="o">=</span> <span class="nx">BookActionType</span><span class="p">.</span><span class="nx">GET_ALL</span><span class="p">;</span>
+    <span class="kd">constructor</span><span class="p">(</span>
+        <span class="k">public</span> <span class="nx">books</span><span class="p">:</span> <span class="nx">BookModel</span><span class="p">[]</span>
+    <span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">type</span> <span class="nx">BookActions</span> <span class="o">=</span> <span class="nx">AddOne</span>
+    <span class="o">|</span> <span class="nx">UpdateOne</span>
+    <span class="o">|</span> <span class="nx">DeleteOne</span>
+    <span class="o">|</span> <span class="nx">GetAll</span>
+    <span class="p">;</span>
+
+</code></pre></div></div>
+
+<p>现在我们准备使用bookAdapter来创建我们的书籍 reducer：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">initialState</span><span class="p">:</span> <span class="nx">BookState</span> <span class="o">=</span> <span class="nx">bookAdapter</span><span class="p">.</span><span class="nx">getInitialState</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">bookReducer</span><span class="p">(</span>
+    <span class="nx">state</span><span class="p">:</span> <span class="nx">BookState</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">,</span>
+    <span class="nx">action</span><span class="p">:</span> <span class="nx">BookActions</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">BookActionTypes</span><span class="p">.</span><span class="nx">ADD_ONE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nx">bookAdapter</span><span class="p">.</span><span class="nx">addOne</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="kd">type</span><span class="p">,</span> <span class="nx">state</span><span class="p">);</span>
+        <span class="k">case</span> <span class="nx">BookActionTypes</span><span class="p">.</span><span class="nx">UPDATE_ONE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nx">bookAdapter</span><span class="p">.</span><span class="nx">updateOne</span><span class="p">({</span>
+                <span class="na">id</span><span class="p">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+                <span class="na">changes</span><span class="p">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">changes</span><span class="p">,</span>
+            <span class="p">},</span> <span class="nx">state</span><span class="p">);</span>
+        <span class="k">case</span> <span class="nx">BookActionTypes</span><span class="p">.</span><span class="nx">DELETE_ONE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nx">bookAdapter</span><span class="p">.</span><span class="nx">deleteOne</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">state</span><span class="p">);</span>
+        <span class="k">case</span> <span class="nx">BookActionTypes</span><span class="p">.</span><span class="nx">GET_ALL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nx">bookAdapter</span><span class="p">.</span><span class="nx">addAll</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">books</span><span class="p">,</span> <span class="nx">state</span><span class="p">);</span>
+        <span class="nl">default</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>新的状态可以使用新创建的 reducer 在 Store 中注册。 我们需要做的最后一件事就是生成用于处理这个状态的选择器(selector)：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="p">{</span>
+    <span class="nx">selectIds</span><span class="p">,</span>
+    <span class="nx">selectEntities</span><span class="p">,</span>
+    <span class="nx">selectAll</span><span class="p">,</span>
+    <span class="nx">selectToAll</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">bookAdapter</span><span class="p">.</span><span class="nx">getSelectors</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>那么样板代码做了哪些？</p>
+
+<ol>
+  <li>不再需要显式声明状态接口(state interface)的所有属性</li>
+  <li>添加，删除或更新状态实体(state entity)的实现都由适配器处理。</li>
+  <li>该适配器会为您生成一组常用的选择器。</li>
+</ol>
+
+<p>关于 Entity 的更多文档查看 <a href="https://github.com/ngrx/platform/tree/master/docs/entity">NgRx Gihub仓库</a> 以及 <a href="https://github.com/ngrx/platform/tree/master/example-app">example application</a>示例项目中的实际应用。</p>
+
+<h2 id="ngrx-41-发布">NgRx 4.1 发布</h2>
+
+<p>除了发布 @ngrx/entity 之外，我们还发布了 Store，Effects 和 Router Store 的v4.1.0，其中包含许多新功能和错误修复。 有关包含内容的更多信息，<a href="https://github.com/ngrx/platform/blob/master/CHANGELOG.md">请查看更新日志</a>。</p>
+
+<h2 id="帮助支持-ngrx">帮助支持 NgRx</h2>
+
+<p>随着 NgRx4，我们宣布创建我们的 <a href="https://opencollective.com/ngrx">OpenCollective</a>，您可以帮助支持NgRx的开发。 我们非常感谢来自支持者、赞助商和社区的支持。 作为这些贡献的结果，Entity 是第一个创建的库。 Entity 是为NgRx平台创建更多库的第一步。 考虑<a href="https://opencollective.com/ngrx">通过OpenCollective</a>支持这些开发工作。</p>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2018/03/16/angular2%E4%B8%ADngrx-effetcts%E5%9F%BA%E7%A1%80%E5%92%8Cngrx-store%E5%BC%82%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6.html" class="read-next-link"></a>
+        <section>
+          <span>angular2 中 ngrx-effetcts 基础和 ngrx-store 异步中间件</span>
+          <p>我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Ef...</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2018/01/23/About-me.html" class="read-next-link"></a>
+          <section>
+            <span>About Me</span>
+            <p>画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

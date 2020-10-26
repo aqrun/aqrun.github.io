@@ -1,0 +1,90 @@
+I"�<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本章节讨论如何在后台左侧导航菜单条添加自定义链接。</p>
+
+<p>首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。</p>
+
+<p><img src="/public/images/magento2/6-store-menu-items.png" alt="stores menu" /></p>
+
+<p>在前端时路由名称的格式为：<code class="language-plaintext highlighter-rouge">{router_name}_{controller_name}_{actions_name}</code>，后台路由格式也一样，但需要指定一个不同的名称以便让系统知道调用的是后台的路由。</p>
+
+<p>菜单到底如何添加？接下来继续使用之前的Hello World模块进行演示菜单项的添加。</p>
+
+<p>添加菜单使用 <code class="language-plaintext highlighter-rouge">menu.xml</code> 配置文件步骤如下：</p>
+
+<ul>
+  <li>1 创建 <code class="language-plaintext highlighter-rouge">menu.xml</code> 配置文件</li>
+  <li>2 添加菜单项</li>
+  <li>3 清除缓存</li>
+</ul>
+
+<h2 id="第一步-创建-menuxml">第一步 创建 menu.xml</h2>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/menu.xml</code></p>
+
+<p>代码：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:module:Magento_Backend:etc/menu.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;menu&gt;</span>
+    <span class="nt">&lt;/menu&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<h2 id="第二步-配置菜单项">第二步 配置菜单项</h2>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:module:Magento_Backend:etc/menu.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;menu&gt;</span>
+        <span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span> <span class="na">title=</span><span class="s">"你好世界"</span>
+             <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"51"</span>
+             <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::post"</span> <span class="na">title=</span><span class="s">"文章管理"</span>
+             <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"10"</span>
+             <span class="na">action=</span><span class="s">"aqrun_helloworld/post"</span> <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::post"</span>
+             <span class="na">parent=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::hello_configuration"</span> <span class="na">title=</span><span class="s">"参数设置"</span>
+             <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"99"</span>
+             <span class="na">parent=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span>
+             <span class="na">action=</span><span class="s">"adminhtml/system_config/edit/section/helloworld"</span>
+             <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::helloworld_configuration"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/menu&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>配置文件中，我们添加了名为“你好世界”的第0级菜单，以及它的两个子菜单项“文章管理”和“参数设置”。
+在 menu.xml 文件中会定义很多 ‘add’ 节点来向后台添加菜单项，它的结构如下：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::post"</span> <span class="na">title=</span><span class="s">"Manage Posts"</span> 
+    <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> 
+    <span class="na">sortOrder=</span><span class="s">"10"</span> <span class="na">action=</span><span class="s">"aqrun_helloworld/post"</span> 
+    <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::post"</span>
+    <span class="na">parent=</span><span class="s">"Aqrun_HelloWrld::helloworld"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>属性解释：</p>
+
+<ul>
+  <li>id 是对应节点的唯一标识，并且命名格式必须是 <code class="language-plaintext highlighter-rouge">{公司_模块名}::{菜单名或描述}</code></li>
+  <li>title 属性指定显示在菜单导航条上的文字</li>
+  <li>module 属性指定菜单属于哪个模块</li>
+  <li>srotOrder 属性控制菜单项显示顺序，数字越小越靠前</li>
+  <li>parent 属性关联其它菜单ID，告诉系统当前菜单是哪个菜单的子项。本例中 <code class="language-plaintext highlighter-rouge">parent="Aqrun_HelloWorld::helloworld"</code>, 由此我们知道 “管理文章”是 “你好世界”的子项，会显示在“你好世界”的菜单页里。</li>
+  <li>action 属性值是要链接到的页面URL。上面提到过路由格式是 <code class="language-plaintext highlighter-rouge">{路由名}{控制器文件夹}{动作名}</code>，因此当前菜单就链接到 HelloWorld 模块的Post控制器，动作是 Index。</li>
+  <li>resource 属性指定权限控制，控制管理员是否有权限查看当前菜单。</li>
+</ul>
+
+<p>你也可以添加一些其它子菜单，会和店铺菜单一样的格式显示。</p>
+
+<p>最后要提的是菜单的图标，显示在0级菜单名称的上面。这些图标是 ‘Admin Icons’ 字体生成的，更多关于图标的内容查看<a href="https://devdocs.magento.com/guides/v2.1/design-styleguide/iconography/iconography.html">这个链接</a></p>
+
+<h2 id="第三步-清空缓存">第三步 清空缓存</h2>
+
+<p>要确保自定义菜单正常显示需要清除一下缓存运行 <code class="language-plaintext highlighter-rouge">php bin/magento cache:clean</code></p>
+
+<p>本例显示结果如图：</p>
+
+<p><img src="/public/images/magento2/6-helloworld-menu-items.png" alt="helloworld" /></p>
+:ET

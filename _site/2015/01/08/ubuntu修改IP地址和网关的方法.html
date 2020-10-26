@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>ubuntu修改IP地址和网关的方法 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="ubuntu修改IP地址和网关的方法 - <h2 id="一使用命令设置ubuntu-ip地址">一、使用命令设置Ubuntu IP地址</h2>
+">
+    <meta name="keywords"  content="ubutnu, ip, 网关">
+    <!-- Open Graph -->
+    <meta property="og:title" content="ubuntu修改IP地址和网关的方法 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2015/01/08/ubuntu%E4%BF%AE%E6%94%B9IP%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E7%9A%84%E6%96%B9%E6%B3%95.html">
+    <meta property="og:description" content="<h2 id="一使用命令设置ubuntu-ip地址">一、使用命令设置Ubuntu IP地址</h2>
+">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#ubutnu" class="post-tag">ubutnu</a>
+          
+            <a href="http://aqrun.com/tags#ip" class="post-tag">ip</a>
+          
+            <a href="http://aqrun.com/tags#%E7%BD%91%E5%85%B3" class="post-tag">网关</a>
+          
+        
+      </div>
+      <h1>ubuntu修改IP地址和网关的方法</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="15-01-08"><i class="iconfont icon-date"></i>08 Jan 2015</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <h2 id="一使用命令设置ubuntu-ip地址">一、使用命令设置Ubuntu IP地址</h2>
+
+<h3 id="1修改配置文件blacklistconf禁用ipv6">1.修改配置文件blacklist.conf禁用IPV6</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi /etc/modprobe.d/blacklist.conf
+</code></pre></div></div>
+
+<p>表示用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内容。</p>
+
+<p>注意：只能在root用户模式下才可以修改</p>
+
+<p>在文档最后添加 blacklist ipv6</p>
+
+<p>然后查看修改结果</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/modprobe.d/blacklist.conf
+</code></pre></div></div>
+
+<h3 id="2设置网卡eth0的ip地址和子网掩码">2.设置网卡eth0的IP地址和子网掩码</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ifconfig eth0 192.168.2.1 netmask 255.255.255.0
+</code></pre></div></div>
+
+<p>将IP地址改为：192.168.2.1，子网掩码改为：255.255.255.0</p>
+
+<h3 id="3ubuntu-ip设置网关">3.Ubuntu IP设置网关</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo route add default gw 192.168.2.254
+</code></pre></div></div>
+
+<h3 id="4ubuntu-ip设置dns-修改etcresolvconf在其中加入nameserver-dns的地址1-和-nameserver-dns的地址2-完成">4.Ubuntu IP设置DNS 修改/etc/resolv.conf，在其中加入nameserver DNS的地址1 和 nameserver DNS的地址2 完成。</h3>
+
+<h3 id="5重启网络服务若不行请重启ubuntusudo-reboot">5.重启网络服务（若不行，请重启ubuntu：sudo reboot）</h3>
+
+<p>sudo /etc/init.d/networking restart</p>
+
+<h3 id="6查看当前ip">6.查看当前IP</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifconfig
+</code></pre></div></div>
+
+<h2 id="二直接修改ubuntu-ip系统配置文件">二、直接修改Ubuntu IP系统配置文件</h2>
+
+<p>Ubuntu IP的网络配置文件是根目录下：/etc/network/interfaces</p>
+
+<p>注意：修改完interfaces文档中的内容后，需要修改/etc/NetworkManager/NetworkManager.conf文档中的managed参数，使之为true，并重启。否则，会提示说“有线网络设备未托管”。</p>
+
+<p>打开后里面可设置DHCP或手动设置静态IP。</p>
+
+<p>前面auto eth0，表示让网卡开机自动挂载eth0。</p>
+
+<h3 id="1-以dhcp方式配置网卡">1. 以DHCP方式配置网卡</h3>
+
+<p>编辑文件 /etc/network/interfaces</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi /etc/network/interfaces
+</code></pre></div></div>
+
+<p>并用下面的行来替换有关eth0的行：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#The primary network interface - use DHCP to find our address
+auto eth0
+iface eth0 inet dhcp
+</code></pre></div></div>
+
+<p>用下面的命令使网络设置生效：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo /etc/init.d/networking restart
+</code></pre></div></div>
+
+<p>也可以在命令行下直接输入下面的命令来获取地址sudo dhclient eth0</p>
+
+<h3 id="2-为网卡配置静态ubuntu-ip地址">2. 为网卡配置静态Ubuntu IP地址</h3>
+
+<p>编辑文件 /etc/network/interfaces</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi /etc/network/interfaces
+</code></pre></div></div>
+
+<p>并用下面的行来替换有关eth0的行：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># The primary network interface  
+auto eth0  
+iface eth0 inet static  
+address 192.168.2.1  
+gateway 192.168.2.254  
+netmask 255.255.255.0  
+#network 192.168.2.0  
+#broadcast 192.168.2.255 
+</code></pre></div></div>
+
+<p>将eth0的IP分配方式修改为静态分配(static)后，为其制定IP、网关、子网掩码等信息。</p>
+
+<p>将上面的Ubuntu IP地址等信息换成你自己就可以了。</p>
+
+<p>用下面的命令使网络设置生效：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo /etc/init.d/networking restart 
+</code></pre></div></div>
+
+<h3 id="3-设定第二个ubuntu-ip地址虚拟ip地址">3. 设定第二个Ubuntu IP地址(虚拟IP地址)</h3>
+
+<p>编辑文件/etc/network/interfaces：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi /etc/network/interfaces 
+</code></pre></div></div>
+
+<p>在该文件中添加如下的行：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auto eth0:1  
+iface eth0:1 inet static  
+address x.x.x.x  
+netmask x.x.x.x  
+network x.x.x.x  
+broadcast x.x.x.x  
+gateway x.x.x.x 
+</code></pre></div></div>
+
+<p>根据你的情况填上所有诸如address,netmask,network,broadcast和gateways等信息；</p>
+
+<p>用下面的命令使网络设置生效</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo /etc/init.d/networking restart
+</code></pre></div></div>
+
+<h3 id="4-设置主机名称hostname">4. 设置主机名称(hostname)</h3>
+
+<p>使用下面的命令来查看当前主机的主机名称：sudo /bin/hostname</p>
+
+<p>使用下面的命令来设置当前主机的主机名称：sudo /bin/hostname newname</p>
+
+<p>系统启动时，它会从/bin/hostname来读取主机的名称。</p>
+
+<h3 id="5-配置dns">5. 配置DNS</h3>
+
+<p>首先，你可以在/etc/hosts中加入一些主机名称和这些主机名称对应的IP地址，这是 简单使用本机的静态查询。要访问DNS 服务器来进行查询,需要设置/etc/resolv.conf文件，假设DNS服务器的IP地址是192.168.2.2, 那么/etc/resolv.conf文件的内容应为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>search chotim.com
+nameserver 192.168.2.2
+</code></pre></div></div>
+
+<h3 id="6手动重启网络服务sudo-etcinitdnetworking-restart">6.手动重启网络服务：sudo /etc/init.d/networking restart</h3>
+
+<p>返回结果如下：</p>
+
+<p>*Reconfiguring network interfaces… [OK]</p>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2015/03/15/Compiling-PHP-5.4-on-Ubuntu-12.04.html" class="read-next-link"></a>
+        <section>
+          <span>Compiling PHP 5.4 on Ubuntu 12.04</span>
+          <p>So recently I’ve been working with PHP 5.4 a LOT. Unfortu...</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2015/01/08/ubuntu-fcitx%E8%BE%93%E5%85%A5%E6%B3%95%E5%AE%89%E8%A3%85.html" class="read-next-link"></a>
+          <section>
+            <span>ubuntu fcitx输入法安装</span>
+            <p>目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

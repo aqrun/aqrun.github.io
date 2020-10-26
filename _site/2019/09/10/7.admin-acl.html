@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>7.Magento 2 后台 ACL 权限控制列表 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="7.Magento 2 后台 ACL 权限控制列表 - Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="7.Magento 2 后台 ACL 权限控制列表 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/09/10/7.admin-acl.html">
+    <meta property="og:description" content="Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>7.Magento 2 后台 ACL 权限控制列表</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-09-10"><i class="iconfont icon-date"></i>10 Sep 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色。本文我们来研究它的工作机制并为我们的自定义模块添加权限控制。</p>
+
+<h2 id="magento-2-权限控制列表规则">Magento 2 权限控制列表规则</h2>
+
+<p>后台 ACL资源 可以在 <code class="language-plaintext highlighter-rouge">System &gt; Permissions &gt; User Roles</code> 菜单下看到。当我们点击 <code class="language-plaintext highlighter-rouge">Add new Role</code> 按钮会看到如下图页面：</p>
+
+<p><img src="/public/images/magento2/7-role-resources.png" alt="role resources" /></p>
+
+<p>在这个权限资源面板你可看到一个树状列表显示的系统中定义的所有权限资源。你可以选择所有权限资源，也可以给角色或用户选择某几个权限资源。所有属于当前角色的用户都限定只能访问你选择的权限资源，他们不能看到或访问其它权限资源。</p>
+
+<p>要添加后台管理员ACL有如下几步：</p>
+
+<ul>
+  <li>1 添加 ACL 规则</li>
+  <li>2 清空缓存</li>
+  <li>3 检测ACL规则</li>
+</ul>
+
+<h2 id="第一步-创建acl规则">第一步 创建ACL规则</h2>
+
+<p>还是使用HelloWorld模块演示如何添加权限控制。在上两章节我们经常会看到 <code class="language-plaintext highlighter-rouge">resource</code> 这个属性。现在让我们把那些权限资源注册到系统里，以便系统识别并让我们可以把这些权限资源指派到某个角色。要注册权限资源我们使用位于 <code class="language-plaintext highlighter-rouge">app/code/{namespace}/{modeule}/etc/acl.xml</code> 的这个 acl.xml 文件。下面开始创建：</p>
+
+<p>文件 <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/acl.xml</code></p>
+
+<p>代码：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:Acl/etc/acl.xsd"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;acl&gt;</span>
+        <span class="nt">&lt;resources&gt;</span>
+            <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Magento_Backend::admin"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span> <span class="na">title=</span><span class="s">"你好世界"</span> 
+                    <span class="na">translate=</span><span class="s">"title"</span> <span class="na">sortOrder=</span><span class="s">"51"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::post"</span> <span class="na">title=</span><span class="s">"文章管理"</span> 
+                        <span class="na">translate=</span><span class="s">"title"</span> <span class="na">sortOrder=</span><span class="s">"51"</span> <span class="nt">/&gt;</span>
+                    <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::helloworld_configuration"</span> 
+                        <span class="na">translate=</span><span class="s">"title"</span> <span class="na">title=</span><span class="s">"参数设置"</span> <span class="na">sortOrder=</span><span class="s">"99"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/resource&gt;</span>
+                <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Magento_Backend::stores"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Magento_Backend::stores_settings"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Magento_Config::config"</span><span class="nt">&gt;</span>
+                            <span class="nt">&lt;resource</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::helloworld_config"</span>
+                                <span class="na">translate=</span><span class="s">"title"</span> <span class="na">title=</span><span class="s">"你好世界设置"</span> <span class="na">sortOrder=</span><span class="s">"100"</span><span class="nt">/&gt;</span>
+                        <span class="nt">&lt;/resource&gt;</span>
+                    <span class="nt">&lt;/resource&gt;</span>
+                <span class="nt">&lt;/resource&gt;</span>
+            <span class="nt">&lt;/resource&gt;</span>
+        <span class="nt">&lt;/resources&gt;</span>
+    <span class="nt">&lt;/acl&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>我们的权限资源做为子节点放在 <code class="language-plaintext highlighter-rouge">Magneto_Backend::admin</code> 节点下面，每个权限资源都会有 id, title, sortOrder 属性：</p>
+
+<ul>
+  <li>id 是资源的唯一标识。你可以在定义后台菜单、参数配置时把这个标识作为值赋给 <code class="language-plaintext highlighter-rouge">resource</code> 属性。标识是唯一的并且格式是: Vendor_ModuleName::resource_name。</li>
+  <li>title 属性是在权限资源树列表显示的名称</li>
+  <li>sortOrder 控制权限资源在树中显示的顺序</li>
+</ul>
+
+<p>接下来清空缓存并查看权限资源树：</p>
+
+<p><img src="/public/images/magento2/7-role-resources-result.png" alt="role resources added" /></p>
+
+<h2 id="第二步-清缓存">第二步 清缓存</h2>
+
+<h2 id="第三步-测试-acl-规则">第三步 测试 ACL 规则</h2>
+
+<p>有很多地方我们可以使用ACL权限资源控制用户的访问：</p>
+
+<h4 id="后台菜单-使用-acl-权限资源可以对未授权用户隐藏菜单项">后台菜单： 使用 ACL 权限资源可以对未授权用户隐藏菜单项</h4>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/menu.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;add</span> <span class="na">id=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span> <span class="na">title=</span><span class="s">"Hello World"</span> <span class="na">module=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">sortOrder=</span><span class="s">"51"</span>
+    <span class="na">resource=</span><span class="s">"Aqrun_HelloWorld::helloworld"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<h4 id="系统参数设置-使用acl权限资源限制-section-的访问">系统参数设置： 使用ACL权限资源限制 section 的访问</h4>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/system.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"helloworld"</span> <span class="na">translate=</span><span class="s">"label"</span> <span class="na">sortOrder=</span><span class="s">"130"</span> <span class="na">showInDefault=</span><span class="s">"1"</span> <span class="na">showInWebsite=</span><span class="s">"1"</span> <span class="na">showInStore=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        ….
+            <span class="nt">&lt;resource&gt;</span>Mageplaza_HelloWorld::helloworld_configuration<span class="nt">&lt;/resource&gt;</span>
+        ….
+<span class="nt">&lt;/section&gt;</span>
+</code></pre></div></div>
+
+<p>权限资源也可以用于控制器</p>
+
+<h4 id="后台控制器">后台控制器</h4>
+
+<p>系统提供接口 <code class="language-plaintext highlighter-rouge">Magento\Framework\AuthorizationInterface</code>，使用这个接口可以判断当前登陆用户是否有特定权限。可以通过变量： <code class="language-plaintext highlighter-rouge">$this-&gt;_authorization</code> 获取它的实例对象。在控制器中需要定义一个保护方法来检测权限资源：</p>
+
+<p>如文件： <code class="language-plaintext highlighter-rouge">vendor/magento/module-customer/Controler/Adminhtml/Index.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="k">function</span> <span class="n">_isAlloed</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_authorization</span><span class="o">-&gt;</span><span class="nf">isAllowed</span><span class="p">(</span><span class="s1">'Magento_Customer::manage'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2019/09/13/8.admin-grid.html" class="read-next-link"></a>
+        <section>
+          <span>8.如何添加后台数据网格</span>
+          <p>Magento 2 网格是一种数据表格，用来显示数据库中对应表的数据，并提供了排序、筛选、删除、更新数据的功能</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/07/23/controlled-and-uncontrolled-form.html" class="read-next-link"></a>
+          <section>
+            <span>React 受控组件和非受控组件</span>
+            <p>React 受控组件和非受控组件有没有选择标准？</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

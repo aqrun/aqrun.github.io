@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>13.Magento2 路由 - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="13.Magento2 路由 - 路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法">
+    <meta name="keywords"  content="php, magento2">
+    <!-- Open Graph -->
+    <meta property="og:title" content="13.Magento2 路由 - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2019/11/18/13.magento-2-routing.html">
+    <meta property="og:description" content="路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#php" class="post-tag">php</a>
+          
+            <a href="http://aqrun.com/tags#magento2" class="post-tag">magento2</a>
+          
+        
+      </div>
+      <h1>13.Magento2 路由</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="19-11-18"><i class="iconfont icon-date"></i>18 Nov 2019</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文讨论一下路由系统（Routing）。路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法</p>
+
+<p>本文内容目录：</p>
+
+<ul>
+  <li>Magento 2 处理请求流程</li>
+  <li>在前端或后台添加自定义路由
+    <ul>
+      <li>前端路由
+        <ul>
+          <li>routes.xml</li>
+        </ul>
+      </li>
+      <li>后台路由</li>
+      <li>使用路由重写控制器</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="magento-2-请求处理流程">Magento 2 请求处理流程</h2>
+
+<p>如下URL</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.com/index.php/front_name/controller/action
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">front_name</code> 可用于查找对应的模块。每个模块的路由定义这个名称参数是使用 routes.xml 配置文件。后面会详细说明</p>
+
+<p>Magento 2 接收到请求时为了找到对应控制器/动作的流程是：index.php -&gt; HTTP app -&gt; FrontController -&gt; Routing -&gt; Controller -&gt; processing -&gt; etc</p>
+
+<p>Http 类会调用 FrontControler 再通过请求的路由找到匹配的 控制器动作</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">vendor/magento/framework/App/FrontControler.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">dispatch</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="err">\</span><span class="nc">Magento\Framework\Profiler</span><span class="o">::</span><span class="nf">start</span><span class="p">(</span><span class="s1">'routes_match'</span><span class="p">);</span>
+    <span class="nv">$routingCycleCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">isDispatched</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$routingCycleCounter</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cd">/** @var \Magento\Framework\App\RouterInterface $router  */</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_routerList</span> <span class="k">as</span> <span class="nv">$router</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">try</span><span class="p">{</span>
+                <span class="nv">$actionInstance</span> <span class="o">=</span> <span class="nv">$router</span><span class="o">-&gt;</span><span class="nf">match</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nv">$actionInstance</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setDispatched</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">response</span><span class="o">-&gt;</span><span class="nf">setNoCacheHeaders</span><span class="p">();</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nv">$actionInstance</span> <span class="k">instanceof</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\AbstractAction</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$actionInstance</span><span class="o">-&gt;</span><span class="nf">dispatch</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$actionInstance</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">();</span>
+                    <span class="p">}</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">Magento\Framework\Exception\NotFoundException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">initForward</span><span class="p">();</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setActionName</span><span class="p">(</span><span class="s1">'noroute'</span><span class="p">);</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setDispatched</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如上代码的 dispatch() 方法中，会循环路由列表来查找匹配当前请求的路由。如果找到当前匹配的控制器动作就会调用执行。</p>
+
+<h2 id="在前端或后台创建自定义路由">在前端或后台创建自定义路由</h2>
+
+<p>继续使用 HelloWorld 模块演示代码。</p>
+
+<p>接下来演示如何在前端或后台添加路由以及如何使用路由改写控制器</p>
+
+<h3 id="前端路由">前端路由</h3>
+
+<p>前端路由使用配置文件 routes.xml</p>
+
+<p>路径： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/frontend/routeds.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" ?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 前台路由必须定义在 'standard' 路由下面 --&gt;</span>
+    <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"standard"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--定义路由并指定 id 和 frontname --&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 路由匹配的模块 --&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+    <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>如上代码注册路由非常简单。前台路由必须使用 standard 路由，在这个路由下面再添加子项，指定模块及两个属性：</p>
+
+<ul>
+  <li>id 属性是路由的唯一标识，在给模块添加布局句柄文件时也会用到这个ID</li>
+  <li>frontName 属性值也是唯一的字符串，会显示在URL请求的链接中。比如如下路由：</li>
+</ul>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>则当前模块的URL就是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.xom/index.php/helloworld/controller/action
+</code></pre></div></div>
+
+<p>对应控制器动作的布局句柄文件就是： <code class="language-plaintext highlighter-rouge">helloworld_controller_action.xml</code>, 根据示例代码中的路径创建对应的动作类： <code class="language-plaintext highlighter-rouge">{namespace}/{module}/Controller/{Controller}/{Action}.php</code></p>
+
+<h3 id="后台路由">后台路由</h3>
+
+<p>后台路由配置文件和上面的前台路由一样，但文件夹是 adminhtml 及 router 节点的ID必须是 <code class="language-plaintext highlighter-rouge">admin</code></p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/routes.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 后台使用 admin 路由 --&gt;</span>
+    <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"admin"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- 定义路由及两个属性 --&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">"aqrun_helloworld"</span> <span class="na">frontName=</span><span class="s">"aqrun_helloworld"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 匹配的模块 --&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+    <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>后面页面URL和前台页面一样，但会在路由名称前添加后台范围名来标识这是后台的路由。如下URL</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.xom/index.php/admin/aqrun_helloworld/controller/action
+</code></pre></div></div>
+
+<p>后台页面的控制器动作的目录是 <code class="language-plaintext highlighter-rouge">Controller/Adminhtml</code>。上面的URL动作文件就是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{namespace}/{module}/Controller/Adminhtml/{Controller}/{Action}.php
+</code></pre></div></div>
+
+<h3 id="使用路由重写控制器">使用路由重写控制器</h3>
+
+<p>接下来研究一下如何使用路由实现控制器重写。根据上面的内容，可以看出每个路由都有ID属性标识。那如果我们使用一样的ID属性定义两个路由会发生什么呢？</p>
+
+<p>答案就是匹配两个模块中的控制器动作。Magento 系统提供了 before/after 属性来配置模块的排序，用来指定哪个模块的控制器先被发现。这就是控制器重写的逻辑。</p>
+
+<p>比如我们要重写控制器 <code class="language-plaintext highlighter-rouge">customer/account/login</code>，我们会在 routes.xml 如下定义</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/frontend/routnes.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!-- 前台使用 'standard'--&gt;</span>
+   <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"standard"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--定义路由--&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!--指定模块--&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+       <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">"customer"</span><span class="nt">&gt;</span>
+           <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">before=</span><span class="s">"Magento_Customer"</span> <span class="nt">/&gt;</span>
+       <span class="nt">&lt;/route&gt;</span>
+   <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>对应的控制器文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Controler/Account/Login.php</code></p>
+
+<p>因此 frontControler 类会先匹配到我们的模块中的 Login 动作，如果匹配到了就会执行我们的动作而 Magneto_Customer 模块的动作不会再执行。这样我们就完成了控制的重写。</p>
+
+<p>你也可以在模块中使用和其它模块一样的路由相当于配置了另一个模块。比如上面的配置文件，你可以使用 customer 路由调用你的控制器和动作。如果控制器是 ‘Blog’ 动作是 ‘Index.php’, 那访问的URL就是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.xom/customer/blog/index
+</code></pre></div></div>
+
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2019/11/23/14.console-command-line.html" class="read-next-link"></a>
+        <section>
+          <span>14.Magento 2 中如何添加控制台命令</span>
+          <p>如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/11/10/array-reduce.html" class="read-next-link"></a>
+          <section>
+            <span>数组常用操作 reduce</span>
+            <p>数组操作</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

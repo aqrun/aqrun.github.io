@@ -1,0 +1,92 @@
+I"i<h3 id="viewport">Viewport</h3>
+
+<pre class="line-numbers">
+  <code class="language-javascript">
+
+    // meta:
+    // &lt;meta content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" name="viewport"&gt;
+
+    (function(init_width){
+      var isAndroid=navigator.userAgent.match(/(Android)/i)
+      , viewPort = document.querySelector("meta[name=viewport]");
+      window.html_font_size = isAndroid?100:window.innerWidth*100/init_width;
+      
+      function setHtmlWidth(){
+        document.querySelector("html").style.fontSize = html_font_size + "px";
+      }
+      
+      if (isAndroid) {
+        content = "target-densitydpi=320,width="+init_width+",user-scalable=no";
+        viewPort.setAttribute("content",content);
+      }else{
+        setHtmlWidth();window.onresize = setHtmlWidth;
+      }
+    })(640)
+</code>
+</pre>
+
+<h3 id="css-reset">CSS reset</h3>
+
+<pre class="line-numbers">
+    <code class="language-css">
+    /*css reset*/
+    html{font-size:100px}
+    body{
+      font-size: 0.12rem;
+      font-family: "微软雅黑","宋体","arial";
+      font-weight: normal;
+      overflow-x: hidden;
+    }
+    body, ul, ol, p, h1, h2, h3, h4, h5, h6, dl, dt, dd ,form ,textarea ,input{margin:0;}
+      ul,ol{list-style:none;}
+      ul,ol,input{padding:0;}
+      table{margin:0 auto;width:100%;border-collapse:collapse;}
+      a img{border:0;
+    }
+    input[type="button"], input[type="submit"], input[type="reset"] {
+      -webkit-appearance: none;
+    }
+    .clearfix:after {
+      content: " ";
+      display: block;
+      clear: both;
+      height: 0;
+    }
+    img{width:100%;}
+      .max_width{
+      width:6.4rem;
+      margin:0 auto;
+      position: relative;
+    }
+    .clear{
+      width:100%;
+      height:0;
+      clear:both;
+    }
+    .clear30{
+      height: 30px;
+    }
+    .clearfix {
+      zoom: 1;
+    }
+    img,object,audio,vedio{
+      max-width: 100%;
+    }
+    a{
+      text-decoration: none;
+    }
+</code>
+</pre>
+
+<h3 id="html">html</h3>
+
+<pre>
+<code class="language-html">
+&lt;div class="wrap clearfix"&gt;
+  &lt;div class="max_width"&gt;
+  
+  &lt;/div&gt;
+&lt;/div&gt;
+</code>
+</pre>
+:ET

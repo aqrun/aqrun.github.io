@@ -1,0 +1,178 @@
+I"�9<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文讨论一下路由系统（Routing）。路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法</p>
+
+<p>本文内容目录：</p>
+
+<ul>
+  <li>Magento 2 处理请求流程</li>
+  <li>在前端或后台添加自定义路由
+    <ul>
+      <li>前端路由
+        <ul>
+          <li>routes.xml</li>
+        </ul>
+      </li>
+      <li>后台路由</li>
+      <li>使用路由重写控制器</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="magento-2-请求处理流程">Magento 2 请求处理流程</h2>
+
+<p>如下URL</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.com/index.php/front_name/controller/action
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">front_name</code> 可用于查找对应的模块。每个模块的路由定义这个名称参数是使用 routes.xml 配置文件。后面会详细说明</p>
+
+<p>Magento 2 接收到请求时为了找到对应控制器/动作的流程是：index.php -&gt; HTTP app -&gt; FrontController -&gt; Routing -&gt; Controller -&gt; processing -&gt; etc</p>
+
+<p>Http 类会调用 FrontControler 再通过请求的路由找到匹配的 控制器动作</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">vendor/magento/framework/App/FrontControler.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">dispatch</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="err">\</span><span class="nc">Magento\Framework\Profiler</span><span class="o">::</span><span class="nf">start</span><span class="p">(</span><span class="s1">'routes_match'</span><span class="p">);</span>
+    <span class="nv">$routingCycleCounter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nv">$result</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">isDispatched</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$routingCycleCounter</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cd">/** @var \Magento\Framework\App\RouterInterface $router  */</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">_routerList</span> <span class="k">as</span> <span class="nv">$router</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">try</span><span class="p">{</span>
+                <span class="nv">$actionInstance</span> <span class="o">=</span> <span class="nv">$router</span><span class="o">-&gt;</span><span class="nf">match</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nv">$actionInstance</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setDispatched</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">response</span><span class="o">-&gt;</span><span class="nf">setNoCacheHeaders</span><span class="p">();</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nv">$actionInstance</span> <span class="k">instanceof</span> <span class="err">\</span><span class="nc">Magento\Framework\App\Action\AbstractAction</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$actionInstance</span><span class="o">-&gt;</span><span class="nf">dispatch</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$actionInstance</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">();</span>
+                    <span class="p">}</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">Magento\Framework\Exception\NotFoundException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">initForward</span><span class="p">();</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setActionName</span><span class="p">(</span><span class="s1">'noroute'</span><span class="p">);</span>
+                    <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">setDispatched</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如上代码的 dispatch() 方法中，会循环路由列表来查找匹配当前请求的路由。如果找到当前匹配的控制器动作就会调用执行。</p>
+
+<h2 id="在前端或后台创建自定义路由">在前端或后台创建自定义路由</h2>
+
+<p>继续使用 HelloWorld 模块演示代码。</p>
+
+<p>接下来演示如何在前端或后台添加路由以及如何使用路由改写控制器</p>
+
+<h3 id="前端路由">前端路由</h3>
+
+<p>前端路由使用配置文件 routes.xml</p>
+
+<p>路径： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/frontend/routeds.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" ?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 前台路由必须定义在 'standard' 路由下面 --&gt;</span>
+    <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"standard"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--定义路由并指定 id 和 frontname --&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 路由匹配的模块 --&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+    <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>如上代码注册路由非常简单。前台路由必须使用 standard 路由，在这个路由下面再添加子项，指定模块及两个属性：</p>
+
+<ul>
+  <li>id 属性是路由的唯一标识，在给模块添加布局句柄文件时也会用到这个ID</li>
+  <li>frontName 属性值也是唯一的字符串，会显示在URL请求的链接中。比如如下路由：</li>
+</ul>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>则当前模块的URL就是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.xom/index.php/helloworld/controller/action
+</code></pre></div></div>
+
+<p>对应控制器动作的布局句柄文件就是： <code class="language-plaintext highlighter-rouge">helloworld_controller_action.xml</code>, 根据示例代码中的路径创建对应的动作类： <code class="language-plaintext highlighter-rouge">{namespace}/{module}/Controller/{Controller}/{Action}.php</code></p>
+
+<h3 id="后台路由">后台路由</h3>
+
+<p>后台路由配置文件和上面的前台路由一样，但文件夹是 adminhtml 及 router 节点的ID必须是 <code class="language-plaintext highlighter-rouge">admin</code></p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/adminhtml/routes.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 后台使用 admin 路由 --&gt;</span>
+    <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"admin"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- 定义路由及两个属性 --&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">"aqrun_helloworld"</span> <span class="na">frontName=</span><span class="s">"aqrun_helloworld"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- 匹配的模块 --&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+    <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>后面页面URL和前台页面一样，但会在路由名称前添加后台范围名来标识这是后台的路由。如下URL</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.xom/index.php/admin/aqrun_helloworld/controller/action
+</code></pre></div></div>
+
+<p>后台页面的控制器动作的目录是 <code class="language-plaintext highlighter-rouge">Controller/Adminhtml</code>。上面的URL动作文件就是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{namespace}/{module}/Controller/Adminhtml/{Controller}/{Action}.php
+</code></pre></div></div>
+
+<h3 id="使用路由重写控制器">使用路由重写控制器</h3>
+
+<p>接下来研究一下如何使用路由实现控制器重写。根据上面的内容，可以看出每个路由都有ID属性标识。那如果我们使用一样的ID属性定义两个路由会发生什么呢？</p>
+
+<p>答案就是匹配两个模块中的控制器动作。Magento 系统提供了 before/after 属性来配置模块的排序，用来指定哪个模块的控制器先被发现。这就是控制器重写的逻辑。</p>
+
+<p>比如我们要重写控制器 <code class="language-plaintext highlighter-rouge">customer/account/login</code>，我们会在 routes.xml 如下定义</p>
+
+<p>文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/etc/frontend/routnes.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;config</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:noNamespaceSchemaLocation=</span><span class="s">"urn:magento:framework:App/etc/routes.xsd"</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!-- 前台使用 'standard'--&gt;</span>
+   <span class="nt">&lt;router</span> <span class="na">id=</span><span class="s">"standard"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--定义路由--&gt;</span>
+        <span class="nt">&lt;route</span> <span class="na">frontName=</span><span class="s">"helloworld"</span> <span class="na">id=</span><span class="s">"helloworld"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!--指定模块--&gt;</span>
+            <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/route&gt;</span>
+       <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">"customer"</span><span class="nt">&gt;</span>
+           <span class="nt">&lt;module</span> <span class="na">name=</span><span class="s">"Aqrun_HelloWorld"</span> <span class="na">before=</span><span class="s">"Magento_Customer"</span> <span class="nt">/&gt;</span>
+       <span class="nt">&lt;/route&gt;</span>
+   <span class="nt">&lt;/router&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</code></pre></div></div>
+
+<p>对应的控制器文件： <code class="language-plaintext highlighter-rouge">app/code/Aqrun/HelloWorld/Controler/Account/Login.php</code></p>
+
+<p>因此 frontControler 类会先匹配到我们的模块中的 Login 动作，如果匹配到了就会执行我们的动作而 Magneto_Customer 模块的动作不会再执行。这样我们就完成了控制的重写。</p>
+
+<p>你也可以在模块中使用和其它模块一样的路由相当于配置了另一个模块。比如上面的配置文件，你可以使用 customer 路由调用你的控制器和动作。如果控制器是 ‘Blog’ 动作是 ‘Index.php’, 那访问的URL就是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.xom/customer/blog/index
+</code></pre></div></div>
+
+:ET

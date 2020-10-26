@@ -1,0 +1,1894 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>子十的独立博客</title>
+    <description>热爱技术。很高兴能在这里与你分享我对技术和生活的思考。</description>
+    <link>http://aqrun.com/</link>
+    <atom:link href="http://aqrun.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 25 Oct 2020 19:59:40 +0800</pubDate>
+    <lastBuildDate>Sun, 25 Oct 2020 19:59:40 +0800</lastBuildDate>
+    <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>Rust 数组、动态数组和切片（Array, Vector and slice）</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;原文链接：&lt;a href=&quot;https://hashrust.com/blog/arrays-vectors-and-slices-in-rust/&quot;&gt;Arrays, vectors and slices in Rust&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+
+&lt;p&gt;本文主要讨论&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt;中的数组(Array)、动态数组(Vector)和切片(Slice)。
+C/C++程序员应该很熟悉数组和动态数组，由于rust注重安全性，和其它语言相比这些还是略有区别。
+另外切片属于rust全新的非常重要的概念。&lt;/p&gt;
+
+&lt;h2 id=&quot;数组arrays&quot;&gt;数组（Arrays）&lt;/h2&gt;
+
+&lt;p&gt;数组是初级程序员就会学到的数据类型。一个数组是一组相同数据类型元素组成的集合，存储
+在连续的内存块中。例如定义如下数组：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;所有的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i32&lt;/code&gt;整形数据都存储在彼此地址相邻的栈内存中：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             stack
+            |-----|
+            |  42 |
+            |-----|
+            |  10 |
+            |-----|
+            |  5  |
+            |-----|
+            |  2  |
+            |-----|
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在 Rust 中，数组大小是类型的一部分。如下代码不能通过编译：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// error: expected an array with a fixed size of 4 elements,&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// found one with 3 elements&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Rust 的严谨性还可以防止 C/C++ 中的数组衰退为指针问题：&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// c++ code&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 别被外表欺骗：`arr` 不是指向5个整形元素的数组指针。&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 它已经衰退为指向整数的指针&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_array_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// 输出8（指针的大小）&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;在 print_array_size 函数中数组大小是: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// 输出20（5个4字节的整数的大小）&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;main函数中数组的大小：&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;print_array_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;print_array_size&lt;/code&gt; 函数输出8而不是期望的20（5个4字节整数），原因就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr&lt;/code&gt; 从5个整数的数组指针衰退成了整数的指针。同样的代码在 rust 中就没有问题：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;mem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size_of_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_array_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 输出 20&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;print_array_size 函数中数组大小：{}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size_of_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// print 20&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;main函数中数组大小：{}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;size_of_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+      &lt;span class=&quot;nf&quot;&gt;print_array_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;C/C++和Rust处理数组的另一个不同点是，Rust访问元素会进行边界检查。如下c++代码，我们想从长度为3的数组获取第5个元素。会产生&lt;a href=&quot;https://blog.regehr.org/archives/213&quot;&gt;未知行为&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;auto&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// arr[index] 是未知的行为&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Integer at index&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;而同样的代码在rust中会报错：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      
+      &lt;span class=&quot;c&quot;&gt;// arr[index] 提示如下错误信息:&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// index out of bounds: the len is 3 but the index is 5&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Integer at index {}: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;你或许会疑惑，rust的处理方式怎么就比C++的好了？好吧，由于C++可以输出未知的行为，相当于给了编译器一张王牌通行证，可以以优化的名义做任何事。最严重的情况就是泄露信息给攻击者。&lt;/p&gt;
+
+&lt;p&gt;相反Rust总是会报错。并且，错误会直接终止程序运行，程序员也更方便发现并修复这些BUG。而C++无视这种
+错误，如果不出错程序还继续使用错误数据正常执行。不管什么时候我都更顷向于选择Rust的报错而不是C/C++的未定义行为。&lt;/p&gt;
+
+&lt;h2 id=&quot;动态数组vectors&quot;&gt;动态数组（Vectors）&lt;/h2&gt;
+
+&lt;p&gt;数组最大的限制是它们的大小是固定的，而动态数组可以在运行时增加：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 初始化有三个元素的动态数组&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;vec!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 输出3&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;v有 {} 个元素&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 在运行时可以增加更多&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 输出5&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;v有 {} 个元素&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;动态数组是如何实现动态增长的呢？本质上动态数组将数组的所有元素存储在堆内存中。当增加新元素时，
+动态数组会检查数组是否还有剩余空间，如果没有，动态数组会重新生成一个更大的数组，复制所有的元素到新数组并释放之前的数组空间。如下代码演示：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;vec!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 输出4&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;v 的容量是 {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.capacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;v 中第一个元素的地址：{:p}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// {:p} 打印内存地址&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// 输出 8&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;v 的容量是 {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.capacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;v 中第一个元素的地址：{:p}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;初始化时 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt; 背后的数组大小是4：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     |----------------|         |-------|
+     | buffer pointer |--------&amp;gt;|   1   |
+     |----------------|         |-------|
+v --&amp;gt;|  capacity(4)   |         |   2   |
+     |----------------|         |-------|
+     |  length(4)     |         |   3   |
+     |----------------|         |-------|
+                                |   4   |
+                                |-------|
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;随后插入一个新的元素，动态数组会复制所有元素到一个新的容量为8的数组中：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;            栈内存                 堆内存              堆内存
+     |----------------|         |-------|          |-------|
+     | buffer pointer |--+      |   1   |      +--&amp;gt;|   1   |
+     |----------------|  |      |-------|      |   |-------|
+v --&amp;gt;|  capacity(4)   |  |      |   2   |      |   |   2   |
+     |----------------|  |      |-------|      |   |-------|
+     |  length(4)     |  |      |   3   |      |   |   3   |
+     |----------------|  |      |-------|      |   |-------|
+                         |      |   4   |      |   |   4   |
+                         |      |-------|      |   |-------|
+                         |        已回收        |   |   5   |
+                         |                     |   |-------|
+                         +---------------------+   |       |
+                                                   |-------|
+                                                   |       |
+                                                   |-------|
+                                                   |       |
+                                                   |-------|
+                                                     已分配
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在给动态数组插入新元素的前后程序都会打印第一个元素的内存地址，两次输出的地址都是不同的。
+第一个元素地址的变化很好的证明了会重新生成大小为8的数组。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意： 如果内存地址没有变化，原因是数组的末尾有足够的空间保存新的数组内容。试着插入足够多的元素就会发现地址变化。可以查看C语言的函数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;realloc&lt;/code&gt; 文档了解更多。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;切片slices&quot;&gt;切片（Slices）&lt;/h2&gt;
+
+&lt;p&gt;切片好比是数组和动态数组的临时视图。如下数组：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;可以创建一个包含第二个和第三个元素的切片如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1..3]&lt;/code&gt;语句创建一个从下标1（包含）到3（不包含）的区间。如果省略区间的第一个数字（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[..3]&lt;/code&gt;）它默认是零，如果省略后面那个数字默认是数组的长度。打印切片&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1..3]&lt;/code&gt;的元素，就会输出20和30：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// 输出 20&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;切片的第一个元素：{:}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// 输出 30&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;切片的第二个元素: {:}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果获取超出区间范围的元素就会发生 panic 报错：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// panics: index out of bounds&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;切片的第三个元素: {:}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;切片是如何知道它只有两个元素呢？原因就在于切片不是简单的数组指针，它还有一个额外的长度字段保存当前切片的元素个数。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意： 一个指针除了指向对象的地址外如果还有额外的数据就是胖指针（fat pointer)。切片并不是rust中唯一一个胖指针。例如还有特性对象（trait object)，除了对象指针还有虚表指针（vtable pointer)。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;如下创建一个动态数组的切片：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;vec!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;除了指向数组&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt;的第二个元素的指针，切片&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt;还有一个8字节长的字段值为2:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;           栈                                 堆
+      |--------------|                   |--------|
+      |buffer pointer|------------------&amp;gt;|    1   |
+      |--------------|                   |--------|
+v --&amp;gt; | capacity(4)  |       +----------&amp;gt;|    2   |
+      |--------------|       |           |--------|
+      |  length(4)   |       |           |    3   |
+      |--------------|       |           |--------|
+                             |           |    4   |
+      |--------------|       |           |--------|
+      |buffer pointer|-------+
+s --&amp;gt; |--------------|
+      | length(2)    |
+      |--------------|
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下面的代码也可以证明长度字段的存在，切片(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;[i32]&lt;/code&gt;)长度是16字节(8字节的缓冲区指针和8字节的长度字段)：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;mem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// prints 8&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;i32整形引用的大小是： {:}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;size_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// prints 16&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;i32整形切片大小是： {:}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;数组切片也是一样的，但缓冲区指针不再是指向堆内存而是指向数组的栈内存。&lt;/p&gt;
+
+&lt;p&gt;切片借用底层的数据结构，所有的正常借用规则也都适用。如下代码编译器不能编译能过：&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;vec!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;切片的第一个元素: {:}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;为什么? 当切片创建时，它指向的是动态数组的第一个元素地址，而当插入一个新元素时，会重新分配新的内存，老的内存就被释放。这时就导致切片指向无效的内存地址，如果访问无效数据就造成未定义行为。Rust又一次从灾难拯救了你。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：由于数组和动态数组都可以创建切片，它们是非常强大的抽象，因此对于函数参数，默认最好接收切片而不是数组或动态数组。事实上有很多函数如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;len&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;is_empty&lt;/code&gt;等，都是处理切片而不是数组或动态数组。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;数组和动态数组是新手程序员首要都会学习的数据结构，Rust 原生支持它们也就不足为奇。如我们所见，Rust的安全性防止我们滥用这些基础数据类型。切片是rust的新奇概念，是非常有用的抽象，在rust代码库中被广泛使用。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 25 Oct 2020 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2020/10/25/array-vector-slice-in-rust.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2020/10/25/array-vector-slice-in-rust.html</guid>
+        
+        <category>rust</category>
+        
+        <category>array</category>
+        
+        <category>vector</category>
+        
+        <category>slice</category>
+        
+        
+        <category>blog</category>
+        
+        <category>rust</category>
+        
+      </item>
+    
+      <item>
+        <title>0. Magento2 开发内容目录</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/06/10/1.magento-2-module-development.html&quot;&gt;1. Magneto 2 模块开发 - 简单的 Hello World 模块&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/06/11/2.create-controller.html&quot;&gt;2. 如何创建 Magento 2 控制器&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/06/12/3.models-crud.html&quot;&gt;3. Magento2 中模型 CRUD&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/07/15/4.view-layouts-block-and-templates.html&quot;&gt;4.Magento 2 创建视图：区块、布局、模板&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/07/16/5.configuration-system-xml.html&quot;&gt;5.Magento2 如何添加System.xml配置参数&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/07/18/6.admin-menu.html&quot;&gt;6.Magento 2 添加后台管理菜单&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/09/10/7.admin-acl.html&quot;&gt;7.Magento 2 后台 ACL 权限控制列表&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/09/13/8.admin-grid.html&quot;&gt;8.如何添加后台数据网格&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/10/02/9.install-upgrade-script.html&quot;&gt;9.如何创建安装、升级、卸载脚本&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/10/12/10.magento2-events.html&quot;&gt;10.Magento 2 事件&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/10/18/11.magento2-plugin-interceptor.html&quot;&gt;11. Magento 2 拦截器插件&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/11/10/12.magento2-indexing-reindex.html&quot;&gt;12.Magento 2 索引和重建索引&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/11/18/13.magento-2-routing.html&quot;&gt;13.Magento2 路由&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/11/23/14.console-command-line.html&quot;&gt;14.Magento 2 中如何添加控制台命令&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/2019/12/20/15.how-to-use-cli.html&quot;&gt;15.如何使用控制台命令&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 02 Feb 2020 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2020/02/02/0.magento-menu.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2020/02/02/0.magento-menu.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+      <item>
+        <title>CSS Grid</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;CSS3 grid 布局参考链接：&lt;/strong&gt;&lt;br /&gt;
+&lt;em&gt;&lt;a href=&quot;http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/&quot;&gt;React liftcycle&lt;/a&gt;&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;&lt;a href=&quot;https://www.html.cn/archives/8510/&quot;&gt;CSS Grid 布局完全指南&lt;/a&gt;&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;&lt;a href=&quot;https://css-tricks.com/snippets/css/complete-guide-grid/&quot;&gt;A Complete Guide to Grid&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;style&gt;
+    .my-grid .container{
+        font-size:12px;
+        display:grid;
+        max-width: 80%;
+        margin:0 auto;
+        grid-gap: 20px 20px;
+        grid-template-columns: minmax(100px, auto) minmax(150px, auto) repeat(3, minmax(75px, auto)) minmax(150px, auto)
+    }
+    .my-grid section{
+        background: #eee;
+        border:1px solid #999;
+        border-radius: 3px; 
+    }
+    .my-grid .phase{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .my-grid h3{
+        margin:0;
+    }
+    .my-grid p{
+        margin:0;
+    }
+    .my-grid .section-title{
+        display: flex;
+        justify-content: center;
+        height:40px;
+        align-items:center;
+    }
+    .my-grid .methods{
+        background:lightgreen;
+        border: 1px solid green;
+        border-radius: 3px;
+        margin: 0 15px;
+        text-align:center;
+        padding: 10px 8px;
+    }
+    .my-grid .uitem{
+        margin:0 15px;
+        padding: 10px 0px;
+        text-align: center;
+    }
+    .my-grid .rowline{
+        height:0;
+        border:0;
+        border-bottom:1px solid #333;
+    }
+    .my-grid .columnline{
+        border:0;
+        width:0;
+        border-right:1px solid #333;
+        position:relative;
+        margin: -20px auto -10px 50%;
+    }
+    .my-grid .columnline.down:after{
+        content: &quot;&quot;;
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        left: -3px
+    }
+    .my-grid .columnline.down:after{
+        width: 7px;
+        height: 10px;
+        background: #333;
+        clip-path: polygon(0 0,100% 0,50% 100%);
+    }
+    .my-grid .dashed{
+        border-style: dashed;
+    }
+    .my-grid .solid{
+        border-style: solid;
+    }
+    .my-grid .constructor{
+        background:lightskyblue;
+    }
+    .my-grid .render{
+        background: skyblue;
+    }
+    .my-grid .updates{
+        background:lightyellow;
+    }
+    .my-grid .section-white{
+        background:white;
+        border:1px solid #999;
+        border-top-color:#ddd;
+        border-radius: 3px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+&lt;/style&gt;
+
+&lt;div class=&quot;my-grid&quot; style=&quot;margin:50px auto;&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+        &lt;section class=&quot;s1&quot; style=&quot;grid-area:1/2/span 14/span 1;&quot;&gt;&lt;/section&gt;
+        &lt;section class=&quot;s2&quot; style=&quot;grid-area:1/3/span 14/span 3;&quot;&gt;&lt;/section&gt;
+        &lt;section class=&quot;s3&quot; style=&quot;grid-area:1/6/span 14/span 1;&quot;&gt;&lt;/section&gt;
+        &lt;div class=&quot;section-white s1&quot; style=&quot;grid-area:8/2/span 7/span 1&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;section-white s2&quot; style=&quot;grid-area:8/3/span 7/span 3&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;section-white s3&quot; style=&quot;grid-area:8/6/span 7/span 1&quot;&gt;&lt;/div&gt;
+    
+        &lt;div class=&quot;phase&quot; style=&quot;grid-area:3/1/span 6/auto;&quot;&gt;
+            &lt;h3&gt;Render phase&lt;/h3&gt;
+            &lt;p&gt;Pure and has no side effects,May be paused, aborted or restarted by React.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;phase&quot; style=&quot;grid-area:9/1/span 6/auto;&quot;&gt;
+            &lt;h3&gt;Commit phase&lt;/h3&gt;
+            &lt;p&gt;Can work with DOM,run side effects, schedule updates&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;h3 class=&quot;section-title&quot; style=&quot;grid-area:1/2/auto/span 1&quot;&gt;Mounting&lt;/h3&gt;
+        &lt;h3 class=&quot;section-title&quot; style=&quot;grid-area:1/3/auto/span 3&quot;&gt;Updating&lt;/h3&gt;
+        &lt;h3 class=&quot;section-title&quot; style=&quot;grid-area:1/6/auto/span 1&quot;&gt;Unmounting&lt;/h3&gt;
+
+        &lt;div class=&quot;rowline line1 dashed&quot; style=&quot;grid-area:8/1/span 1/1&quot;&gt;&lt;/div&gt;
+
+        &lt;!---mount 箭头--&gt;
+        &lt;div class=&quot;columnline s1 l1 dashed down&quot; style=&quot;grid-area:2/2/3/span 1&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;columnline s1 l2 dashed down&quot; style=&quot;grid-area:5/2/6/span 1&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;columnline s1 l3 dashed down&quot; style=&quot;grid-area:8/2/9/span 1&quot;&gt;&lt;/div&gt; 
+        &lt;div class=&quot;columnline s1 l4 solid down&quot; style=&quot;grid-area:11/2/12/span 1&quot;&gt;&lt;/div&gt;
+        
+        &lt;!---updating 箭头--&gt;
+        &lt;div class=&quot;columnline s2 l5 dashed down&quot; style=&quot;grid-area:5/3/6/span 1&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;columnline s2 l6 dashed down&quot; style=&quot;grid-area:5/4/6/span 1&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;columnline s2 l7 dashed down&quot; style=&quot;grid-area:5/5/6/span 1&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;columnline s2 l8 dashed down&quot; style=&quot;grid-area:8/4/9/span 1&quot;&gt;&lt;/div&gt; 
+        &lt;div class=&quot;columnline s2 l9 solid down&quot; style=&quot;grid-area:11/4/12/span 1&quot;&gt;&lt;/div&gt;
+
+        &lt;!---unmounting 箭头--&gt;
+        &lt;div class=&quot;columnline s3 l9 dashed down&quot; style=&quot;grid-area:2/6/12/span 1&quot;&gt;&lt;/div&gt;
+
+        &lt;div class=&quot;methods&quot; style=&quot;grid-area:12/2/span 2/span 1&quot;&gt;component&amp;shy;Did&amp;shy;Mount&lt;/div&gt;
+        &lt;div class=&quot;methods&quot; style=&quot;grid-area:12/3/span 2/span 3&quot;&gt;component&amp;shy;Did&amp;shy;Update&lt;/div&gt;
+        &lt;div class=&quot;methods&quot; style=&quot;grid-area:12/6/span 2/span 1&quot;&gt;component&amp;shy;Will&amp;shy;Unmount&lt;/div&gt;
+
+        &lt;div class=&quot;methods constructor&quot; style=&quot;grid-area:3/2/span 2/span 1&quot;&gt;constructor&lt;/div&gt;
+        &lt;div class=&quot;methods render&quot; style=&quot;grid-area:6/2/span 2/span 4&quot;&gt;render&lt;/div&gt;
+        &lt;div class=&quot;methods updates&quot; style=&quot;grid-area:9/2/span 2/span 4&quot;&gt;React updates DOM and refs&lt;/div&gt;
+
+        &lt;div class=&quot;uitem u1&quot; style=&quot;grid-area:3/3/span 2/span 1&quot;&gt;New Props&lt;/div&gt;
+        &lt;div class=&quot;uitem u2&quot; style=&quot;grid-area:3/4/span 2/span 1&quot;&gt;setSate()&lt;/div&gt;
+        &lt;div class=&quot;uitem u3&quot; style=&quot;grid-area:3/5/span 2/span 1&quot;&gt;forceUpdate()&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 13 Jan 2020 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2020/01/13/css-grid.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2020/01/13/css-grid.html</guid>
+        
+        <category>css</category>
+        
+        <category>grid</category>
+        
+        
+        <category>blog</category>
+        
+        <category>frontend</category>
+        
+      </item>
+    
+      <item>
+        <title>15.如何使用控制台命令</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;/2020/02/02/0.magento-menu.html&quot;&gt;Magento 2 开发内容目录&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文研究一下Magento系统提供的一些命令。Magento 通过 bin/magento 提供了很多命令，刚开始感觉会有些复杂，接下来我们就仔细了解一下：&lt;/p&gt;
+
+&lt;p&gt;当运行如下命令&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/magento
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;就会输出所有可用的命令列表，当括我们自定义的命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Usage:                                                                                                                      
+ &lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;options] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;arguments]                                                                                              
+                                                                                                                            
+Options:                                                                                                                    
+ &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;           Display this &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;message                                                                            
+ &lt;span class=&quot;nt&quot;&gt;--quiet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;          Do not output any message                                                                            
+ &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;|vv|vvv&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Increase the verbosity of messages: 1 &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;normal output, 2 &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more verbose output and 3 &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;debug   
+ &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;        Display this application version                                                                     
+ &lt;span class=&quot;nt&quot;&gt;--ansi&lt;/span&gt;                Force ANSI output                                                                                    
+ &lt;span class=&quot;nt&quot;&gt;--no-ansi&lt;/span&gt;             Disable ANSI output                                                                                  
+ &lt;span class=&quot;nt&quot;&gt;--no-interaction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Do not ask any interactive question                                                                  
+                                                                                                                            
+Available commands:                                                                                                         
+ &lt;span class=&quot;nb&quot;&gt;help                                      &lt;/span&gt;Displays &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;a &lt;span class=&quot;nb&quot;&gt;command                                                      
+ &lt;/span&gt;list                                      Lists commands                                                                   
+admin                                                                                                                       
+ admin:user:create                         Creates an administrator                                                         
+ admin:user:unlock                         Unlock Admin Account                                                             
+cache                                                                                                                       
+ cache:clean                               Cleans cache &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;                                                             
+ cache:disable                             Disables cache &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;                                                           
+ cache:enable                              Enables cache &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;                                                            
+ cache:flush                               Flushes cache storage used by cache &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;                                      
+ cache:status                              Checks cache status                                                              
+catalog                                                                                                                     
+ catalog:images:resize                     Creates resized product images                                                   
+ catalog:product:attributes:cleanup        Removes unused product attributes.                                               
+cron                                                                                                                        
+ cron:run                                  Runs &lt;span class=&quot;nb&quot;&gt;jobs &lt;/span&gt;by schedule                                                            
+customer                                                                                                                    
+ customer:hash:upgrade                     Upgrade customer&lt;span class=&quot;s1&quot;&gt;'s hash according to the latest algorithm                        
+deploy                                                                                                                      
+ deploy:mode:set                           Set application mode.                                                            
+ deploy:mode:show                          Displays current application mode.                                               
+dev                                                                                                                         
+ dev:source-theme:deploy                   Collects and publishes source files for theme.                                   
+ dev:tests:run                             Runs tests                                                                       
+ dev:urn-catalog:generate                  Generates the catalog of URNs to *.xsd mappings for the IDE to highlight xml.    
+ dev:xml:convert                           Converts XML file using XSL style sheets                                         
+i18n                                                                                                                        
+ i18n:collect-phrases                      Discovers phrases in the codebase                                                
+ i18n:pack                                 Saves language package                                                           
+ i18n:uninstall                            Uninstalls language packages                                                     
+indexer                                                                                                                     
+ indexer:info                              Shows allowed Indexers                                                           
+ indexer:reindex                           Reindexes Data                                                                   
+ indexer:reset                             Resets indexer status to invalid                                                 
+ indexer:set-mode                          Sets index mode type                                                             
+ indexer:show-mode                         Shows Index Mode                                                                 
+ indexer:status                            Shows status of Indexer                                                          
+info                                                                                                                        
+ info:adminuri                             Displays the Magento Admin URI                                                   
+ info:backups:list                         Prints list of available backup files                                            
+ info:currency:list                        Displays the list of available currencies                                        
+ info:dependencies:show-framework          Shows number of dependencies on Magento framework                                
+ info:dependencies:show-modules            Shows number of dependencies between modules                                     
+ info:dependencies:show-modules-circular   Shows number of circular dependencies between modules                            
+ info:language:list                        Displays the list of available language locales                                  
+ info:timezone:list                        Displays the list of available timezones                                         
+maintenance                                                                                                                 
+ maintenance:allow-ips                     Sets maintenance mode exempt IPs                                                 
+ maintenance:disable                       Disables maintenance mode                                                        
+ maintenance:enable                        Enables maintenance mode                                                         
+ maintenance:status                        Displays maintenance mode status                                                 
+module                                                                                                                      
+ module:disable                            Disables specified modules                                                       
+ module:enable                             Enables specified modules                                                        
+ module:status                             Displays status of modules                                                       
+ module:uninstall                          Uninstalls modules installed by composer                                         
+sampledata                                                                                                                  
+ sampledata:deploy                         Deploy sample data modules                                                       
+ sampledata:remove                         Remove all sample data packages from composer.json                               
+ sampledata:reset                          Reset all sample data modules for re-installation                                
+setup                                                                                                                       
+ setup:backup                              Takes backup of Magento Application code base, media and database                
+ setup:config:set                          Creates or modifies the deployment configuration                                 
+ setup:cron:run                            Runs cron job scheduled for setup application                                    
+ setup:db-data:upgrade                     Installs and upgrades data in the DB                                             
+ setup:db-schema:upgrade                   Installs and upgrades the DB schema                                              
+ setup:db:status                           Checks if DB schema or data requires upgrade                                     
+ setup:di:compile                          Generates DI configuration and all missing classes that can be auto-generated    
+ setup:install                             Installs the Magento application                                                 
+ setup:performance:generate-fixtures       Generates fixtures                                                               
+ setup:rollback                            Rolls back Magento Application codebase, media and database                      
+ setup:static-content:deploy               Deploys static view files                                                        
+ setup:store-config:set                    Installs the store configuration                                                 
+ setup:uninstall                           Uninstalls the Magento application                                               
+ setup:upgrade                             Upgrades the Magento application, DB data, and schema                            
+theme                                                                                                                       
+ theme:uninstall                           Uninstalls theme      
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;命令行分类&quot;&gt;命令行分类&lt;/h2&gt;
+
+&lt;p&gt;可以将上面的列表分为以下类别：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;缓存 Cache&lt;/li&gt;
+  &lt;li&gt;索引器 Indexer&lt;/li&gt;
+  &lt;li&gt;定时任务 Cron Job&lt;/li&gt;
+  &lt;li&gt;代码编译器  Code Compiler&lt;/li&gt;
+  &lt;li&gt;设置系统模式  Set the magento mode&lt;/li&gt;
+  &lt;li&gt;i18n 国际化翻译  i18n translation&lt;/li&gt;
+  &lt;li&gt;运行单元测试   unit test&lt;/li&gt;
+  &lt;li&gt;维护模式   Maintenance&lt;/li&gt;
+  &lt;li&gt;模块管理  Module management&lt;/li&gt;
+  &lt;li&gt;安装 Setup: Install, upgrde, uninstall, backup, rollback&lt;/li&gt;
+  &lt;li&gt;主题 theme&lt;/li&gt;
+  &lt;li&gt;部署 deployment&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;接下来看下每个类别的一些示例：&lt;/p&gt;
+
+&lt;h2 id=&quot;缓存命令&quot;&gt;缓存命令&lt;/h2&gt;
+
+&lt;p&gt;查看缓存状态&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento cache:status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                    config: 1
+                    layout: 1
+                block_html: 1
+               collections: 1
+                    db_ddl: 1
+                       eav: 1
+                 full_page: 1
+                 translate: 1
+        config_integration: 1
+    config_integration_api: 1
+         config_webservice: 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;清除缓存：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento cache:clean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ php bin/magento cache:clean                  
+Cleaned cache types:                           
+config                                         
+layout                                         
+block_html                                     
+collections                                    
+reflection                                     
+db_ddl                                         
+eav                                            
+customer_notification                          
+full_page                                      
+config_integration                             
+config_integration_api                         
+translate                                      
+config_webservice  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如何刷新缓存：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento cache:flush
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如何启用或停用缓存：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento cache:enable
+php bin/magento cache:disable
+
+&lt;span class=&quot;c&quot;&gt;# 加参数&lt;/span&gt;
+magento cache:enable &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; ... &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+magento cache:disable &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; ... &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 示例 停用页面缓存&lt;/span&gt;
+magento cache:disable full_page
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;索引器命令&quot;&gt;索引器命令&lt;/h2&gt;
+
+&lt;p&gt;查看索引状态&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento indexer:info
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;design_config_grid                       Design Config Grid
+customer_grid                            Customer Grid
+catalog_category_product                 Category Products
+catalog_product_category                 Product Categories
+catalog_product_price                    Product Price
+catalog_product_attribute                Product EAV
+catalogsearch_fulltext                   Catalog Search
+cataloginventory_stock                   Stock
+catalogrule_rule                         Catalog Rule Product
+catalogrule_product                      Catalog Product Rule
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;重建索引：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento indexer:reindex
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;重置索引&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento indexer:reset
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;显示索引模式&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento indexer:show-mode
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ php bin/magento indexer:show-mode
+
+Design Config Grid:                                Update on Save
+Customer Grid:                                     Update on Save
+Category Products:                                 Update on Save
+Product Categories:                                Update on Save
+Product Price:                                     Update on Save
+Product EAV:                                       Update on Save
+Catalog Search:                                    Update on Save
+Stock:                                             Update on Save
+Catalog Rule Product:                              Update on Save
+Catalog Product Rule:                              Update on Save
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;设置索引模式类型&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento indexer:set-mode &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;realtime|schedule&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;indexer]
+
+&lt;span class=&quot;c&quot;&gt;# 示例：&lt;/span&gt;
+magento indexer:set-mode scedule catalog_category_product catalog_product_category
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;部署命令&quot;&gt;部署命令&lt;/h2&gt;
+
+&lt;p&gt;语法：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento setup:static-content:deploy &amp;lt;lang&amp;gt; ... &amp;lt;lang&amp;gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--dry-run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;发布静态内容&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento setup:static-content:deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输出：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ php bin/magento setup:static-content:deploy
+
+Requested languages: en_US
+=== frontend -&amp;gt; Magento/blank -&amp;gt; en_US ===
+...........................................
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;发布静态内容默认使用语言： en_EN&lt;/p&gt;
+
+&lt;p&gt;如果要使用其它语言如简体中文： zh_Hans_CN&lt;/p&gt;
+
+&lt;p&gt;运行&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento setup:static-content:deploy zh_Hans_CN
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;使用命令获取后台uri路径&quot;&gt;使用命令获取后台URI路径&lt;/h2&gt;
+
+&lt;p&gt;可以不用查看 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;etc/env.php&lt;/code&gt; 文件也能知道后台路径：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento info:adminuri
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;使用命令管理维护模式&quot;&gt;使用命令管理维护模式&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 开启维护模式
+php bin/magento maintenance:enable
+
+# 关闭
+php bin/magento maintenance:disable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;设置允许指定IP访问维护模式的网站&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento maintenance:allow-ips
+
+# 示例：
+php bin/magento maintenance:allow-ips 168.168.168.168
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;设置系统开发者模式或线上模式&quot;&gt;设置系统开发者模式或线上模式&lt;/h2&gt;
+
+&lt;p&gt;有3种模式定义在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Magneto\Framework\App\State&lt;/code&gt;： default, developer, production&lt;/p&gt;
+
+&lt;p&gt;显示当前系统模式&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento deploy:mode:show
+
+&lt;span class=&quot;c&quot;&gt;# 默认输出 default&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;切换到开发者模式：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento deploy:mode:set developer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;恭喜你老铁！你的店铺现在就是开发者模式了。开始享受写代码的快感吧 :)&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 20 Dec 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/12/20/15.how-to-use-cli.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/12/20/15.how-to-use-cli.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+      <item>
+        <title>14.Magento 2 中如何添加控制台命令</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;/2020/02/02/0.magento-menu.html&quot;&gt;Magento 2 开发内容目录&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文讨论如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安装 Magento （相关的还有创建、更新数据表，添加或发布配置文件等）&lt;/li&gt;
+  &lt;li&gt;清缓存&lt;/li&gt;
+  &lt;li&gt;管理索引，重建索引&lt;/li&gt;
+  &lt;li&gt;创建翻译文件及语言包&lt;/li&gt;
+  &lt;li&gt;生成不存在的一些类如工厂类和插件的拦截器，为对像管理器生成依赖注入配置文件&lt;/li&gt;
+  &lt;li&gt;发布静态文件&lt;/li&gt;
+  &lt;li&gt;编译LESS到CSS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;开始之前确保 HelloWorld 模块还在，这个模块在前面章节也一直使用。下面开始添加我们自定义的命令：&lt;/p&gt;
+
+&lt;h2 id=&quot;第一步在-dixml-定义命令&quot;&gt;第一步：在 di.xml 定义命令&lt;/h2&gt;
+
+&lt;p&gt;在 di.xml 文件中可以使用 name 属性为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Magento\Framework\Console\CommandList&lt;/code&gt; 的 type 节点定义命令参数。&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/di.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;type&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Magento\Framework\Console\CommandList&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;arguments&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;argument&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;commands&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;array&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;item&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;exampleSayHello&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Aqrun\HelloWorld\Console\Sayhello&lt;span class=&quot;nt&quot;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/argument&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/arguments&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/type&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;代码中定义了一个命令类 Sayhello。命令类中会定义命令行名称，并实现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execute()&lt;/code&gt; 方法&lt;/p&gt;
+
+&lt;h2 id=&quot;第二步创建命令类&quot;&gt;第二步：创建命令类&lt;/h2&gt;
+
+&lt;p&gt;根据配置文件我们创建如下类&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/Console/Sayhello.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Command\Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Input\InputInterface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Output\OutputInterface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sayhello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Command&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'示例：sayhello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setDiscription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'示例命令'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;InputInterface&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;OutputInterface&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;writeln&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'你好世界'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;函数中实现了两个方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;configure() 函数用来设置名称、描述、命令行参数&lt;/li&gt;
+  &lt;li&gt;execute() 函数会在控制台调用命令时执行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;类的定义完成后清空缓存，执行如下命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php magento list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;可以输出所有可用命令，我们刚添加的自定义命令也在：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/magento2/14-cli-list1.png&quot; alt=&quot;14-cli-list1.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在可以在控制台运行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;php bin/magento example:sayhello&lt;/code&gt;：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/magento2/14-cli-list1-result.png&quot; alt=&quot;14-cli-list1-result.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下来可以给命令添加一些参数。&lt;/p&gt;
+
+&lt;p&gt;代码如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Command\Command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Input\InputInterface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Output\OutputInterface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Symfony\Component\Console\Input\InputOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Sayhello&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Command&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;InputOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InputOption&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;VALUE_REQUIRED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'姓名'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'example:sayhello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'示例命令'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setDefinition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;InputInterface&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;OutputInterface&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;writeln&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'你好'&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;writeln&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'你好世界'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;代码中我们在 configure() 函数中定义了命令行参数 name，并在 execute() 方法中获取它的值。清空缓存然后运行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;php bin/magento example:sayhello --name=Aqrun&lt;/code&gt; 就会输出 “你好Aqrun”。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Nov 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/11/23/14.console-command-line.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/11/23/14.console-command-line.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+      <item>
+        <title>13.Magento2 路由</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;/2020/02/02/0.magento-menu.html&quot;&gt;Magento 2 开发内容目录&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文讨论一下路由系统（Routing）。路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法&lt;/p&gt;
+
+&lt;p&gt;本文内容目录：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Magento 2 处理请求流程&lt;/li&gt;
+  &lt;li&gt;在前端或后台添加自定义路由
+    &lt;ul&gt;
+      &lt;li&gt;前端路由
+        &lt;ul&gt;
+          &lt;li&gt;routes.xml&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;后台路由&lt;/li&gt;
+      &lt;li&gt;使用路由重写控制器&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;magento-2-请求处理流程&quot;&gt;Magento 2 请求处理流程&lt;/h2&gt;
+
+&lt;p&gt;如下URL&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://example.com/index.php/front_name/controller/action
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;front_name&lt;/code&gt; 可用于查找对应的模块。每个模块的路由定义这个名称参数是使用 routes.xml 配置文件。后面会详细说明&lt;/p&gt;
+
+&lt;p&gt;Magento 2 接收到请求时为了找到对应控制器/动作的流程是：index.php -&amp;gt; HTTP app -&amp;gt; FrontController -&amp;gt; Routing -&amp;gt; Controller -&amp;gt; processing -&amp;gt; etc&lt;/p&gt;
+
+&lt;p&gt;Http 类会调用 FrontControler 再通过请求的路由找到匹配的 控制器动作&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vendor/magento/framework/App/FrontControler.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;RequestInterface&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\Profiler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'routes_match'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$routingCycleCounter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;isDispatched&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$routingCycleCounter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;cd&quot;&gt;/** @var \Magento\Framework\App\RouterInterface $router  */&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_routerList&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nv&quot;&gt;$actionInstance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$router&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$actionInstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setDispatched&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setNoCacheHeaders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$actionInstance&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;instanceof&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\App\Action\AbstractAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$actionInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$actionInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\Exception\NotFoundException&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;initForward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+                    &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setActionName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'noroute'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setDispatched&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如上代码的 dispatch() 方法中，会循环路由列表来查找匹配当前请求的路由。如果找到当前匹配的控制器动作就会调用执行。&lt;/p&gt;
+
+&lt;h2 id=&quot;在前端或后台创建自定义路由&quot;&gt;在前端或后台创建自定义路由&lt;/h2&gt;
+
+&lt;p&gt;继续使用 HelloWorld 模块演示代码。&lt;/p&gt;
+
+&lt;p&gt;接下来演示如何在前端或后台添加路由以及如何使用路由改写控制器&lt;/p&gt;
+
+&lt;h3 id=&quot;前端路由&quot;&gt;前端路由&lt;/h3&gt;
+
+&lt;p&gt;前端路由使用配置文件 routes.xml&lt;/p&gt;
+
+&lt;p&gt;路径： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/frontend/routeds.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:App/etc/routes.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 前台路由必须定义在 'standard' 路由下面 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;router&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;standard&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!--定义路由并指定 id 和 frontname --&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;route&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;frontName=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 路由匹配的模块 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;module&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun_HelloWorld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/route&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/router&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如上代码注册路由非常简单。前台路由必须使用 standard 路由，在这个路由下面再添加子项，指定模块及两个属性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;id 属性是路由的唯一标识，在给模块添加布局句柄文件时也会用到这个ID&lt;/li&gt;
+  &lt;li&gt;frontName 属性值也是唯一的字符串，会显示在URL请求的链接中。比如如下路由：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;route&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;frontName=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;则当前模块的URL就是：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://example.xom/index.php/helloworld/controller/action
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;对应控制器动作的布局句柄文件就是： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helloworld_controller_action.xml&lt;/code&gt;, 根据示例代码中的路径创建对应的动作类： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{namespace}/{module}/Controller/{Controller}/{Action}.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;后台路由&quot;&gt;后台路由&lt;/h3&gt;
+
+&lt;p&gt;后台路由配置文件和上面的前台路由一样，但文件夹是 adminhtml 及 router 节点的ID必须是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/adminhtml/routes.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:App/etc/routes.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 后台使用 admin 路由 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;router&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 定义路由及两个属性 --&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;route&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;frontName=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 匹配的模块 --&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;module&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun_HelloWorld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/route&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/router&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;后面页面URL和前台页面一样，但会在路由名称前添加后台范围名来标识这是后台的路由。如下URL&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://example.xom/index.php/admin/aqrun_helloworld/controller/action
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;后台页面的控制器动作的目录是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Controller/Adminhtml&lt;/code&gt;。上面的URL动作文件就是：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{namespace}/{module}/Controller/Adminhtml/{Controller}/{Action}.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;使用路由重写控制器&quot;&gt;使用路由重写控制器&lt;/h3&gt;
+
+&lt;p&gt;接下来研究一下如何使用路由实现控制器重写。根据上面的内容，可以看出每个路由都有ID属性标识。那如果我们使用一样的ID属性定义两个路由会发生什么呢？&lt;/p&gt;
+
+&lt;p&gt;答案就是匹配两个模块中的控制器动作。Magento 系统提供了 before/after 属性来配置模块的排序，用来指定哪个模块的控制器先被发现。这就是控制器重写的逻辑。&lt;/p&gt;
+
+&lt;p&gt;比如我们要重写控制器 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;customer/account/login&lt;/code&gt;，我们会在 routes.xml 如下定义&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/frontend/routnes.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:App/etc/routes.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 前台使用 'standard'--&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;router&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;standard&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!--定义路由--&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;route&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;frontName=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;&amp;lt;!--指定模块--&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;module&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun_HelloWorld&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/route&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;route&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;customer&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;module&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun_HelloWorld&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;before=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Magento_Customer&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;/route&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/router&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;对应的控制器文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/Controler/Account/Login.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;因此 frontControler 类会先匹配到我们的模块中的 Login 动作，如果匹配到了就会执行我们的动作而 Magneto_Customer 模块的动作不会再执行。这样我们就完成了控制的重写。&lt;/p&gt;
+
+&lt;p&gt;你也可以在模块中使用和其它模块一样的路由相当于配置了另一个模块。比如上面的配置文件，你可以使用 customer 路由调用你的控制器和动作。如果控制器是 ‘Blog’ 动作是 ‘Index.php’, 那访问的URL就是：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://example.xom/customer/blog/index
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 18 Nov 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/11/18/13.magento-2-routing.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/11/18/13.magento-2-routing.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+      <item>
+        <title>数组常用操作 reduce</title>
+        <description>&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;alex&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;bob&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;haha&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;quantity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 合并&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;carts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 查找一个&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;products&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; 
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 计算总计&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;price&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;quantity&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/11/10/array-reduce.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/11/10/array-reduce.html</guid>
+        
+        <category>array</category>
+        
+        <category>reduce</category>
+        
+        
+        <category>blog</category>
+        
+        <category>frontend</category>
+        
+      </item>
+    
+      <item>
+        <title>12.Magento 2 索引和重建索引</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;/2020/02/02/0.magento-menu.html&quot;&gt;Magento 2 开发内容目录&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文讨论如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器。为了代码演示我们继续使用 HelloWorld 模块。&lt;/p&gt;
+
+&lt;p&gt;Magento 系统使用索引来变换数据如产品、分类等进而提高店铺的性能。当数据变化时，变换的数据也必须同步更新或重建索引。Magento 使用非常精致的架构在很多数据表中存储大量的店铺数据（包括产品、价格、用户、店铺等数据）。为了优化店铺性能，Magento 使用索引器把累积的数据存储到特定数据表。&lt;/p&gt;
+
+&lt;p&gt;比如，你将一个产品的价格从￥8.99改到￥6.99，这时要让前台页面正常显示 Magento 就必须重建价格索引。&lt;/p&gt;
+
+&lt;p&gt;如果不使用索引，Magneto就必须实时计算每一个产品的价格——要计算的有客户购物车产品规则、批量价、折扣价、阶梯价等。这样产品的价格计算会花费很长时间，长时间的等待造成的结果可能就是消费者放弃购物。&lt;/p&gt;
+
+&lt;p&gt;创建自定义索引器步骤：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1 添加索引器配置文件&lt;/li&gt;
+  &lt;li&gt;2 添加 Mview 配置文件&lt;/li&gt;
+  &lt;li&gt;3 定义索引器类&lt;/li&gt;
+  &lt;li&gt;4 运行测试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;添加索引器配置文件&quot;&gt;添加索引器配置文件&lt;/h2&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/indexer.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:Indexer/etc/indexer.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;indexer&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld_indexer&quot;&lt;/span&gt; 
+        &lt;span class=&quot;na&quot;&gt;view_id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld_indexer&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun\HelloWorld\Model\Indexer\Test&quot;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;translate=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Aqrun HelloWorld Indexer&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;description&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;translate=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;你好世界自定义索引器&lt;span class=&quot;nt&quot;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/indexer&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上面代码中我们使用 indexer 节点定义了一个新的索引器：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;id 属性是索引器的唯一标识。可以在命令行使用这个ID来检查状态、模式或重建对应的索引&lt;/li&gt;
+  &lt;li&gt;view_id 是视图元素的ID，视图元素会在 mview 配置文件中进行定义&lt;/li&gt;
+  &lt;li&gt;class 属性指定我们要处理索引方法的类名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;简单的索引还有两个子节点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;title 节点是显示在索引器列表中的文字&lt;/li&gt;
+  &lt;li&gt;description 节点索引器列表中的说明文字&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;添加-mview-配置文件&quot;&gt;添加 Mview 配置文件&lt;/h2&gt;
+
+&lt;p&gt;mview.xml 文件是用于跟踪指定的实体在数据库中的变化，并运行指定的方法处理这些变化&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/mview.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:Mview/etc/mview.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;view&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld_indexer&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun\HelloWorld\Model\Indexer\Test&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;group=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;indexer&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;subscriptions&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;table&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;catalog_product_entity&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;entity_column=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;entity_id&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/subscription&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/view&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;代码中定义了有ID属性的 view 节点，ID属性关联索引器，class 属性指定了实现有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execute()&lt;/code&gt; 方法的类。这个方法会在订阅的数据表有更新时执行。&lt;/p&gt;
+
+&lt;p&gt;定义数据表需要用到表名和表的字段，这些参数也会传给 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execute()&lt;/code&gt; 方法。本例我们指定的表是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catalog_product_entity&lt;/code&gt;。因此无论何时不管是一个还是多个产品被保存，都会执行 Aqrun\HelloWorld\Model\Indexer\Test 类的 execute() 方法。&lt;/p&gt;
+
+&lt;h2 id=&quot;定义索引器类&quot;&gt;定义索引器类&lt;/h2&gt;
+
+&lt;p&gt;根据上面的 indexer.xml 和 mview.xml 配置文件，定义索引器为： Aqrun\HelloWorld\Model\Indexer\Test&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWrold/Model/Indexer/Test.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Model\Indexer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\Indexer\ActionInterface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\Mview\ActionInterface&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cd&quot;&gt;/**
+     * 被 mview 调用，允许在 &quot;Update on schedule&quot; 模式下处理索引
+     * @param int[] $ids
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//code&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;cd&quot;&gt;/**
+     * 会处理所有的数据并重建索引
+     * 在使用命令行重建索引时会执行
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executeFull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//code&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;cd&quot;&gt;/**
+     * 作用于一组实体的变化（如批量操作）
+     * @param array $ids
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;array&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ids&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//code&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;cd&quot;&gt;/**
+     * 作用于单个实体
+     * @param int $id
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;executeRow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// code&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;你可以在索引器类方法中添加代码向索引器表更新数据&lt;/p&gt;
+
+&lt;p&gt;接下来，清空缓存并到后台菜单  system &amp;gt; Index Management 查看代码结果&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;images/12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;重建索引使用命令&quot;&gt;重建索引使用命令：&lt;/h2&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php bin/magento indexer:redinex
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/11/10/12.magento2-indexing-reindex.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/11/10/12.magento2-indexing-reindex.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+      <item>
+        <title>11. Magento 2 拦截器插件</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;/2020/02/02/0.magento-menu.html&quot;&gt;Magento 2 开发内容目录&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;插件在技术上可以让你写出结构更合理的代码。拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的执行结果，拦截后可以在原函数之前(before)、之后(after)或包围(around)的方式添加新增代码。通过使用拦截器插件可以在对原类代码不做任何修改的情况下改变它的执行结果。&lt;/p&gt;
+
+&lt;p&gt;本文内容目录：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;插件的优点&lt;/li&gt;
+  &lt;li&gt;插件的限制&lt;/li&gt;
+  &lt;li&gt;创建新插件指南
+    &lt;ul&gt;
+      &lt;li&gt;声明一个插件&lt;/li&gt;
+      &lt;li&gt;解释说明&lt;/li&gt;
+      &lt;li&gt;实现插件&lt;/li&gt;
+      &lt;li&gt;前置函数 Before&lt;/li&gt;
+      &lt;li&gt;后置函数 After&lt;/li&gt;
+      &lt;li&gt;包围函数 Around&lt;/li&gt;
+      &lt;li&gt;检测结果&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;设置插件的优先级&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;或许可以认为事件监听器也能实现相同的功能，但它们之间也有一些不同之处。最主要的是，拦截器不仅使用依赖注入为类创建方法，并且可以为方法设置 sortOrder 属性，这样就可以检查插件链并确认执行顺序。这也是为什么插件可以实现不对类做任何修改并且也不会和其它插件有冲突。&lt;/p&gt;
+
+&lt;h2 id=&quot;插件的优点&quot;&gt;插件的优点&lt;/h2&gt;
+
+&lt;p&gt;做为一个模块开发者，你可以使用拦截器插件处理以下几方面：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;转发对象的任何函数调用或其它代码操作，对象必须是对象管理器（Object Manager）实例化的。&lt;/li&gt;
+  &lt;li&gt;修改任何对象方法的执行结果，对象必须是对象管理器（Object Manager）实例化的。&lt;/li&gt;
+  &lt;li&gt;修改任何对象方法的传入参数，对象必须是对象管理器（Object Manager）实例化的。&lt;/li&gt;
+  &lt;li&gt;使用同步或可预测的方式同时执行和其它模块一样的方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;插件的限制&quot;&gt;插件的限制&lt;/h2&gt;
+
+&lt;p&gt;拦截器插件不能操作的有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对象的实例化在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Magento\Framework\Interception&lt;/code&gt; 加载之前&lt;/li&gt;
+  &lt;li&gt;Final 方法&lt;/li&gt;
+  &lt;li&gt;Final 类&lt;/li&gt;
+  &lt;li&gt;任何包含有至少一个 final public 方法的类&lt;/li&gt;
+  &lt;li&gt;不是 public 的方法&lt;/li&gt;
+  &lt;li&gt;类方法（如静态方法）&lt;/li&gt;
+  &lt;li&gt;__construct&lt;/li&gt;
+  &lt;li&gt;虚拟类型 Virtual type&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;创建插件指南&quot;&gt;创建插件指南&lt;/h2&gt;
+
+&lt;h3 id=&quot;声明一个插件&quot;&gt;声明一个插件&lt;/h3&gt;
+
+&lt;p&gt;声明插件是在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;di.xml&lt;/code&gt; 文件中，路径 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;MODULE_DIR&amp;gt;/etc/di.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;type&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{ObserverdType}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{pluginName}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{PluginClassName}&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;sortOrder=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;disabled=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/type&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;解释说明&quot;&gt;解释说明&lt;/h3&gt;
+
+&lt;p&gt;必须的属性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;type name: 要修改的类或接口名&lt;/li&gt;
+  &lt;li&gt;plugin name: 插件标识，区分其它插件，也用于合并插件的配置&lt;/li&gt;
+  &lt;li&gt;plugin type: 插件类名或它的虚拟类型名称。命名规则： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\Vendor\Module\Plugin\&amp;lt;ModelName&amp;gt;Plugin&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可选属性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;plugin sortOrder: 指定同一个方法绑定的所有插件执行顺序&lt;/li&gt;
+  &lt;li&gt;plugin disabled: 可以快速启用或停用插件，默认值是 false。也可以在你的 di.xml 配置文件使用这个属性来停用核心或第三方的插件。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如下代码，编辑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app\code\Aqrun\HelloWorld\etc\di.xml&lt;/code&gt; 文件：&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt; 
+    &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:ObjectManager/etc/config.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;type&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun\HelloWorld\Controller\Index\Example&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld_plugin&quot;&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun\HelloWorld\Plugin\ExamplePlugin&quot;&lt;/span&gt;
+                &lt;span class=&quot;na&quot;&gt;sortOrder=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;10&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;disabled=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/type&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下面的代码定义 type 节点的 name 属性指定的类，目录 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/Controller/Index/Example.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Controller\Index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Example&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\App\Action\Action&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'欢迎'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;br/&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;br/&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;根据 plugin 节点的 name 属性值 我们创建 ExamplePlugin.php 文件，路径：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/Plugin/ExamplePlugin.php&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExamplePlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;定义插件&quot;&gt;定义插件&lt;/h3&gt;
+
+&lt;p&gt;插件通过使用 前置before、后置after、包围around 等函数来扩展或修改公开方法的执行结果&lt;/p&gt;
+
+&lt;p&gt;首先要获取一个对象，并且对象为要监听的公开方法提供权限&lt;/p&gt;
+
+&lt;p&gt;插件的3个方法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;前置 - beforeDispatch()&lt;/li&gt;
+  &lt;li&gt;包围 - aroundDispatch()&lt;/li&gt;
+  &lt;li&gt;后置 - afterDispatch()&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;前置函数before-methods&quot;&gt;前置函数（Before methods）&lt;/h3&gt;
+
+&lt;p&gt;前置函数是在所有监听函数中最先执行的，函数名必须和被监听函数名一样只是加了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;before&lt;/code&gt; 前缀。&lt;/p&gt;
+
+&lt;p&gt;使用前置函数来修改被监听方法的参数，可以返回修改后的参数数组。如果有多个参数，则与原参数顺序保持一致。如果返回参数无效，则对监听的方法参数不做修改。&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Aqrun\HelloWorld\Controller\Index\Example&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExampleAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExamplePlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;beforeSetTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExampleAction&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' 来到 '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/br&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;后置函数after-methods&quot;&gt;后置函数（After methods）&lt;/h3&gt;
+
+&lt;p&gt;后置函数在被监听方法执行完成后再开始执行，函数名也和被监听方法名一样，另外再加 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;after&lt;/code&gt; 前缀。&lt;/p&gt;
+
+&lt;p&gt;后置函数用于修改被监听方法的执行结果，因此也需要有一个返回值。&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Aqrun\HelloWorld\Controller\Index\Example&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExampleAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExamplePlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;afterGetTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExampleAction&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/br&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;h1&amp;gt;'&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'新世界'&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/h1&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;包围函数around-methods&quot;&gt;包围函数（Around Methods）&lt;/h3&gt;
+
+&lt;p&gt;包围函数允许代码在被监听方法运行前和后执行，因此你可以覆写方法。名称和被监听方法一样，需要添加前缀 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;around&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;包围函数的参数中在原始函数参数之前，有一个回调函数（callable）参数，回调函数会在插件链的下一个函数中被调用，也就是下一个插件或被监听方法也可以执行。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：如果没有声明回调函数（callable），那即不会调用下一个插件也不会调用原始方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Aqrun\HelloWorld\Controller\Index\Example&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExampleAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExamplePlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aroundGetTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExampleAction&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;callable&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' - proceed() 之前 &amp;lt;br/&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' - proceed() 之后 &amp;lt;br/&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;检查结果&quot;&gt;检查结果&lt;/h3&gt;
+
+&lt;p&gt;ExamplePlugin.php 所有代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Aqrun\HelloWorld\Controller\Index\Example&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExampleAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExamplePlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;beforeSetTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExampleAction&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' 来到 '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/br&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;afterGetTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExampleAction&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/br&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;h1&amp;gt;'&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'新世界'&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/h1&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aroundGetTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;ExampleAction&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;callable&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' - proceed() 之前 &amp;lt;br/&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;__METHOD__&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' - proceed() 之后 &amp;lt;br/&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后清空缓存查看如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/magento2/11-interceptor-result.png&quot; alt=&quot;11-interceptor-result.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你需要小心应对原始参数，被调用的插件方法的参数必须一致并完全匹配。在处理时注意原始方法的参数签名及默认值。&lt;/p&gt;
+
+&lt;p&gt;比如下面的代码 SomeType 类型的参数默认可以是 null&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyUtility&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;SomeType&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// do something&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果用如下插件代码调用这个方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyUtilityPlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aroundSave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Aqrun\HelloWorld\Model\MyUtility&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;callable&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;nc&quot;&gt;SomeType&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$obj&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;//do something&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意： null 相当于没有参数或遗漏的参数&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;如果调用函数参数为 null，PHP会报错，因此 null 不能传到插件里。保持参数一致非常重要。如果不确定参数值，可以使用变长参数和参数解包的方式实现。&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Plugin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyUtilityPlugin&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aroundSave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Aqrun\HelloWorld\Model\MyUtility&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;callable&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;mf&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$args&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// do something&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$proceed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;设置插件优先级&quot;&gt;设置插件优先级&lt;/h2&gt;
+
+&lt;p&gt;对监听同一个方法的插件可以使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sortOrder&lt;/code&gt; 属性进行排序以队列的方式逐个执行。&lt;/p&gt;
+
+&lt;h2 id=&quot;示例代码&quot;&gt;示例代码&lt;/h2&gt;
+
+&lt;p&gt;查看 &lt;a href=&quot;https://gitee.com/aqrun/Aqrun_HelloWorld&quot;&gt;https://gitee.com/aqrun/Aqrun_HelloWorld&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 18 Oct 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/10/18/11.magento2-plugin-interceptor.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/10/18/11.magento2-plugin-interceptor.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+      <item>
+        <title>10.Magento 2 事件</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;/2020/02/02/0.magento-menu.html&quot;&gt;Magento 2 开发内容目录&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文件讨论Magneto 2 事件列表。众所周知，Magento 2 主要使用事件驱动架构，非常便于扩展系统的核心功能。可以把事件看作在某种情况发生时抛出的信号旗。继续使用之前的 HelloWorld 模块演示本节代码。&lt;/p&gt;
+
+&lt;p&gt;内容目录：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;触发事件&lt;/li&gt;
+  &lt;li&gt;监听处理事件
+    &lt;ul&gt;
+      &lt;li&gt;事件范围&lt;/li&gt;
+      &lt;li&gt;添加 event.xml&lt;/li&gt;
+      &lt;li&gt;监听器&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Magneto 2 系统所有事件列表
+    &lt;ul&gt;
+      &lt;li&gt;PHP 文件中的事件&lt;/li&gt;
+      &lt;li&gt;JS 中的事件&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;触发事件&quot;&gt;触发事件&lt;/h2&gt;
+
+&lt;p&gt;可以使用类 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Magento\Framework\Event\Manager&lt;/code&gt; 触发事件。如下面这个控制器只是显示 “Hello World” 文字&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/Controller/Index/Text.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Controller\Index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\App\Action\Action&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello World'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;现在如果想触发一个事件可以让其它模块能够修改上面显示的文字内容。可以做如下修改：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Controller\Index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\App\Action\Action&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$textDisplay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Magento\Framework\DataObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'text'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'修改前要显示的文字'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_eventManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'aqrun_helloworld_display_text'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'textDisplay'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$textDisplay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$textDisplay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;display()&lt;/code&gt; 方法接收两个参数：全局唯一的事件标识及一个数据数组。上面代码主要是把文字先变成对象形式传给事件，然后再从对象重新获取文字。&lt;/p&gt;
+
+&lt;h2 id=&quot;监听和处理事件&quot;&gt;监听和处理事件&lt;/h2&gt;
+
+&lt;h3 id=&quot;事件范围&quot;&gt;事件范围&lt;/h3&gt;
+
+&lt;p&gt;Magento系统有范围的定义。分为前端范围和后台范围。对于配置文件就会有3个地方可以放：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;etc/ 文件夹中的配置文件是前端后台公用的&lt;/li&gt;
+  &lt;li&gt;etc/frontend/ 目录配置文件只能前端有效&lt;/li&gt;
+  &lt;li&gt;etc/adminhtml/  目录是后台参数配置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;因此事件配置文件就会有如下三种：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;后台 app/code/Aqrun/HelloWorld/etc/adminhtml/events.xml&lt;/li&gt;
+  &lt;li&gt;前端 app/code/Aqrun/HelloWorld/etc/frontend/events.xml&lt;/li&gt;
+  &lt;li&gt;全局  app/code/Aqrun/HelloWorld/etc/events.xml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;创建-eventsxml&quot;&gt;创建 events.xml&lt;/h3&gt;
+
+&lt;p&gt;本例只是前端监听事件修改文字显示，所以 events.xml 文件在 etc/frontend/ 目录&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/etc/frontend/events.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xsi:noNamespaceSchemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;urn:magento:framework:Event/etc/events.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;event&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aqrun_helloworld_display_text&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;observer&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mp_display_text&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;instance=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Aqrun\HelloWorld\Observer\ChangeDisplayText&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/event&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上面代码中，config 节点下面定义了 event 节点，name 属性值是 dispatch 函数发送事件时的事件名称。observer 节点的 instance 属性指定这个事件由哪个类处理，observer 的 name 属性是为了区分当前事件的其它监听器的唯一标识。&lt;/p&gt;
+
+&lt;h3 id=&quot;监听器&quot;&gt;监听器&lt;/h3&gt;
+
+&lt;p&gt;现在添加监听器类来处理上面的事件&lt;/p&gt;
+
+&lt;p&gt;文件： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/code/Aqrun/HelloWorld/Observer/ChangeDislayText.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Aqrun\HelloWorld\Observer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ChangeDisplayText&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\Event\ObserverInterface&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Magento\Framework\Event\Observer&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$observer&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$textDisplay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$observer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'textDisplay'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$textDisplay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;getText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; - 事件处理中 &amp;lt;br/&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$textDisplay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;setText&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'事件处理成功，内容已经修改'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这个类实现了 ObserverInterface 接口的 execute 方法。清除缓存后页面显示如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;images/10-event-result.png&quot; alt=&quot;event result&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;查看系统所有事件列表&quot;&gt;查看系统所有事件列表&lt;/h2&gt;
+
+&lt;p&gt;系统核心文件定义的事件可以使用编辑器（PHPSTORM等）的全文搜索功能查看，搜索关键字如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PHP事件   &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eventManager-&amp;gt;dispatch&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;JS 事件   &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;varienGlobalEvents.fireEvent&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;搜索后的源代码形如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// php
+$this-&amp;gt;_eventManager-&amp;gt;dispatch('sales_quote_remove_item', ['quote_item' =&amp;gt; $item]);
+
+//js 
+varienGlobalEvents.fireEvent('gridRowClick', event);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 12 Oct 2019 00:00:00 +0800</pubDate>
+        <link>http://aqrun.com/2019/10/12/10.magento2-events.html</link>
+        <guid isPermaLink="true">http://aqrun.com/2019/10/12/10.magento2-events.html</guid>
+        
+        <category>php</category>
+        
+        <category>magento2</category>
+        
+        
+        <category>blog</category>
+        
+        <category>backend</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+I"<p>EntityFieldQuery获取指定类型的内容列表</p>
+
+<pre class="line-numbers">
+    <code class="language-php">
+
+//先获取指定类型内容nid列表
+$query = new EntityFieldQuery();
+$entities = $query-&gt;entityCondition('entity_type', 'node')
+      -&gt; propertyCondition('type', 'your node type');
+$total = $entities-&gt;count()-&gt;execute(); //获取数据总条数
+$entities-&gt;count() = false;  //设置计数为false
+$nodes = $entities-&gt;range(1,1)-&gt;count(false)-&gt;execute(); //获取指定类型node数据
+
+foreach($nodes['node'] as $k=$v){
+    $nids[] = $v['nid'];
+}
+$nodesData = node_load_multiple($nids);  //获取指定nid内容对象列表
+foeach($nodesData as $n){
+   //处理相关数据
+}
+
+</code></pre>
+
+<p>EntityFieldQuery 类在 entity.inc文件</p>
+:ET

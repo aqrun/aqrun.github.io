@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>CSS Grid - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="CSS Grid - CSS 3 grid samples">
+    <meta name="keywords"  content="css, grid">
+    <!-- Open Graph -->
+    <meta property="og:title" content="CSS Grid - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2020/01/13/css-grid.html">
+    <meta property="og:description" content="CSS 3 grid samples">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#css" class="post-tag">css</a>
+          
+            <a href="http://aqrun.com/tags#grid" class="post-tag">grid</a>
+          
+        
+      </div>
+      <h1>CSS Grid</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="20-01-13"><i class="iconfont icon-date"></i>13 Jan 2020</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><strong>CSS3 grid 布局参考链接：</strong><br />
+<em><a href="http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">React liftcycle</a></em><br />
+<em><a href="https://www.html.cn/archives/8510/">CSS Grid 布局完全指南</a></em><br />
+<em><a href="https://css-tricks.com/snippets/css/complete-guide-grid/">A Complete Guide to Grid</a></em></p>
+</blockquote>
+
+<p><br />
+<br /></p>
+
+<style>
+    .my-grid .container{
+        font-size:12px;
+        display:grid;
+        max-width: 80%;
+        margin:0 auto;
+        grid-gap: 20px 20px;
+        grid-template-columns: minmax(100px, auto) minmax(150px, auto) repeat(3, minmax(75px, auto)) minmax(150px, auto)
+    }
+    .my-grid section{
+        background: #eee;
+        border:1px solid #999;
+        border-radius: 3px; 
+    }
+    .my-grid .phase{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .my-grid h3{
+        margin:0;
+    }
+    .my-grid p{
+        margin:0;
+    }
+    .my-grid .section-title{
+        display: flex;
+        justify-content: center;
+        height:40px;
+        align-items:center;
+    }
+    .my-grid .methods{
+        background:lightgreen;
+        border: 1px solid green;
+        border-radius: 3px;
+        margin: 0 15px;
+        text-align:center;
+        padding: 10px 8px;
+    }
+    .my-grid .uitem{
+        margin:0 15px;
+        padding: 10px 0px;
+        text-align: center;
+    }
+    .my-grid .rowline{
+        height:0;
+        border:0;
+        border-bottom:1px solid #333;
+    }
+    .my-grid .columnline{
+        border:0;
+        width:0;
+        border-right:1px solid #333;
+        position:relative;
+        margin: -20px auto -10px 50%;
+    }
+    .my-grid .columnline.down:after{
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        left: -3px
+    }
+    .my-grid .columnline.down:after{
+        width: 7px;
+        height: 10px;
+        background: #333;
+        clip-path: polygon(0 0,100% 0,50% 100%);
+    }
+    .my-grid .dashed{
+        border-style: dashed;
+    }
+    .my-grid .solid{
+        border-style: solid;
+    }
+    .my-grid .constructor{
+        background:lightskyblue;
+    }
+    .my-grid .render{
+        background: skyblue;
+    }
+    .my-grid .updates{
+        background:lightyellow;
+    }
+    .my-grid .section-white{
+        background:white;
+        border:1px solid #999;
+        border-top-color:#ddd;
+        border-radius: 3px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
+
+<div class="my-grid" style="margin:50px auto;">
+<div class="container">
+        <section class="s1" style="grid-area:1/2/span 14/span 1;"></section>
+        <section class="s2" style="grid-area:1/3/span 14/span 3;"></section>
+        <section class="s3" style="grid-area:1/6/span 14/span 1;"></section>
+        <div class="section-white s1" style="grid-area:8/2/span 7/span 1"></div>
+        <div class="section-white s2" style="grid-area:8/3/span 7/span 3"></div>
+        <div class="section-white s3" style="grid-area:8/6/span 7/span 1"></div>
+    
+        <div class="phase" style="grid-area:3/1/span 6/auto;">
+            <h3>Render phase</h3>
+            <p>Pure and has no side effects,May be paused, aborted or restarted by React.</p>
+        </div>
+        <div class="phase" style="grid-area:9/1/span 6/auto;">
+            <h3>Commit phase</h3>
+            <p>Can work with DOM,run side effects, schedule updates</p>
+        </div>
+        <h3 class="section-title" style="grid-area:1/2/auto/span 1">Mounting</h3>
+        <h3 class="section-title" style="grid-area:1/3/auto/span 3">Updating</h3>
+        <h3 class="section-title" style="grid-area:1/6/auto/span 1">Unmounting</h3>
+
+        <div class="rowline line1 dashed" style="grid-area:8/1/span 1/1"></div>
+
+        <!---mount 箭头-->
+        <div class="columnline s1 l1 dashed down" style="grid-area:2/2/3/span 1"></div>
+        <div class="columnline s1 l2 dashed down" style="grid-area:5/2/6/span 1"></div>
+        <div class="columnline s1 l3 dashed down" style="grid-area:8/2/9/span 1"></div> 
+        <div class="columnline s1 l4 solid down" style="grid-area:11/2/12/span 1"></div>
+        
+        <!---updating 箭头-->
+        <div class="columnline s2 l5 dashed down" style="grid-area:5/3/6/span 1"></div>
+        <div class="columnline s2 l6 dashed down" style="grid-area:5/4/6/span 1"></div>
+        <div class="columnline s2 l7 dashed down" style="grid-area:5/5/6/span 1"></div>
+        <div class="columnline s2 l8 dashed down" style="grid-area:8/4/9/span 1"></div> 
+        <div class="columnline s2 l9 solid down" style="grid-area:11/4/12/span 1"></div>
+
+        <!---unmounting 箭头-->
+        <div class="columnline s3 l9 dashed down" style="grid-area:2/6/12/span 1"></div>
+
+        <div class="methods" style="grid-area:12/2/span 2/span 1">component&shy;Did&shy;Mount</div>
+        <div class="methods" style="grid-area:12/3/span 2/span 3">component&shy;Did&shy;Update</div>
+        <div class="methods" style="grid-area:12/6/span 2/span 1">component&shy;Will&shy;Unmount</div>
+
+        <div class="methods constructor" style="grid-area:3/2/span 2/span 1">constructor</div>
+        <div class="methods render" style="grid-area:6/2/span 2/span 4">render</div>
+        <div class="methods updates" style="grid-area:9/2/span 2/span 4">React updates DOM and refs</div>
+
+        <div class="uitem u1" style="grid-area:3/3/span 2/span 1">New Props</div>
+        <div class="uitem u2" style="grid-area:3/4/span 2/span 1">setSate()</div>
+        <div class="uitem u3" style="grid-area:3/5/span 2/span 1">forceUpdate()</div>
+</div>
+</div>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2020/02/02/0.magento-menu.html" class="read-next-link"></a>
+        <section>
+          <span>0. Magento2 开发内容目录</span>
+          <p>Magento 2 开发内容目录</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2019/12/20/15.how-to-use-cli.html" class="read-next-link"></a>
+          <section>
+            <span>15.如何使用控制台命令</span>
+            <p>Magento系统提供的一些命令</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

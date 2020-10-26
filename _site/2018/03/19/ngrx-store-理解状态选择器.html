@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129747013-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-129747013-1');
+</script>
+    <title>NgRx Store 理解状态选择器(state selectors) - 子十的独立博客</title>
+    <meta name="author"  content="子十">
+    <meta name="description" content="NgRx Store 理解状态选择器(state selectors) - 选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureSelector`、`createSelector`, 以及它们的区别">
+    <meta name="keywords"  content="angular, ngrx, state, selectors">
+    <!-- Open Graph -->
+    <meta property="og:title" content="NgRx Store 理解状态选择器(state selectors) - 子十的独立博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://aqrun.com/2018/03/19/ngrx-store-%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81%E9%80%89%E6%8B%A9%E5%99%A8.html">
+    <meta property="og:description" content="选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureSelector`、`createSelector`, 以及它们的区别">
+    <meta property="og:site_name" content="子十的独立博客">
+
+    <link rel="stylesheet" href="//cdn.staticfile.org/normalize/6.0.0/normalize.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_roc50gemkxpw4s4i.css">
+<link rel="stylesheet" href="/assets/css/github-markdown.css">
+<link rel="stylesheet" href="/assets/prism/prism.css?v=0.1">
+<link rel="stylesheet" href="/assets/css/share.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/app.min.css?v=1.18">
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+	
+	<!--
+Author: Ray-Eldath
+refer to:
+ - http://docs.mathjax.org/en/latest/options/index.html
+-->
+
+	<script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+		jax: ["input/TeX", "output/HTML-CSS"],
+		tex2jax: {
+			inlineMath: [ ["$", "$"] ],
+			displayMath: [ ["$$", "$$"] ],
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+		},
+		"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+    </script>
+
+	
+    <!--
+Author: Ray-Eldath
+-->
+<style>
+    .markdown-body .anchor{
+        float: left;
+        margin-top: -8px;
+        margin-left: -20px;
+        padding-right: 4px;
+        line-height: 1;
+        opacity: 0;
+    }
+    
+    .markdown-body .anchor .anchor-icon{
+        font-size: 15px
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let nodes = document.querySelector(".markdown-body").querySelectorAll("h1,h2,h3")
+        for(let node of nodes) {
+            var anchor = document.createElement("a")
+            var anchorIcon = document.createElement("i")
+            anchorIcon.setAttribute("class", "fa fa-anchor fa-lg anchor-icon")
+            anchorIcon.setAttribute("aria-hidden", true)
+            anchor.setAttribute("class", "anchor")
+            anchor.setAttribute("href", "#" + node.getAttribute("id"))
+            
+            anchor.onmouseover = function() {
+                this.style.opacity = "0.4"
+            }
+            
+            anchor.onmouseout = function() {
+                this.style.opacity = "0"
+            }
+            
+            anchor.appendChild(anchorIcon)
+            node.appendChild(anchor)
+        }
+    })
+</script>
+</head>
+
+
+<body>
+  <!--[if lt IE 10]>
+<div class="alert-danger" role="alert">你的浏览器实在太太太旧了，放学别走，升级完浏览器再说！<a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div>
+<![endif]-->
+  <input id="nm-switch" type="hidden" value="true"> <header class="g-header">
+    <div class="g-logo">
+      <a href="/"></a>
+    </div>
+    <i id="menu-toggle" class="iconfont icon-menu"></i>
+    <nav class="g-nav">
+        <ul>
+            
+                <li 
+                
+                    class="id_100"
+                
+                  >
+                    <a href="/">首页</a>
+                </li>
+            
+                <li 
+                
+                    class="id_101"
+                
+                  >
+                    <a href="/blog/backend/">后端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_102"
+                
+                  >
+                    <a href="/blog/frontend/">前端开发</a>
+                </li>
+            
+                <li 
+                
+                    class="id_103"
+                
+                  >
+                    <a href="/blog/server/">服务器</a>
+                </li>
+            
+                <li 
+                
+                    class="id_108"
+                
+                  >
+                    <a href="/blog/rust/">Rust</a>
+                </li>
+            
+                <li 
+                
+                    class="id_104"
+                
+                  >
+                    <a href="/blog/diary/">随笔</a>
+                </li>
+            
+        </ul>
+    </nav>
+</header>
+
+
+  <header
+    class="g-banner post-header post-pattern-circuitBoard bgcolor-default post-no-cover"
+    data-theme="default"
+  >
+    <div class="post-wrapper">
+      <div class="post-tags">
+        
+          
+            <a href="http://aqrun.com/tags#angular" class="post-tag">angular</a>
+          
+            <a href="http://aqrun.com/tags#ngrx" class="post-tag">ngrx</a>
+          
+            <a href="http://aqrun.com/tags#state" class="post-tag">state</a>
+          
+            <a href="http://aqrun.com/tags#selectors" class="post-tag">selectors</a>
+          
+        
+      </div>
+      <h1>NgRx Store 理解状态选择器(state selectors)</h1>
+      <div class="post-meta">
+        <span class="post-meta-item"><i class="iconfont icon-author"></i>子十</span>
+        <time class="post-meta-item" datetime="18-03-19"><i class="iconfont icon-date"></i>19 Mar 2018</time>
+      </div>
+    </div>
+    
+  </header>
+
+  <div class="post-content visible">
+    
+
+    <article class="markdown-body">
+      <blockquote>
+  <p><a href="https://toddmotto.com/ngrx-store-understanding-state-selectors">原文链接：https://toddmotto.com/ngrx-store-understanding-state-selectors</a></p>
+</blockquote>
+
+<p>选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据。 为了更好地理解选择器是什么以及它们做什么，它有助于将ngrx状态看作数据结构 —— 一种可以序列化为JSON的树。 数据通过在reducer中组成状态添加到状态树中 - 这是最简单的部分。 现在为了从状态树中获取数据，我们必须遍历它来找到我们感兴趣的属性并返回它。 这可能会变得更加复杂，这也是选择器帮助我们的地方。</p>
+
+<p>您可能已经看到正在使用store.select方法通过传递字符串值来从store获取数据：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">pizzas</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>该字符串代表store中状态切片的名称，我们可以预料此函数会返回与我们的pizzas属性相对应的数据 - 可能是比萨饼数组。 但是，<code class="language-plaintext highlighter-rouge">store.select</code> 也可以传递一个函数，这个函数参数是一个状态切片返回状态的一个属性（您可能已经看到过）：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>这两种方法都代表了选择器的概念 - 我们正在“选择”状态！</p>
+
+<p>所以，当我们将ngrx/store作为一个数据库，而选择器就像SQL查询中的SELECT一样 - 它们给我们提供了我们想要的信息。 随着我们的状态树越来越深入，将状态从Store中获取数据变得越来越复杂。</p>
+
+<p>我们可能会发现自己在组件中编写复杂的数据转换逻辑，以获得我们需要的东西 - 但我们不想这么做 - 而这正是选择器的作用。 就像数据库一样，我们可以通过组合选择器来完成数据转换，只需返回我们需要的数据。 我们将保持我们的组件简洁和从store解耦。</p>
+
+<h2 id="目录">目录</h2>
+
+<ul>
+  <li>考虑数据结构</li>
+  <li>特征状态选择器(Feature state selector)</li>
+  <li>状态切片选择器(State slice selector)</li>
+  <li>总结</li>
+</ul>
+
+<h2 id="考虑数据结构">考虑数据结构</h2>
+
+<p>首先让我们将这种状态概念可视化为NGRX上下文无关的数据结构。 我们创建一个具有state属性和一些初始值的JavaScript类Store：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">products</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">pizzas</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="na">entities</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pizza 1</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+                        <span class="mi">2</span><span class="p">:</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pizza 2</span><span class="dl">'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>让我们密切关注 <code class="language-plaintext highlighter-rouge">state</code> 的结构。 <code class="language-plaintext highlighter-rouge">state</code>对象只是一个常规的JavaScript对象，它具有嵌套的属性定义。 一个对象属性包装另一个对象属性等，创建一个层级结构或“树”，<code class="language-plaintext highlighter-rouge">state</code>充当根。 遍历完整的<code class="language-plaintext highlighter-rouge">state</code>树看起来像这样，如果我们想要获取我们的<code class="language-plaintext highlighter-rouge">entities</code>：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>state
+    -&gt;products
+        -&gt;pizzas
+            -&gt;entities
+</code></pre></div></div>
+
+<p>为了获得一个特定的属性，我们必须遍历树。 例如，我们建立自己的方式到<code class="language-plaintext highlighter-rouge">entities</code>来建立一个链条，每一层级往下连接我们从state到entities。 如果我们弄错了链条中的任何链接，它就会中断也就无法创建连接。 该链中的每个链接代表对应state属性的引用。 因此，我们需要一个<code class="language-plaintext highlighter-rouge">products</code>的引用，然后是<code class="language-plaintext highlighter-rouge">pizzas</code>引用，最后引用到<code class="language-plaintext highlighter-rouge">entities</code>。 到了这，我们就可以访问<code class="language-plaintext highlighter-rouge">entities</code>所拥有的数据。</p>
+
+<p>“引用某个属性”的含义是什么？ 为了说明这个概念，我们将创建一个Store类的实例，并展示我们可以访问状态对象属性的不同方式：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Store</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>现在，store是另一个包含<code class="language-plaintext highlighter-rouge">state</code>属性的JavaScript对象。 因此，其中一种方式我们可以通过熟悉的点符号来访问层级属性链。 现在让我们使用这种方法来获取我们的实体：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">entities</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">products</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">.</span><span class="nx">entities</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>这个方法确实很简单，但是当我们需要访问所需的属性时，我们会发现自己一遍又一遍地输入这个链。 对于可重用逻辑来说，这不是最有效的方法，而且对于深层次属性引用也很容易出错 - 如果某些东西未定义，它就会崩掉。</p>
+
+<p>那么，如果我们能够为链中的每个环节创建快捷方式呢？ 我们可以分开创建返回<code class="language-plaintext highlighter-rouge">products</code>、<code class="language-plaintext highlighter-rouge">pizzas</code>和<code class="language-plaintext highlighter-rouge">entities</code>的函数：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getProducts</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">products</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getPizzas</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getEntities</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">entities</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>注意这些功能是多么方便。 以<code class="language-plaintext highlighter-rouge">getEntities</code>为例，该函数的目的给它传参某个<code class="language-plaintext highlighter-rouge">state</code>并从该<code class="language-plaintext highlighter-rouge">state</code>中提取并返回<code class="language-plaintext highlighter-rouge">entities</code>属性。 看起来好像我们直接访问<code class="language-plaintext highlighter-rouge">entities</code>属性或直接访问该层级。 我们可以将此函数称为“状态快捷方式”，但我想将其称为状态选择器函数（state slector function）。</p>
+
+<p>这里缺少的是如何直接将<code class="language-plaintext highlighter-rouge">state</code>传递给<code class="language-plaintext highlighter-rouge">getEntities</code>选择器，而不直接使用<code class="language-plaintext highlighter-rouge">store.state</code> - 否则，我们将再次依赖点表示法。 解决方案？ 我们将一个<code class="language-plaintext highlighter-rouge">select</code>方法添加到我们的<code class="language-plaintext highlighter-rouge">Store</code>类中，然后传递<code class="language-plaintext highlighter-rouge">state</code>对象到需要的选择器函数：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Store</span> <span class="p">{</span>
+    <span class="nx">select</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>我们的<code class="language-plaintext highlighter-rouge">select</code>方法需要一个回调函数参数然后传递<code class="language-plaintext highlighter-rouge">state</code>作为参数调用它。 使用这种方法获取<code class="language-plaintext highlighter-rouge">entities</code>，我们可以按照逻辑的方式在整个选择器中传递状态，每次传递都会使我们下降到状态树的某个层级，直到遇到<code class="language-plaintext highlighter-rouge">entities</code>：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getProducts</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">products</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getPizzas</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getEntities</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">entities</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">entities</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">products</span> <span class="o">=</span> <span class="nx">getProducts</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">pizzas</span> <span class="o">=</span> <span class="nx">getPizzas</span><span class="p">(</span><span class="nx">products</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">entities</span> <span class="o">=</span> <span class="nx">getEntities</span><span class="p">(</span><span class="nx">pizzas</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">entities</span><span class="p">;</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>正如我们前面所示，首先我们得到<code class="language-plaintext highlighter-rouge">products</code>。 一旦我们有<code class="language-plaintext highlighter-rouge">products</code>，我们就可以得到<code class="language-plaintext highlighter-rouge">pizzas</code>通过它再取得<code class="language-plaintext highlighter-rouge">entities</code>。 这个方法很好、很容易、当然也可以工作，但是我们可以更进一步，通过使用函数组合来创建一个可以传递给<code class="language-plaintext highlighter-rouge">select</code>的单个回调来进行声明和实现：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">getProducts</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">products</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getPizzas</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">getEntities</span> <span class="o">=</span> <span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">entities</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">entities$</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> 
+    <span class="nx">getEntities</span><span class="p">(</span><span class="nx">getPizzas</span><span class="p">(</span><span class="nx">getProducts</span><span class="p">(</span><span class="nx">state</span><span class="p">)))</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>函数组合是当你通过相互嵌入函数返回单个结果时：内部函数的返回值成为最外层函数的参数，依此类推。 在这里，我们正在编写我们的选择器用来返回<code class="language-plaintext highlighter-rouge">entities</code>值。</p>
+
+<p>我们已经看到，选择器函数是一个纯函数，它允许我们直接访问状态树遍历的值。 我们使用选择器来避免手动遍历状态树，反过来，我们为状态管理提供了强大的声明式函数编程。 现在选择器的概念已经很清楚了，让我们来看看为什么理解它非常重要对于掌握NGRX选择器。 我们继续，看看和这个相同的数据结构在NGRx中是什么样的。</p>
+
+<h2 id="特征状态选择器-feature-state-selector">特征状态选择器 Feature state selector</h2>
+
+<p>我们在NGRX中的store初始化为根状态 - 我们状态树的顶层。 由于我们的应用程序保持良好结构且模块化，因此我们将在状态树中创建更多条目。 我们通过使用特征模块（feature module）使我们的Angular应用程序保持模块化，NGRX也为此提供支持！ 一旦我们懒加载的Angular模块被实例化 - 它将自身添加到我们的根Angular应用程序中 - 而NGRX Store（和Effects也是如此！）也是如此。 这意味着一旦我们懒加载一个也有管理状态的Angular模块，它也会自动绑定到我们的根状态。</p>
+
+<p>添加此行为非常方便简单 - 我们通过导入<code class="language-plaintext highlighter-rouge">StoreModule</code>并调用<code class="language-plaintext highlighter-rouge">.forFeature()</code>来将任何功能状态注册到功能模块中：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">StoreModule</span><span class="p">.</span><span class="nx">forFeature</span><span class="p">(</span><span class="dl">'</span><span class="s1">products</span><span class="dl">'</span><span class="p">,</span> <span class="nx">reducers</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">.forFeature</code>的第一个参数包含一个表示特征状态名称的字符串，第二个参数提供了我们管理该特征状态的<code class="language-plaintext highlighter-rouge">reducer</code>。 使用<code class="language-plaintext highlighter-rouge">ngrx/store</code>提供的便捷函数<code class="language-plaintext highlighter-rouge">createFeatureSelector</code>创建特征状态的状态选择器时，特征名称起着至关重要的作用。</p>
+
+<p><code class="language-plaintext highlighter-rouge">createFeatureSelector</code>允许我们简单地通过它的特征名称来获取状态树的顶层特征状态属性：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">getProductsState</span> <span class="o">=</span> <span class="nx">createFeatureSelector</span><span class="o">&lt;</span><span class="nx">ProductsState</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">'</span><span class="s1">products</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>那么<code class="language-plaintext highlighter-rouge">createFeatureSelector</code>在这里发生了什么？ 首先，我们传递一个字符串，表示用于在特征模块中注册特征状态的名称。 它使用此字符串从根状态对象内查找特征状态，例如<code class="language-plaintext highlighter-rouge">state['products']</code>。</p>
+
+<p>然后它返回一个类型化的选择器函数，该函数将返回对该特定状态切片的引用。</p>
+
+<p>因此，<code class="language-plaintext highlighter-rouge">createFeatureSelector</code>返回一个选择器函数，该函数查找并返回指定的特征状态。 传递给它的泛型类型是我们从选择器函数获得的特征状态的类型。 在这种情况下，选择器将返回类型为<code class="language-plaintext highlighter-rouge">ProductState</code>的特征状态。 我们的<code class="language-plaintext highlighter-rouge">ProductState</code>将由各种reducer管理，马上我们会查看。</p>
+
+<p>现在我们可以通过<code class="language-plaintext highlighter-rouge">getProductsState</code>轻松访问产品状态切片，可以在组件中使用它，如下所示：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span>
+    <span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">fromStore</span><span class="p">.</span><span class="nx">getProductState</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">pizzas</span> <span class="o">=&gt;</span> <span class="nx">pizza</span><span class="p">.</span><span class="nx">entities</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>为了获得我们需要的状态，我们必须依靠通过<code class="language-plaintext highlighter-rouge">.map()</code>进行映射来从顶层特征状态中提取它。 我们在每次<code class="language-plaintext highlighter-rouge">map</code>调用时都会<em>漫步</em>在<code class="language-plaintext highlighter-rouge">ProductState</code>中。 这很好，但它又是重复的，没有复用性，并且很难做单元测试。 这就是<code class="language-plaintext highlighter-rouge">createSelector</code>发挥作用的地方，我们将研究如何将它与我们新的<code class="language-plaintext highlighter-rouge">createFeatureSelector</code>结合起来。</p>
+
+<h2 id="状态切片选择器">状态切片选择器</h2>
+
+<p>由于是纯函数返回一个状态切片，选择器函数可以被组合在一起以供组件使用，它们可以由我们整体状态的各个部分组成 - 这就是状态管理变得更重要的地方，因为我们需要得到事情从一开始就是正确的。</p>
+
+<p>要开始组合，我们需要定义一个起点 - 我们的最顶层特征。 通过使用<code class="language-plaintext highlighter-rouge">createFeatureSelector</code>，我们可以轻松获得对顶层状态属性的引用。 一旦我们有了这个引用，我们就可以将它与其他选择器组合起来，这些选择器指向我们的特征状态下面的状态 - 有效地遍历状态树直到我们到达期望的属性。 我们在前一节使用纯函数的一个例子中做了类似的事情。 让我们看看我们在Store内如何做到这一点。</p>
+
+<p>我们从定义和管理状态的角度开始：reducer。 我们将使用我的<a href="https://ultimateangular.com/ngrx-store-effects">免费NGRX课程</a>中的应用程序：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/products/store/reducers/index.ts</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ActionReducerMap</span><span class="p">,</span> <span class="nx">createFeatureSelector</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@ngrx/store</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">fromPizzas</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./pizzas.reducer</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">fromToppings</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./toppings.reducer</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">ProductsState</span> <span class="p">{</span>
+    <span class="nl">pizzas</span><span class="p">:</span> <span class="nx">fromPizzas</span><span class="p">.</span><span class="nx">PizzaState</span><span class="p">;</span>
+    <span class="nl">toppings</span><span class="p">:</span> <span class="nx">fromToppings</span><span class="p">.</span><span class="nx">ToppingState</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">reducers</span><span class="p">:</span> <span class="nx">ActionReducerMap</span><span class="o">&lt;</span><span class="nx">ProductsState</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">pizzas</span><span class="p">:</span> <span class="nx">fromPizzas</span><span class="p">.</span><span class="nx">reducer</span><span class="p">,</span>
+    <span class="na">toppings</span><span class="p">:</span> <span class="nx">fromToppings</span><span class="p">.</span><span class="nx">reducer</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getProductsState</span> <span class="o">=</span> <span class="nx">createFeatureSelector</span><span class="o">&lt;</span><span class="nx">ProductsState</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">'</span><span class="s1">products</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ProductsState</code>表示此特征模块的特征状态。 它由另外两个状态树组成：状态树：<code class="language-plaintext highlighter-rouge">PizzaState</code>和<code class="language-plaintext highlighter-rouge">ToppingsState</code>。 我们的产品状态由我们的<code class="language-plaintext highlighter-rouge">reducers</code>（一个包含两个reducer - pizzas和Toppings的<code class="language-plaintext highlighter-rouge">ActionReducerMap</code>）管理，并且每个分别管理各个低一级状态。 让我们直观地将状态树看作是一个JavaScript对象：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//RootState</span>
+<span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">//ProductState</span>
+    <span class="na">products</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1">//pizzaState</span>
+        <span class="na">pizzas</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">entities</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="na">loaded</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="na">loading</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="c1">// ToppingsState</span>
+        <span class="na">toppings</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">entities</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="na">loaded</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="na">loading</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>为了找到我们的pizza entities，我们需要按照我们在开始时看到的方式访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>state -&gt; products -&gt; pizzas -&gt; entities
+</code></pre></div></div>
+
+<p>现在我们可以引入<code class="language-plaintext highlighter-rouge">createSelector</code>来获取对状态树下面的属性的引用 - 这允许我们以简单的方式获取pizzas。</p>
+
+<p>我们已经将<code class="language-plaintext highlighter-rouge">getProductsState</code>定义为一个特征选择器，它可以给我们返回与<code class="language-plaintext highlighter-rouge">ProductsState</code>对应的状态切片。 剩下的就是把它与其他选择器合并，开始在我们的状态树上构建一个链。 这感觉就像我们有时设置了很多样板，而且我们在某些地方，但是一旦设置完成 - 我们就准备好使用它几千次而且几乎不用调整 - 选择器使用起来非常棒，适用于大数据集和多个状态。</p>
+
+<p>那么，让我们深入一个层级，并使用<code class="language-plaintext highlighter-rouge">createSelector</code>跳转到另一个层级：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/products/store/reducers/index.ts</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">ProductsState</span> <span class="p">{</span>
+    <span class="nl">pizzas</span><span class="p">:</span> <span class="nx">fromPizzas</span><span class="p">.</span><span class="nx">PizzaState</span><span class="p">;</span>
+    <span class="nl">toppings</span><span class="p">:</span> <span class="nx">fromToppings</span><span class="p">.</span><span class="nx">ToppingsState</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getProductsState</span> <span class="o">=</span> <span class="nx">careteFeatureSelector</span><span class="o">&lt;</span><span class="nx">ProductsState</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">'</span><span class="s1">products</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzaState</span> <span class="o">=</span> <span class="nx">createSelector</span><span class="p">(</span>
+    <span class="nx">getProductsState</span><span class="p">,</span>
+    <span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">ProductsState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>注意我们如何传递<code class="language-plaintext highlighter-rouge">getProductsState</code>作为第一个参数 - 所以我们可以从这一点开始我们的状态查找。 就这样，我们可以获取状态树更深层的属性。</p>
+
+<p><code class="language-plaintext highlighter-rouge">createSelector</code>函数最多可以接受八个选择器函数作为参数，每个函数引用不同的状态切片。 <code class="language-plaintext highlighter-rouge">createSelector</code>最后一个参数可以被当作我们的“生成器函数(projector function)”。 让我们来看看<code class="language-plaintext highlighter-rouge">createSelector</code>的TypeScript定义，以便在继续之前进一步掌握它：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">createSelector</span><span class="o">&lt;</span><span class="nx">State</span><span class="p">,</span> <span class="nx">S1</span><span class="p">,</span> <span class="nx">S2</span><span class="p">,</span> <span class="nx">S3</span><span class="p">,</span> <span class="nx">Result</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nx">s1</span><span class="p">:</span> <span class="nx">Selector</span><span class="o">&lt;</span><span class="nx">State</span><span class="p">,</span> <span class="nx">S1</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">s2</span><span class="p">:</span> <span class="nx">Selector</span><span class="o">&lt;</span><span class="nx">State</span><span class="p">,</span> <span class="nx">S2</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">s3</span><span class="p">:</span> <span class="nx">Selector</span><span class="o">&lt;</span><span class="nx">State</span><span class="p">,</span> <span class="nx">S3</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">projector</span><span class="p">:</span> <span class="p">(</span><span class="nx">s1</span><span class="p">:</span> <span class="nx">S1</span><span class="p">,</span> <span class="nx">s2</span><span class="p">:</span> <span class="nx">S2</span><span class="p">,</span> <span class="nx">s3</span><span class="p">:</span> <span class="nx">S3</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">Result</span>
+<span class="p">):</span> <span class="nx">MemoizedSelector</span><span class="o">&lt;</span><span class="nx">State</span><span class="p">,</span> <span class="nx">Result</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>我们不需要为这里的太多类型而惊慌失措 - 但让我们看看s1，s2和s3。 请注意，在生成器中，我们以s1，s2和s3作为函数参数 - 按照我们提供的顺序。 这比我的第一个必须嵌套函数调用示例要好得多。 更具可读性和简洁性。</p>
+
+<p>简而言之：传递给生成器函数的参数顺序和之前列出的选择器顺序一样。</p>
+
+<p>生成器函数的作用非常强大。 我们可以在状态树中的任何位置请求各种状态属性，我们可以派生，转换或合并来自传递给它的状态切片的数据，并将此修改的数据作为单个对象返回 - 通常用于组件使用。 再次，它是干净简洁的 - 而且这种状态逻辑不在我们的组件内部。 我们的组件只是调用，就是这样。</p>
+
+<p>在创建<code class="language-plaintext highlighter-rouge">getPizzaState</code>之前，为了在组件中获得pizza entities，我们需要这样做：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">fromStore</span><span class="p">.</span><span class="nx">getProductsState</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">pizza</span> <span class="o">=&gt;</span> <span class="nx">pizza</span><span class="p">.</span><span class="nx">entities</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>然而，通过我们最新创建的<code class="language-plaintext highlighter-rouge">getPizzaState</code>函数，我们现在只需一个map调用：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">fromStore</span><span class="p">.</span><span class="nx">getPizzas</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">pizzas</span> <span class="o">=&gt;</span> <span class="nx">pizza</span><span class="p">.</span><span class="nx">entities</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>您可能猜到我们现在如何完成我们的旅程并引用这些实体 - 但我们访问的方式有点不同，通常从我们的reducer开始，让我们看看：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/products/store/reducers/pizzas.reducer.ts</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">PizzaState</span> <span class="p">{</span>
+    <span class="nl">entities</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="na">id</span><span class="p">:</span> <span class="kr">number</span><span class="p">]:</span> <span class="nx">Pizzas</span><span class="p">};</span>
+    <span class="nl">loaded</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>
+    <span class="nl">loading</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="nx">cosnt</span> <span class="nx">initialState</span><span class="p">:</span> <span class="nx">PizzaState</span> <span class="p">{</span>
+    <span class="nl">entities</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nx">loaded</span><span class="p">:</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nl">loading</span><span class="p">:</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">reducer</span><span class="p">(</span>
+    <span class="nx">state</span> <span class="o">=</span> <span class="nx">initialState</span><span class="p">,</span>
+    <span class="nx">action</span><span class="p">:</span> <span class="nx">fromPizzas</span><span class="p">.</span><span class="nx">PizzasAction</span>
+<span class="p">):</span> <span class="nx">PizzaState</span> <span class="p">{</span>
+    <span class="c1">//...switches and stuff</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzasEntities</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">PizzaState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">entities</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzasLoaded</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">PizzaState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">loaded</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzasLoading</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">PizzasState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">loading</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>在<code class="language-plaintext highlighter-rouge">PizzaState</code> reducer 中需要注意的是在底部输出的那些函数。 这些是状态属性选择器 - 纯函数。 这里是导出当前状级别所有其他属性的好地方，这样我们就可以在下一级轻松组合它们 - 已通过导入语句访问它们。</p>
+
+<p>回到我们的顶级reducer文件<code class="language-plaintext highlighter-rouge">index.ts</code>，我们将编写一个选择器，可以返回我们喜爱的pizza entities：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/products/store/reducers/index.ts</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">fromPizzas</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./pizzas.reducer</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="nx">cosnt</span> <span class="nx">getProductsState</span> <span class="o">=</span> <span class="nx">createFeatureSelector</span><span class="o">&lt;</span><span class="nx">ProductsState</span><span class="o">&gt;</span><span class="p">(</span><span class="dl">'</span><span class="s1">products</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzaState</span> <span class="o">=</span> <span class="nx">createSelector</span><span class="p">(</span>
+    <span class="nx">getProductsState</span><span class="p">,</span>
+    <span class="p">(</span><span class="nx">state</span><span class="p">:</span> <span class="nx">ProductsState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">pizzas</span> 
+<span class="p">);</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzasEntities</span> <span class="o">=</span> <span class="nx">createSelector</span><span class="p">(</span>
+    <span class="nx">getPizzaState</span><span class="p">,</span>
+    <span class="nx">fromPizzas</span><span class="p">.</span><span class="nx">getPizzasEntities</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>我们使用<code class="language-plaintext highlighter-rouge">fromPizzas.getPizzasEntities</code>作为<code class="language-plaintext highlighter-rouge">createSelector</code>的生成器函数，它将返回对pizza属性entities的引用。</p>
+
+<p>我们可以放弃遗留在组件代码中的最后一个.map（）吗？…</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">fromStore</span><span class="p">.</span><span class="nx">getPizzas</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">pizza</span> <span class="o">=&gt;</span> <span class="nx">pizza</span><span class="p">.</span><span class="nx">entities</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>为什么不行。 我们现在可以如下获取entities：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">fromStore</span><span class="p">.</span><span class="nx">getPizzasEntities</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>会返回如下数据：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pizza 1</span><span class="dl">'</span><span class="p">,</span> <span class="nx">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Pizza 2</span><span class="dl">'</span><span class="p">,</span> <span class="nx">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这很棒，而且正是我们所需要的。 然而，对于Angular或任何其他框架/解决方案，我们应该将这个数据结构视为一个数组。 在Angular的中，我们可以很好地将它用于ngFor。</p>
+
+<p>实体(entities)是一种表示通过使用唯一ID作为其数据引用的数据结构的方法。 它使数据查找起来非常简单，快速，可组合 - 但这是另一篇文章的故事。</p>
+
+<p>那么，如果我们想要将基于实体的选择器转换为数组格式，以便通过ngFor使用呢？ 我们可以创建另一个选择器，并使用生成器函数将我们的数据结构映射到一个阵列，非常容易：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// src/products/store/reducers/index.ts</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getPizzasEntities</span> <span class="o">=</span> <span class="nx">createSelector</span><span class="p">(</span>
+    <span class="nx">getPizzaState</span><span class="p">,</span>
+    <span class="nx">fromPizzas</span><span class="p">.</span><span class="nx">getPizzasEntities</span>
+<span class="p">);</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">getAllPizzas</span> <span class="o">=</span> <span class="nx">createSelector</span><span class="p">(</span>
+    <span class="nx">getPizzasEntities</span><span class="p">,</span>
+    <span class="nx">entities</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">entities</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span> <span class="o">=&gt;</span> <span class="nx">entities</span><span class="p">[</span><span class="nx">id</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>这有几个关键的好处。 在状态管理中，我们可能希望通过ID（标准化为实体）来查找项目，我们可以通过引用<code class="language-plaintext highlighter-rouge">getPizzasEntities</code>来实现，例如我们可以将一个路由参数id传递给我们的选择器，并返回单个实体。 没有循环，没有map，只是一个对象查找。 对于某些组件，我们实际上可能需要实体，对于某些组件（如列表视图），我们对相同的数据更感兴趣，但是作为一个数组！</p>
+
+<p>选择器也被记忆，这意味着它们很快，只有在需要时才会重新计算。</p>
+
+<p>随着我们的任务完成，我们现在可以将这一个选择器传入我们的<code class="language-plaintext highlighter-rouge">store.select</code>中，我们完成了：</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// an array of pizzas, what else could you ever ask for?</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">fromStore</span><span class="p">.</span><span class="nx">getAllPizzas</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>瞧^_^！</p>
+
+<h2 id="总结">总结</h2>
+
+<p>选择器刚开始掌握使用时是有些复杂，我鼓励你看看我的<a href="https://github.com/UltimateAngular/ngrx-store-effects-app/tree/27-testing-effects/src/products/store/selectors">例子NGRX应用程序</a>，看看事情如何在一个更大的图景融合在一起。</p>
+
+<p>选择器是我们如何通过引用我们数据结构的不同部分的函数来组合状态。 然后，我们可以合并它们，将它们合并，从它们中提取属性并将它们与其他属性结合起来（这对于使用实体和id可以从我们的状态中获取属性并将它们引入新的选择器来组成新状态而特别容易）。 可能性是无止境的，并且易于管理。 一旦我们通过选择器编写了我们的数据结构，我们就可以将其发送到我们的组件以供使用。</p>
+
+    </article>
+
+    
+    <div class="social-share-wrapper">
+      <div class="social-share"></div>
+    </div>
+    
+  </div>
+
+  <section class="author-detail">
+    <section class="post-footer-item author-card">
+      <div class="avatar">
+        <img src="/assets/img/profile.png?v=0.1" alt="">
+      </div>
+      <div class="author-name" rel="author">子十</div>
+      <div class="bio">
+        <p>天行健，君子以自强不息。<br/>地势坤，君子以厚德载物。</p>
+      </div>
+      
+      <ul class="sns-links">
+        
+        <li>
+          <a href="//weibo.com/aqrun" target="_blank">
+                    <i class="iconfont icon-weibo"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//www.jianshu.com/u/0b2ee2adc013" target="_blank">
+                    <i class="iconfont icon-jianshu"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//gitee.com/aqrun" target="_blank">
+                    <i class="iconfont icon-gitee"></i>
+                </a>
+        </li>
+        
+        <li>
+          <a href="//github.com/aqrun" target="_blank">
+                    <i class="iconfont icon-github"></i>
+                </a>
+        </li>
+        
+      </ul>
+      
+    </section>
+    <section class="post-footer-item read-next">
+      
+      <div class="read-next-item">
+        <a href="/2018/06/09/%E6%8E%A7%E5%88%B6%E5%8F%B0emacs%E5%90%AF%E7%94%A8%E9%BC%A0%E6%A0%87%E5%A4%8D%E5%88%B6%E5%8A%9F%E8%83%BD.html" class="read-next-link"></a>
+        <section>
+          <span>控制台Emacs启用鼠标右键复制</span>
+          <p>Emacs 默认鼠标是移动光标位置不能像vim一样复制文本, `M+x xterm-mouse-mode` 临时启...</p>
+        </section>
+        
+     </div>
+      
+
+      
+      <div class="read-next-item">
+        <a href="/2018/03/17/NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html" class="read-next-link"></a>
+          <section>
+            <span>NgRx技巧1-带延迟加载的模块配置</span>
+            <p>我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Ef...</p>
+          </section>
+          
+      </div>
+      
+    </section>
+    
+  </section>
+
+  <footer class="g-footer">
+  <section>子十的独立博客 ©
+  
+  
+    2014
+    -
+  
+  2020
+  </section>
+  <section>Powered by <a href="//jekyllrb.com">Jekyll</a> | <a href="https://github.com/kaeyleo/jekyll-theme-H2O">Theme H2O</a></section>
+</footer>
+
+
+  <script src="/assets/js/social-share.min.js"></script>
+  <script>
+    socialShare('.social-share', {
+      sites: [
+        
+          'wechat'
+          ,
+          
+        
+          'weibo'
+          ,
+          
+        
+          'douban'
+          ,
+          
+        
+          'twitter'
+          
+        
+      ],
+      wechatQrcodeTitle: "分享到微信朋友圈",
+      wechatQrcodeHelper: '<p>扫码后点击右上角</p><p>将本文分享至朋友圈</p>'
+    });
+  </script>
+
+  
+
+  <script src="/assets/prism/prism.js?v=0.3"></script>
+<script src="/assets/js/index.min.js?v=0.3"></script>
+<script src="/assets/js/poetry.js?v=0.2"></script>
+</body>
+
+</html>

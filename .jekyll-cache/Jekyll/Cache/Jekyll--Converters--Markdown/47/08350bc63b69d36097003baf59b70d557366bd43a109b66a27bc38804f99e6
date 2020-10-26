@@ -1,0 +1,328 @@
+I"V<blockquote>
+  <p><a href="/2020/02/02/0.magento-menu.html">Magento 2 开发内容目录</a></p>
+</blockquote>
+
+<p>本文研究一下Magento系统提供的一些命令。Magento 通过 bin/magento 提供了很多命令，刚开始感觉会有些复杂，接下来我们就仔细了解一下：</p>
+
+<p>当运行如下命令</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento
+</code></pre></div></div>
+
+<p>或</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/magento
+</code></pre></div></div>
+
+<p>就会输出所有可用的命令列表，当括我们自定义的命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usage:                                                                                                                      
+ <span class="nb">command</span> <span class="o">[</span>options] <span class="o">[</span>arguments]                                                                                              
+                                                                                                                            
+Options:                                                                                                                    
+ <span class="nt">--help</span> <span class="o">(</span><span class="nt">-h</span><span class="o">)</span>           Display this <span class="nb">help </span>message                                                                            
+ <span class="nt">--quiet</span> <span class="o">(</span><span class="nt">-q</span><span class="o">)</span>          Do not output any message                                                                            
+ <span class="nt">--verbose</span> <span class="o">(</span><span class="nt">-v</span>|vv|vvv<span class="o">)</span> Increase the verbosity of messages: 1 <span class="k">for </span>normal output, 2 <span class="k">for </span>more verbose output and 3 <span class="k">for </span>debug   
+ <span class="nt">--version</span> <span class="o">(</span><span class="nt">-V</span><span class="o">)</span>        Display this application version                                                                     
+ <span class="nt">--ansi</span>                Force ANSI output                                                                                    
+ <span class="nt">--no-ansi</span>             Disable ANSI output                                                                                  
+ <span class="nt">--no-interaction</span> <span class="o">(</span><span class="nt">-n</span><span class="o">)</span> Do not ask any interactive question                                                                  
+                                                                                                                            
+Available commands:                                                                                                         
+ <span class="nb">help                                      </span>Displays <span class="nb">help </span><span class="k">for </span>a <span class="nb">command                                                      
+ </span>list                                      Lists commands                                                                   
+admin                                                                                                                       
+ admin:user:create                         Creates an administrator                                                         
+ admin:user:unlock                         Unlock Admin Account                                                             
+cache                                                                                                                       
+ cache:clean                               Cleans cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                                             
+ cache:disable                             Disables cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                                           
+ cache:enable                              Enables cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                                            
+ cache:flush                               Flushes cache storage used by cache <span class="nb">type</span><span class="o">(</span>s<span class="o">)</span>                                      
+ cache:status                              Checks cache status                                                              
+catalog                                                                                                                     
+ catalog:images:resize                     Creates resized product images                                                   
+ catalog:product:attributes:cleanup        Removes unused product attributes.                                               
+cron                                                                                                                        
+ cron:run                                  Runs <span class="nb">jobs </span>by schedule                                                            
+customer                                                                                                                    
+ customer:hash:upgrade                     Upgrade customer<span class="s1">'s hash according to the latest algorithm                        
+deploy                                                                                                                      
+ deploy:mode:set                           Set application mode.                                                            
+ deploy:mode:show                          Displays current application mode.                                               
+dev                                                                                                                         
+ dev:source-theme:deploy                   Collects and publishes source files for theme.                                   
+ dev:tests:run                             Runs tests                                                                       
+ dev:urn-catalog:generate                  Generates the catalog of URNs to *.xsd mappings for the IDE to highlight xml.    
+ dev:xml:convert                           Converts XML file using XSL style sheets                                         
+i18n                                                                                                                        
+ i18n:collect-phrases                      Discovers phrases in the codebase                                                
+ i18n:pack                                 Saves language package                                                           
+ i18n:uninstall                            Uninstalls language packages                                                     
+indexer                                                                                                                     
+ indexer:info                              Shows allowed Indexers                                                           
+ indexer:reindex                           Reindexes Data                                                                   
+ indexer:reset                             Resets indexer status to invalid                                                 
+ indexer:set-mode                          Sets index mode type                                                             
+ indexer:show-mode                         Shows Index Mode                                                                 
+ indexer:status                            Shows status of Indexer                                                          
+info                                                                                                                        
+ info:adminuri                             Displays the Magento Admin URI                                                   
+ info:backups:list                         Prints list of available backup files                                            
+ info:currency:list                        Displays the list of available currencies                                        
+ info:dependencies:show-framework          Shows number of dependencies on Magento framework                                
+ info:dependencies:show-modules            Shows number of dependencies between modules                                     
+ info:dependencies:show-modules-circular   Shows number of circular dependencies between modules                            
+ info:language:list                        Displays the list of available language locales                                  
+ info:timezone:list                        Displays the list of available timezones                                         
+maintenance                                                                                                                 
+ maintenance:allow-ips                     Sets maintenance mode exempt IPs                                                 
+ maintenance:disable                       Disables maintenance mode                                                        
+ maintenance:enable                        Enables maintenance mode                                                         
+ maintenance:status                        Displays maintenance mode status                                                 
+module                                                                                                                      
+ module:disable                            Disables specified modules                                                       
+ module:enable                             Enables specified modules                                                        
+ module:status                             Displays status of modules                                                       
+ module:uninstall                          Uninstalls modules installed by composer                                         
+sampledata                                                                                                                  
+ sampledata:deploy                         Deploy sample data modules                                                       
+ sampledata:remove                         Remove all sample data packages from composer.json                               
+ sampledata:reset                          Reset all sample data modules for re-installation                                
+setup                                                                                                                       
+ setup:backup                              Takes backup of Magento Application code base, media and database                
+ setup:config:set                          Creates or modifies the deployment configuration                                 
+ setup:cron:run                            Runs cron job scheduled for setup application                                    
+ setup:db-data:upgrade                     Installs and upgrades data in the DB                                             
+ setup:db-schema:upgrade                   Installs and upgrades the DB schema                                              
+ setup:db:status                           Checks if DB schema or data requires upgrade                                     
+ setup:di:compile                          Generates DI configuration and all missing classes that can be auto-generated    
+ setup:install                             Installs the Magento application                                                 
+ setup:performance:generate-fixtures       Generates fixtures                                                               
+ setup:rollback                            Rolls back Magento Application codebase, media and database                      
+ setup:static-content:deploy               Deploys static view files                                                        
+ setup:store-config:set                    Installs the store configuration                                                 
+ setup:uninstall                           Uninstalls the Magento application                                               
+ setup:upgrade                             Upgrades the Magento application, DB data, and schema                            
+theme                                                                                                                       
+ theme:uninstall                           Uninstalls theme      
+</span></code></pre></div></div>
+
+<h2 id="命令行分类">命令行分类</h2>
+
+<p>可以将上面的列表分为以下类别：</p>
+
+<ul>
+  <li>缓存 Cache</li>
+  <li>索引器 Indexer</li>
+  <li>定时任务 Cron Job</li>
+  <li>代码编译器  Code Compiler</li>
+  <li>设置系统模式  Set the magento mode</li>
+  <li>i18n 国际化翻译  i18n translation</li>
+  <li>运行单元测试   unit test</li>
+  <li>维护模式   Maintenance</li>
+  <li>模块管理  Module management</li>
+  <li>安装 Setup: Install, upgrde, uninstall, backup, rollback</li>
+  <li>主题 theme</li>
+  <li>部署 deployment</li>
+</ul>
+
+<p>接下来看下每个类别的一些示例：</p>
+
+<h2 id="缓存命令">缓存命令</h2>
+
+<p>查看缓存状态</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:status
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    config: 1
+                    layout: 1
+                block_html: 1
+               collections: 1
+                    db_ddl: 1
+                       eav: 1
+                 full_page: 1
+                 translate: 1
+        config_integration: 1
+    config_integration_api: 1
+         config_webservice: 1
+</code></pre></div></div>
+
+<p>清除缓存：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:clean
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php bin/magento cache:clean                  
+Cleaned cache types:                           
+config                                         
+layout                                         
+block_html                                     
+collections                                    
+reflection                                     
+db_ddl                                         
+eav                                            
+customer_notification                          
+full_page                                      
+config_integration                             
+config_integration_api                         
+translate                                      
+config_webservice  
+</code></pre></div></div>
+
+<p>如何刷新缓存：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:flush
+</code></pre></div></div>
+
+<p>如何启用或停用缓存：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento cache:enable
+php bin/magento cache:disable
+
+<span class="c"># 加参数</span>
+magento cache:enable <span class="o">[</span><span class="nb">type</span><span class="o">]</span> ... <span class="o">[</span><span class="nb">type</span><span class="o">]</span>
+magento cache:disable <span class="o">[</span><span class="nb">type</span><span class="o">]</span> ... <span class="o">[</span><span class="nb">type</span><span class="o">]</span>
+
+<span class="c"># 示例 停用页面缓存</span>
+magento cache:disable full_page
+</code></pre></div></div>
+
+<h2 id="索引器命令">索引器命令</h2>
+
+<p>查看索引状态</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:info
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>design_config_grid                       Design Config Grid
+customer_grid                            Customer Grid
+catalog_category_product                 Category Products
+catalog_product_category                 Product Categories
+catalog_product_price                    Product Price
+catalog_product_attribute                Product EAV
+catalogsearch_fulltext                   Catalog Search
+cataloginventory_stock                   Stock
+catalogrule_rule                         Catalog Rule Product
+catalogrule_product                      Catalog Product Rule
+</code></pre></div></div>
+
+<p>重建索引：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:reindex
+</code></pre></div></div>
+
+<p>重置索引</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:reset
+</code></pre></div></div>
+
+<p>显示索引模式</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:show-mode
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php bin/magento indexer:show-mode
+
+Design Config Grid:                                Update on Save
+Customer Grid:                                     Update on Save
+Category Products:                                 Update on Save
+Product Categories:                                Update on Save
+Product Price:                                     Update on Save
+Product EAV:                                       Update on Save
+Catalog Search:                                    Update on Save
+Stock:                                             Update on Save
+Catalog Rule Product:                              Update on Save
+Catalog Product Rule:                              Update on Save
+</code></pre></div></div>
+
+<p>设置索引模式类型</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento indexer:set-mode <span class="o">{</span>realtime|schedule<span class="o">}</span> <span class="o">[</span>indexer]
+
+<span class="c"># 示例：</span>
+magento indexer:set-mode scedule catalog_category_product catalog_product_category
+</code></pre></div></div>
+
+<h2 id="部署命令">部署命令</h2>
+
+<p>语法：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy &lt;lang&gt; ... &lt;lang&gt; <span class="o">[</span><span class="nt">--dry-run</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>发布静态内容</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php bin/magento setup:static-content:deploy
+
+Requested languages: en_US
+=== frontend -&gt; Magento/blank -&gt; en_US ===
+...........................................
+</code></pre></div></div>
+
+<p>发布静态内容默认使用语言： en_EN</p>
+
+<p>如果要使用其它语言如简体中文： zh_Hans_CN</p>
+
+<p>运行</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento setup:static-content:deploy zh_Hans_CN
+</code></pre></div></div>
+
+<h2 id="使用命令获取后台uri路径">使用命令获取后台URI路径</h2>
+
+<p>可以不用查看 <code class="language-plaintext highlighter-rouge">etc/env.php</code> 文件也能知道后台路径：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento info:adminuri
+</code></pre></div></div>
+
+<h2 id="使用命令管理维护模式">使用命令管理维护模式</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 开启维护模式
+php bin/magento maintenance:enable
+
+# 关闭
+php bin/magento maintenance:disable
+</code></pre></div></div>
+
+<p>设置允许指定IP访问维护模式的网站</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento maintenance:allow-ips
+
+# 示例：
+php bin/magento maintenance:allow-ips 168.168.168.168
+</code></pre></div></div>
+
+<h2 id="设置系统开发者模式或线上模式">设置系统开发者模式或线上模式</h2>
+
+<p>有3种模式定义在 <code class="language-plaintext highlighter-rouge">Magneto\Framework\App\State</code>： default, developer, production</p>
+
+<p>显示当前系统模式</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento deploy:mode:show
+
+<span class="c"># 默认输出 default</span>
+</code></pre></div></div>
+
+<p>切换到开发者模式：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php bin/magento deploy:mode:set developer
+</code></pre></div></div>
+
+<p>恭喜你老铁！你的店铺现在就是开发者模式了。开始享受写代码的快感吧 :)</p>
+
+:ET

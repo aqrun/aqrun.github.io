@@ -1,0 +1,106 @@
+I"<p>Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更加方便。目的也不言而喻，就是取代db_query()。下面我也就列罗出一些经常使用的技巧，可能不够全面，还请大家多多补充。</p>
+
+<h4 id="1-单表查询最基本使用方法">1. 单表查询（最基本使用方法）</h4>
+
+<pre class="line-numbers">
+    <code class="language-php">
+$result = db_select('contact', 'c')  //选择表contact,名一个别名c
+ -&gt;fields('c') //查询c表中的字段，后面不跟参数就是查询所有
+ -&gt;execute()  //执行操作
+ -&gt;fetchAssoc(); //处理结果集
+</code>
+</pre>
+
+<h4 id="2-条件查询condition">2. 条件查询（condition）</h4>
+
+<pre class="line-numbers">
+    <code class="language-php">
+    $result = db_select('node', 'n')
+    -&gt;fields('n')
+    -&gt;condition('nid', 5,'=')  //nid等于5的条件
+    -&gt;condition('status', 0,'&gt;') // 状态大于0,也就是为真等于1
+    -&gt;condition('uid', array(1,5,7),'IN') //使用IN操作，当然还可以使用 NOT IN
+    -&gt;execute()
+    -&gt;fetchAssoc();
+</code>
+</pre>
+
+<h4 id="3-联合查询join">3. 联合查询（Join）</h4>
+
+<pre class="line-numbers">
+    <code class="language-php">
+ $query = db_select('field_data_field_slide','f'); //主表
+
+ $query-&gt;join('node', 'n', 'fa.entity_id = n.nid'); // 联合node表,条件是nid
+
+ $query-&gt;condition('f.field_slide_channel_tid',$chanid,'=');
+
+ $query-&gt;condition('n.status','1','=');  //发布状态
+
+ $query-&gt;fields('n',array('nid'));  //查询nid
+
+ $query-&gt;orderBy('n.nid','DESC'); //排序条件
+
+  $query-&gt;range(0,4); //取得4条数据
+
+   $result = $query-&gt;execute();
+</code>
+</pre>
+
+<h4 id="4-添加字段addfield">4. 添加字段（addField）</h4>
+
+<pre class="line-numbers">
+    <code class="language-php">
+    $query = db_select('taxonomy_term_hierarchy','h'); //选择表
+    $query-&gt;join('taxonomy_term_data','d','h.tid = d.tid'); // 联合查询
+    $query-&gt;addField('d', 'tid'); // 添加字段
+    $query-&gt;condition('h.parent',0); // 添加条件where 
+    $query-&gt;condition('d.vid',$vid); // 再添加一个条件 and ....
+    $query-&gt;addTag('ditusearch_generate_path'); // 添加Tag 可选项，这个就是方便其他地方可以改变这   个查询$query 比如如果添加了tag 可以使用 hook_query_alter 对其进行查询 如果你使用过views开发，views 也可以了类似的hook
+    $tid = $query-&gt;execute()-&gt;fetchCol();
+</code>
+</pre>
+
+<h4 id="5-分页使用pager">5. 分页使用（pager）</h4>
+
+<pre class="line-numbers">
+    <code class="language-javascript">
+  $query = db_select('node', 'n')
+      -&gt;condition('type', 'article')
+      -&gt;fields('n');
+  $query = $query-&gt;extend('PagerDefault')-&gt;limit(2); //limit条件是分页数目
+  $result = $query-&gt;execute();
+  foreach($result as $res){
+     $output .= $res-&gt;title;
+   }
+    $output .= theme(‘pager’); //添加分页theme
+    Return $output; 
+</code></pre>
+
+<h4 id="6-多表联合分页">6. 多表联合分页</h4>
+
+<pre class="line-numbers">
+    <code class="language-javascript">
+  $query = db_select('field_data_field_news','fa')-&gt;extend('PagerDefault'); //多表联合查询extend条件必须放在db_select之后
+
+  $query-&gt;join('node','n','fa.entity_id = n.nid');
+
+  $query-&gt;join('field_data_field_news_date_sort', 'fb', 'fa.entity_id = fb.entity_id');
+
+  $query-&gt;fields('n', array('nid','title'));
+
+  $query-&gt;condition('fa.field_news_classify_tid',$tids,'in'); 
+
+  $query-&gt;condition('n.type','news','='); 
+
+  $query-&gt;condition('n.status','1','=');     
+
+ $query-&gt;orderBy('fb.field_news_date_sort_value','DESC');
+
+  $query-&gt;limit(14);
+
+   $result = $query-&gt;execute();
+</code></pre>
+
+<p>http://drupalchina.cn/node/2026</p>
+:ET
