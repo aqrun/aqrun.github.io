@@ -8,9 +8,22 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@types/styled-components": "^5.1.4",
+    "@zeit/next-less": "^1.0.1",
+    "antd": "^4.7.3",
+    "babel-plugin-import": "^1.13.1",
+    "dayjs": "^1.9.4",
+    "gray-matter": "^4.0.2",
+    "less": "^3.12.2",
+    "less-vars-to-js": "^1.3.0",
     "next": "9.5.5",
+    "null-loader": "^4.0.1",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.1",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.3",
