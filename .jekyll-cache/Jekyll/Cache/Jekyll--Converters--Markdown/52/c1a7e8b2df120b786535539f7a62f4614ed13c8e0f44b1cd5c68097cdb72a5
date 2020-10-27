@@ -1,7 +1,0 @@
-I"Ÿ<pre class="line-numbers">
-  <code class="language-php">
-  preg_replace('/[\r\n]+/', '&lt;/p&gt;<p>', $content)
-  &lt;/code&gt;
-&lt;/pre&gt;
-</p></code></pre>
-:ET

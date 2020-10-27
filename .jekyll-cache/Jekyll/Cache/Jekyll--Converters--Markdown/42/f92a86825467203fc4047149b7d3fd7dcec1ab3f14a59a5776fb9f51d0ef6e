@@ -1,9 +1,0 @@
-I"q<h2 id="216-make-copypaste-working-with-the-mouse-in-x11-terminals"><a href="http://spacemacs.org/doc/FAQ.html#make-copypaste-working-with-the-mouse-in-x11-terminals">2.16 Make copy/paste working with the mouse in X11 terminals?</a></h2>
-
-<p>It is possible to disable the mouse support in X11 terminals in order to enable copying/pasting with the mouse. You need to add this line to your <code class="language-plaintext highlighter-rouge">dotspacemacs/user-config</code>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(xterm-mouse-mode -1)
-</code></pre></div></div>
-
-<p>Emacs 默认鼠标是移动光标位置不能像vim一样复制文本，但通过上面的配置也能开启复制功能，也可以直接使用 <code class="language-plaintext highlighter-rouge">M+x xterm-mouse-mode</code> 临时启用和关闭</p>
-:ET
