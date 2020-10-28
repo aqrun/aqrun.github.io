@@ -8,6 +8,7 @@ import {
   LayoutHeader,
   LayoutFooter,
   LayoutMain,
+  ArticleListItem,
 } from '../src/components';
 import {
   Global,
@@ -15,7 +16,11 @@ import {
 
 const { Content, Sider, Footer } = Layout;
 
-const Home = ({ allBlogs }) => {
+export interface HomeProps {
+  allBlogs: Blog[];
+}
+
+const Home: React.FC<HomeProps> = ({ allBlogs }) => {
   return (
     <>
       <Global />
@@ -23,22 +28,19 @@ const Home = ({ allBlogs }) => {
         <LayoutHeader />
 
         <LayoutMain>
-          
-          <List
-            bordered
-            dataSource={allBlogs}
-            renderItem={(item: Blog) => {
+          <div className="article-list">
+            {allBlogs.map((item) => {
               return (
-                <List.Item>
-                  <h4>{item.title}</h4>
-                  <p>{item.excerpt}</p>
-                  <div>
-                    <Tag>{item.category['name']}</Tag>
-                  </div>
-                </List.Item>
+                <ArticleListItem
+                  key={item.slug}
+                  title={item.title}
+                  url={`/blogs/${item.slug}`}
+                  excerpt={item.excerpt}
+                  tags={item.tags}
+                />
               );
-            }}
-          />
+            })}
+          </div>
 
         </LayoutMain>
 
@@ -50,7 +52,7 @@ const Home = ({ allBlogs }) => {
 
 export const getStaticProps = async () => {
   const allBlogs = getAllBlog();
-
+  console.log('all', allBlogs)
   return {
     props: {
       allBlogs,
