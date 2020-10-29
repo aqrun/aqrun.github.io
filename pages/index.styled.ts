@@ -8,8 +8,7 @@ export const LayoutMain = styled(Layout)`
 export const Global = createGlobalStyle`
   body {
     > #__next {
-      display: flex;
-      height: 100%;
+      
     }
   }
 
