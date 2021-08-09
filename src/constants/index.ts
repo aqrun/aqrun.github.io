@@ -45,6 +45,7 @@ export const SITE = {
   // Permalink
   // See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
   permalink: '/:year/:month/:day/:title.html',
+  pageSize: 5,
 };
 
 export type SiteConfig = typeof SITE;

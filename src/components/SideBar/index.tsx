@@ -16,7 +16,7 @@ export const SideBar = () => {
             <div className="author-name">{site.author}</div>
           </a>
           <div className="bio">
-              <p>{site.bio}</p>
+              <p dangerouslySetInnerHTML={{ __html: site.bio }} />
           </div>
 
           {site.sns.length && (

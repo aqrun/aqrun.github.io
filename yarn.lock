@@ -2070,9 +2070,8 @@ camelize@^1.0.0:
   integrity sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=
 
 caniuse-lite@^1.0.30001093, caniuse-lite@^1.0.30001113, caniuse-lite@^1.0.30001135:
-  version "1.0.30001151"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001151.tgz?cache=0&sync_timestamp=1603515871175&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001151.tgz#1ddfde5e6fff02aad7940b4edb7d3ac76b0cb00b"
-  integrity sha1-Hd/eXm//AqrXlAtO2306x2sMsAs=
+  version "1.0.30001249"
+  resolved "https://registry.nlark.com/caniuse-lite/download/caniuse-lite-1.0.30001249.tgz"
 
 ccount@^1.0.0:
   version "1.0.5"
@@ -4804,7 +4803,7 @@ promise-inflight@^1.0.1:
   resolved "https://registry.npm.taobao.org/promise-inflight/download/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
   integrity sha1-mEcocL8igTL8vdhoEputEsPAKeM=
 
-prop-types@15.7.2, prop-types@^15.5.10:
+prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.6.1:
   version "15.7.2"
   resolved "https://registry.npm.taobao.org/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -5294,6 +5293,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
+
+react-paginate@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.npm.taobao.org/react-paginate/download/react-paginate-6.5.0.tgz#b9baf53627b115cfd688afa048776aa45bffda19"
+  integrity sha1-ubr1NiexFc/WiK+gSHdqpFv/2hk=
+  dependencies:
+    prop-types "^15.6.1"
 
 react-refresh@0.8.3:
   version "0.8.3"

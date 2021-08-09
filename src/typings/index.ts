@@ -12,3 +12,12 @@ export interface Blog {
   };
   content?: string;
 }
+
+export enum MenuId {
+  index = 100,
+  backend = 101,
+  frontend = 102,
+  server = 103,
+  rust = 104,
+  diary = 105,
+}

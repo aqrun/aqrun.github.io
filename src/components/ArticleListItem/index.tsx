@@ -65,11 +65,11 @@ export const ArticleListItem: React.FC<ArticleListItemProps> = ({
       <footer className="post-meta">
         <div className="post-tags">
           {tags.map((item) => {
-            <a
+            return (<a
               key={item}
               href=""
               className="post-tag"
-            >{item}</a>
+            >{item}</a>);
           })}
         </div>
         <time
