@@ -2,8 +2,7 @@
 
 > https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/
 
-#TODO
-![img]()
+![demo](https://assets.oicnp.com/pic/demo.png)
 
 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：
 
