@@ -88,4 +88,137 @@ pretty_env_logger = "0.4"
 
 ## 区块链基础
 
+首先为我们的区块链定义数据结构：
 
+```rust
+pub struct App {
+    pub blocks: Vec,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Block {
+    pub id: u64,
+    pub hash: String,
+    pub previous_hash: String,
+    pub timestamp: i64,
+    pub data: String,
+    pub nonce: u64,
+}
+```
+
+就这些，并没有太复杂的东西。`App` 结构体保存我们的应用状态。本例中我们不会持久化存储区块链，因此一旦停止应用数据就会丢失。
+
+这里的状态只是一个 `Blocks` 列表。我们会在列表结尾添加新的区块，这实际上就是我们的区块结构。
+
+实际的逻辑将使这个区块列表成为一个区块链，应用中会实现其中每个区块引用前一个区块的哈希。尽可能构建一个支持我位需要的开箱即用验证的数据结构，这种方法似乎更简单，我们的目标就是简单。
+
+在我们的示例中 `Block` 包含一个 `id` 索引从0开始垒加。然后是一个 sha256 加密哈希（随后我们会深入这个算法），是前一个区块的哈希，一个时间戳，以及保存在区块中的数据和一个随机数，在我们谈论挖崛（mining）区块时还会再涉及。
+
+开始挖崛之前，让我们首先实现一些需要的验证函数，以保持数据状态的一致性和一些基本的共识，以便每个客户端都知道哪个区块链是正确的，以防有多个冲突的区块链。
+
+从实现我们的 `App` 结构体开始：
+
+```rust
+impl App {
+    fn new() -> Self {
+        Self { blocks: vec![] }
+    }
+
+    fn genesis(&mut self) {
+        let genesis_block = Block {
+            id: 0,
+            timestamp: Utc::new().timestamp(),
+            previous_hash: String::from("genesis"),
+            data: String::from("genesis!"),
+            nonce: 2836,
+            hash: "0000f816a87f806bb0073dcf026a64fb40c946b5abee2573702828694d5b4c43"
+        };
+        self.blocks.push(genesis_block);
+    }
+}
+```
+
+我们用一个空的链初始化我们的应用。随后我们会实现一些逻辑。在启动时我们会询问其它链如果他们的更长，就使用他们的。这是我们最简单的共识场景。
+
+`genesis` 方法在我们的区块链中创建第一个数据写死的区块。这是一个特殊的区块他没有遵循和其它区块一样的规则。例如由于在他之前没有区块了，他没有一个有效的 `prevous_hash`。
+
+我们需要他来“引导”我们的节点——或者，在第一个节点启动时引导整个网络。这个链就是从这里开始的。
+
+## 区块，区块，区块
+
+接下来，让我们实现能给链添加新区块的功能。
+
+```rust
+impl App {
+    // ...
+
+    fn try_add_block(&mut self, block: Block) {
+        let latest_block = self.blocks.last().expect("there is at least on block");
+        if self.is_block_valid(&block, latest_block) {
+            self.blocks.push(block);
+        } else {
+            error!("could not add block - invalid");
+        }
+    }
+}
+```
+
+这里我们获取链的最后一个区块——我们的 `上一区块` ——然后验证我们要添加的区块是否合规。如果验证不通过我们只是输出错误日志。
+
+在我们的简易应用中，我们不会实现任何真实的错误处理。正如你稍后将看到的，如果我们在节点之间遇到竞争条件的问题，并且有一个无效的状态，那么我们的节点直接崩溃。
+
+我会对这些问题提及一些可能的解决方案，但这里我们不会实现他们。我们有相当多的内容要讲，即使忽略这些恼人的现实问题。
+
+接下来看一下 `is_block_valid`，我们逻辑中的核心片段。
+
+```rust
+const DIFFICULTY_PREFIX: &str = "00";
+
+fn hash_to_binary_representation(hash: &[u8]) -> String {
+    let mut res: String = String::default();
+    for c in hash {
+        res.push_str(&fromat!("{:b}", c));
+    }
+    res
+}
+
+impl App {
+    // ...
+
+    fn is_block_valid(&self, block: &Block, previous_block: &Block) -> bool {
+        if block.previous_hash != previous_block.hash {
+            warn!("block with id: {} has wrong previous hash", block.id);
+            return false;
+        } else if !hash_to_binary_representation(
+            &hex::decode(&block.hash).expect("can decode from hex"),
+        ).start_with(DIFFICULTY_PREFIX) {
+            warn!("block with id: {} has invalid difficulty", block.id);
+            return false;
+        } else if block.id != previous_block.id + 1 {
+            warn!(
+                "block with id: {} is not the next block after the latest: {}",
+                block.id, previous_block.id
+            );
+            return false;
+        } else if hex::encode(calculate_hash(
+            block.id,
+            block.timestamp,
+            &block.previous_hash,
+            &block.data,
+            block.nonce,
+        )) != block.hash {
+            warn!("block with id: {} has invalid hash", block.id);'
+            return false;
+        }
+        true
+    }
+}
+```
+
+我们首先定义了常量 `DIFFICULTY_PREFIX`。这是我们简易版挖矿方案的基础。本质上，当挖掘一个区块时，挖掘人员必须对该块的数据进行哈希（在我们的例子中使用 SHA256），并找到一个以00（两个0）开头的哈希值。这也表示我们在网络上的“难度”。
+
+可以想象，如果我们需要3个、4个、5个甚至20个前导零，那么找到合适哈希值的时间会增加很多。在一个真正的区块链系统中，这个困难将是一个网络属性，它是节点之间基于共识算法和网络的哈希能力达成一致的，因此网络可以保证在一定时间内产生一个新的区块。
+
+本例我们不会处理这些，为了简单起见，我们将其硬编码为两个前导零。这样在普通硬件上也不会花太多的计算时间，因此测试时也不用担心需要等很久。
+
+接下来是一个帮助函数，它只是以字符串的形式对给定的数组进行二进制表示
