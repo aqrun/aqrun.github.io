@@ -1,0 +1,34 @@
+{# This Page Shows the Posts Grouped by Year: example.com/posts/ #}
+
+{% extends "base.html" %}
+
+{%- block seo %}
+  {{- super() }}
+  {%- set title = "Posts" %}
+
+  {%- if config.title %}
+    {%- set title_addition = title_separator ~ config.title %}
+  {%- else %}
+    {%- set title_addition = "" %}
+  {%- endif %}
+
+  {%- set description = config.description %}
+
+  {{- macros_head::seo(config=config, title=title, title_addition=title_addition, description=description, is_home=true) }}
+{%- endblock seo %}
+
+{%- block content %}
+    {%- set server_section_item = get_section(path="server/_index.md") %}
+    {%- set rust_section_item = get_section(path="rust/_index.md") %}
+    {%- set server_pages = server_section_item.pages %}
+    {%- set rust_pages = rust_section_item.pages %}
+    {%- set all_page = rust_pages %}
+    <div>
+      {%- for year, posts in all_page | group_by(attribute="year") %}
+      <h2>{{ year }}</h2>
+      {%- for post in posts %}
+      <p><a href="{{ post.permalink | safe }}">{{ post.title }}</a> - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time></p>
+      {%- endfor %}
+      {%- endfor %}
+    </div>
+{%- endblock content %}
