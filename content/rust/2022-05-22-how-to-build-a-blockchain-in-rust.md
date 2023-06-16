@@ -1,11 +1,11 @@
-+++
-title = "Rust 语言打造带P2P网络的区块链"
-description = "2021年对加密货币、NFT和去中心化应用程序(DAPPs)来说是重要的一年，2022年将更重要。区块链是所有这些技术背后的底层技术。"
+---
+title: "Rust 语言打造带P2P网络的区块链"
+description: "2021年对加密货币、NFT和去中心化应用程序(DAPPs)来说是重要的一年，2022年将更重要。区块链是所有这些技术背后的底层技术。"
 
-[taxonomies]
-categories = ["Rust"]
-tags = ["rust", "blockchain", "crypto", "p2p"]
-+++
+taxonomies:
+    categories: ["rust", "article"]
+    tags: ["rust", "blockchain", "crypto", "p2p"]
+---
 
 > [英文原文链接 https://blog.logrocket.com/how-to-build-a-blockchain-in-rust/](https://blog.logrocket.com/how-to-build-a-blockchain-in-rust/)
 

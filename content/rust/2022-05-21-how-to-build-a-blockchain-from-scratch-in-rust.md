@@ -1,11 +1,11 @@
-+++
-title = "如何使用 Rust 从头构建一个区块链"
-description = "2021年对加密货币、NFT和去中心化应用程序(DAPPs)来说是重要的一年，2022年将更重要。区块链是所有这些技术背后的底层技术。"
+---
+title: "如何使用 Rust 从头构建一个区块链"
+description: "2021年对加密货币、NFT和去中心化应用程序(DAPPs)来说是重要的一年，2022年将更重要。区块链是所有这些技术背后的底层技术。"
 
-[taxonomies]
-categories = ["Rust"]
-tags = ["rust", "blockchain", "crpto"]
-+++
+taxonomies:
+    categories: ["rust", "article"]
+    tags: ["rust", "blockchain", "crpto"]
+---
 
 > [英文原文链接 https://coinsbench.com/how-to-build-a-blockchain-from-scratch-in-rust-9cedb59f8897](https://coinsbench.com/how-to-build-a-blockchain-from-scratch-in-rust-9cedb59f8897)
 

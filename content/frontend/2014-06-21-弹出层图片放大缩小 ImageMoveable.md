@@ -1,8 +1,10 @@
 ---
-layout: post
 title: 弹出层图片放大缩小ImageMoveable
-tags: starzoom 图片操作
-excerpt: '实现描述：点击页面相关dom出现弹出框进行相关图片缩放移动等细节查看'
+description: '实现描述：点击页面相关dom出现弹出框进行相关图片缩放移动等细节查看'
+
+taxonomies:
+  categories: ["frontend", "article"]
+  tags: ["starzoom", "图片操作"]
 ---
 
 <pre class="line-numbers">

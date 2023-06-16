@@ -1,11 +1,11 @@
-+++
-title = "Ubuntu Win10 目录共享Samba配置"
-description = "Samba 配置，并开启软链接访问..."
+---
+title: "Ubuntu Win10 目录共享Samba配置"
+description: "Samba 配置，并开启软链接访问..."
 
-[taxonomies]
-categories = ["Server"]
-tags = ["ubuntu", "samba", "global", "symlinks"]
-+++
+taxonomies:
+    categories: ["server", "article"]
+    tags: ["ubuntu", "samba", "global", "symlinks"]
+---
 
 <pre class="line-numbers">
 <code class="language-ini">

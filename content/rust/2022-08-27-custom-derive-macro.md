@@ -1,11 +1,11 @@
-+++
-title = "Rust 过程宏之derive派生宏实战入门"
-description = "过程宏（Procedure Macro）是Rust中的一种特殊形式的宏，提供比普通宏更强大的功能。过程宏主要分三类：派生宏（Derive macro）、属性宏（Attribute macro）、函数式宏"
+---
+title: "Rust 过程宏之derive派生宏实战入门"
+description: "过程宏（Procedure Macro）是Rust中的一种特殊形式的宏，提供比普通宏更强大的功能。过程宏主要分三类：派生宏（Derive macro）、属性宏（Attribute macro）、函数式宏"
 
-[taxonomies]
-categories = ["Rust"]
-tags = ["rust", "blockchain", "crypto", "p2p"]
-+++
+taxonomies:
+    categories: ["rust", "article"]
+    tags: ["rust", "blockchain", "crypto", "p2p"]
+---
 
 # Rust 过程宏之derive派生宏实战入门
 

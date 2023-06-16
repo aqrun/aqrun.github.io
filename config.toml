@@ -58,27 +58,29 @@ footer_credit = true
 #footer_credit_override = '<p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> &#38; <a href="https://github.com/Jieiku/abridge/" target="_blank">Abridge</a></p>'
 
 #uncomment one of the two lines, or neither, depending on which type of logo you want to use:
-#logo = { file="logo.svg", width="32", height="32", alt="Abridge", text="bridge" }
+logo = { file="icons/logo_default.svg", width="22", height="22", alt="子十个人博客", text="子十个人博客" }
 #textlogo = '<font color="#f90">A</font>bridge'
-textlogo = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#f90" viewBox="0 0 96 96" width="32" height="32"><path stroke-width="14" d="M14 99 46 7h4l32 92"/><path stroke-width="9" d="M-3 82c43-26 59-26 102 0"/><path stroke-linecap="round" stroke-width="1.5" d="M94 72v7m-5-9.8v7m-5-9.8v7.1M79 64v7M63 57.7v7m-5-8.2v7m-5-7.8v7m-5-7.2v7m-5-6.7v7m-5-6.3v7m-5-5.8v7M17 64v7m-5-4.6v7m-5-4.2v7M2 72v7"/></svg>bridge'
+# textlogo = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#f90" viewBox="0 0 96 96" width="32" height="32"><path stroke-width="14" d="M14 99 46 7h4l32 92"/><path stroke-width="9" d="M-3 82c43-26 59-26 102 0"/><path stroke-linecap="round" stroke-width="1.5" d="M94 72v7m-5-9.8v7m-5-9.8v7.1M79 64v7M63 57.7v7m-5-8.2v7m-5-7.8v7m-5-7.2v7m-5-6.7v7m-5-6.3v7m-5-5.8v7M17 64v7m-5-4.6v7m-5-4.2v7M2 72v7"/></svg>bridge'
 
 sitedesc = false # enables or disables the display of the site description below the logo.
-#copyright_start_year = 2019  # optional
-#copyright_end_year = 2020  # optional, recommend leaving unset, zola build will set this to current year by default
+copyright_start_year = 2014  # optional
+# copyright_end_year = 2020  # optional, recommend leaving unset, zola build will set this to current year by default
 headhr = false # show or hide horizontal rule below header
 foothr = true # show or hide horizontal rule above footer
 
 menu = [
-    {url = "/about/", name = "About", slash = true, blank = false},
-    {url = "/posts/", name = "Posts", slash = true, blank = false},
-    {url = "/categories/", name = "Categories", slash = true, blank = false},
-    {url = "/tags/", name = "Tags", slash = true, blank = false},
+    {url = "/", name = "首页", slash = true, blank = false},
+    {url = "/posts/", name = "全部内容", slash = true, blank = false},
+    {url = "/categories/", name = "分类", slash = true, blank = false},
+    {url = "/tags/", name = "标签", slash = true, blank = false},
+    {url = "/diary/", name = "每日随笔", slash = true, blank = false},
+    # {url = "/about/", name = "关于我", slash = true, blank = false},
 ]
 menu_footer = [
-    {url = "/about/", name = "About", slash = true, blank = false},
-    {url = "/contact/", name = "Contact", slash = true, blank = false},
-    {url = "/privacy/", name = "Privacy", slash = true, blank = false},
-    {url = "/sitemap.xml", name = "Sitemap", slash = false, blank = true},
+    {url = "/about/", name = "关于我", slash = true, blank = false},
+    {url = "/contact/", name = "联系我", slash = true, blank = false},
+    {url = "/privacy/", name = "保护权益", slash = true, blank = false},
+    {url = "/sitemap.xml", name = "网站地图", slash = false, blank = true},
 ]
 
 # Security Headers should preferably be set by your webserver (Nginx, Apache) https://observatory.mozilla.org  https://csp-evaluator.withgoogle.com/
@@ -187,7 +189,7 @@ katex_bundle = "katexbundle.min.js"
 ##########################
 # meta/seo/analytic tags
 ##########################
-keywords = "Abridge, Abridge.css, Zola, Theme, Zola Theme, getzola, Semantic Html, Fast, lightweight" # used for the primary site index
+keywords = "子十,Aqrun, Zola, Theme, Zola Theme, getzola" # used for the primary site index
 twitter = "your-user-name" # used for twitter related
 #google = "Your Google Site verification code."
 #bing = "Your Bing Site verification code."
@@ -197,27 +199,27 @@ seo = true  # enable or disable seo-related meta tags: opengraph, facebook, twit
 [extra.social]
 feed = true
 mail_encode = true # This obfuscates your email address, javascript is used to decode it at page load.
-mail = "name@example.com"
-mastodon = "@your-user-name"
-element = "matrix.example.com"
+mail = "aqrun@sina.com"
+# mastodon = ""
+# element = ""
 #matrix = "matrix.example.com"
-buymeacoffee = "your-user-name"
-discord = "your-discord" # Everything after https://discord.com/   eg: invite/my-server  *or*  servers/my-server-id
-twitter = "your-user-name"
-facebook = "your-user-name"
-linkedin = "your-user-name"
-gitlab = "your-user-name"
-github = "your-user-name"
-codeberg = "your-user-name" # Everything after https://codeberg.org/   eg: username  *or*  username/repository
-github_sponsor = "your-user-name"
-bitbucket = "your-user-name"
-python = "your-user-name"
-docker = "your-user-name"
-stack = "your-user-name"
-instagram = "your-user-name"
-pinterest = "your-user-name"
-twitch = "your-user-name"
-youtube = "channel/your-channel-id"
-researchgate = "your-profile-id"
+# buymeacoffee = ""
+discord = "" # Everything after https://discord.com/   eg: invite/my-server  *or*  servers/my-server-id
+twitter = ""
+facebook = ""
+linkedin = ""
+gitlab = ""
+github = "aqrun"
+codeberg = "" # Everything after https://codeberg.org/   eg: username  *or*  username/repository
+github_sponsor = ""
+bitbucket = ""
+python = ""
+docker = ""
+stack = ""
+instagram = ""
+pinterest = ""
+twitch = ""
+youtube = ""
+researchgate = ""
 
 

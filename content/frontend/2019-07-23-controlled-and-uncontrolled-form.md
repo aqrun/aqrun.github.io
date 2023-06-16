@@ -1,8 +1,10 @@
 ---
-layout: post
 title: 'React 受控组件和非受控组件'
-tags: react
-excerpt: 'React 受控组件和非受控组件有没有选择标准？'
+description: 'React 受控组件和非受控组件有没有选择标准？'
+
+taxonomies:
+  categories: ["frontend", "article"]
+  tags: ["react"]
 ---
 
 > 原文：[Controlled and uncontrolled form inputs in React don't have to be complicated](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)

@@ -1,7 +1,10 @@
 ---
-layout: post
 title: Jquery + Backbone + ejs分页
-tags: backbone 分页 
+description: ""
+
+taxonomies:
+  categories: ["frontend", "article"]
+  tags: ["backbone", "分页"]
 ---
 
 <pre class="line-numbers">

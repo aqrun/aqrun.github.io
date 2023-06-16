@@ -1,8 +1,10 @@
 ---
-layout: post
 title: '数组常用操作 reduce'
-tags: array reduce
-excerpt: '数组操作'
+description: '数组操作'
+
+taxonomies:
+  categories: ["frontend", "article"]
+  tags: ["array", "reduce"]
 ---
 
 ```js

@@ -1,10 +1,10 @@
 ---
-layout: post
 title: image_style_url 生成指定缩略图url
-tags: drupal7 image_style_url
-excerpt: '
-modules/image/image.module<br/>
-'
+description: 'modules/image/image.module'
+
+taxonomies:
+  categories: ["backend", "article"]
+  tags: ["php", "drupal7", "image_style_url"]
 ---
 
 modules/image/image.module

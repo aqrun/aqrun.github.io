@@ -1,8 +1,10 @@
 ---
-layout: post
 title: Drupal 7 API 之db_select的一些使用
 date: 2014-11-05 10:30:22
-tags: drupal7 db_select
+
+taxonomies:
+  categories: ["backend", "article"]
+  tags: ["drupal7", "db_select", "php"]
 ---
 
 Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更加方便。目的也不言而喻，就是取代db_query()。下面我也就列罗出一些经常使用的技巧，可能不够全面，还请大家多多补充。

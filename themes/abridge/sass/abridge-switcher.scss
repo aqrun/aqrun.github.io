@@ -4,7 +4,9 @@
 //@import "fonts/Lato";
 //@import "fonts/FiraCode"; // Monospaced
 @import "imports";
-@import "syntax/syntax-abridge-switcher";
+// @import "syntax/syntax-abridge-switcher";
+@import "syntax/syntax-material-abridge-dark";
+// @import "syntax/syntax-abridge-dark";
 
 :root:not(.light) {
   --f1: #ccc;// Font Color Primary

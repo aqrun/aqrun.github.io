@@ -1,10 +1,10 @@
-{%- import "macros/macros.html" as macros -%}
+{# This Page Shows the Posts Grouped by Year: example.com/posts/ #}
 
 {% extends "base.html" %}
 
 {%- block seo %}
   {{- super() }}
-  {%- set title = term.name ~ " category" %}
+  {%- set title = "Posts" %}
 
   {%- if config.title %}
     {%- set title_addition = title_separator ~ config.title %}
@@ -19,12 +19,15 @@
 
 {%- block content %}
     <div>
-      <h2>{{ macros::get_category_name(name = term.name) }}</h2>
-      {%- for year, posts in term.pages | group_by(attribute="year") %}
-      <h3>{{ year }}年</h3>
-      {%- for page in posts %}
-      <p><a href="{{ page.permalink | safe }}">{{ page.title }}</a> - <time datetime="{{ page.date }}">{{ page.date | date(format="%F") }}</time></p>
-      {%- endfor %}
+      <div class="c">
+        <h1>{{ section.title }}</h1>
+        <p>
+          {{ section.description }}
+        </p>
+      </div>
+
+      {%- for post in section.pages %}
+      <p><a href="{{ post.permalink | safe }}">{{ post.title }}</a> - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time></p>
       {%- endfor %}
     </div>
 {%- endblock content %}

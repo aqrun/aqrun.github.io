@@ -1,11 +1,11 @@
-+++
-title = "ubuntu fcitx输入法安装"
-description = "搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行"
+---
+title: "ubuntu fcitx输入法安装"
+description: "搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行"
 
-[taxonomies]
-categories = ["Server"]
-tags = ["ubuntu", "fcitx", "输入法"]
-+++
+taxonomies:
+    categories: ["server", "article"]
+    tags: ["ubuntu", "fcitx", "输入法"]
+---
 
 目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行
 

@@ -1,11 +1,11 @@
-+++
-title = "Emacs 编辑器配置 Rust 开发环境"
-description = "Emacs 编辑器 Rust 语言开发环境配置， 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：源代码导航（跳转到实"
+---
+title: "Emacs 编辑器配置 Rust 开发环境"
+description: "Emacs 编辑器 Rust 语言开发环境配置， 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：源代码导航（跳转到实"
 
-[taxonomies]
-categories = ["Rust"]
-tags = ["rust", "emacs"]
-+++
+taxonomies:
+    categories: ["rust", "article"]
+    tags: ["rust", "emacs"]
+---
 
 > 原文链接：[https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/](https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/)。翻译有错漏欢迎评论区指正吐槽😂。
 

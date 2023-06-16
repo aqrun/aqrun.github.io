@@ -2,6 +2,40 @@
         <h1><a href="{{ page.permalink | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">{{ page.title }}</a></h1>
 {%- endmacro title_post %}
 
+{%- macro get_category_name(name) -%}
+    {%- if name == "rust" -%}
+        Rust 语言
+    {%- elif name == "backend" -%}
+        后端开发
+    {%- elif name == "frontend" -%}
+        前端开发
+    {%- elif name == "server" -%}
+        服务器
+    {%- elif name == "diary" -%}
+        每日随笔
+    {%- else -%}
+        {{ name }}
+    {%- endif -%}
+{%- endmacro %}
+
+{#- 首页文章列表模块 #}
+{%- macro generate_index_posts_block(block_name, posts) -%}
+<div class="oic-index-section-block">
+    <h2 class="oic-block-name">
+        {{ macros::get_category_name(name=block_name) }}
+    </h2>
+    {%- for post in posts | slice(end=5) %}
+    <p>
+        <a href="{{ post.permalink | safe }}">{{ post.title }}</a>
+        -
+        <time datetime="{{ post.date }}">
+            {{ post.date | date(format="%F") }}
+        </time>
+    </p>
+    {%- endfor %}
+</div>
+{%- endmacro -%}
+
 {%- macro meta_post(page, config) %}
         <span{%- if config.extra.meta_post.size %} class="{{ config.extra.meta_post.size }}"{% endif %}>
 
@@ -36,13 +70,24 @@
           {%- if config.extra.meta_post.divider %}<span class="hpad">{{ config.extra.meta_post.divider | safe }}</span>{%- else %} &nbsp; {%- endif %}{%- endif %}{%- endif %}
 
         {#- Date #}
-          {%- if config.extra.meta_post.date %} {%- if config.extra.icon_date %}<i class="{{ config.extra.icon_date }}"></i> {% endif %} {{ page.date | date(format="%B %d, %Y") }}
+          {%- if config.extra.meta_post.date %} {%- if config.extra.icon_date %}<i class="{{ config.extra.icon_date }}"></i> {% endif %} {{ page.date | date(format="%Y-%m-%d") }}
           {#- divider #}
           {%- if config.extra.meta_post.categories_tags %}
           {%- if config.extra.meta_post.divider %}<span class="hpad">{{ config.extra.meta_post.divider | safe }}</span>{%- else %} &nbsp; {%- endif %}{%- endif %}{% endif %}
 
         {#- Categories #}
-          {%- if page.taxonomies.categories %} {%- if config.extra.icon_info %}<i class="{{ config.extra.icon_info }}"></i> {% endif %} [{% for cat in page.taxonomies.categories %}<a href="{{ get_taxonomy_url(kind='categories', name=cat) | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">{{ cat }}</a>{% endfor %}]{% endif %}
+          {%- if page.taxonomies.categories %}
+          {%- if config.extra.icon_info %}
+            <i class="{{ config.extra.icon_info }}"></i>
+          {% endif %}
+          [{% for cat in page.taxonomies.categories %}
+            {%- if cat != "article" -%}
+            <a href="{{ get_taxonomy_url(kind='categories', name=cat) | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">
+                {{ macros::get_category_name(name=cat) }}
+            </a>
+            {%- endif -%}
+          {% endfor %}]
+          {% endif %}
 
         {#- Tags #}
           {%- if page.taxonomies.tags %} {%- for tag in page.taxonomies.tags %} #<a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">{{ tag }}</a> {% endfor -%}{%- endif %}</span>
@@ -87,13 +132,26 @@
           {%- if config.extra.meta_index.divider %}<span class="hpad">{{ config.extra.meta_index.divider | safe }}</span>{%- else %} &nbsp; {%- endif %}{%- endif %}{%- endif %}
 
         {#- Date #}
-          {%- if config.extra.meta_index.date %} {%- if config.extra.icon_date %}<i class="{{ config.extra.icon_date }}"></i> {% endif %} {{ page.date | date(format="%B %d, %Y") }}
+          {%- if config.extra.meta_index.date %} {%- if config.extra.icon_date %}<i class="{{ config.extra.icon_date }}"></i> {% endif %} {{ page.date | date(format="%Y-%m-%d") }}
           {#- divider #}
           {%- if config.extra.meta_index.categories_tags %}
           {%- if config.extra.meta_index.divider %}<span class="hpad">{{ config.extra.meta_index.divider | safe }}</span>{%- else %} &nbsp; {%- endif %}{%- endif %}{% endif %}
 
         {#- Categories #}
-          {%- if page.taxonomies.categories %} {%- if config.extra.icon_info %}<i class="{{ config.extra.icon_info }}"></i> {% endif %} [{% for cat in page.taxonomies.categories %}<a href="{{ get_taxonomy_url(kind='categories', name=cat) | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">{{ cat }}</a>{% endfor %}]{% endif %}
+          {%- if page.taxonomies.categories %}
+            {%- if config.extra.icon_info %}
+              <i class="{{ config.extra.icon_info }}"></i>
+            {% endif %}
+            [
+            {% for cat in page.taxonomies.categories %}
+              {%- if cat != "article" -%}
+              <a href="{{ get_taxonomy_url(kind='categories', name=cat) | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">
+                  {{ macros::get_category_name(name=cat) }}
+              </a>
+              {%- endif -%}
+            {% endfor %}
+            ]
+          {% endif %}
 
         {#- Tags #}
           {%- if page.taxonomies.tags %} {%- for tag in page.taxonomies.tags %} #<a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">{{ tag }}</a> {% endfor -%}{%- endif %}</span>
@@ -105,7 +163,7 @@
 {%- macro footer(page) %}
 {%- if page.reading_time %}
 {%- if page.reading_time > 2 %}
-<p><b><a href="#">Back to top</a></b></p>
+<p><b><a href="#">返回顶部</a></b></p>
 {%- endif %}
 {%- endif %}
 {%- endmacro footer %}

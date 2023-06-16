@@ -1,9 +1,10 @@
 ---
-layout: post
 title: drupal7 EntityFieldQuery获取指定类型的内容列表
-tags: drupal7 EntityFieldQuery
-excerpt: '
-EntityFieldQuery获取指定类型的内容列表<br/>'
+description: 'EntityFieldQuery获取指定类型的内容列表'
+
+taxonomies:
+  categories: ["backend", "article"]
+  tags: ["drupal7", "EntityFieldQuery", "php"]
 ---
 
 EntityFieldQuery获取指定类型的内容列表

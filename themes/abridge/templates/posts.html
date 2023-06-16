@@ -18,17 +18,21 @@
 {%- endblock seo %}
 
 {%- block content %}
-    {%- set server_section_item = get_section(path="server/_index.md") %}
-    {%- set rust_section_item = get_section(path="rust/_index.md") %}
-    {%- set server_pages = server_section_item.pages %}
-    {%- set rust_pages = rust_section_item.pages %}
-    {%- set all_page = rust_pages %}
     <div>
-      {%- for year, posts in all_page | group_by(attribute="year") %}
-      <h2>{{ year }}</h2>
-      {%- for post in posts %}
-      <p><a href="{{ post.permalink | safe }}">{{ post.title }}</a> - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time></p>
-      {%- endfor %}
-      {%- endfor %}
+      <div class="c">
+        <h1>{{ section.title }}</h1>
+        <p>
+          {{ section.description }}
+        </p>
+      </div>
+      {%- set articles = get_taxonomy_term(kind="categories", term="article", include_pages=true) -%}
+      <div>
+        {%- for year, posts in articles.pages | group_by(attribute="year") %}
+        <h2>{{ year }}</h2>
+        {%- for post in posts %}
+        <p><a href="{{ post.permalink | safe }}">{{ post.title }}</a> - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time></p>
+        {%- endfor %}
+        {%- endfor %}
+      </div>
     </div>
 {%- endblock content %}

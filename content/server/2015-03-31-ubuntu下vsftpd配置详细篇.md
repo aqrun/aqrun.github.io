@@ -1,11 +1,11 @@
-+++
-title = "ubuntu下vsftpd配置详细篇"
-description = "本人配置的ftp服务器的设计要求如下匿名用户可登录浏览，但不能下载设置4个不同等级的用户使用此ftp服务器(虚拟用户)，分别如下用户名:nan306 路径/home/vsftpd 管理用户，可对ftp服务器的所有"
+---
+title: "ubuntu下vsftpd配置详细篇"
+description: "本人配置的ftp服务器的设计要求如下匿名用户可登录浏览，但不能下载设置4个不同等级的用户使用此ftp服务器(虚拟用户)，分别如下用户名:nan306 路径/home/vsftpd 管理用户，可对ftp服务器的所有"
 
-[taxonomies]
-categories = ["Server"]
-tags = ["ubuntu", "vsftpd"]
-+++
+taxonomies:
+    categories: ["server", "article"]
+    tags: ["ubuntu", "vsftpd"]
+---
 
 ### 1、 本人配置的ftp服务器的设计要求如下：
 

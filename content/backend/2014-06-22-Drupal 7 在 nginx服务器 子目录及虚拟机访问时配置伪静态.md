@@ -1,8 +1,10 @@
 ---
-layout: post
 title: Drupal 7 在 nginx服务器 子目录及虚拟机访问时配置伪静态
 date: 2016-06-22 15:33:10
-tags: nginx drupal7
+
+taxonomies:
+  categories: ["backend", "article"]
+  tags: ["nginx", "drupal7"]
 ---
 
 ## 文件目录结构：

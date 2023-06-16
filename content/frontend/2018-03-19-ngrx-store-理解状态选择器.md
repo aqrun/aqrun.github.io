@@ -1,8 +1,10 @@
 ---
-layout: post
 title: 'NgRx Store 理解状态选择器(state selectors)'
-tags: angular ngrx state selectors
-excerpt: '选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureSelector`、`createSelector`, 以及它们的区别'
+description: '选择器是纯函数，它将状态切片作为参数，并返回可传递给组件的一些状态数据，介绍如何定义`createFeatureSelector`、`createSelector`, 以及它们的区别'
+
+taxonomies:
+  categories: ["frontend", "article"]
+  tags: ["angular", "selectors", "ngrx", "state"]
 ---
 
 > [原文链接：https://toddmotto.com/ngrx-store-understanding-state-selectors](https://toddmotto.com/ngrx-store-understanding-state-selectors)

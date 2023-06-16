@@ -1,8 +1,11 @@
 ---
 layout: post
 title: 'angular2 中 ngrx-effetcts 基础和 ngrx-store 异步中间件'
-tags: angular ngrx ngrx/entity
-excerpt: '我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Effects 中获取 Firebase 数据库中的数据'
+description: '我们将通过学习如何在ngrx世界中思考异步操作来构建这种状态管理架构。 将从一些简单的示例开始，最终构建从 @Effects 中获取 Firebase 数据库中的数据'
+
+taxonomies:
+  categories: ["frontend", "article"]
+  tags: ["angular"]
 ---
 
 > [原文链接：https://medium.com/@flashMasterJim/the-basics-of-ngrx-effects-effect-and-async-middleware-for-ngrx-store-in-angular-2-f25587493329](https://medium.com/@flashMasterJim/the-basics-of-ngrx-effects-effect-and-async-middleware-for-ngrx-store-in-angular-2-f25587493329)

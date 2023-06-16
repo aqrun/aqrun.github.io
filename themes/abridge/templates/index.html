@@ -1,3 +1,5 @@
+{%- import "macros/macros.html" as macros -%}
+
 {%- extends "base.html" %}
 
 {%- block seo %}
@@ -25,7 +27,52 @@
 
 
 {%- block content %}
+    {%- set server_section_item = get_section(path="server/_index.md") %}
+    {%- set rust_section_item = get_section(path="rust/_index.md") %}
+    {%- set backend_section_item = get_section(path="backend/_index.md") %}
+    {%- set frontend_section_item = get_section(path="frontend/_index.md") %}
+    {%- set server_pages = server_section_item.pages %}
+    {%- set rust_pages = rust_section_item.pages %}
+    {%- set frontend_pages = frontend_section_item.pages %}
+    {%- set backend_pages = backend_section_item.pages %}
     <div>
+
+      <div class="section-block-list">
+        {{- macros::generate_index_posts_block(block_name="rust", posts=rust_pages) -}}
+        {{- macros::generate_index_posts_block(block_name="backend", posts=backend_pages) -}}
+        {{- macros::generate_index_posts_block(block_name="frontend", posts=frontend_pages) -}}
+        {{- macros::generate_index_posts_block(block_name="server", posts=server_pages) -}}
+      </div>
+
+      {%- set articles = get_taxonomy_term(kind="categories", term="article", include_pages=true) -%}
+      {%- for page in articles.pages %}
+      <article>
+        {{- macros::title_index(page=page, config=config) }}
+        {%- if config.extra.meta_index.position %}
+        {%- if config.extra.meta_index.position == "top" or config.extra.meta_index.position == "both" %}
+        {{- macros::meta_index(page=page, config=config) }}
+        {%- endif %}{%- endif %}
+        <div class="sum">
+          <p>
+            {%- if page.summary %}
+            {{ page.summary | markdown(inline=true) | safe }}
+            {%- elif page.description %}
+            {{ page.description | safe }}
+            {%- elif page.content %}
+            {{ page.content | striptags | truncate(length=150) | safe }}
+            {%- elif page.extra.static_thumbnail %}
+            {%- endif %}
+            <a href="{{ page.permalink | safe }}{%- if config.extra.uglyurls %}index.html{%- endif %}">...more</a>
+        </div>
+        {%- if config.extra.meta_index.position %}
+        {%- if config.extra.meta_index.position == "bottom" or config.extra.meta_index.position == "both" %}
+        {{- macros::meta_index(page=page, config=config) }}
+        {%- endif %}
+        {%- endif %}
+      </article>
+      {%- endfor %}
+
+
     {%- for page in paginator.pages %}
       <article>
         {{- macros::title_index(page=page, config=config) }}
@@ -58,7 +105,10 @@
   {%- if config.extra.recent | default(value=true) %}
     <div class="toc">
       <div class="toc-sticky">
-        <h1><span class="s75">Recent Posts</span></h1>
+        <h1><span class="s75">最新发表</span></h1>
+        {%- for page in articles.pages | slice(end=config.extra.recent_items) -%}
+            {{- page_macros::page_listing(page=page, config=config) }}
+        {%- endfor -%}
         {%- for page in section_item.pages | slice(end=config.extra.recent_items) %}
           {{- page_macros::page_listing(page=page, config=config) }}
         {%- endfor %}

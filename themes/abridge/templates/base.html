@@ -63,7 +63,7 @@
       <div>
         <form autocomplete=off class="js" name="goSearch" id="searchbox">
           <div class="searchd">
-            <input id="searchinput" type="text" placeholder="Search" title="Search"{% if config.extra.search_library %}{% if config.extra.search_library == "stork" %} data-stork="stork" {% endif %}{% endif %} />
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search"{% if config.extra.search_library %}{% if config.extra.search_library == "stork" %} data-stork="stork" {% endif %}{% endif %} />
             <button type="submit" title="Search">{%- if config.extra.icon_search -%}<i class="{{ config.extra.icon_search }}"></i>{%- else -%}<span class="si">&#8981;</span>{%- endif -%}</button>
           </div>
           <div><div id="suggestions"{% if config.extra.search_library %}{% if config.extra.search_library == "stork" %} data-stork="stork-output" {% endif %}{% endif %}></div></div>
@@ -110,7 +110,7 @@
       {%- if config.extra.footer_credit_override %}
       {{ config.extra.footer_credit_override | safe }}
       {%- else %}
-      <p{%- if config.extra.footer_size %} class="{{ config.extra.footer_size }}"{% endif %}>Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> and <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+      <p{%- if config.extra.footer_size %} class="{{ config.extra.footer_size }}"{% endif %}>Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
       {%- endif %}
       {%- endif %}
     </div>

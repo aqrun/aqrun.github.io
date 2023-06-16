@@ -1,9 +1,11 @@
 ---
-layout: post
-title: Compiling PHP 5.4 on Ubuntu 12.04
-tags: php compile ubuntu
----
+title: Compiling PHP 5.4 on Ubuntu 12.
+description: 'I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times'
 
+taxonomies:
+  categories: ["backend", "article"]
+  tags: ["php", "compile", "ubuntu"]
+---
 
 So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.
 

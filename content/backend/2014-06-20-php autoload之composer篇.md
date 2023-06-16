@@ -1,8 +1,10 @@
 ---
-layout: post
 title: php autoload之composer篇
 date: 2014-06-20 17:42:03
-tags: composer autoload
+
+taxonomies:
+  categories: ["backend", "article"]
+  tags: ["php", "composer"]
 ---
 
 Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer.org/doc/00-intro.md 本篇介绍 小项目如何使用composer生成自动加载类文件

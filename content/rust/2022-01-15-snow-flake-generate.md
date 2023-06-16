@@ -1,11 +1,11 @@
-+++
-title = "Rust实现雪花算法生成唯一ID方案"
-description = "Rust实现雪花算法生成唯一ID方案，以及10进制和11-64进制互转"
+---
+title: "Rust实现雪花算法生成唯一ID方案"
+description: "Rust实现雪花算法生成唯一ID方案，以及10进制和11-64进制互转"
 
-[taxonomies]
-categories = ["Rust"]
-tags = ["rust", "snow flake", "uuid"]
-+++
+taxonomies:
+    categories: ["rust", "article"]
+    tags: ["rust", "snow flake", "uuid"]
+---
 
 ## 起因
 
