@@ -1,0 +1,14 @@
+{
+  "name": "aqrun.github.io",
+  "version": "1.0.0",
+  "description": "zola serve -i 0.0.0.0 -u 192.168.31.243",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "zola build && gh-pages -d public"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gh-pages": "^5.0.0"
+  }
+}
