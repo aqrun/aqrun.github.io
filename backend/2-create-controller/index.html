@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>2. 如何创建 Magento 2 控制器 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面" />
+  <link rel="canonical" href="http://aqrun.com/backend/2-create-controller/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/2-create-controller/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/2-create-controller/" />
+  <meta property="og:description" content="控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面" />
+  <meta name="twitter:description" content="控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面" />
+  <meta property="og:title" content="2. 如何创建 Magento 2 控制器 | 子十" />
+  <meta name="twitter:title" content="2. 如何创建 Magento 2 控制器 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-06-11" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/2-create-controller/">2. 如何创建 Magento 2 控制器</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-06-11<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/magento2/">magento2</a> </span>
+
+    <blockquote>
+<p><a href="http://aqrun.com/backend/0-magento-menu/">Magento 2 开发内容目录</a></p>
+</blockquote>
+<blockquote>
+<p>控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面。</p>
+</blockquote>
+<p>Magento 2 模块的控制器目录包含有一个或多个动作类(Action Class)文件，动作类有一个 <code>execute</code> 方法。控制器主要有两种 <em>前端控制器</em> 和 <em>后台控制器</em>， 它们工作流都一样，后台控制器有一些小区别，多一个检测权限的方法。</p>
+<h2 id="kong-zhi-qi-ru-he-gong-zuo-de">控制器如何工作的？</h2>
+<p>控制器接收来自终端（浏览器或控制台）的请求，如：</p>
+<pre class="z-code"><code><span class="z-text z-plain">http://example.com/route_name/controller/action
+</span></code></pre>
+<ul>
+<li><code>route_name</code> 是在 <code>routes.xml</code> 文件中配置的唯一名称</li>
+<li><code>controller</code> 是 <code>Controller</code> 目录下的文件夹名称</li>
+<li><code>action</code> 是包含 <code>execute</code> 方法的类来处理请求</li>
+</ul>
+<p>Magento 系统里有一个很重要的类 <code>FrontController</code> (<code>Magento\Framework\App\FrontController</code>)，它主要接收请求然后通过 <code>route_name</code> 路由到指定控制器和动作，如下代码：</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">foreach ($this-&gt;_routerList as $router) {
+    try {
+        $actionInstance = $router-&gt;match($request);
+    ...
+}
+</span></span></code></pre>
+<p>如果有匹配的控制器动作类，则会调用动作类的 <code>execute()</code> 方法。</p>
+<h2 id="ru-he-zai-magento-2-chuang-jian-kong-zhi-qi">如何在 Magento 2 创建控制器</h2>
+<p>创建控制器需要如下几步</p>
+<ul>
+<li>1 创建 routes.xml 文件</li>
+<li>2 创建控制器文件</li>
+<li>3 创建控制器布局文件（Layout）</li>
+<li>4 创建控制器区块文件（Block）</li>
+<li>5 创建控制器模板文件（Template）</li>
+<li>6 清除缓存</li>
+<li>7 测试新增的控制器</li>
+</ul>
+<p>要创建控制器，要在模块的 <code>Controller</code> 文件夹添加目录并增加动作类文件。 如： 我们为 <code>Aqrun_HelloWorld</code> 模块添加一个 <code>index</code> 控制器和一个 <code>index</code> 动作。</p>
+<h3 id="di-yi-bu-tian-jia-routes-xml-wen-jian">第一步：添加 <code>routes.xml</code> 文件</h3>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/frontend/routes.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">config</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:framework:App/etc/routes.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">router</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>standard<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">route</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">frontName</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">module</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">route</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">router</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">config</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>在上一章节的<a href="http://aqrun.com/backend/2-create-controller/1.magento-2-module-development.md">如何创建模块</a>中，我们已经添加过 routes.xml 文件，如何做过了这一步可以跳过。</p>
+<h3 id="di-er-bu-zeng-jia-kong-zhi-qi-wen-jian">第二步：增加控制器文件</h3>
+<p>文件： <code>app/code/Aqrun/HelloWorld/Controller/Index/Index.php</code></p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic"><span class="z-meta z-embedded z-block z-php"><span class="z-punctuation z-section z-embedded z-begin z-php">&lt;?php</span></span><span class="z-meta z-embedded z-block z-php"><span class="z-source z-php">
+<span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-keyword z-other z-namespace z-php">namespace</span> </span></span><span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-entity z-name z-namespace z-php"><span class="z-support z-other z-namespace z-php">Aqrun</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">HelloWorld</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Controller</span><span class="z-punctuation z-separator z-namespace z-php">\</span>Index</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+<span class="z-meta z-class z-php"><span class="z-storage z-type z-class z-php">class</span> <span class="z-entity z-name z-class z-php">Index</span> <span class="z-storage z-modifier z-extends z-php">extends</span> <span class="z-meta z-path z-php"><span class="z-entity z-other z-inherited-class z-php"><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Magento</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Framework</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">App</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Action</span><span class="z-punctuation z-separator z-namespace z-php">\</span>Action</span></span>
+<span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">{</span></span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php">
+    <span class="z-storage z-modifier z-php">protected</span> <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>_pageFactory</span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+    <span class="z-storage z-modifier z-php">public</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php"><span class="z-support z-function z-magic z-php">__construct</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php">
+        \<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Magento</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Framework</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">App</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Action</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Context</span></span> <span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>context</span><span class="z-punctuation z-separator z-php">,</span>
+        \<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Magento</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Framework</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">View</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">Result</span></span>\<span class="z-meta z-path z-php"><span class="z-support z-class z-php">PageFactory</span></span> <span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>pageFactory</span>
+    <span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-variable z-language z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>this</span><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-other z-member z-php">_pageFactory</span> <span class="z-keyword z-operator z-assignment z-php">=</span> <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>pageFactory</span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+        <span class="z-keyword z-control z-php">return</span> <span class="z-variable z-language z-php">parent</span><span class="z-meta z-function-call z-static z-php"><span class="z-punctuation z-accessor z-double-colon z-php">::</span><span class="z-variable z-function z-php">__construct</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>context</span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+
+    <span class="z-storage z-modifier z-php">public</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">execute</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php">
+    <span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-keyword z-control z-php">return</span> <span class="z-variable z-language z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>this</span><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-other z-member z-php">_pageFactory</span><span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">create</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+</span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">}</span></span></span>
+</span></span></span></span></code></pre>
+<p>如你所见，所有的控制器都必要继承自 <code>\Magento\Framework\App\Action\Action</code> 类，这个类会分发动作并调用动作类的 <code>execute()</code> 方法。此例我们所有的控制器逻辑都在这个 <code>execute()</code> 方法中,并给请求返回响应。</p>
+<h3 id="di-san-bu-chuang-jian-bu-ju-wen-jian-layout">第三步：创建布局文件（Layout）</h3>
+<p>文件：<code>app/code/Aqrun/HeloWorld/view/frontend/layout/helloworld_index_index.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">page</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">layout</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1column<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:framework:View/Layout/etc/page_configuration.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">referenceContainer</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>content<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">block</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">class</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun\HelloWorld\Block\Index<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>helloworld_index_index<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">template</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::index.phtml<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">referenceContainer</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">page</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<h3 id="di-si-bu-chuang-jian-qu-kuai-wen-jian">第四步： 创建区块文件</h3>
+<p>文件： <code>app/code/Aqrun/HelloWorld/Block/Index.php</code></p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic"><span class="z-meta z-embedded z-block z-php"><span class="z-punctuation z-section z-embedded z-begin z-php">&lt;?php</span></span><span class="z-meta z-embedded z-block z-php"><span class="z-source z-php">
+<span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-keyword z-other z-namespace z-php">namespace</span> </span></span><span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-entity z-name z-namespace z-php"><span class="z-support z-other z-namespace z-php">Aqrun</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">HelloWorld</span><span class="z-punctuation z-separator z-namespace z-php">\</span>Block</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+<span class="z-meta z-class z-php"><span class="z-storage z-type z-class z-php">class</span> <span class="z-entity z-name z-class z-php">Index</span> <span class="z-storage z-modifier z-extends z-php">extends</span> <span class="z-meta z-path z-php"><span class="z-entity z-other z-inherited-class z-php"><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Magento</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Framework</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">View</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Element</span><span class="z-punctuation z-separator z-namespace z-php">\</span>Template</span></span>
+<span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">{</span></span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php">
+
+</span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">}</span></span></span>
+</span></span></span></span></code></pre>
+<h3 id="di-wu-bu-chuang-jian-mo-ban-wen-jian">第五步：创建模板文件</h3>
+<p>文件：<code>app/code/Aqrun/HelloWorld/view/frontend/templates/index.phtml</code></p>
+<pre data-lang="html" class="language-html z-code"><code class="language-html" data-lang="html"><span class="z-text z-html z-basic"><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">h2</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>欢迎你我的朋友！<span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">h2</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span></code></pre>
+<p>关于视图(布局、区块、模板)的更多内容查看<a href="http://aqrun.com/backend/2-create-controller/0">这里</a></p>
+<h3 id="di-liu-bu-shua-xin-huan-cun">第六步：刷新缓存</h3>
+<p>查看<a href="http://aqrun.com/backend/2-create-controller/0">如何清除Magento缓存</a></p>
+<h3 id="di-qi-bu-yun-xing-ce-shi">第七步：运行测试</h3>
+<p>浏览器访问：</p>
+<pre class="z-code"><code><span class="z-text z-plain">http://mage.dev/helloworld/index/index
+</span></code></pre>
+<p>或</p>
+<pre class="z-code"><code><span class="z-text z-plain">http://mage.dev/helloworld/
+</span></code></pre>
+<h2 id="quan-xian-kong-zhi-acl">权限控制 - ACL</h2>
+<p>在后台控制器有权限检测的方法。如：</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">protected function _isAllowed()
+{
+    return $this-&gt;_authorization-&gt;isAllowed(&#39;Magento_AdminNotification::show_list&#39;);
+}
+</span></span></code></pre>
+<p>这段代码会检测当前用户是否有权限执行这个动作，更多内容查看<a href="http://aqrun.com/backend/2-create-controller/0">后台权限控制</a></p>
+<h2 id="magento-2-kong-zhi-qi-de-qi-ta-fang-fa">Magento 2 控制器的其它方法</h2>
+<h3 id="forward-he-redirect-fang-fa"><code>_forward()</code> 和 <code>_redirect()</code> 方法</h3>
+<p><code>\Magento\Framework\App\Action\Action</code> 类给我们提供了2个重要的方法： <code>_forward</code> 和 <code>_redirect</code>。</p>
+<h4 id="forward-fang-fa">Forward 方法</h4>
+<p><code>_forward()</code> 方法会修改请求转发到另一个控制器动作，但不会改变请求的URL。如，我们有2个方法 Forward 和 Hello World:</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">namespace Aqrun\HelloWorld\Controller\Test;
+
+class Forward extends \Magento\Framework\App\Action\Action
+{
+    public function execute()
+    {
+        $this-&gt;_forward(&#39;hello&#39;);
+    }
+}
+</span></span></code></pre>
+<p>如果请求 <code>http://mage.dev/route_name/test/forward</code>, 页面就会显示：</p>
+<pre class="z-code"><code><span class="z-text z-plain">欢迎你我的朋友！
+</span></code></pre>
+<p>你也可以在转发时改变控制器、模块并传递请求参数，详细查看函数定义：</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">protected function _forward($action, $controller=null, $module=null, array $params=null)
+{
+    $request = $this-&gt;getRequest();
+    $request-&gt;initForward();
+
+    if (isset($params)) {
+        $request-&gt;setParams($params);
+    }
+
+    if (isset($controller)) {
+        $request-&gt;setControllerName($controller);
+
+        // Module should only be reset if controller has been specified
+        if (isset($module)) {
+            $request-&gt;setModuleName($module);
+        }
+    }
+
+    $request-&gt;setActionName($action);
+    $request-&gt;setDispatched(false);
+}
+</span></span></code></pre>
+<h4 id="redirect-fang-fa">Redirect 方法</h4>
+<p>这个方法会转发到另一个控制器动作类，并且改变响应头和请求的URL。上例中如果我们把 <code>_forward()</code> 改成 <code>_redirect()</code> 方法:</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">    $this-&gt;_rediect(&#39;*/*/hello&#39;);
+</span></span></code></pre>
+<p>现在访问链接 <code>http://mage.dev/route_name/test/forward</code>, URL会变为 <code>http://mage.dev/route_name/test/hello</code>, 页面也会显示 “欢迎你我的朋友！”。</p>
+<p>到这里控制器部分就完结了，下一章节了解<a href="http://aqrun.com/backend/2-create-controller/0">如何创建模型</a></p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

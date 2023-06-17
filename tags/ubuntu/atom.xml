@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - ubuntu</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/ubuntu/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2018-11-27T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/ubuntu/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Ubuntu Win10 目录共享Samba配置</title>
+        <published>2018-11-27T00:00:00+00:00</published>
+        <updated>2018-11-27T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/samba-configuration/" type="text/html"/>
+        <id>http://aqrun.com/server/samba-configuration/</id>
+        
+        <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
+&lt;code class=&quot;language-ini&quot;&gt;
+    [global]
+        follow symlinks = yes
+        wide links = yes
+        allow insecure wide links = yes
+    ## Browsing&#x2F;Identification ###
+
+    # Change this to the workgroup&#x2F;NT-domain name your Samba server will part of
+        workgroup = WORKGROUP
+
+    # server string is the equivalent of the NT Description field
+        server string = %h server (Samba, Ubuntu)
+
+    # Windows Internet Name Serving Support Section:
+    # WINS Support - Tells the NMBD component of Samba to enable its WINS Server
+    #   wins support = no
+
+    # WINS Server - Tells the NMBD components of Samba to be a WINS Client
+    # Note: Samba can be either a WINS Server, or a WINS Client, but NOT both
+    ;   wins server = w.x.y.z
+
+    # This will prevent nmbd to search for NetBIOS names through DNS.
+        dns proxy = no
+
+    #### Networking ####
+
+    # The specific set of interfaces &#x2F; networks to bind to
+    # This can be either the interface name or an IP address&#x2F;netmask;
+    # interface names are normally preferred
+    ;   interfaces = 127.0.0.0&#x2F;8 eth0
+
+    # Only bind to the named interfaces and&#x2F;or networks; you must use the
+    # &#x27;interfaces&#x27; option above to use this.
+    # It is recommended that you enable this feature if your Samba machine is
+    # not protected by a firewall or is a firewall itself.  However, this
+    # option cannot handle dynamic or non-broadcast interfaces correctly.
+    ;   bind interfaces only = yes
+
+
+
+    #### Debugging&#x2F;Accounting ####
+
+    # This tells Samba to use a separate log file for each machine
+    # that connects
+        log file = &#x2F;var&#x2F;log&#x2F;samba&#x2F;log.%m
+
+    # Cap the size of the individual log files (in KiB).
+        max log size = 1000
+
+    # If you want Samba to only log through syslog then set the following
+    # parameter to &#x27;yes&#x27;.
+    #   syslog only = no
+
+    # We want Samba to log a minimum amount of information to syslog. Everything
+    # should go to &#x2F;var&#x2F;log&#x2F;samba&#x2F;log.{smbd,nmbd} instead. If you want to log
+    # through syslog you should set the following parameter to something higher.
+        syslog = 0
+
+    # Do something sensible when Samba crashes: mail the admin a backtrace
+        panic action = &#x2F;usr&#x2F;share&#x2F;samba&#x2F;panic-action %d
+
+
+    ####### Authentication #######
+
+    # Server role. Defines in which mode Samba will operate. Possible
+    # values are &quot;standalone server&quot;, &quot;member server&quot;, &quot;classic primary
+    # domain controller&quot;, &quot;classic backup domain controller&quot;, &quot;active
+    # directory domain controller&quot;. 
+    #
+    # Most people will want &quot;standalone sever&quot; or &quot;member server&quot;.
+    # Running as &quot;active directory domain controller&quot; will require first
+    # running &quot;samba-tool domain provision&quot; to wipe databases and create a
+    # new domain.
+        server role = standalone server
+
+    # If you are using encrypted passwords, Samba will need to know what
+    # password database type you are using.  
+        passdb backend = tdbsam
+
+        obey pam restrictions = yes
+
+    # This boolean parameter controls whether Samba attempts to sync the Unix
+    # password with the SMB password when the encrypted SMB password in the
+    # passdb is changed.
+        unix password sync = yes
+
+    # For Unix password sync to work on a Debian GNU&#x2F;Linux system, the following
+    # parameters must be set (thanks to Ian Kahan &lt;&lt;kahan@informatik.tu-muenchen.de&gt; for
+    # sending the correct chat script for the passwd program in Debian Sarge).
+        passwd program = &#x2F;usr&#x2F;bin&#x2F;passwd %u
+        passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+
+    # This boolean controls whether PAM will be used for password changes
+    # when requested by an SMB client instead of the program listed in
+    # &#x27;passwd program&#x27;. The default is &#x27;no&#x27;.
+        pam password change = yes
+
+    # This option controls how unsuccessful authentication attempts are mapped
+    # to anonymous connections
+        map to guest = bad user
+
+    ########## Domains ###########
+
+    #
+    # The following settings only takes effect if &#x27;server role = primary
+    # classic domain controller&#x27;, &#x27;server role = backup domain controller&#x27;
+    # or &#x27;domain logons&#x27; is set 
+    #
+
+    # It specifies the location of the user&#x27;s
+    # profile directory from the client point of view) The following
+    # required a [profiles] share to be setup on the samba server (see
+    # below)
+    ;   logon path = \\%N\profiles\%U
+    # Another common choice is storing the profile in the user&#x27;s home directory
+    # (this is Samba&#x27;s default)
+    #   logon path = \\%N\%U\profile
+
+    # The following setting only takes effect if &#x27;domain logons&#x27; is set
+    # It specifies the location of a user&#x27;s home directory (from the client
+    # point of view)
+    ;   logon drive = H:
+    #   logon home = \\%N\%U
+
+    # The following setting only takes effect if &#x27;domain logons&#x27; is set
+    # It specifies the script to run during logon. The script must be stored
+    # in the [netlogon] share
+    # NOTE: Must be store in &#x27;DOS&#x27; file format convention
+    ;   logon script = logon.cmd
+
+    # This allows Unix users to be created on the domain controller via the SAMR
+    # RPC pipe.  The example command creates a user account with a disabled Unix
+    # password; please adapt to your needs
+    ; add user script = &#x2F;usr&#x2F;sbin&#x2F;adduser --quiet --disabled-password --gecos &quot;&quot; %u
+
+    # This allows machine accounts to be created on the domain controller via the 
+    # SAMR RPC pipe.  
+    # The following assumes a &quot;machines&quot; group exists on the system
+    ; add machine script  = &#x2F;usr&#x2F;sbin&#x2F;useradd -g machines -c &quot;%u machine account&quot; -d &#x2F;var&#x2F;lib&#x2F;samba -s &#x2F;bin&#x2F;false %u
+
+    # This allows Unix groups to be created on the domain controller via the SAMR
+    # RPC pipe.  
+    ; add group script = &#x2F;usr&#x2F;sbin&#x2F;addgroup --force-badname %g
+
+    ############ Misc ############
+
+    # Using the following line enables you to customise your configuration
+    # on a per machine basis. The %m gets replaced with the netbios name
+    # of the machine that is connecting
+    ;   include = &#x2F;home&#x2F;samba&#x2F;etc&#x2F;smb.conf.%m
+
+    # Some defaults for winbind (make sure you&#x27;re not using the ranges
+    # for something else.)
+    ;   idmap uid = 10000-20000
+    ;   idmap gid = 10000-20000
+    ;   template shell = &#x2F;bin&#x2F;bash
+
+    # Setup usershare options to enable non-root users to share folders
+    # with the net usershare command.
+
+    # Maximum number of usershare. 0 (default) means that usershare is disabled.
+    ;   usershare max shares = 100
+
+    # Allow users who&#x27;ve been granted usershare privileges to create
+    # public shares, not just authenticated ones
+        usershare allow guests = yes
+
+    #======================= Share Definitions =======================
+
+    # Un-comment the following (and tweak the other settings below to suit)
+    # to enable the default home directory shares. This will share each
+    # user&#x27;s home directory as \\server\username
+    ;[homes]
+    ;   comment = Home Directories
+    ;   browseable = no
+
+    # By default, the home directories are exported read-only. Change the
+    # next parameter to &#x27;no&#x27; if you want to be able to write to them.
+    ;   read only = yes
+
+    # File creation mask is set to 0700 for security reasons. If you want to
+    # create files with group=rw permissions, set next parameter to 0775.
+    ;   create mask = 0700
+
+    # Directory creation mask is set to 0700 for security reasons. If you want to
+    # create dirs. with group=rw permissions, set next parameter to 0775.
+    ;   directory mask = 0700
+
+    # By default, \\server\username shares can be connected to by anyone
+    # with access to the samba server.
+    # Un-comment the following parameter to make sure that only &quot;username&quot;
+    # can connect to \\server\username
+    # This might need tweaking when using external authentication schemes
+    ;   valid users = %S
+
+    # Un-comment the following and create the netlogon directory for Domain Logons
+    # (you need to configure Samba to act as a domain controller too.)
+    ;[netlogon]
+    ;   comment = Network Logon Service
+    ;   path = &#x2F;home&#x2F;samba&#x2F;netlogon
+    ;   guest ok = yes
+    ;   read only = yes
+
+    # Un-comment the following and create the profiles directory to store
+    # users profiles (see the &quot;logon path&quot; option above)
+    # (you need to configure Samba to act as a domain controller too.)
+    # The path below should be writable by all users so that their
+    # profile directory may be created the first time they log on
+    ;[profiles]
+    ;   comment = Users profiles
+    ;   path = &#x2F;home&#x2F;samba&#x2F;profiles
+    ;   guest ok = no
+    ;   browseable = no
+    ;   create mask = 0600
+    ;   directory mask = 0700
+
+    [printers]
+        comment = All Printers
+        browseable = no
+        path = &#x2F;var&#x2F;spool&#x2F;samba
+        printable = yes
+        guest ok = no
+        read only = yes
+        create mask = 0700
+
+    # Windows clients look for this share name as a source of downloadable
+    # printer drivers
+    [print$]
+        comment = Printer Drivers
+        path = &#x2F;var&#x2F;lib&#x2F;samba&#x2F;printers
+        browseable = yes
+        read only = yes
+        guest ok = no
+    # Uncomment to allow remote administration of Windows print drivers.
+    # You may need to replace &#x27;lpadmin&#x27; with the name of the group your
+    # admin users are members of.
+    # Please note that you also need to set appropriate Unix permissions
+    # to the drivers directory for these users to have write rights in it
+    ;   write list = root, @lpadmin
+
+    [share]
+        comment = share folder
+        browseable = yes
+        path = &#x2F;home&#x2F;testuser&#x2F;share
+        create mask = 0777
+        directory mask = 0755
+        valid users = testuser
+        force user = testuser
+        force group = testuser
+        public = yes
+        available = yes
+        writeable = yes
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ubuntu下vsftpd配置详细篇</title>
+        <published>2015-03-31T00:00:00+00:00</published>
+        <updated>2015-03-31T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
+        <id>http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
+        
+        <content type="html">&lt;h3 id=&quot;1-ben-ren-pei-zhi-de-ftpfu-wu-qi-de-she-ji-yao-qiu-ru-xia&quot;&gt;1、 本人配置的ftp服务器的设计要求如下：&lt;&#x2F;h3&gt;
+&lt;p&gt;（1）、匿名用户可登录浏览，但不能下载
+（2）、设置4个不同等级的用户使用此ftp服务器(虚拟用户)，分别如下
+用户名:nan306 路径&#x2F;home&#x2F;vsftpd 管理用户，可对ftp服务器的所有文件进行任何操作
+用户名:down 路径&#x2F;home&#x2F;vsftpd&#x2F;down 下载用户，只可下载此目录下的文件
+用户名:upload 路径&#x2F;home&#x2F;vstfpd&#x2F;upload 上传用户，在此目录下可上传下载删除等操作
+用户名:wsn 路径&#x2F;home&#x2F;vsftpd&#x2F;wsn 实验室文件管理目录，此用户目录为本实验室内部资料，其下挂在down虚拟路径&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-vsftpdde-an-zhuang&quot;&gt;2、vsftpd的安装&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$ sudo apt-get install vsftpd
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;安装完后不用做任何配置既可用匿名方式进行访问,默认的ftp文件夹为&#x2F;srv&#x2F;ftp&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-vsftpdde-kai-shi-guan-bi-he-zhong-qi&quot;&gt;3、vsftpd的开始、关闭和重启&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo &#x2F;etc&#x2F;init.d&#x2F;vsftpd start #开始
+$sudo &#x2F;etc&#x2F;init.d&#x2F;vsftpd stop #关闭
+$sudo &#x2F;etc&#x2F;init.d&#x2F;vsftpd restart #重启
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;关于vsftpd的开机自启动，当vsftpd装好后是默认开机自启动的，如果不需要可关闭，关闭方法很多，网上自己看吧,我用一条命令&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo mv &#x2F;etc&#x2F;rc2.d&#x2F;S20vsftpd &#x2F;etc&#x2F;rc2.d&#x2F;K20vsftpd
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;具体请参考开机自启动文章 http:&#x2F;&#x2F;hi.baidu.com&#x2F;jidaxiaobeibei&#x2F;blog&#x2F;item&#x2F;e16309446cc0b237879473d6.html&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-vsftpdde-pei-zhi&quot;&gt;3、vsftpd的配置&lt;&#x2F;h3&gt;
+&lt;p&gt;这一块网上信息是铺天盖地，关于配置参数我这里就不一一列举，初次接触的朋友参考http:&#x2F;&#x2F;os.51cto.com&#x2F;art&#x2F;201003&#x2F;189123.htm这个网址，高级点的配置参考http:&#x2F;&#x2F;www.517sou.net&#x2F;blogview.asp?logID=515#commmark_241。如果没接触国建议先看看第一个网址里面的内容，简单明了。
+关于配置这块初次配置ftp的朋友我的建议是别一下把所有配置全看完就照着做，这样都配完了ftp出了问题都不知道哪步错的，一步步来，配一步测试一步。&lt;&#x2F;p&gt;
+&lt;p&gt;我的配置过程如下：
+vsftpd的配置很简单，就是打开&#x2F;etc&#x2F;vsftpd.conf文件，&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo vi &#x2F;etc&#x2F;vsftpd.conf ＃我这里用ssh登录服务器配置的，所以用vi，本机的话可以直接 sudo gedit &#x2F;etc&#x2F;vsftpd.conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;然后对参数进行修改，修改完咧就重启服务器&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo &#x2F;etc&#x2F;init.d&#x2F;vsftpd restart #重启就可以实现配置功能。
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;对本人配置的服务器中 vsftpd.conf的参数使用如下：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;listen=YES #启用独立vsftpd服务器
+#listen_ipv6=YES 不需要，注释掉
+anonymous_enable=YES #本服务器需要匿名访问
+local_enable=YES #要用虚拟用户，需要本地访问的（关于本地用户和虚拟用户不要迷茫，稍后解释）
+write_enable=YES #需要本地用户对文件进行修改和删除
+#local_umask=022 FTP上传文件权限 ，默认是077，本服务器每个虚拟用户都有上传权限设置，总的就留空注释掉了
+#anon_upload_enable=YES 是否允许匿名用户上传，不需要匿名上传注释掉
+#anon_mkdir_write_enable=YES 是否允许匿名用户的写和创建目录的权限，不要匿名管理，注释掉
+dirmessage_enable=YES 当切换目录时，是否显示该目录下message隐藏文件的内容，这个用来显示登录信息的 设为YES
+message_file=Welcome 显示的欢迎信息，在ftp目录下建Welcome的文件，里面写上登录信息即可，一般人常用.message隐藏文件
+xferlog_enable=YES 是否激活上传和下载的日志，需要
+connect_from_port_20=YES 是否启动FTP数据端口20的连接请求 需要
+chown_uploads=YES 是否改变上传文件的所有者，我这里需要改变上传文件所有者
+chown_username=virtual 改变上传文件的所有着为virtual，这个virtual用户一会要新建的，用来实现虚拟用户登录
+xferlog_file=&#x2F;var&#x2F;log&#x2F;vsftpd.log 上传&#x2F;下载日志文件所默认的路径
+xferlog_std_format=YES 是否使用标准的ftpd xferlog日志格式
+idle_session_timeout=600 是否将在用户会话空闲10分钟后被中断
+data_connection_timeout=120 是否将在数据连接空闲2分钟后被中断
+#nopriv_user=ftpsecure 是否运行vsftpd需要的非特殊系统用户默认nobody 不需要
+#async_abor_enable=YES 是否是否允许运行特殊的FTP命令async 不要
+ascii_upload_enable=YES 是否启用上传的ascii传输方式 需要
+ascii_download_enable=YES 是否启用下载的ascii传输方式 需要
+ftpd_banner=Welcome to blah FTP service. 用户连接服务器后显示信息，显示信息可以随便写
+#deny_email_enable=YES 是否允许某些匿名用户使用邮件地址（默认的）
+max_clients=10 #FTP服务器最大承载用户,本人设为10
+max_per_ip=5 #限制每个IP的进程
+local_max_rate=256000 #最大传输速率(b&#x2F;s)
+#hide_ids=YES #是否隐藏文件的所有者和组信息，不隐藏
+idle_session_timeout= 3000 #空闲（发呆）用户会话的超时时间，若是超出这时间没有数据的传送或是指令的输入，则会强迫断线。单位为秒，默认值为300。
+下面是用来虚拟用户登录的
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+guest_enable=YES 使用虚拟用户
+guest_username=virtual 将虚拟用户等同本地用户 virtual
+user_config_dir=&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf 虚拟用户配置文件夹
+pam_service_name=vsftpd.vu 虚拟用户加密设置
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;其他未列出来的视情况自己斟酌，如不明白清保持原样。&lt;&#x2F;p&gt;
+&lt;p&gt;关于配置文件修改一定注意一下几点：
+1、配置前最好把配置文件备份一下， sudo cp &#x2F;etc&#x2F;vsftpd.conf &#x2F;etc&#x2F;vsftpd.conf.back，以备配错了恢复
+2、所有配置语句后面不要有空行，我自己的配置很严格连空格都没有，把所有没必要的注释尤其是汉语注释全删除，如果配置语句后面或前面有空行或空格会报错
+3、为了防止出现第2点中的错误，请尽量无比自己一条条改写配置语句，不要从网上拷贝，很容易多空格，多回车
+4、不清楚自己是否需要的请保持配置文件原样。
+配置完了请重启ftp,看是否报错，是否可以连接，如报错或不能连接请自己检查配置文件，如果还不能启动，报错，很有可能是配置文件有空格或回车，检查并修改。如果实在还不行，恢复配置文件，重新一条条验证配置。
+4、使用虚拟用户登录（文本法）
+此实现有很多方法，主要的是文本法和数据库法，其实大同小异，本文使用文本法。
+此处涉及到两个概念，一个是本地用户，一个是虚拟用户。
+本地用户就是linux实实在在的一个用户，如root，你的登录用户等等都是本地用户。
+虚拟用户不是linux上的用户，只是自己起的虚拟用户，用来使用ftp的，虚拟用户必须关联到一个本地用户上。
+虚拟用户的实现可以参考官方http:&#x2F;&#x2F;wiki.ubuntu.org.cn&#x2F;Vsftpd%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7%E8%...，但是里面有错误，请注意甄别。官方的多错，没天理呀，我就是因为这个错误搞了好久，错误很简单，就是其中“为虚拟用户创建本地系统用户 ”那块本地系统用户建立错了，应该是virtual,既改为：
+sudo useradd virtual -d &#x2F;home&#x2F;vsftpd -s &#x2F;bin&#x2F;false
+sudo chown virtual:virutal &#x2F;home&#x2F;vsftpd
+当然这个用户名字你也可以改，但是此处的名字必须和配置文件vsftpd.conf中guest_username=virtual项的参数相同。
+………………………………………………………………………………………………
+下面是我的配置过程,结合官方的那个网址看啊，大部分相同，略有不同：&lt;&#x2F;p&gt;
+&lt;p&gt;首先先新建文件夹
+sudo mkdir &#x2F;home&#x2F;vsftpd
+cd &#x2F;home&#x2F;vsftpd
+sudo mkdir down upload wsn&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;1-chuang-jian-xu-ni-yong-hu-shu-ju-ku&quot;&gt;（1）、创建虚拟用户数据库&lt;&#x2F;h3&gt;
+&lt;p&gt;新建loguser.txt文件，
+$sudo vi &#x2F;home&#x2F;loguser.txt&lt;&#x2F;p&gt;
+&lt;p&gt;里面输入虚拟用户名和密码，格式如下&lt;&#x2F;p&gt;
+&lt;p&gt;nan306
+mima1
+wsn
+mima2
+upload
+mima3
+down
+mima4&lt;&#x2F;p&gt;
+&lt;p&gt;注意不要多空格和空行，其中nan306,upload等为虚拟用户名，另外两行为相应密码
+生成数据库
+先装一个软件&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo apt-get install db4.7-util
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;新建一个文件夹，放置配置文件&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo mkdir &#x2F;etc&#x2F;vsftpd
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;然后执行&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo db4.7_load -T -t hash -f &#x2F;home&#x2F;loguser.txt &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_login.db
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;最后设置一下数据库文件的访问权限&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo chmod 600 &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_login.db
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;配置PAM文件
+新建&#x2F;etc&#x2F;pam.d&#x2F;vsftpd.vu&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;$sudo vi &#x2F;etc&#x2F;pam.d&#x2F;vsftpd.vu
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;输入内容如下：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;auth required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db=&#x2F;etc&#x2F;vsftpd_login
+account required &#x2F;lib&#x2F;security&#x2F;pam_userdb.so db=&#x2F;etc&#x2F;vsftpd_login
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;我们上一步建立的数据库 vsftpd_login 在此处被使用&lt;&#x2F;li&gt;
+&lt;li&gt;我们建立的虚拟用户将采用PAM进行验证，这是通过&#x2F;etc&#x2F;vsftpd.conf文件中的 语句pam_service_name=vsftpd.vu来启用的，稍后你将发现。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h3 id=&quot;2-wei-xu-ni-yong-hu-jian-li-ben-di-yong-hu&quot;&gt;(2)、为虚拟用户建立本地用户&lt;&#x2F;h3&gt;
+&lt;p&gt;新建一个系统用户vsftpd，用户家目录为&#x2F;home&#x2F;vsftpd, 用户登录终端设为&#x2F;bin&#x2F;false(即使之不能登录系统)
+udo useradd virtual -d &#x2F;home&#x2F;vsftpd -s &#x2F;bin&#x2F;false
+sudo chown virtual:virutal &#x2F;home&#x2F;vsftpd
+现在为止，我们的3个用户都可以工作了，可是它们的根目录现在都是&#x2F;home&#x2F;vsftpd，权限也都一样。 那么怎么才能完成我们预定的目标呢？&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-xin-jian-etc-vsftpd-user-confwen-jian-jia&quot;&gt;（3）新建etc&#x2F;vsftpd_user_conf文件夹&lt;&#x2F;h3&gt;
+&lt;p&gt;在上面的配置中，有这么一行 r_config_dir=&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf
+现在，我们要把各个用户的配置文件放到目录&#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf中&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo mkdir &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf
+cd &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf
+sudo touch nan306 wsn upload down
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;每个文件既为一个配置文件，如nan306是个系统管理用户，里面配置如下：
+打开nan306&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf&#x2F;nan306
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;里面添加&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;write_enable=YES
+anon_world_readable_only=NO
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+local_root=&#x2F;home&#x2F;vsftpd
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;这里要注意不能有空格，不然登录的时候会提示出错。下同
+wsn用了管理wsn文件夹，配置如下：
+打开wsn&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;vsftpd&#x2F;vsftpd_user_conf&#x2F;wsn
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;里面添加&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;write_enable=YES
+anon_world_readable_only=NO
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+local_root=&#x2F;home&#x2F;vsftpd&#x2F;wsn
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;wsn目录下面还要挂载down文件夹的虚拟路径
+在wsn目录下新建目录down
+sudo mkdir &#x2F;home&#x2F;vsftpd&#x2F;wsn&#x2F;down
+然后系统启动是将&#x2F;home&#x2F;vsftpd&#x2F;down挂载到&#x2F;home&#x2F;vsftpd&#x2F;wsn&#x2F;down
+改写&#x2F;etc&#x2F;rc.local实现开机启动
+sudo vi &#x2F;etc&#x2F;rc.local
+添加 mount –bind &#x2F;home&#x2F;vsftpd&#x2F;down &#x2F;home&#x2F;vsftpd&#x2F;wsn&#x2F;down
+upload目录中&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;write_enable=YES
+anon_world_readable_only=NO
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+local_root=&#x2F;home&#x2F;vsftpd&#x2F;upload
+
+down目录中
+local_root=&#x2F;home&#x2F;vsftpd&#x2F;upload
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;至此配置完了。重启vsftpd我们就可以看到效果了^_^
+&#x2F;etc&#x2F;init.d&#x2F;vsftpd restart
+500 OOPS: cannot change directory:
+linux打开ftp遇到的问题 500 OOPS: cannot change directory:
+google好多都是 执行这个就OK setsebool ftpd_disable_trans 1 service vsftpd restart
+但是执行的时候遇到这个问题 Could not change active booleans: Invalid boolean
+搜了好久终于解决&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;setsebool -P ftp_home_dir=1
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;参考文献：
+最初级简单的请看下面两个
+http:&#x2F;&#x2F;os.51cto.com&#x2F;art&#x2F;201003&#x2F;189123.htm
+http:&#x2F;&#x2F;os.51cto.com&#x2F;art&#x2F;200901&#x2F;106622.htm
+高级点的看下面两个
+http:&#x2F;&#x2F;www.linuxsir.org&#x2F;main&#x2F;?q=node&#x2F;152#8.4 这个很好的，里面有很多实用设置
+http:&#x2F;&#x2F;www.517sou.net&#x2F;blogview.asp?logID=515#commmark_241 这个很全很全，非常全，非常推进
+虚拟用户官方配置，有错误，记得更改&lt;&#x2F;p&gt;
+&lt;p&gt;转载地址： http:&#x2F;&#x2F;blog.chinaunix.net&#x2F;uid-526789-id-3773984.html&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Compiling PHP 5.4 on Ubuntu 12.</title>
+        <published>2015-03-15T00:00:00+00:00</published>
+        <updated>2015-03-15T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
+        <id>http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
+        
+        <content type="html">&lt;p&gt;So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.&lt;&#x2F;p&gt;
+&lt;p&gt;Not a daunting as it may first appear. The really tricky part is working out your dependencies and configure script.&lt;&#x2F;p&gt;
+&lt;p&gt;Hence the reason for this post as a reminder for myself and others that may want to do a quick compile. (I would recommend that if your compiling for a production&#x2F;live environment that you make sure you understand what it is your compiling though before just using what’s here)&lt;&#x2F;p&gt;
+&lt;p&gt;So where to start. Dependencies first I think&lt;&#x2F;p&gt;
+&lt;p&gt;Ubuntu allows you to install dependencies for building source apt-get build-deps. We will use this and install any extras we may need.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-shell&quot;&gt;
+
+    apt-get install \
+    libxml2 \
+    libxml2-dev \
+    libssl-dev \
+    pkg-config \
+    curl \
+    libcurl4-nss-dev \
+    enchant \
+    libenchant-dev \
+    libjpeg8 \
+    libjpeg8-dev \
+    libpng12-0 \
+    libpng12-dev \
+    libvpx1 \
+    libvpx-dev \
+    libfreetype6 \
+    libfreetype6-dev \
+    libt1-5 \
+    libt1-dev \
+    libgmp10 \
+    libgmp-dev \
+    libicu48 \
+    libicu-dev \
+    mcrypt \
+    libmcrypt4 \
+    libmcrypt-dev \
+    libpspell-dev \
+    libedit2 \
+    libedit-dev \
+    libsnmp15 \
+    libsnmp-dev \
+    libxslt1.1 \
+    libxslt1-dev
+        
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And now the configure&lt;&#x2F;p&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-shell&quot;&gt;
+
+    .&#x2F;configure \
+    --prefix=&#x2F;usr&#x2F;local&#x2F;php \
+    --with-apxs2=&#x2F;usr&#x2F;local&#x2F;apache2&#x2F;bin&#x2F;apxs \
+    --enable-fpm \
+    --with-fpm-user=www-data \
+    --with-fpm-group=www-data \
+    --with-config-file-path=&#x2F;usr&#x2F;local&#x2F;php&#x2F;conf \
+    --with-config-file-scan-dir=&#x2F;usr&#x2F;local&#x2F;php&#x2F;conf.d \
+    --enable-debug \
+    --with-openssl \
+    --with-kerberos \
+    --with-zlib \
+    --enable-calendar \
+    --with-curl \
+    --with-curlwrappers \
+    --with-enchant \
+    --enable-exif \
+    --enable-ftp \
+    --with-gd \
+    --with-jpeg-dir=&#x2F;usr \
+    --with-png-dir=&#x2F;usr \
+    --with-vpx-dir=&#x2F;usr \
+    --with-freetype-dir=&#x2F;usr \
+    --with-t1lib \
+    --enable-exif \
+    --enable-gd-native-ttf \
+    --enable-gd-jis-conv \
+    --with-gettext \
+    --with-gmp \
+    --with-mhash \
+    --enable-intl \
+    --enable-mbstring \
+    --with-mcrypt \
+    --with-mysql \
+    --with-mysqli \
+    --enable-pcntl \
+    --with-pdo-mysql \
+    --with-pdo-pgsql \
+    --with-pgsql \
+    --with-pspell \
+    --with-libedit \
+    --with-readline \
+    --enable-shmop \
+    --with-snmp \
+    --enable-soap \
+    --enable-sockets \
+    --enable-sysvmsg \
+    --enable-sysvshm \
+    --with-xsl \
+    --enable-zip \
+    --with-pear \
+    --enable-zend-signals \
+    --enable-maintainer-zts
+
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;p&gt;Once these are done then we follow the standard make process. Notice we are also running make test… very important as it givges more data for the developers to work with.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Make PHP
+make &amp;amp;&amp;amp; make test &amp;amp;&amp;amp; make install
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;1&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;make &amp;amp;&amp;amp; make test &amp;amp;&amp;amp; make install
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The next thing is configuring your php.ini file as the install doesn’t have one yet so we copy either the production or development default from the source code to the new conf dir and edit to suit your needs.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Shell
+cp {&amp;lt;a href=&amp;quot;http:&#x2F;&#x2F;www.php.net&#x2F;&amp;quot; title=&amp;quot;PHP&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;php&amp;lt;&#x2F;a&amp;gt;-source-dir}&#x2F;&amp;lt;a href=&amp;quot;http:&#x2F;&#x2F;www.php.net&#x2F;&amp;quot; title=&amp;quot;PHP&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;php&amp;lt;&#x2F;a&amp;gt;.ini-(development|production) &#x2F;usr&#x2F;local&#x2F;&amp;lt;a href=&amp;quot;http:&#x2F;&#x2F;www.php.net&#x2F;&amp;quot; title=&amp;quot;PHP&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;php&amp;lt;&#x2F;a&amp;gt;&#x2F;conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;1&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;cp {php-source-dir}&#x2F;php.ini-(development|production) &#x2F;usr&#x2F;local&#x2F;php&#x2F;conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Thats it. All ready to roll… almost, this installation is the one I use for use with a webserver so you will want to add the appropriate directives to apache.&lt;&#x2F;p&gt;
+&lt;p&gt;Shell
+LoadModule php5_module modules&#x2F;libphp5.so AddHandler php5-script .&lt;a href=&quot;http:&#x2F;&#x2F;www.php.net&#x2F;&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;&#x2F;a&gt; AddType text&#x2F;html .&lt;a href=&quot;http:&#x2F;&#x2F;www.php.net&#x2F;&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;LoadModule php5_module        modules&#x2F;libphp5.so
+
+AddHandler php5-script .php
+AddType text&#x2F;html .php&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ubuntu fcitx输入法安装</title>
+        <published>2015-01-08T00:00:00+00:00</published>
+        <updated>2015-01-08T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
+        <id>http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
+        
+        <content type="html">&lt;p&gt;目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行&lt;&#x2F;p&gt;
+&lt;p&gt;首要得卸载Ubuntu默认的ibus输入法：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo apt-get remove ibus
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;然后添加fcitx的nightlyPPA：
+在终端输入：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo add-apt-repository ppa:fcitx-team&#x2F;nightly
+sudo apt-get update
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;安装fcitx以及搜狗输入法，并设置fcitx为默认。&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo apt-get install fcitx fcitx-config-gtk fcitx-sunpinyin fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sogoupinyin
+sudo apt-get install fcitx-table-all
+sudo apt-get install im-switch
+im-switch -s fcitx -z default
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;接下来安装搜狗输入法皮肤，下载下面的软件并安装
+http:&#x2F;&#x2F;pan.baidu.com&#x2F;share&#x2F;link?shareid=437349&amp;amp;uk=3188176680&lt;&#x2F;p&gt;
+&lt;p&gt;重启。。。。。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>ubuntu修改IP地址和网关的方法</title>
+        <published>2015-01-08T00:00:00+00:00</published>
+        <updated>2015-01-08T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
+        <id>http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
+        
+        <content type="html">&lt;h2 id=&quot;yi-shi-yong-ming-ling-she-zhi-ubuntu-ipdi-zhi&quot;&gt;一、使用命令设置Ubuntu IP地址&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-xiu-gai-pei-zhi-wen-jian-blacklist-confjin-yong-ipv6&quot;&gt;1.修改配置文件blacklist.conf禁用IPV6&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;表示用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内容。&lt;&#x2F;p&gt;
+&lt;p&gt;注意：只能在root用户模式下才可以修改&lt;&#x2F;p&gt;
+&lt;p&gt;在文档最后添加 blacklist ipv6&lt;&#x2F;p&gt;
+&lt;p&gt;然后查看修改结果&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;cat &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;2-she-zhi-wang-qia-eth0de-ipdi-zhi-he-zi-wang-yan-ma&quot;&gt;2.设置网卡eth0的IP地址和子网掩码&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo ifconfig eth0 192.168.2.1 netmask 255.255.255.0
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;将IP地址改为：192.168.2.1，子网掩码改为：255.255.255.0&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-ubuntu-ipshe-zhi-wang-guan&quot;&gt;3.Ubuntu IP设置网关&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo route add default gw 192.168.2.254
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;4-ubuntu-ipshe-zhi-dns-xiu-gai-etc-resolv-conf-zai-qi-zhong-jia-ru-nameserver-dnsde-di-zhi-1-he-nameserver-dnsde-di-zhi-2-wan-cheng&quot;&gt;4.Ubuntu IP设置DNS 修改&#x2F;etc&#x2F;resolv.conf，在其中加入nameserver DNS的地址1 和 nameserver DNS的地址2 完成。&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;5-zhong-qi-wang-luo-fu-wu-ruo-bu-xing-qing-zhong-qi-ubuntu-sudo-reboot&quot;&gt;5.重启网络服务（若不行，请重启ubuntu：sudo reboot）&lt;&#x2F;h3&gt;
+&lt;p&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;6-cha-kan-dang-qian-ip&quot;&gt;6.查看当前IP&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;ifconfig
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;er-zhi-jie-xiu-gai-ubuntu-ipxi-tong-pei-zhi-wen-jian&quot;&gt;二、直接修改Ubuntu IP系统配置文件&lt;&#x2F;h2&gt;
+&lt;p&gt;Ubuntu IP的网络配置文件是根目录下：&#x2F;etc&#x2F;network&#x2F;interfaces&lt;&#x2F;p&gt;
+&lt;p&gt;注意：修改完interfaces文档中的内容后，需要修改&#x2F;etc&#x2F;NetworkManager&#x2F;NetworkManager.conf文档中的managed参数，使之为true，并重启。否则，会提示说“有线网络设备未托管”。&lt;&#x2F;p&gt;
+&lt;p&gt;打开后里面可设置DHCP或手动设置静态IP。&lt;&#x2F;p&gt;
+&lt;p&gt;前面auto eth0，表示让网卡开机自动挂载eth0。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;1-yi-dhcpfang-shi-pei-zhi-wang-qia&quot;&gt;1. 以DHCP方式配置网卡&lt;&#x2F;h3&gt;
+&lt;p&gt;编辑文件 &#x2F;etc&#x2F;network&#x2F;interfaces&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;network&#x2F;interfaces
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;并用下面的行来替换有关eth0的行：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;#The primary network interface - use DHCP to find our address
+auto eth0
+iface eth0 inet dhcp
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;用下面的命令使网络设置生效：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;也可以在命令行下直接输入下面的命令来获取地址sudo dhclient eth0&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-wei-wang-qia-pei-zhi-jing-tai-ubuntu-ipdi-zhi&quot;&gt;2. 为网卡配置静态Ubuntu IP地址&lt;&#x2F;h3&gt;
+&lt;p&gt;编辑文件 &#x2F;etc&#x2F;network&#x2F;interfaces&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;network&#x2F;interfaces
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;并用下面的行来替换有关eth0的行：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;# The primary network interface  
+auto eth0  
+iface eth0 inet static  
+address 192.168.2.1  
+gateway 192.168.2.254  
+netmask 255.255.255.0  
+#network 192.168.2.0  
+#broadcast 192.168.2.255 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;将eth0的IP分配方式修改为静态分配(static)后，为其制定IP、网关、子网掩码等信息。&lt;&#x2F;p&gt;
+&lt;p&gt;将上面的Ubuntu IP地址等信息换成你自己就可以了。&lt;&#x2F;p&gt;
+&lt;p&gt;用下面的命令使网络设置生效：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;3-she-ding-di-er-ge-ubuntu-ipdi-zhi-xu-ni-ipdi-zhi&quot;&gt;3. 设定第二个Ubuntu IP地址(虚拟IP地址)&lt;&#x2F;h3&gt;
+&lt;p&gt;编辑文件&#x2F;etc&#x2F;network&#x2F;interfaces：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;network&#x2F;interfaces 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;在该文件中添加如下的行：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;auto eth0:1  
+iface eth0:1 inet static  
+address x.x.x.x  
+netmask x.x.x.x  
+network x.x.x.x  
+broadcast x.x.x.x  
+gateway x.x.x.x 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;根据你的情况填上所有诸如address,netmask,network,broadcast和gateways等信息；&lt;&#x2F;p&gt;
+&lt;p&gt;用下面的命令使网络设置生效&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;4-she-zhi-zhu-ji-ming-cheng-hostname&quot;&gt;4. 设置主机名称(hostname)&lt;&#x2F;h3&gt;
+&lt;p&gt;使用下面的命令来查看当前主机的主机名称：sudo &#x2F;bin&#x2F;hostname&lt;&#x2F;p&gt;
+&lt;p&gt;使用下面的命令来设置当前主机的主机名称：sudo &#x2F;bin&#x2F;hostname newname&lt;&#x2F;p&gt;
+&lt;p&gt;系统启动时，它会从&#x2F;bin&#x2F;hostname来读取主机的名称。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-pei-zhi-dns&quot;&gt;5. 配置DNS&lt;&#x2F;h3&gt;
+&lt;p&gt;首先，你可以在&#x2F;etc&#x2F;hosts中加入一些主机名称和这些主机名称对应的IP地址，这是 简单使用本机的静态查询。要访问DNS 服务器来进行查询,需要设置&#x2F;etc&#x2F;resolv.conf文件，假设DNS服务器的IP地址是192.168.2.2, 那么&#x2F;etc&#x2F;resolv.conf文件的内容应为：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;search chotim.com
+nameserver 192.168.2.2
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;6-shou-dong-zhong-qi-wang-luo-fu-wu-sudo-etc-init-d-networking-restart&quot;&gt;6.手动重启网络服务：sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart&lt;&#x2F;h3&gt;
+&lt;p&gt;返回结果如下：&lt;&#x2F;p&gt;
+&lt;p&gt;*Reconfiguring network interfaces… [OK]&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

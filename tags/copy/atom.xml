@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - copy</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/copy/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2018-06-09T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/copy/atom.xml</id>
+    <entry xml:lang="en">
+        <title>控制台Emacs启用鼠标右键复制</title>
+        <published>2018-06-09T00:00:00+00:00</published>
+        <updated>2018-06-09T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/" type="text/html"/>
+        <id>http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</id>
+        
+        <content type="html">&lt;h2 id=&quot;2-16-make-copy-paste-working-with-the-mouse-in-x11-terminals&quot;&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;spacemacs.org&#x2F;doc&#x2F;FAQ.html#make-copypaste-working-with-the-mouse-in-x11-terminals&quot;&gt;2.16 Make copy&#x2F;paste working with the mouse in X11 terminals?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;It is possible to disable the mouse support in X11 terminals in order to enable copying&#x2F;pasting with the mouse. You need to add this line to your &lt;code&gt;dotspacemacs&#x2F;user-config&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;(xterm-mouse-mode -1)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Emacs 默认鼠标是移动光标位置不能像vim一样复制文本，但通过上面的配置也能开启复制功能，也可以直接使用 &lt;code&gt;M+x xterm-mouse-mode&lt;&#x2F;code&gt; 临时启用和关闭&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Emacs 编辑器配置 Rust 开发环境 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="Emacs 编辑器 Rust 语言开发环境配置， 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：源代码导航（跳转到实" />
+  <link rel="canonical" href="http://aqrun.com/rust/rust-with-emacs/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/rust/rust-with-emacs/" />
+  <meta name="twitter:url" content="http://aqrun.com/rust/rust-with-emacs/" />
+  <meta property="og:description" content="Emacs 编辑器 Rust 语言开发环境配置， 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：源代码导航（跳转到实" />
+  <meta name="twitter:description" content="Emacs 编辑器 Rust 语言开发环境配置， 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：源代码导航（跳转到实" />
+  <meta property="og:title" content="Emacs 编辑器配置 Rust 开发环境 | 子十" />
+  <meta name="twitter:title" content="Emacs 编辑器配置 Rust 开发环境 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2021-11-20" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/rust/rust-with-emacs/">Emacs 编辑器配置 Rust 开发环境</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2021-11-20<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/rust/">
+                Rust 语言
+            </a>]
+           #<a href="http://aqrun.com/tags/rust/">rust</a>  #<a href="http://aqrun.com/tags/emacs/">emacs</a> </span>
+
+    <blockquote>
+<p>原文链接：<a rel="noopener" target="_blank" href="https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/">https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/</a>。翻译有错漏欢迎评论区指正吐槽😂。</p>
+</blockquote>
+<p><img src="https://assets.oicnp.com/pic/demo.png" alt="demo" /></p>
+<p>过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：</p>
+<ul>
+<li>源代码导航（跳转到实现、引用列表、模块大纲）</li>
+<li>代码补全</li>
+<li>代码片段</li>
+<li>错误和警告行内高亮</li>
+<li>代码修复和重构</li>
+<li>自动导入定义（如特性）</li>
+<li>rustfmt 代码格式化</li>
+<li>构建和运行其它 cargo 命令</li>
+</ul>
+<p>本配置基于 <a rel="noopener" target="_blank" href="https://rust-analyzer.github.io/">rust-analyzer</a>，这是一个处于活跃开发状态并使 VS Code 支持 Rust 的 LSP 服务。</p>
+<p>本文可以做为参考或直接去 <a rel="noopener" target="_blank" href="https://github.com/rksm/emacs-rust-config">Github 仓库</a> 获取源码直接运行（如下）。已测试可行的环境：Emacs 27.1、rust stable 1.49.0、macOS 11.1、Ubuntu 18.4、Win10。</p>
+<p>对于想了解 Emacs-racer 的相关配置可以查看 <a rel="noopener" target="_blank" href="https://github.crookster.org/my-emacs-rust-language-config/">David Crook 的指南</a>。</p>
+<p>内容目录：</p>
+<ul>
+<li>快速开始</li>
+<li>前置需求
+<ul>
+<li>Rust</li>
+<li>rust-analyzer</li>
+<li>Emacs</li>
+</ul>
+</li>
+<li>Rust Eamcs 详细配置
+<ul>
+<li>rustic</li>
+<li>lsp-mode 和 lsp-ui-mode</li>
+<li>代码导航跳转</li>
+<li>代码操作</li>
+<li>代码补全和片段</li>
+<li>行内错误</li>
+<li>行内类型提示</li>
+<li>附加包</li>
+</ul>
+</li>
+<li>Debug 调试</li>
+<li>感谢</li>
+</ul>
+<h2 id="kuai-su-kai-shi">快速开始</h2>
+<p>如果你已经安装了 Rust 和 Emacs 那可以直接快速开始而不用对现有配置做任何修改。可以使用如下命令在启动 Emacs 时加载<a rel="noopener" target="_blank" href="https://github.com/rksm/emacs-rust-config">rksm/emacs-rust-config github 仓库</a> 的 <code>standalone.el</code> 配置文件：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> clone https://github.com/rksm/emacs-rust-config</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">emacs</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>q</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>load</span> ./emacs-rust-config/standalone.el</span>
+</span></code></pre>
+<p>此命令会在启动 Emacs 时使用检出仓库的目录的 <code>.emacs.d</code> 路径（以及不同的 elpa 文件夹）。意味着不会使用和修改你原有的 <code>$HOME/.emacs.d</code>。如果你不确定或是很清楚这里描述的内容，这种方式都是最简单的配置。</p>
+<p>所有的依赖都会在第一次启动时被安装，也就是第一次启动会多花些时间。</p>
+<p>Windows 系统可以在快捷方式中添加这些参数启动 Emacs。如果是 macOS 并且安装的是 Emacs.app 则需要使用如下命令行：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">/Applications//Emacs.app/Contents/MacOS/Emacs</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>q</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>load</span> ./emacs-rust-config/standalone.el</span>
+</span></code></pre>
+<h2 id="xian-jue-tiao-jian">先决条件</h2>
+<p>开始配置 Emacs 前，请确保你的系统已经安装了下面这些软件：</p>
+<h3 id="rust">Rust</h3>
+<p>安装 Rust 工具链及 cargo，这些使用 <a rel="noopener" target="_blank" href="https://rustup.rs/">rustup</a> 很容易安装。安装稳定版的 rust 并确保 <code>.cargo/bin</code> 已经添加到环境变量，rustup 可以默认完成这些操作。rust-analyzer 依赖 Rust 源码，可以运行命令 <code>rustup component add rust-src</code> 进行安装。</p>
+<h3 id="rust-analyzer">rust-analyzer</h3>
+<p>需要 rust-analyzer 服务的二进制包。可以参考 <a rel="noopener" target="_blank" href="https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary">rust-analyzer 手册</a>进行安装，有预编译好的二进制包。然而，由于 rust-analyzer 开发非常活跃，我通常是下载 github 仓库源码再自行编译。这种方式更便于升级版本（可能也需要降级）。</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> git clone https://github.com/rust-analyzer/rust-analyzer.git</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> cd rust-analyzer</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> cargo xtask install<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>server <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> 会安装 rust-analyzer 到 $HOME/.cargo/bin 目录</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span></span></code></pre>
+<p>经常会发生新版不能正常运行的问题。这种情况我建议查看 <a rel="noopener" target="_blank" href="https://rust-analyzer.github.io/thisweek">rust-analyzer 改动日志</a>，日志包含链接到每周更新的 git 提交。如果不能正常运行，可以试着构建早一些的版本，或许可以成功。写本文时（2021.11.15）我用的是<a rel="noopener" target="_blank" href="https://github.com/rust-analyzer/rust-analyzer/commit/73668334f05c3446b04116ccc3156240d2d8ab19">7366833</a>，这个版本在 稳定版Rust 1.56.1 以及 Ubuntu、MacOS和Windows系统都工作正常。</p>
+<h3 id="emacs">Emacs</h3>
+<p>我测试过可以配置的版本是 Emacs 27.1。Mac上我通常使用 <a rel="noopener" target="_blank" href="https://emacsformacosx.com/">emacsformacosx</a>。Windows 上我使用 “附近的 GNU 镜像”链接为 <a rel="noopener" target="_blank" href="https://www.gnu.org/software/emacs/download.html">gnu.org/software/emacs</a>。在Ubuntu需要<a rel="noopener" target="_blank" href="https://ubuntuhandbook.org/index.php/2020/09/install-emacs-27-1-ppa-ubuntu-20-04/">添加第三方 apt 仓库</a>。注意此配置在较老的emacs 版本也可以工作，但 Emacs 27 在 JSON 解析方面有实质性的改进大大提高了 LSP 客户端的速度。</p>
+<p>注意，我使用 <a rel="noopener" target="_blank" href="https://github.com/jwiegley/use-package">use-package</a> 作为 Emacs 的包管理器。它将自动安装这个配置的独立版本。否则可以在你的 <code>init.el</code> 添加如下片段：</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">unless</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>package<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>installed<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>p &#39;<span class="z-support z-function z-lisp">use-package</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+	<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>package<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>refresh<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>contents<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+	<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>package<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>install &#39;<span class="z-support z-function z-lisp">use-package</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<h2 id="rust-emacs-xiang-xi-pei-zhi">Rust Emacs 详细配置</h2>
+<p>用到的模式有：</p>
+<ul>
+<li>rustic</li>
+<li>lsp-mode</li>
+<li>company</li>
+<li>yasnippet</li>
+<li>flycheck</li>
+</ul>
+<h3 id="rustic">Rustic</h3>
+<p><a rel="noopener" target="_blank" href="https://github.com/brotzeit/rustic">rustic</a> 是 <code>rust-mode</code> 的一个分支并扩展了很多有用的功能（可以查看它的 github readme）。它是配置的核心，如果你只需要代码高亮和 emacs 绑定的 cargo 快捷键，那就这一个就够了不需要其它任何 Emacs 扩展包。</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> rustic
+  :ensure
+  :bind <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>:<span class="z-support z-function z-lisp">map</span> rustic<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-operator z-arithmetic z-lisp">mod</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">map</span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>M-j<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>imenu<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>M-?<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">find</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>references<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-c C-c l<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . flycheck<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">list</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>errors<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-c C-c a<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>execute<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>code<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>action<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-c C-c r<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>rename<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-c C-c q<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>wordspace<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>restart<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-c C-c Q<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>workspace<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>shutdown<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-c C-c s<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span> . lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>rust<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>analyzer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>status<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  :confi
+  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 减少闪动可以取消这里的注释
+</span>  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; (setq lsp-eldoc-hook nil)      
+</span>  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; (setq lsp-enable-symbol-highlighting nil)
+</span>  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; (setq lsp-signature-auto-activate nil)
+</span>
+  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 注释下面这行可以禁用保存时 rustfmt 格式化
+</span>  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">setq</span> rustic<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">format</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>on<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>save <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>add<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;rustic<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;rk<span class="z-keyword z-operator z-arithmetic z-lisp">/</span>rustic<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-meta z-function z-lisp"><span class="z-storage z-type z-function-type z-lisp">defun</span> <span class="z-entity z-name z-function z-lisp">rk</span></span><span class="z-keyword z-operator z-arithmetic z-lisp">/</span>rustic<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 所以运行 C-c C-c C-r 无需确认就可以工作，但不要尝试保存不是文件访问的 rust 缓存。
+</span>  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 一旦 https://github.com/brotzeit/rustic/issues/253 问题处理了
+</span>  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 就不需要这个配置了
+</span>  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">when</span> buffer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>file<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>name
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">setq</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>local buffer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>save<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>without<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>query <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<p>rustic 的大部分功能都绑定到 <code>C-c C-c</code> 前缀（也就是按 Control-c 键两次再按其它键）：</p>
+<p><img src="http://assets.oicnp.com/pic/rustic-shortcuts-1.png" alt="shortcut" /></p>
+<p>你可以使用 <code>C-c C-c C-r</code> 调用 <code>cargo run</code> 运行程序。有可能需要你指定一些参数例如使用发布模式运行可以指定 <code>--release</code> 或要运行名称为 &quot;other-bin&quot; 的目标程序使用参数 <code>--bin other-bin</code>（替换 mina.rs）。 要给可执行程序本身传递参数使用 <code>-- --arg1 --arg2</code>。</p>
+<p>快捷键 <code>C-c C-c C-c</code> 会运行测试。非常方便执行内联测试而不用经常的来切回在终端和 Emacs 之间切换。</p>
+<p><code>C-c C-p</code> 命令会打开一个固定位置的弹出缓冲区显示上面的快捷命令。</p>
+<p>Rustic 提供了一些和 cargo 很方便的集成，例如，<code>M-x rustic-cargo-add</code> 会允许你添加依赖到项目的 <code>Cargo.toml</code> （通过 <a rel="noopener" target="_blank" href="https://crates.io/crates/cargo-edit">cargo-edit</a> 这个需要提前安装好）。</p>
+<p>如果你想分享代码片段，<code>M-x rstic-playpen</code> 命令会把你当前缓冲区在 <a rel="noopener" target="_blank" href="https://play.rust-lang.org">https://play.rust-lang.org</a> 打开，可以让你在线运行 Rust 代码并且有一个可以分享的链接。</p>
+<p>默认启用了保存时使用 rustfmt 进行代码格式化。要禁用它可以设置 <code>(setq rustic-format-on-save nil)</code>。也可以在需要时使用 <code>C-c C-c C-o</code> 格式化缓冲区。</p>
+<h3 id="lsp-mode-and-lsp-ui-mode">lsp-mode and lsp-ui-mode</h3>
+<p>lsp-mode 提供了 <a rel="noopener" target="_blank" href="https://emacs-lsp.github.io/lsp-mode/page/lsp-rust/">rust-analyzer</a> 的集成。启用了一些 IDE 的功能如源代码导航、通过 flycheck （如下）语法检查错误高亮以及为 company 提供代码自动补全（如下）。</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode
+  :ensure
+  :commands lsp
+  :custom
+  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 保存时使用什么进行检查，默认是 &quot;check&quot;，我更推荐 &quot;clippy&quot;
+</span>  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>rust<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>analyzer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>cargo<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>watch<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>command <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>clippy<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>eldoc<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>render<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>all <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>idle<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>delay <span class="z-constant z-numeric z-lisp">0.6</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>rust<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>analyzer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>server<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>display<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>inlay<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hints <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  :config
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>add<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui
+  :ensuer
+  :commands lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode
+  :custom
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>peek<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-control z-lisp">always</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>show <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>sideline<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>show<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hover <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>lsp<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>doc<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>enable <span class="z-constant z-language z-lisp">nil</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<p>lsp-ui 是可选的，它提供在光标处标记并显示内联弹层以及光标处的代码修复。如果你发现它闪动不想开启这个功能，只需要移除 <code>:config (add-hook 'lsp-mode-hook 'lsp-ui-mode)</code>。</p>
+<p>上面的配置也关闭了 lsp-ui 内联显示的文档功能。这个比较符合我的习惯，由于它经常遮住源代码。如果你也想关闭在 mini 缓冲区显示的文档可以添加 <code>(setq lsp-eldoc-hook nil)</code>。在光标移动时想操作的更少可以考虑 <code>(setq lsp-signature-auto-activate nil)</code> 和 <code>(setq lsp-enable-symbol-highlighting nil)</code>。</p>
+<h3 id="code-navigation">Code Navigation</h3>
+<p>配置好 lsp-mode 当你的光标在一个标记上面时你就可以使用 <code>M-.</code> 来跳转到函数、结构体、包等的定义处。<code>M-,</code> 可以再跳回来。使用 <code>M-?</code> 你可以列出标记的所有引用。如下演示：</p>
+<p><img src="https://assets.oicnp.com/pic/rust-lsp-demo-1.gif" alt="rust-lsp-demo" /></p>
+<p>使用 <code>M-j</code> 你可以打开允许你在函数和其它定义之间快速跳转的当前模块大纲。</p>
+<p><img src="https://assets.oicnp.com/pic/imenu.png" alt="imenu" /></p>
+<h3 id="dai-ma-cao-zuo-code-actions">代码操作（Code Actions）</h3>
+<p>可以使用 <code>M-x lsp-rename</code> 和 <code>lsp-execute-code-action</code> 进行重构。代码操作基本上就是代码转换和修复。例如代码检查可能会发现更优雅的代码表达方式：</p>
+<p><img src="http://assets.oicnp.com/pic/rust-lsp-demo-2.gif" alt="rust-lsp-demo-2" /></p>
+<p>可用的代码操作的数量还在持续增长。完整的列表可以查看 <a rel="noopener" target="_blank" href="https://rust-analyzer.github.io/manual.html#assists-code-actions">rust-analyzer 文档</a>。收藏的包括自动函数引入或完全的代码合格化，例如，一个模块还没有引入 HashMap，输入 <code>HashMap</code> 然后选择选项可以引入 <code>Import std::collections::HashMap</code>。其他代码操作允许你在匹配表达式中添加所有可能的分支，或者为定义实现转换 <code>#[derive(Trait)]</code> 为必要的的代码。还有很多很多。</p>
+<p>如果你在开发宏，快速查看他们是如何扩展的将非常实用。使用 <code>M-x lsp-rust-analyzer-expand-macro</code> 或快捷键 <code>C-c C-c e</code> 来展开宏。</p>
+<h3 id="dai-ma-bu-quan-he-pian-duan-code-completion-and-snippets">代码补全和片段（Code completion and snippets）</h3>
+<p>lsp-mode 直接和 Emacs 的补全框架 <a rel="noopener" target="_blank" href="https://company-mode.github.io/">company-mode</a> 集成。它会显示一个能被插入到光标处的可选符号列表。在使用不熟悉的库（或 std 库）时非常有用，不再需要经常查看文档。Rust 的类型系统被用作补全的来源，因此你可以插入有意义的内容。</p>
+<p>默认代码补全弹框会在 <code>company-idle-delay</code> 设置的 0.5 秒后显示。你可以修改这个值或者设置 <code>company-begin-commands</code> 为 <code>nil</code> 来完全关闭弹层。</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> company
+  :ensure
+  :custom
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>idle<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>delay <span class="z-constant z-numeric z-lisp">0.5</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span> <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 弹层延迟显示时长
+</span>  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; (company-begin-commands nil) ;; 取消注释可以禁用弹层
+</span>  :bind
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>:<span class="z-support z-function z-lisp">map</span> compnay<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>active<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">map</span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-n<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>. company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>select<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>next<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>C-p<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>. company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>select<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">previous</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>M-&lt;<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>. company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>select<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">first</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>M-&gt;<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>. company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>select<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">last</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> yasnippet
+  :ensure
+  :config
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>yas<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>reload<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>all<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>add<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;<span class="z-keyword z-control z-lisp">prog</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;yas<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>minor<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>add<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;text<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>hook &#39;yas<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>minor<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<p>这里也会通过 <a rel="noopener" target="_blank" href="https://joaotavora.github.io/yasnippet/">yasnippet</a> 启用代码片段。我有一个<a rel="noopener" target="_blank" href="https://github.com/rksm/emacs-rust-config/tree/master/snippets/rustic-mode">常用片段 github 仓库</a> 列表。可以随意拷贝并修改他们。他们的工作方式是通过输入固定的字符序列然后按 TAB 键。例如 <code>for&lt;TAB&gt;</code> 会展开为 for 循环。你可以自定义预填的内容和展开的停止数量甚至执行自定义的 elisp 代码。具体查看 yasnippet 文档。</p>
+<p>要在点击 TAB 键时启用代码片段展开、代码补全和缩进，我们需要自定义在点击 TAB 时执行的命令：</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> company
+  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; ... 接上面 ...
+</span>  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>:<span class="z-support z-function z-lisp">map</span> company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-operator z-arithmetic z-lisp">mod</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">map</span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>&lt;tab&gt;<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>. tab<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>indent<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-operator z-logical z-lisp">or</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>complete<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>TAB<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>. tab<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>indent<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-operator z-logical z-lisp">or</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>complete<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-meta z-function z-lisp"><span class="z-storage z-type z-function-type z-lisp">defun</span> <span class="z-entity z-name z-function z-lisp">company-yasnippet-or-complete</span></span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>interactive<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-operator z-logical z-lisp">or</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">do</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>yas<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">expand</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>complete<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>common<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-meta z-function z-lisp"><span class="z-storage z-type z-function-type z-lisp">defun</span> <span class="z-entity z-name z-function z-lisp">check-expansion</span></span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>save<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>excursion
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">if</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>looking<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>at <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span><span class="z-constant z-character z-escape z-lisp">\\</span>_&gt;<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span> <span class="z-constant z-language z-lisp">t</span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>backward<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">char</span> <span class="z-constant z-numeric z-lisp">1</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">if</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>looking<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>at <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span><span class="z-constant z-character z-escape z-lisp">\\</span>.<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span> <span class="z-constant z-language z-lisp">t</span>
+        <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>backward<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">char</span> <span class="z-constant z-numeric z-lisp">1</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+        <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">if</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>looking<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>at <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>::<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span> <span class="z-constant z-language z-lisp">t</span> <span class="z-constant z-language z-lisp">nil</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+      <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-meta z-function z-lisp"><span class="z-storage z-type z-function-type z-lisp">defun</span> <span class="z-entity z-name z-function z-lisp">do-yas-expand</span></span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">let</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>yas<span class="z-keyword z-operator z-arithmetic z-lisp">/</span>fallback<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>behavior &#39;<span class="z-keyword z-control z-lisp">return</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-constant z-language z-lisp">nil</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>yas<span class="z-keyword z-operator z-arithmetic z-lisp">/</span><span class="z-support z-function z-lisp">expand</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-meta z-function z-lisp"><span class="z-storage z-type z-function-type z-lisp">defun</span> <span class="z-entity z-name z-function z-lisp">tab-indent-or-complete</span></span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>interactive<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">if</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>minibufferp<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>minibuffer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>complete<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">if</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-operator z-logical z-lisp">or</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-operator z-logical z-lisp">not</span> yas<span class="z-keyword z-operator z-arithmetic z-lisp">/</span>minor<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-operator z-arithmetic z-lisp">mod</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+          <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-constant z-language z-lisp">null</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">do</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>yas<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-support z-function z-lisp">expand</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+        <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+        <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-keyword z-control z-lisp">if</span> <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>check<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>expansion<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+          <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>company<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>complete<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>common<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+          <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>indent<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-control z-lisp">for</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>tab<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>command<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+        <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+    <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<p>大部分常用片段是 <code>for</code>、<code>log</code>、<code>ifl</code>、<code>match</code> 和 <code>fn</code> 。</p>
+<h3 id="xing-nei-cuo-wu">行内错误</h3>
+<p>这个很简单，rustic 做了很多繁重的任务。我位只需要确认代码检查已经加载：</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> flycheck :ensure<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<p>也可以执行 <code>M-x flycheck-list-errors</code> 或点击快捷键 <code>C-c C-c l</code> 来显示一个错误和警告的列表。</p>
+<h3 id="xing-nei-lei-xing-ti-shi">行内类型提示</h3>
+<p>Rust-analyzer 和 lsp-mode <a rel="noopener" target="_blank" href="https://emacs-lsp.github.io/lsp-mode/page/lsp-rust/#inlay-hints">可以显示行内类型注释</a>。通常当把光标放在定义的变量上时会通过 eldoc 进行显示，使用注释你可始终看到推断的类型。 使用 <code>(setq lsp-rust-analyzer-server-display-inlay-hints t)</code> 来启用它们。要真正的插入推断的类型到源代码，你可以移动光标到定义的变量并执行 <code>M-x lsp-execute-code-action</code> 或 <code>C-c C-c a</code>。</p>
+<p>注意它们可能和 <code>lsp-ui-sideline-mode</code> 交互的不是很好。如果你只需要提示而想禁用边线模式（sideline mode），你可以给 <code>rustic-mode-hook</code> 添加 <code>(lsp-ui-sideline-enable nil)</code>。</p>
+<h2 id="dai-ma-diao-shi">代码调试</h2>
+<p>Emacs 通过 <a rel="noopener" target="_blank" href="https://emacs-lsp.github.io/dap-mode/">dap-mode</a> 集成了 gdb 和 lldb。为了设置支持 Rust 调试，你需要做一些额外的配置和构建步骤。特别是你需要有 <code>lldb-mi</code>(https://github.com/lldb-tools/lldb-mi)，它不包含在 Apple 通过 XCode 提供的官方 llvm 发行版里。</p>
+<p>我只在 macOS 上测试编译了 <code>lldb-mi</code>。下面是我的操作步骤：</p>
+<ol>
+<li>通过 homebrew 安装 llvm 和 cmake</li>
+<li>检出 lldb-mi 代码库</li>
+<li>构建 lldb-mi 可执行文件</li>
+<li>将目录链接到我的 PATH</li>
+</ol>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> brew install cmake llvm</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> git clone https://github.com/lldb-tools/lldb-mi</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> mkdir<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>p</span> lldb-mi/build</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> cd lldb-mi/build</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> cmake ..</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> cmake<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>build</span> .</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">$</span></span><span class="z-meta z-function-call z-arguments z-shell"> ln<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>s</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">PWD</span></span>/src/lldb-mi /usr/local/bin/lldb-mi</span>
+</span></code></pre>
+<p>为了让 Emacs 能找到可执行文件，你需要确保 <code>exec-path</code> 在启动时是正确配置的。完整的 dap-mode 配置如下：</p>
+<pre data-lang="lisp" class="language-lisp z-code"><code class="language-lisp" data-lang="lisp"><span class="z-source z-lisp"><span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> exec<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>path<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-control z-lisp">from</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>shell
+  :ensure
+  : init <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>exec<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>path<span class="z-keyword z-operator z-arithmetic z-lisp">-</span><span class="z-keyword z-control z-lisp">from</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>shell<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>initialize<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+<span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">use-package</span> dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode
+  :ensure
+  :config
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>ui<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>controls<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>mode <span class="z-constant z-numeric z-lisp">1</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">require</span> &#39;dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>lldb<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">require</span> &#39;dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>gdb<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>lldb<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-comment z-line z-semicolon z-lisp"><span class="z-punctuation z-definition z-comment z-lisp">;</span>; 安装 .extendsion/vscode
+</span>  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>gdb<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>lldb<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>setup<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span>dap<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>register<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>debug<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>template
+    <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>Rust::LLDB Run Configuration<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>
+    <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">list</span> :type <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>lldb<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>
+      :request <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>launch<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>
+      :name <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>LLDB::Run<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>
+      :gdbpath <span class="z-string z-quoted z-double z-lisp"><span class="z-punctuation z-definition z-string z-begin z-lisp">&quot;</span>rust-lldb<span class="z-punctuation z-definition z-string z-end z-lisp">&quot;</span></span>
+      :target <span class="z-constant z-language z-lisp">nil</span>
+      :cwd <span class="z-constant z-language z-lisp">nil</span>
+    <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+  <span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+<span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
+</span></code></pre>
+<p><code>(dp-gdb-lldb-setup)</code> 会安装一个 VSCode 扩展到 <code>user-emacs-dir/.extension/vscode/webfreak.debug</code> 目录。我碰到有一个问题是这个安装不是经常会成功。如果最后你没有 &quot;<code>webfreak.debug</code>&quot; 目录你可能需要删除 <code>vscode/</code> 目录然后再执行 <code>(dap-gdb-lldb-setup)</code>。</p>
+<p>我还需要执行一次 <code>sudo DevToolSecurity --enable</code> 来允许调试器访问进程。</p>
+<p>另外还有一个问题是，当我启动调试目标时我会看到：</p>
+<pre class="z-code"><code><span class="z-text z-plain">Could not start debugger process, does the program exist in filesystem?
+Error: spawn lldb-mi ENOENT
+</span></code></pre>
+<p>即使 <code>lldb-mi</code> 在我的环境变量并且我可以在 Emacs 里面启动它。结果表明错误不是来自 <code>lldb-mi</code> 而是你启动目标的目录。当你使用 <code>M-x dap-debug</code> 或通过 <code>dap-hydra d d</code> 启动调试，然后选择 <code>Rust::LLDB Run Configuration</code> 时确保你想要调试的可执行目标的目录不是相对路径也不能包含 <code>~</code>。如果是绝对路径就应该可以工作。</p>
+<p>如下可能会发生上面错误的失败（注意未展开的 <code>~/</code>）：</p>
+<p><img src="https://assets.oicnp.com/pic/dap-fail.png" alt="dap-fail" /></p>
+<p>我需要指定完整的路径 <code>/Users/robert/projects/rust/emacs/test-project/target/debug/test-project</code>。</p>
+<p>一旦成功执行看起来应该如下：</p>
+<video controls src="https://assets.oicnp.com/pic/emacs-debugging-dap.mp4" style="max-height: 620px" />
+<p>上面示例我首先使用 <code>C-c C-c d</code> 激活 <code>dab-hydra</code>。然后使用 <code>d d</code> 选择 Rust 调试目标（提前使用 cargo 构建的）。在这之前还用 <code>d p</code> 设置了一个断点。然后我使用 <code>n</code> 和 <code>i</code> 在代码中步进。注意你也可以使用鼠标设置断点和步进。</p>
+<p>配置调试并没有预期的顺畅，但一旦运行起来会非常有趣！</p>
+<h3 id="rust-playground">Rust playground</h3>
+<p>你或许已经见识了在线的 Rust playgroud <a rel="noopener" target="_blank" href="https://play.rust-lang.org/">https://play.rust-lang.org/</a>，可以让快速运行和分享 Rust 代码片段。Emacs 有一个类似的允许你快速创建（或移除）Rust草稿项目的项目是 <code>[grafov/rust-playgroud](https://github.com/grafov/rust-playground)</code>。默认 <code>rust-playgroud</code> 命令会在目录 <code>~/.emacs.d/rust-playgroud/</code> 创建 Rust 项目，并打开 <code>main.rs</code>，使用绑定的快捷键快速运行项目(<code>C-c C-c</code>)。这个非常便于你快速测试 Rust 代码片段或调试一个库。这一切都来自于你自己的编辑器！</p>
+<h3 id="fu-jia-bao">附加包</h3>
+<p>这还有一些 emacs 包本文就不再细说了，会极大的提升使用 Emacs 进行 Rust 或其它语言开发的体验。如下：</p>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://github.com/bbatsov/projectile">projectile</a>：将项目的概念引入到 emacs 以及大量相关操作的命令。如在项目打开 shell、搜索项目代码等。</li>
+<li><a rel="noopener" target="_blank" href="https://emacs-helm.github.io/helm/">helm</a>、<a rel="noopener" target="_blank" href="https://github.com/raxod502/selectrum">selctrum</a>、<a rel="noopener" target="_blank" href="https://github.com/abo-abo/swiper#ivy">ivy</a>：我们花了很多时间从列表中选择一个还是多个选项。让它可以打开文件、缓冲区间切换或执行命令（M-x）。所有这些包让在 emacs 中通过键盘输入来选择选项变得简单，并能够过滤大的列表。help 是我个人的日常驱动，但 selectrum 是一个更轻量的替代。它使用在相关的 github 项目的 standalone.el 版本中。</li>
+<li><a rel="noopener" target="_blank" href="https://depp.brause.cc/shackle/">shackle</a>：Emacs 默认的窗口规则并不是最优的。Shakle 允许定义匹配缓冲区名称的规则。我默认的规则在<a rel="noopener" target="_blank" href="https://gist.github.com/rksm/8c07d9ccc9e15adf752d3dd73dd9a61e">这个 gist</a>。</li>
+<li><a rel="noopener" target="_blank" href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html">dired</a>：内置于 Emacs。你最后需要一个文件管理器。</li>
+</ul>
+<h2 id="gan-xie-zhe-xie-bao-de-kai-fa-zhe-men">感谢这些包的开发者们!</h2>
+<p>最后要说声谢谢！感谢所有本文中提到的开源软件的开发和维护者们。Rust-analyzer 项目是令人惊叹的，它极大的改善了 Rust Emacs 工具状态。当然也离不开非常有用的 lsp-mode 和 lsp-ui。rustic 简化了 rust-mode 模式相关的必要配置，并增加了非常有用的特性。在其它语言 company 和 flycheck 是我的默认配置。当然还要感谢所有 Emacs 的维护人员以及我记不太清的参与其中的所有人！</p>
+<hr />
+<ol>
+<li><a rel="noopener" target="_blank" href="https://github.com/racer-rust/emacs-racer">Racer</a> 曾经是配置 Emacs IDE特性（代码导航等）的最佳选择。它是比 RLS 和 rust-analyzer 都快的非 LSP 解决方案。然而有很多有关代码补全的特性已经不如 rust-analyzer 了。</li>
+<li>Emacs 也通过 <a rel="noopener" target="_blank" href="https://www.gnu.org/software/emacs/manual/html_node/emacs/GDB-Graphical-Interface.html">GUD</a> 内置了对 gdb 的支持， 但需要直接控制 gdb 进程。DAP 更类似于 LSP，因为它用于远程控制调试过程，使编辑器更容易集成它。</li>
+</ol>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

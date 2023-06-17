@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - 网关</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/wang-guan/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2015-01-08T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/wang-guan/atom.xml</id>
+    <entry xml:lang="en">
+        <title>ubuntu修改IP地址和网关的方法</title>
+        <published>2015-01-08T00:00:00+00:00</published>
+        <updated>2015-01-08T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
+        <id>http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
+        
+        <content type="html">&lt;h2 id=&quot;yi-shi-yong-ming-ling-she-zhi-ubuntu-ipdi-zhi&quot;&gt;一、使用命令设置Ubuntu IP地址&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;1-xiu-gai-pei-zhi-wen-jian-blacklist-confjin-yong-ipv6&quot;&gt;1.修改配置文件blacklist.conf禁用IPV6&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;表示用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内容。&lt;&#x2F;p&gt;
+&lt;p&gt;注意：只能在root用户模式下才可以修改&lt;&#x2F;p&gt;
+&lt;p&gt;在文档最后添加 blacklist ipv6&lt;&#x2F;p&gt;
+&lt;p&gt;然后查看修改结果&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;cat &#x2F;etc&#x2F;modprobe.d&#x2F;blacklist.conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;2-she-zhi-wang-qia-eth0de-ipdi-zhi-he-zi-wang-yan-ma&quot;&gt;2.设置网卡eth0的IP地址和子网掩码&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo ifconfig eth0 192.168.2.1 netmask 255.255.255.0
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;将IP地址改为：192.168.2.1，子网掩码改为：255.255.255.0&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-ubuntu-ipshe-zhi-wang-guan&quot;&gt;3.Ubuntu IP设置网关&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo route add default gw 192.168.2.254
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;4-ubuntu-ipshe-zhi-dns-xiu-gai-etc-resolv-conf-zai-qi-zhong-jia-ru-nameserver-dnsde-di-zhi-1-he-nameserver-dnsde-di-zhi-2-wan-cheng&quot;&gt;4.Ubuntu IP设置DNS 修改&#x2F;etc&#x2F;resolv.conf，在其中加入nameserver DNS的地址1 和 nameserver DNS的地址2 完成。&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;5-zhong-qi-wang-luo-fu-wu-ruo-bu-xing-qing-zhong-qi-ubuntu-sudo-reboot&quot;&gt;5.重启网络服务（若不行，请重启ubuntu：sudo reboot）&lt;&#x2F;h3&gt;
+&lt;p&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;6-cha-kan-dang-qian-ip&quot;&gt;6.查看当前IP&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;ifconfig
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;er-zhi-jie-xiu-gai-ubuntu-ipxi-tong-pei-zhi-wen-jian&quot;&gt;二、直接修改Ubuntu IP系统配置文件&lt;&#x2F;h2&gt;
+&lt;p&gt;Ubuntu IP的网络配置文件是根目录下：&#x2F;etc&#x2F;network&#x2F;interfaces&lt;&#x2F;p&gt;
+&lt;p&gt;注意：修改完interfaces文档中的内容后，需要修改&#x2F;etc&#x2F;NetworkManager&#x2F;NetworkManager.conf文档中的managed参数，使之为true，并重启。否则，会提示说“有线网络设备未托管”。&lt;&#x2F;p&gt;
+&lt;p&gt;打开后里面可设置DHCP或手动设置静态IP。&lt;&#x2F;p&gt;
+&lt;p&gt;前面auto eth0，表示让网卡开机自动挂载eth0。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;1-yi-dhcpfang-shi-pei-zhi-wang-qia&quot;&gt;1. 以DHCP方式配置网卡&lt;&#x2F;h3&gt;
+&lt;p&gt;编辑文件 &#x2F;etc&#x2F;network&#x2F;interfaces&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;network&#x2F;interfaces
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;并用下面的行来替换有关eth0的行：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;#The primary network interface - use DHCP to find our address
+auto eth0
+iface eth0 inet dhcp
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;用下面的命令使网络设置生效：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;也可以在命令行下直接输入下面的命令来获取地址sudo dhclient eth0&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-wei-wang-qia-pei-zhi-jing-tai-ubuntu-ipdi-zhi&quot;&gt;2. 为网卡配置静态Ubuntu IP地址&lt;&#x2F;h3&gt;
+&lt;p&gt;编辑文件 &#x2F;etc&#x2F;network&#x2F;interfaces&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;network&#x2F;interfaces
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;并用下面的行来替换有关eth0的行：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;# The primary network interface  
+auto eth0  
+iface eth0 inet static  
+address 192.168.2.1  
+gateway 192.168.2.254  
+netmask 255.255.255.0  
+#network 192.168.2.0  
+#broadcast 192.168.2.255 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;将eth0的IP分配方式修改为静态分配(static)后，为其制定IP、网关、子网掩码等信息。&lt;&#x2F;p&gt;
+&lt;p&gt;将上面的Ubuntu IP地址等信息换成你自己就可以了。&lt;&#x2F;p&gt;
+&lt;p&gt;用下面的命令使网络设置生效：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;3-she-ding-di-er-ge-ubuntu-ipdi-zhi-xu-ni-ipdi-zhi&quot;&gt;3. 设定第二个Ubuntu IP地址(虚拟IP地址)&lt;&#x2F;h3&gt;
+&lt;p&gt;编辑文件&#x2F;etc&#x2F;network&#x2F;interfaces：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo vi &#x2F;etc&#x2F;network&#x2F;interfaces 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;在该文件中添加如下的行：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;auto eth0:1  
+iface eth0:1 inet static  
+address x.x.x.x  
+netmask x.x.x.x  
+network x.x.x.x  
+broadcast x.x.x.x  
+gateway x.x.x.x 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;根据你的情况填上所有诸如address,netmask,network,broadcast和gateways等信息；&lt;&#x2F;p&gt;
+&lt;p&gt;用下面的命令使网络设置生效&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;4-she-zhi-zhu-ji-ming-cheng-hostname&quot;&gt;4. 设置主机名称(hostname)&lt;&#x2F;h3&gt;
+&lt;p&gt;使用下面的命令来查看当前主机的主机名称：sudo &#x2F;bin&#x2F;hostname&lt;&#x2F;p&gt;
+&lt;p&gt;使用下面的命令来设置当前主机的主机名称：sudo &#x2F;bin&#x2F;hostname newname&lt;&#x2F;p&gt;
+&lt;p&gt;系统启动时，它会从&#x2F;bin&#x2F;hostname来读取主机的名称。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-pei-zhi-dns&quot;&gt;5. 配置DNS&lt;&#x2F;h3&gt;
+&lt;p&gt;首先，你可以在&#x2F;etc&#x2F;hosts中加入一些主机名称和这些主机名称对应的IP地址，这是 简单使用本机的静态查询。要访问DNS 服务器来进行查询,需要设置&#x2F;etc&#x2F;resolv.conf文件，假设DNS服务器的IP地址是192.168.2.2, 那么&#x2F;etc&#x2F;resolv.conf文件的内容应为：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;search chotim.com
+nameserver 192.168.2.2
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;6-shou-dong-zhong-qi-wang-luo-fu-wu-sudo-etc-init-d-networking-restart&quot;&gt;6.手动重启网络服务：sudo &#x2F;etc&#x2F;init.d&#x2F;networking restart&lt;&#x2F;h3&gt;
+&lt;p&gt;返回结果如下：&lt;&#x2F;p&gt;
+&lt;p&gt;*Reconfiguring network interfaces… [OK]&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

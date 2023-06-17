@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>php autoload之composer篇 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="子十个人博客" />
+  <link rel="canonical" href="http://aqrun.com/backend/php-autoloadzhi-composerpian/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/php-autoloadzhi-composerpian/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/php-autoloadzhi-composerpian/" />
+  <meta property="og:description" content="子十个人博客" />
+  <meta name="twitter:description" content="子十个人博客" />
+  <meta property="og:title" content="php autoload之composer篇 | 子十" />
+  <meta name="twitter:title" content="php autoload之composer篇 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2014-06-20" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/php-autoloadzhi-composerpian/">php autoload之composer篇</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2014-06-20<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/composer/">composer</a> </span>
+
+    <p>Composer是PHP依赖管理工具 具体介绍官方网站： https://getcomposer.org/doc/00-intro.md 本篇介绍 小项目如何使用composer生成自动加载类文件</p>
+<h2 id="1-chuang-jian-xiang-mu-test-mu-lu-jie-gou">1. 创建项目 test 目录结构：</h2>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">/test/
+/vendor/ //第三方包 类库
+/module/ // 模块
+TestClass.php //模块TestClass类
+index.php
+composer.json //composer.json
+  <span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-inline z-any z-html">code</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+<span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">pre</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+
+//TestClass.php
+
+<span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">pre</span> <span class="z-meta z-attribute-with-value z-class z-html"><span class="z-entity z-other z-attribute-name z-class z-html">class</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-string z-quoted z-double z-html"><span class="z-meta z-class-name z-html">line-numbers</span><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+    <span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-inline z-any z-html">code</span> <span class="z-meta z-attribute-with-value z-class z-html"><span class="z-entity z-other z-attribute-name z-class z-html">class</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-string z-quoted z-double z-html"><span class="z-meta z-class-name z-html">language-json</span><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+    // composer.json 
+    { 
+      &quot;name&quot;: &quot;ztest&quot;, //name 之类其它好多属性 不是必须的 
+        &quot;autoload&quot;: { // autoload 属性用来定义本项目 要自动加载的自定义项 
+        &quot;psr-4&quot;: { //使用psr-4规范 会将内容生成到 vendor/composer/autoload-psr4.php 文件中 
+          &quot;module\\&quot;: &quot;vendor/module/&quot; 
+        } 
+      }
+    }
+</span></span></code></pre>
+<h2 id="2-yun-xing-shi-yong-composer-zi-dong-gou-jian-composer-an-zhuang-fang-fa-guan-wang-you-jin-ru-kong-zhi-tai-lu-jing-dao-suo-jian-xiang-mu-gen-lu-jing-ye-jiu-shi-composer-jsonsuo-zai-lu-jing-yun-xing-composer-install-hui-zi-dong-sheng-cheng-vendor-composer-zhe-ge-mu-lu-5ge-wen-jian-hui-gen-ju-composer-jsonpei-zhi-can-shu-sheng-cheng-xiang-guan-nei-rong-vendor-autoload-php-zui-hou-xiang-mu-ru-kou-wen-jian">2. 运行使用composer 自动构建 composer 安装方法官网有 进入控制台 路径到所建项目根路径 也就是composer.json所在路径 运行： composer install 会自动生成 /vendor/composer/* //这个目录5个文件 会根据 composer.json配置参数生成相关内容 /vendor/autoload.php 最后项目入口文件</h2>
+<p>==============</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">//index.php
+addPsr4(&quot;module2&quot;, &quot;module2的路径&quot;);     //这句在项目调试时可以用      临时增加新的命名空间
+echo (new TestClass())-&gt;name;   //输出 test content
+</span></span></code></pre>
+
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+</body>
+</html>

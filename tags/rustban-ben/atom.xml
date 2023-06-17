@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - rust版本</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/rustban-ben/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2021-12-03T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/rustban-ben/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Rust 1.57 稳定版发布了</title>
+        <published>2021-12-03T00:00:00+00:00</published>
+        <updated>2021-12-03T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/rust/rust-1-57-0/" type="text/html"/>
+        <id>http://aqrun.com/rust/rust-1-57-0/</id>
+        
+        <content type="html">&lt;blockquote&gt;
+&lt;p&gt;https:&#x2F;&#x2F;blog.rust-lang.org&#x2F;2021&#x2F;12&#x2F;02&#x2F;Rust-1.57.0.html&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;时隔6周，Rust 1.57.0 stable 她来了，新特性一览：&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;const-shang-xia-wen-zhi-chi-panic&quot;&gt;const 上下文支持 panic!&lt;&#x2F;h2&gt;
+&lt;p&gt;早期版本的 Rust，panic! 宏不能在 &lt;code&gt;const fn&lt;&#x2F;code&gt; 或其它运行时上下文中。这个版本他稳定可用了。
+和 &lt;code&gt;panic!&lt;&#x2F;code&gt; 一起还有一些其它标准库API也能在 const 中使用了，如 &lt;code&gt;assert!&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;panic!&lt;&#x2F;code&gt; 宏当前版本还不支持完整的格式化，必须用一个静态字符串调用（&lt;code&gt;panic!(&amp;quot;&amp;quot;)&lt;&#x2F;code&gt;），
+或使用带 &lt;code&gt;{}&lt;&#x2F;code&gt; （不能使用格式说明或其它特征）的 &lt;code&gt;&amp;amp;str&lt;&#x2F;code&gt; 类型插值。&lt;&#x2F;p&gt;
+&lt;p&gt;未来相关功能会有更多支持，但就目前这个最小稳定版已经可以使用编译时断言了，如验证类型大小：&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;const&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;_&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;=&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;assert!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;std&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;mem&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;size_of&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u64&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-comparison z-rust&quot;&gt;==&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;const&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;_&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;=&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;assert!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;std&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;mem&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;size_of&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-comparison z-rust&quot;&gt;==&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;cargo-zhi-chi-zi-ding-yi-pei-zhi-wen-jian&quot;&gt;Cargo 支持自定义配置文件&lt;&#x2F;h2&gt;
+&lt;p&gt;Cargo 长期以来只支持四种配置文件： &lt;code&gt;dev&lt;&#x2F;code&gt;、&lt;code&gt;release&lt;&#x2F;code&gt;、&lt;code&gt;test&lt;&#x2F;code&gt; 和 &lt;code&gt;bench&lt;&#x2F;code&gt;。现在 1.57 版本
+支持任意命名的配置文件。&lt;&#x2F;p&gt;
+&lt;p&gt;例如，如果你只想在最终产品构建时启用链接时间优化(LTO)，可以在 &lt;code&gt;Cargo.toml&lt;&#x2F;code&gt; 添加如下配置
+当选择这个配置文件时就可以启用 &lt;code&gt;lto&lt;&#x2F;code&gt; 参数，从而避免了在常规编译时启用它。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; class=&quot;language-toml z-code&quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-table z-begin z-toml&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-tag z-table z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-table z-toml&quot;&gt;profile&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-table z-toml&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-table z-toml&quot;&gt;production&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-table z-end z-toml&quot;&gt;]&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;inherits&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;release&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;lto&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-toml&quot;&gt;true&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;请注意，自定义配置文件必须指定他们要从中继承默认参数的配置文件。自定义配置定义好了之后，
+Cargo 构建代码时可以使用参数 &lt;code&gt;--profile production&lt;&#x2F;code&gt; 来指定使用他。当前，会在单独的目录中
+构建（本例是 &lt;code&gt;target&#x2F;production&lt;&#x2F;code&gt;），意味着构建产物不会在目录间共享。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;yi-fan-cuo-de-nei-cun-fen-pei&quot;&gt;易犯错的内存分配&lt;&#x2F;h2&gt;
+&lt;p&gt;Rust 1.57 为 &lt;code&gt;Vec&lt;&#x2F;code&gt;、&lt;code&gt;String&lt;&#x2F;code&gt;、&lt;code&gt;HashMap&lt;&#x2F;code&gt;、&lt;code&gt;HashSet&lt;&#x2F;code&gt; 和 &lt;code&gt;VecDeque&lt;&#x2F;code&gt; 稳定了 &lt;code&gt;try_reserve&lt;&#x2F;code&gt;。
+这个 API 使调用者能够错误地为这些类型分配后备存储。&lt;&#x2F;p&gt;
+&lt;p&gt;如果全局分配器失败，Rust 通常会中止进程，这并不总是可取的。此 API 提供了一种方法，用于在
+使用标准库集合时避免终止。然而，Rust 并不保证返回的内存实际是由内核分配的：例如，如果在 linux
+上启用了 overcommit，那么在尝试使用内存时，内存可能不可用。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;yi-xie-wen-ding-liao-de-api&quot;&gt;一些稳定了的 API&lt;&#x2F;h2&gt;
+&lt;p&gt;如下是一些稳定了的方法和特征实现：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;[T; N]::as_mut_slice&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;[T; N]::as_slice&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;collections::TryReserveError&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;HashMap::try_reserve&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;HashSet::try_reserve&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;String::try_reserve&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;String::try_reserve_exact&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Vec::try_reserve&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Vec::try_reserve_exact&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;VecDeque::try_reserve&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;VecDeque::try_reserve_exact&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Iterator::map_while&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;iter::MapWhile&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;proc_macro::is_available&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Command::getProgram&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Command::get_args&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Command::get_envs&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;Command::get_current_dir&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;CommandArs&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;CommandArgs&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;CommandEnvs&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;下面是之前稳定的函数现在是 &lt;code&gt;const&lt;&#x2F;code&gt;：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hint::unreachable_unchecked&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;qi-ta-gai-dong&quot;&gt;其它改动&lt;&#x2F;h2&gt;
+&lt;p&gt;在 1.57 还有些其它改动，具体查看相关改动日志 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust&#x2F;blob&#x2F;master&#x2F;RELEASES.md#version-1570-2021-12-02&quot;&gt;Rust&lt;&#x2F;a&gt;、&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;cargo&#x2F;blob&#x2F;master&#x2F;CHANGELOG.md#cargo-157-2021-12-02&quot;&gt;Cargo&lt;&#x2F;a&gt; 和 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;rust-clippy&#x2F;blob&#x2F;master&#x2F;CHANGELOG.md#rust-157&quot;&gt;Clippy&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-57-0-de-gong-xian-zhe&quot;&gt;1.57.0 的贡献者&lt;&#x2F;h2&gt;
+&lt;p&gt;有很多人参与了创建 Rust 1.57.0。&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;thanks.rust-lang.org&#x2F;rust&#x2F;1.57.0&#x2F;&quot;&gt;感谢你们&lt;&#x2F;a&gt;。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

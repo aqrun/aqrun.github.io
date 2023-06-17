@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>7.Magento 2 后台 ACL 权限控制列表 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色" />
+  <link rel="canonical" href="http://aqrun.com/backend/7-admin-acl/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/7-admin-acl/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/7-admin-acl/" />
+  <meta property="og:description" content="Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色" />
+  <meta name="twitter:description" content="Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色" />
+  <meta property="og:title" content="7.Magento 2 后台 ACL 权限控制列表 | 子十" />
+  <meta name="twitter:title" content="7.Magento 2 后台 ACL 权限控制列表 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-09-10" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/7-admin-acl/">7.Magento 2 后台 ACL 权限控制列表</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-09-10<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/magento2/">magento2</a> </span>
+
+    <blockquote>
+<p><a href="http://aqrun.com/backend/0-magento-menu/">Magento 2 开发内容目录</a></p>
+</blockquote>
+<p>Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色。本文我们来研究它的工作机制并为我们的自定义模块添加权限控制。</p>
+<h2 id="magento-2-quan-xian-kong-zhi-lie-biao-gui-ze">Magento 2 权限控制列表规则</h2>
+<p>后台 ACL资源 可以在 <code>System &gt; Permissions &gt; User Roles</code> 菜单下看到。当我们点击 <code>Add new Role</code> 按钮会看到如下图页面：</p>
+<p><img src="https://static.oicnp.com/blog/2023/magento2/7-role-resources.png" alt="role resources" /></p>
+<p>在这个权限资源面板你可看到一个树状列表显示的系统中定义的所有权限资源。你可以选择所有权限资源，也可以给角色或用户选择某几个权限资源。所有属于当前角色的用户都限定只能访问你选择的权限资源，他们不能看到或访问其它权限资源。</p>
+<p>要添加后台管理员ACL有如下几步：</p>
+<ul>
+<li>1 添加 ACL 规则</li>
+<li>2 清空缓存</li>
+<li>3 检测ACL规则</li>
+</ul>
+<h2 id="di-yi-bu-chuang-jian-aclgui-ze">第一步 创建ACL规则</h2>
+<p>还是使用HelloWorld模块演示如何添加权限控制。在上两章节我们经常会看到 <code>resource</code> 这个属性。现在让我们把那些权限资源注册到系统里，以便系统识别并让我们可以把这些权限资源指派到某个角色。要注册权限资源我们使用位于 <code>app/code/{namespace}/{modeule}/etc/acl.xml</code> 的这个 acl.xml 文件。下面开始创建：</p>
+<p>文件 <code>app/code/Aqrun/HelloWorld/etc/acl.xml</code></p>
+<p>代码：</p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">config</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:framework:Acl/etc/acl.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">acl</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resources</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Magento_Backend::admin<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>你好世界<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+                    <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>title<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>51<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>文章管理<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+                        <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>title<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>51<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+                    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld_configuration<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+                        <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>title<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>参数设置<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>99<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+                <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Magento_Backend::stores<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Magento_Backend::stores_settings<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Magento_Config::config<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld_config<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+                                <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>title<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>你好世界设置<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>100<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+                        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+                <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resources</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">acl</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">config</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>我们的权限资源做为子节点放在 <code>Magneto_Backend::admin</code> 节点下面，每个权限资源都会有 id, title, sortOrder 属性：</p>
+<ul>
+<li>id 是资源的唯一标识。你可以在定义后台菜单、参数配置时把这个标识作为值赋给 <code>resource</code> 属性。标识是唯一的并且格式是: Vendor_ModuleName::resource_name。</li>
+<li>title 属性是在权限资源树列表显示的名称</li>
+<li>sortOrder 控制权限资源在树中显示的顺序</li>
+</ul>
+<p>接下来清空缓存并查看权限资源树：</p>
+<p><img src="https://static.oicnp.com/blog/2023/magento2/7-role-resources-result.png" alt="role resources added" /></p>
+<h2 id="di-er-bu-qing-huan-cun">第二步 清缓存</h2>
+<h2 id="di-san-bu-ce-shi-acl-gui-ze">第三步 测试 ACL 规则</h2>
+<p>有很多地方我们可以使用ACL权限资源控制用户的访问：</p>
+<h4 id="hou-tai-cai-dan-shi-yong-acl-quan-xian-zi-yuan-ke-yi-dui-wei-shou-quan-yong-hu-yin-cang-cai-dan-xiang">后台菜单： 使用 ACL 权限资源可以对未授权用户隐藏菜单项</h4>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/adminhtml/menu.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">add</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Hello World<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">module</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>51<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+    <span class="z-entity z-other z-attribute-name z-localname z-xml">resource</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+</span></code></pre>
+<h4 id="xi-tong-can-shu-she-zhi-shi-yong-aclquan-xian-zi-yuan-xian-zhi-section-de-fang-wen">系统参数设置： 使用ACL权限资源限制 section 的访问</h4>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/adminhtml/system.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">section</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>label<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>130<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">showInDefault</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">showInWebsite</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">showInStore</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        ….
+            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>Mageplaza_HelloWorld::helloworld_configuration<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">resource</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        ….
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">section</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>权限资源也可以用于控制器</p>
+<h4 id="hou-tai-kong-zhi-qi">后台控制器</h4>
+<p>系统提供接口 <code>Magento\Framework\AuthorizationInterface</code>，使用这个接口可以判断当前登陆用户是否有特定权限。可以通过变量： <code>$this-&gt;_authorization</code> 获取它的实例对象。在控制器中需要定义一个保护方法来检测权限资源：</p>
+<p>如文件： <code>vendor/magento/module-customer/Controler/Adminhtml/Index.php</code></p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">protected function _isAlloed()
+{
+    return $this-&gt;_authorization-&gt;isAllowed(&#39;Magento_Customer::manage&#39;);
+}
+</span></span></code></pre>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - web</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/web/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2015-07-17T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/web/atom.xml</id>
+    <entry xml:lang="en">
+        <title>移动页面基本结构</title>
+        <published>2015-07-17T00:00:00+00:00</published>
+        <updated>2015-07-17T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" type="text/html"/>
+        <id>http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</id>
+        
+        <content type="html">&lt;h3 id=&quot;viewport&quot;&gt;Viewport&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;line-numbers&quot; markdown=&quot;0&quot;&gt;
+  &lt;code class=&quot;language-javascript&quot;&gt;
+
+    &#x2F;&#x2F; meta:
+    &#x2F;&#x2F; &amp;lt;meta content=&quot;width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot; name=&quot;viewport&quot;&amp;gt;
+
+    (function(init_width){
+      var isAndroid=navigator.userAgent.match(&#x2F;(Android)&#x2F;i)
+      , viewPort = document.querySelector(&quot;meta[name=viewport]&quot;);
+      window.html_font_size = isAndroid?100:window.innerWidth*100&#x2F;init_width;
+      
+      function setHtmlWidth(){
+        document.querySelector(&quot;html&quot;).style.fontSize = html_font_size + &quot;px&quot;;
+      }
+      
+      if (isAndroid) {
+        content = &quot;target-densitydpi=320,width=&quot;+init_width+&quot;,user-scalable=no&quot;;
+        viewPort.setAttribute(&quot;content&quot;,content);
+      }else{
+        setHtmlWidth();window.onresize = setHtmlWidth;
+      }
+    })(640)
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;css-reset&quot;&gt;CSS reset&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-css&quot;&gt;
+    &#x2F;*css reset*&#x2F;
+    html{font-size:100px}
+    body{
+      font-size: 0.12rem;
+      font-family: &quot;微软雅黑&quot;,&quot;宋体&quot;,&quot;arial&quot;;
+      font-weight: normal;
+      overflow-x: hidden;
+    }
+    body, ul, ol, p, h1, h2, h3, h4, h5, h6, dl, dt, dd ,form ,textarea ,input{margin:0;}
+      ul,ol{list-style:none;}
+      ul,ol,input{padding:0;}
+      table{margin:0 auto;width:100%;border-collapse:collapse;}
+      a img{border:0;
+    }
+    input[type=&quot;button&quot;], input[type=&quot;submit&quot;], input[type=&quot;reset&quot;] {
+      -webkit-appearance: none;
+    }
+    .clearfix:after {
+      content: &quot; &quot;;
+      display: block;
+      clear: both;
+      height: 0;
+    }
+    img{width:100%;}
+      .max_width{
+      width:6.4rem;
+      margin:0 auto;
+      position: relative;
+    }
+    .clear{
+      width:100%;
+      height:0;
+      clear:both;
+    }
+    .clear30{
+      height: 30px;
+    }
+    .clearfix {
+      zoom: 1;
+    }
+    img,object,audio,vedio{
+      max-width: 100%;
+    }
+    a{
+      text-decoration: none;
+    }
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;html&quot;&gt;html&lt;&#x2F;h3&gt;
+&lt;pre&gt;
+&lt;code class=&quot;language-html&quot;&gt;
+&amp;lt;div class=&quot;wrap clearfix&quot;&amp;gt;
+  &amp;lt;div class=&quot;max_width&quot;&amp;gt;
+  
+  &amp;lt;&#x2F;div&amp;gt;
+&amp;lt;&#x2F;div&amp;gt;
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>12.Magento 2 索引和重建索引 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器" />
+  <link rel="canonical" href="http://aqrun.com/backend/12-magento2-indexing-reindex/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/12-magento2-indexing-reindex/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/12-magento2-indexing-reindex/" />
+  <meta property="og:description" content="如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器" />
+  <meta name="twitter:description" content="如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器" />
+  <meta property="og:title" content="12.Magento 2 索引和重建索引 | 子十" />
+  <meta name="twitter:title" content="12.Magento 2 索引和重建索引 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-11-10" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/12-magento2-indexing-reindex/">12.Magento 2 索引和重建索引</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-11-10<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/magento2/">magento2</a> </span>
+
+    <blockquote>
+<p><a href="http://aqrun.com/backend/0-magento-menu/">Magento 2 开发内容目录</a></p>
+</blockquote>
+<p>本文讨论如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器。为了代码演示我们继续使用 HelloWorld 模块。</p>
+<p>Magento 系统使用索引来变换数据如产品、分类等进而提高店铺的性能。当数据变化时，变换的数据也必须同步更新或重建索引。Magento 使用非常精致的架构在很多数据表中存储大量的店铺数据（包括产品、价格、用户、店铺等数据）。为了优化店铺性能，Magento 使用索引器把累积的数据存储到特定数据表。</p>
+<p>比如，你将一个产品的价格从￥8.99改到￥6.99，这时要让前台页面正常显示 Magento 就必须重建价格索引。</p>
+<p>如果不使用索引，Magneto就必须实时计算每一个产品的价格——要计算的有客户购物车产品规则、批量价、折扣价、阶梯价等。这样产品的价格计算会花费很长时间，长时间的等待造成的结果可能就是消费者放弃购物。</p>
+<p>创建自定义索引器步骤：</p>
+<ul>
+<li>1 添加索引器配置文件</li>
+<li>2 添加 Mview 配置文件</li>
+<li>3 定义索引器类</li>
+<li>4 运行测试</li>
+</ul>
+<h2 id="tian-jia-suo-yin-qi-pei-zhi-wen-jian">添加索引器配置文件</h2>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/indexer.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">config</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:framework:Indexer/etc/indexer.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">indexer</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>aqrun_helloworld_indexer<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+        <span class="z-entity z-other z-attribute-name z-localname z-xml">view_id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>aqrun_helloworld_indexer<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+        <span class="z-entity z-other z-attribute-name z-localname z-xml">class</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun\HelloWorld\Model\Indexer\Test<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+        <span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">title</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>true<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>Aqrun HelloWorld Indexer<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">title</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">description</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">translate</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>true<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>你好世界自定义索引器<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">description</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">indexer</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">config</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>上面代码中我们使用 indexer 节点定义了一个新的索引器：</p>
+<ul>
+<li>id 属性是索引器的唯一标识。可以在命令行使用这个ID来检查状态、模式或重建对应的索引</li>
+<li>view_id 是视图元素的ID，视图元素会在 mview 配置文件中进行定义</li>
+<li>class 属性指定我们要处理索引方法的类名</li>
+</ul>
+<p>简单的索引还有两个子节点：</p>
+<ul>
+<li>title 节点是显示在索引器列表中的文字</li>
+<li>description 节点索引器列表中的说明文字</li>
+</ul>
+<h2 id="tian-jia-mview-pei-zhi-wen-jian">添加 Mview 配置文件</h2>
+<p>mview.xml 文件是用于跟踪指定的实体在数据库中的变化，并运行指定的方法处理这些变化</p>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/mview.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">encoding</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>UTF-8<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">config</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+        <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:framework:Mview/etc/mview.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">view</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>aqrun_helloworld_indexer<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+          <span class="z-entity z-other z-attribute-name z-localname z-xml">class</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun\HelloWorld\Model\Indexer\Test<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+          <span class="z-entity z-other z-attribute-name z-localname z-xml">group</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>indexer<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">subscriptions</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">table</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>catalog_product_entity<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">entity_column</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>entity_id<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">subscription</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">view</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">config</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>代码中定义了有ID属性的 view 节点，ID属性关联索引器，class 属性指定了实现有 <code>execute()</code> 方法的类。这个方法会在订阅的数据表有更新时执行。</p>
+<p>定义数据表需要用到表名和表的字段，这些参数也会传给 <code>execute()</code> 方法。本例我们指定的表是 <code>catalog_product_entity</code>。因此无论何时不管是一个还是多个产品被保存，都会执行 Aqrun\HelloWorld\Model\Indexer\Test 类的 execute() 方法。</p>
+<h2 id="ding-yi-suo-yin-qi-lei">定义索引器类</h2>
+<p>根据上面的 indexer.xml 和 mview.xml 配置文件，定义索引器为： Aqrun\HelloWorld\Model\Indexer\Test</p>
+<p>文件： <code>app/code/Aqrun/HelloWrold/Model/Indexer/Test.php</code></p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic"><span class="z-meta z-embedded z-block z-php"><span class="z-punctuation z-section z-embedded z-begin z-php">&lt;?php</span></span><span class="z-meta z-embedded z-block z-php"><span class="z-source z-php">
+<span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-keyword z-other z-namespace z-php">namespace</span> </span></span><span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-entity z-name z-namespace z-php"><span class="z-support z-other z-namespace z-php">Aqrun</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">HelloWorld</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Model</span><span class="z-punctuation z-separator z-namespace z-php">\</span>Indexer</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+<span class="z-meta z-class z-php"><span class="z-storage z-type z-class z-php">class</span> <span class="z-entity z-name z-class z-php">Test</span> <span class="z-storage z-modifier z-implements z-php">implements</span> <span class="z-meta z-path z-php"><span class="z-entity z-other z-inherited-class z-php"><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Magento</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Framework</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Indexer</span><span class="z-punctuation z-separator z-namespace z-php">\</span>ActionInterface</span></span><span class="z-punctuation z-separator z-php">,</span>
+    <span class="z-meta z-path z-php"><span class="z-entity z-other z-inherited-class z-php"><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Magento</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Framework</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">Mview</span><span class="z-punctuation z-separator z-namespace z-php">\</span>ActionInterface</span></span>
+<span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">{</span></span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php">
+    <span class="z-comment z-block z-documentation z-phpdoc z-php"><span class="z-punctuation z-definition z-comment z-begin z-php">/**
+</span>     <span class="z-punctuation z-definition z-comment z-php">*</span> 被 mview 调用，允许在 &quot;Update on schedule&quot; 模式下处理索引
+     <span class="z-punctuation z-definition z-comment z-php">*</span> <span class="z-keyword z-other z-phpdoc z-php">@param</span> int[] $ids
+     <span class="z-punctuation z-definition z-comment z-end z-php">*/</span></span>
+    <span class="z-storage z-modifier z-php">public</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">execute</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>ids</span><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-comment z-line z-double-slash z-php"><span class="z-punctuation z-definition z-comment z-php">//</span>code
+</span>    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+
+    <span class="z-comment z-block z-documentation z-phpdoc z-php"><span class="z-punctuation z-definition z-comment z-begin z-php">/**
+</span>     <span class="z-punctuation z-definition z-comment z-php">*</span> 会处理所有的数据并重建索引
+     <span class="z-punctuation z-definition z-comment z-php">*</span> 在使用命令行重建索引时会执行
+     <span class="z-punctuation z-definition z-comment z-end z-php">*/</span></span>
+    <span class="z-storage z-modifier z-php">public</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">executeFull</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-comment z-line z-double-slash z-php"><span class="z-punctuation z-definition z-comment z-php">//</span>code
+</span>    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+
+    <span class="z-comment z-block z-documentation z-phpdoc z-php"><span class="z-punctuation z-definition z-comment z-begin z-php">/**
+</span>     <span class="z-punctuation z-definition z-comment z-php">*</span> 作用于一组实体的变化（如批量操作）
+     <span class="z-punctuation z-definition z-comment z-php">*</span> <span class="z-keyword z-other z-phpdoc z-php">@param</span> array $ids
+     <span class="z-punctuation z-definition z-comment z-end z-php">*/</span></span>
+    <span class="z-storage z-modifier z-php">public</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">executeList</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-storage z-type z-php">array</span> <span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>ids</span><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-comment z-line z-double-slash z-php"><span class="z-punctuation z-definition z-comment z-php">//</span>code
+</span>    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+
+    <span class="z-comment z-block z-documentation z-phpdoc z-php"><span class="z-punctuation z-definition z-comment z-begin z-php">/**
+</span>     <span class="z-punctuation z-definition z-comment z-php">*</span> 作用于单个实体
+     <span class="z-punctuation z-definition z-comment z-php">*</span> <span class="z-keyword z-other z-phpdoc z-php">@param</span> int $id
+     <span class="z-punctuation z-definition z-comment z-end z-php">*/</span></span>
+    <span class="z-storage z-modifier z-php">public</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">executeRow</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>id</span><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-comment z-line z-double-slash z-php"><span class="z-punctuation z-definition z-comment z-php">//</span> code
+</span>    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+</span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">}</span></span></span>
+</span></span></span></span></code></pre>
+<p>你可以在索引器类方法中添加代码向索引器表更新数据</p>
+<p>接下来，清空缓存并到后台菜单  system &gt; Index Management 查看代码结果</p>
+<p><img src="http://aqrun.com/backend/12-magento2-indexing-reindex/images/12-custom-indexer.png" alt="custom indexer" /></p>
+<h2 id="zhong-jian-suo-yin-shi-yong-ming-ling">重建索引使用命令：</h2>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento indexer:redinex</span>
+</span></code></pre>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>14.Magento 2 中如何添加控制台命令 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作" />
+  <link rel="canonical" href="http://aqrun.com/backend/14-console-command-line/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/14-console-command-line/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/14-console-command-line/" />
+  <meta property="og:description" content="如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作" />
+  <meta name="twitter:description" content="如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作" />
+  <meta property="og:title" content="14.Magento 2 中如何添加控制台命令 | 子十" />
+  <meta name="twitter:title" content="14.Magento 2 中如何添加控制台命令 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-11-23" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/14-console-command-line/">14.Magento 2 中如何添加控制台命令</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-11-23<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/magento2/">magento2</a> </span>
+
+    <blockquote>
+<p><a href="http://aqrun.com/backend/0-magento-menu/">Magento 2 开发内容目录</a></p>
+</blockquote>
+<p>本文讨论如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作：</p>
+<ul>
+<li>安装 Magento （相关的还有创建、更新数据表，添加或发布配置文件等）</li>
+<li>清缓存</li>
+<li>管理索引，重建索引</li>
+<li>创建翻译文件及语言包</li>
+<li>生成不存在的一些类如工厂类和插件的拦截器，为对像管理器生成依赖注入配置文件</li>
+<li>发布静态文件</li>
+<li>编译LESS到CSS</li>
+</ul>
+<p>开始之前确保 HelloWorld 模块还在，这个模块在前面章节也一直使用。下面开始添加我们自定义的命令：</p>
+<h2 id="di-yi-bu-zai-di-xml-ding-yi-ming-ling">第一步：在 di.xml 定义命令</h2>
+<p>在 di.xml 文件中可以使用 name 属性为 <code>Magento\Framework\Console\CommandList</code> 的 type 节点定义命令参数。</p>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/di.xml</code></p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">type</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Magento\Framework\Console\CommandList<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">arguments</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">argument</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>commands<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">type</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>array<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+            <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">item</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">name</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>exampleSayHello<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">type</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>object<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>Aqrun\HelloWorld\Console\Sayhello<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">item</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">argument</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">arguments</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">type</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>代码中定义了一个命令类 Sayhello。命令类中会定义命令行名称，并实现 <code>execute()</code> 方法</p>
+<h2 id="di-er-bu-chuang-jian-ming-ling-lei">第二步：创建命令类</h2>
+<p>根据配置文件我们创建如下类</p>
+<p>文件： <code>app/code/Aqrun/HelloWorld/Console/Sayhello.php</code></p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">namespace Aqrun\HelloWorld\Console;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class Sayhello extends Command
+{
+    protected function configure()
+    {
+        $this-&gt;setName(&#39;示例：sayhello&#39;);
+        $this-&gt;setDiscription(&#39;示例命令&#39;);
+        parent::configure();
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output-&gt;writeln(&#39;你好世界&#39;);
+    }
+}
+</span></span></code></pre>
+<p>函数中实现了两个方法：</p>
+<ul>
+<li>configure() 函数用来设置名称、描述、命令行参数</li>
+<li>execute() 函数会在控制台调用命令时执行</li>
+</ul>
+<p>类的定义完成后清空缓存，执行如下命令：</p>
+<pre class="z-code"><code><span class="z-text z-plain">php magento list
+</span></code></pre>
+<p>可以输出所有可用命令，我们刚添加的自定义命令也在：</p>
+<p><img src="https://static.oicnp.com/blog/2023/magento2/14-cli-list1.png" alt="14-cli-list1.png" /></p>
+<p>现在可以在控制台运行 <code>php bin/magento example:sayhello</code>：</p>
+<p><img src="https://static.oicnp.com/blog/2023/magento2/14-cli-list1-result.png" alt="14-cli-list1-result.png" /></p>
+<p>接下来可以给命令添加一些参数。</p>
+<p>代码如下：</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic"><span class="z-meta z-embedded z-block z-php"><span class="z-punctuation z-section z-embedded z-begin z-php">&lt;?php</span></span><span class="z-meta z-embedded z-block z-php"><span class="z-source z-php">
+<span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-keyword z-other z-namespace z-php">namespace</span> </span></span><span class="z-meta z-namespace z-php"><span class="z-meta z-path z-php"><span class="z-entity z-name z-namespace z-php"><span class="z-support z-other z-namespace z-php">Aqrun</span><span class="z-punctuation z-separator z-namespace z-php">\</span><span class="z-support z-other z-namespace z-php">HelloWorld</span><span class="z-punctuation z-separator z-namespace z-php">\</span>Console</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+<span class="z-meta z-use z-php"><span class="z-keyword z-other z-use z-php">use</span> </span><span class="z-meta z-use z-php"><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Symfony</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Component</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Console</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Command</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-class z-php">Command</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+<span class="z-meta z-use z-php"><span class="z-keyword z-other z-use z-php">use</span> </span><span class="z-meta z-use z-php"><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Symfony</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Component</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Console</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Input</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-class z-php">InputInterface</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+<span class="z-meta z-use z-php"><span class="z-keyword z-other z-use z-php">use</span> </span><span class="z-meta z-use z-php"><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Symfony</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Component</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Console</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Output</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-class z-php">OutputInterface</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+<span class="z-meta z-use z-php"><span class="z-keyword z-other z-use z-php">use</span> </span><span class="z-meta z-use z-php"><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Symfony</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Component</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Console</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-other z-namespace z-php">Input</span><span class="z-punctuation z-separator z-namespace z-php">\</span></span><span class="z-meta z-path z-php"><span class="z-support z-class z-php">InputOption</span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+<span class="z-meta z-class z-php"><span class="z-storage z-type z-class z-php">class</span> <span class="z-entity z-name z-class z-php">Sayhello</span> <span class="z-storage z-modifier z-extends z-php">extends</span> <span class="z-meta z-path z-php"><span class="z-entity z-other z-inherited-class z-php">Command</span></span>
+<span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">{</span></span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php">
+
+    <span class="z-storage z-modifier z-php">const</span> <span class="z-constant z-other z-php">NAME</span> <span class="z-keyword z-operator z-assignment z-php">=</span> <span class="z-string z-quoted z-single z-php"><span class="z-punctuation z-definition z-string z-begin z-php">&#39;</span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php"></span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php">name</span><span class="z-punctuation z-definition z-string z-end z-php">&#39;</span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+    <span class="z-storage z-modifier z-php">protected</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">configure</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php">
+    <span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>options</span> <span class="z-keyword z-operator z-assignment z-php">=</span> <span class="z-meta z-array z-php"><span class="z-punctuation z-section z-array z-begin z-php">[</span>
+            <span class="z-keyword z-other z-new z-php">new</span> <span class="z-meta z-path z-php"><span class="z-support z-class z-php">InputOption</span></span><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span><span class="z-variable z-language z-php">self</span><span class="z-punctuation z-accessor z-double-colon z-php">::</span><span class="z-constant z-other z-class z-php">NAME</span>, <span class="z-constant z-language z-php">null</span>,<span class="z-meta z-path z-php"><span class="z-support z-class z-php">InputOption</span></span><span class="z-punctuation z-accessor z-double-colon z-php">::</span><span class="z-constant z-other z-class z-php">VALUE_REQUIRED</span>, <span class="z-string z-quoted z-single z-php"><span class="z-punctuation z-definition z-string z-begin z-php">&#39;</span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php"></span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php">姓名</span><span class="z-punctuation z-definition z-string z-end z-php">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-php">)</span></span>
+        <span class="z-punctuation z-section z-array z-end z-php">]</span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+
+        <span class="z-variable z-language z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>this</span><span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">setName</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-string z-quoted z-single z-php"><span class="z-punctuation z-definition z-string z-begin z-php">&#39;</span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php"></span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php">example:sayhello</span><span class="z-punctuation z-definition z-string z-end z-php">&#39;</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span>
+            <span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">setDescription</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-string z-quoted z-single z-php"><span class="z-punctuation z-definition z-string z-begin z-php">&#39;</span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php"></span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php">示例命令</span><span class="z-punctuation z-definition z-string z-end z-php">&#39;</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span>
+            <span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">setDefinition</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>options</span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+        <span class="z-variable z-language z-php">parent</span><span class="z-meta z-function-call z-static z-php"><span class="z-punctuation z-accessor z-double-colon z-php">::</span><span class="z-variable z-function z-php">configure</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+
+    <span class="z-storage z-modifier z-php">protected</span> <span class="z-meta z-function z-php"><span class="z-storage z-type z-function z-php">function</span> <span class="z-entity z-name z-function z-php">execute</span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function z-parameters z-php"><span class="z-meta z-group z-php"><span class="z-meta z-path z-php"><span class="z-support z-class z-php">InputInterface</span></span> <span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>input</span><span class="z-punctuation z-separator z-php">,</span> <span class="z-meta z-path z-php"><span class="z-support z-class z-php">OutputInterface</span></span> <span class="z-variable z-parameter z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>output</span><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span><span class="z-meta z-function z-php">
+    <span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-begin z-php">{</span></span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php">
+        <span class="z-keyword z-control z-php">if</span> <span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span><span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>name</span> <span class="z-keyword z-operator z-assignment z-php">=</span> <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>input</span><span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">getOption</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-variable z-language z-php">self</span><span class="z-punctuation z-accessor z-double-colon z-php">::</span><span class="z-constant z-other z-class z-php">NAME</span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-section z-group z-end z-php">)</span></span> <span class="z-punctuation z-section z-block z-begin z-php">{</span>
+            <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>output</span><span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">writeln</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-string z-quoted z-single z-php"><span class="z-punctuation z-definition z-string z-begin z-php">&#39;</span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php"></span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php">你好</span><span class="z-punctuation z-definition z-string z-end z-php">&#39;</span></span> <span class="z-keyword z-operator z-string z-php">.</span> <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>name</span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+        <span class="z-punctuation z-section z-block z-end z-php">}</span> <span class="z-keyword z-control z-php">else</span> <span class="z-punctuation z-section z-block z-begin z-php">{</span>
+            <span class="z-variable z-other z-php"><span class="z-punctuation z-definition z-variable z-php">$</span>output</span><span class="z-meta z-function-call z-method z-php"><span class="z-punctuation z-accessor z-arrow z-php">-&gt;</span><span class="z-variable z-function z-php">writeln</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-begin z-php">(</span></span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-string z-quoted z-single z-php"><span class="z-punctuation z-definition z-string z-begin z-php">&#39;</span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php"></span></span><span class="z-string z-quoted z-single z-php"><span class="z-meta z-string-contents z-quoted z-single z-php">你好世界</span><span class="z-punctuation z-definition z-string z-end z-php">&#39;</span></span><span class="z-meta z-function-call z-php"><span class="z-meta z-group z-php"><span class="z-punctuation z-section z-group z-end z-php">)</span></span></span></span></span><span class="z-punctuation z-terminator z-expression z-php">;</span>
+        <span class="z-punctuation z-section z-block z-end z-php">}</span>
+    </span></span><span class="z-meta z-function z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-end z-php">}</span></span></span>
+</span></span><span class="z-meta z-class z-php"><span class="z-meta z-block z-php"><span class="z-punctuation z-section z-block z-php">}</span></span></span>
+</span></span></span></span></code></pre>
+<p>代码中我们在 configure() 函数中定义了命令行参数 name，并在 execute() 方法中获取它的值。清空缓存然后运行 <code>php bin/magento example:sayhello --name=Aqrun</code> 就会输出 “你好Aqrun”。</p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

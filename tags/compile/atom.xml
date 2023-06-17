@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - compile</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/compile/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2018-07-27T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/compile/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Ubuntu 18.04 源码编译安装 Emacs 26.1</title>
+        <published>2018-07-27T00:00:00+00:00</published>
+        <updated>2018-07-27T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
+        <id>http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
+        
+        <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;61688-17511fd57565df77.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240&quot; alt=&quot;GUN EMACS&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;huan-jing-zhun-bei&quot;&gt;环境准备&lt;&#x2F;h2&gt;
+&lt;p&gt;系统更新升级&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; sudo apt-get update&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-and z-shell&quot;&gt;&amp;amp;&amp;amp;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;apt-get&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; upgrade&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;安装源码编译需要的包&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; sudo apt-get install build-essential libncurses-dev&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;xia-zai-yuan-ma-bao&quot;&gt;下载源码包&lt;&#x2F;h2&gt;
+&lt;p&gt;可以到 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.gnu.org&#x2F;software&#x2F;emacs&#x2F;download.html&quot;&gt;EMACS官方下载页面&lt;&#x2F;a&gt; 或 直接使用下面的链接&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cd &lt;span class=&quot;z-meta z-group z-expansion z-tilde&quot;&gt;&lt;span class=&quot;z-variable z-language z-tilde z-shell&quot;&gt;~&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&#x2F;Downloads&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; wget http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;gnu&#x2F;emacs&#x2F;emacs-26.1.tar.xz&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;压缩包解压&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; xz&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;d&lt;&#x2F;span&gt; emacs-26.1.tar.xz&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; tar&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;xvf&lt;&#x2F;span&gt; emacs-26.1.tar&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;bian-yi-an-zhuang&quot;&gt;编译安装&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; 进入上面解压的文件夹&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cd emacs-26.1&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; --without-x 仅用于控制台环境，如果需要GUI界面还要安装其它开发包&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; .&#x2F;configure&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;without-x&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;with-gnutls&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-option z-shell&quot;&gt;=&lt;&#x2F;span&gt;no&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; 编译生成&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; make&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; 安装&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; sudo make install&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt; 打开EMACS 或 `emacs --version` 可以查看版本信息&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; emacs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;后序可选安装 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;spacemacs.org&#x2F;&quot;&gt;Spacemacs&lt;&#x2F;a&gt; 配置环境&lt;&#x2F;p&gt;
+&lt;p&gt;完！&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Compiling PHP 5.4 on Ubuntu 12.</title>
+        <published>2015-03-15T00:00:00+00:00</published>
+        <updated>2015-03-15T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
+        <id>http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
+        
+        <content type="html">&lt;p&gt;So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.&lt;&#x2F;p&gt;
+&lt;p&gt;Not a daunting as it may first appear. The really tricky part is working out your dependencies and configure script.&lt;&#x2F;p&gt;
+&lt;p&gt;Hence the reason for this post as a reminder for myself and others that may want to do a quick compile. (I would recommend that if your compiling for a production&#x2F;live environment that you make sure you understand what it is your compiling though before just using what’s here)&lt;&#x2F;p&gt;
+&lt;p&gt;So where to start. Dependencies first I think&lt;&#x2F;p&gt;
+&lt;p&gt;Ubuntu allows you to install dependencies for building source apt-get build-deps. We will use this and install any extras we may need.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-shell&quot;&gt;
+
+    apt-get install \
+    libxml2 \
+    libxml2-dev \
+    libssl-dev \
+    pkg-config \
+    curl \
+    libcurl4-nss-dev \
+    enchant \
+    libenchant-dev \
+    libjpeg8 \
+    libjpeg8-dev \
+    libpng12-0 \
+    libpng12-dev \
+    libvpx1 \
+    libvpx-dev \
+    libfreetype6 \
+    libfreetype6-dev \
+    libt1-5 \
+    libt1-dev \
+    libgmp10 \
+    libgmp-dev \
+    libicu48 \
+    libicu-dev \
+    mcrypt \
+    libmcrypt4 \
+    libmcrypt-dev \
+    libpspell-dev \
+    libedit2 \
+    libedit-dev \
+    libsnmp15 \
+    libsnmp-dev \
+    libxslt1.1 \
+    libxslt1-dev
+        
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And now the configure&lt;&#x2F;p&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-shell&quot;&gt;
+
+    .&#x2F;configure \
+    --prefix=&#x2F;usr&#x2F;local&#x2F;php \
+    --with-apxs2=&#x2F;usr&#x2F;local&#x2F;apache2&#x2F;bin&#x2F;apxs \
+    --enable-fpm \
+    --with-fpm-user=www-data \
+    --with-fpm-group=www-data \
+    --with-config-file-path=&#x2F;usr&#x2F;local&#x2F;php&#x2F;conf \
+    --with-config-file-scan-dir=&#x2F;usr&#x2F;local&#x2F;php&#x2F;conf.d \
+    --enable-debug \
+    --with-openssl \
+    --with-kerberos \
+    --with-zlib \
+    --enable-calendar \
+    --with-curl \
+    --with-curlwrappers \
+    --with-enchant \
+    --enable-exif \
+    --enable-ftp \
+    --with-gd \
+    --with-jpeg-dir=&#x2F;usr \
+    --with-png-dir=&#x2F;usr \
+    --with-vpx-dir=&#x2F;usr \
+    --with-freetype-dir=&#x2F;usr \
+    --with-t1lib \
+    --enable-exif \
+    --enable-gd-native-ttf \
+    --enable-gd-jis-conv \
+    --with-gettext \
+    --with-gmp \
+    --with-mhash \
+    --enable-intl \
+    --enable-mbstring \
+    --with-mcrypt \
+    --with-mysql \
+    --with-mysqli \
+    --enable-pcntl \
+    --with-pdo-mysql \
+    --with-pdo-pgsql \
+    --with-pgsql \
+    --with-pspell \
+    --with-libedit \
+    --with-readline \
+    --enable-shmop \
+    --with-snmp \
+    --enable-soap \
+    --enable-sockets \
+    --enable-sysvmsg \
+    --enable-sysvshm \
+    --with-xsl \
+    --enable-zip \
+    --with-pear \
+    --enable-zend-signals \
+    --enable-maintainer-zts
+
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;p&gt;Once these are done then we follow the standard make process. Notice we are also running make test… very important as it givges more data for the developers to work with.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Make PHP
+make &amp;amp;&amp;amp; make test &amp;amp;&amp;amp; make install
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;1&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;make &amp;amp;&amp;amp; make test &amp;amp;&amp;amp; make install
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The next thing is configuring your php.ini file as the install doesn’t have one yet so we copy either the production or development default from the source code to the new conf dir and edit to suit your needs.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Shell
+cp {&amp;lt;a href=&amp;quot;http:&#x2F;&#x2F;www.php.net&#x2F;&amp;quot; title=&amp;quot;PHP&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;php&amp;lt;&#x2F;a&amp;gt;-source-dir}&#x2F;&amp;lt;a href=&amp;quot;http:&#x2F;&#x2F;www.php.net&#x2F;&amp;quot; title=&amp;quot;PHP&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;php&amp;lt;&#x2F;a&amp;gt;.ini-(development|production) &#x2F;usr&#x2F;local&#x2F;&amp;lt;a href=&amp;quot;http:&#x2F;&#x2F;www.php.net&#x2F;&amp;quot; title=&amp;quot;PHP&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;php&amp;lt;&#x2F;a&amp;gt;&#x2F;conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;1&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;cp {php-source-dir}&#x2F;php.ini-(development|production) &#x2F;usr&#x2F;local&#x2F;php&#x2F;conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Thats it. All ready to roll… almost, this installation is the one I use for use with a webserver so you will want to add the appropriate directives to apache.&lt;&#x2F;p&gt;
+&lt;p&gt;Shell
+LoadModule php5_module modules&#x2F;libphp5.so AddHandler php5-script .&lt;a href=&quot;http:&#x2F;&#x2F;www.php.net&#x2F;&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;&#x2F;a&gt; AddType text&#x2F;html .&lt;a href=&quot;http:&#x2F;&#x2F;www.php.net&#x2F;&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;LoadModule php5_module        modules&#x2F;libphp5.so
+
+AddHandler php5-script .php
+AddType text&#x2F;html .php&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+</feed>

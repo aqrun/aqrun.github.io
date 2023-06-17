@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>6.Magento 2 添加后台管理菜单 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项" />
+  <link rel="canonical" href="http://aqrun.com/backend/6-admin-menu/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/6-admin-menu/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/6-admin-menu/" />
+  <meta property="og:description" content="菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项" />
+  <meta name="twitter:description" content="菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项" />
+  <meta property="og:title" content="6.Magento 2 添加后台管理菜单 | 子十" />
+  <meta name="twitter:title" content="6.Magento 2 添加后台管理菜单 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-07-18" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/6-admin-menu/">6.Magento 2 添加后台管理菜单</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-07-18<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/magento2/">magento2</a> </span>
+
+    <blockquote>
+<p><a href="http://aqrun.com/backend/0-magento-menu/">Magento 2 开发内容目录</a></p>
+</blockquote>
+<p>本章节讨论如何在后台左侧导航菜单条添加自定义链接。</p>
+<p>首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。</p>
+<p><img src="https://static.oicnp.com/blog/2023/magento2/6-store-menu-items.png" alt="stores menu" /></p>
+<p>在前端时路由名称的格式为：<code>{router_name}_{controller_name}_{actions_name}</code>，后台路由格式也一样，但需要指定一个不同的名称以便让系统知道调用的是后台的路由。</p>
+<p>菜单到底如何添加？接下来继续使用之前的Hello World模块进行演示菜单项的添加。</p>
+<p>添加菜单使用 <code>menu.xml</code> 配置文件步骤如下：</p>
+<ul>
+<li>1 创建 <code>menu.xml</code> 配置文件</li>
+<li>2 添加菜单项</li>
+<li>3 清除缓存</li>
+</ul>
+<h2 id="di-yi-bu-chuang-jian-menu-xml">第一步 创建 menu.xml</h2>
+<p>文件： <code>app/code/Aqrun/HelloWorld/etc/adminhtml/menu.xml</code></p>
+<p>代码：</p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">config</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:module:Magento_Backend:etc/menu.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">menu</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">menu</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">config</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<h2 id="di-er-bu-pei-zhi-cai-dan-xiang">第二步 配置菜单项</h2>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">config</span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xmlns</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">xsi</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>http://www.w3.org/2001/XMLSchema-instance<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-namespace z-xml">xsi</span><span class="z-entity z-other z-attribute-name z-xml"><span class="z-punctuation z-separator z-namespace z-xml">:</span></span><span class="z-entity z-other z-attribute-name z-localname z-xml">noNamespaceSchemaLocation</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>urn:magento:module:Magento_Backend:etc/menu.xsd<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">menu</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">add</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>你好世界<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">module</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>51<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">resource</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">add</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>文章管理<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">module</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>10<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">action</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>aqrun_helloworld/post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">resource</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">parent</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+        <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">add</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::hello_configuration<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>参数设置<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">module</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>99<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">parent</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">action</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>adminhtml/system_config/edit/section/helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+             <span class="z-entity z-other z-attribute-name z-localname z-xml">resource</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::helloworld_configuration<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+    <span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">menu</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+<span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;/</span><span class="z-entity z-name z-tag z-localname z-xml">config</span><span class="z-punctuation z-definition z-tag z-end z-xml">&gt;</span></span>
+</span></code></pre>
+<p>配置文件中，我们添加了名为“你好世界”的第0级菜单，以及它的两个子菜单项“文章管理”和“参数设置”。
+在 menu.xml 文件中会定义很多 'add' 节点来向后台添加菜单项，它的结构如下：</p>
+<pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;</span><span class="z-entity z-name z-tag z-localname z-xml">add</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">id</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">title</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Manage Posts<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+    <span class="z-entity z-other z-attribute-name z-localname z-xml">module</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+    <span class="z-entity z-other z-attribute-name z-localname z-xml">sortOrder</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>10<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-localname z-xml">action</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>aqrun_helloworld/post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span> 
+    <span class="z-entity z-other z-attribute-name z-localname z-xml">resource</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWorld::post<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span>
+    <span class="z-entity z-other z-attribute-name z-localname z-xml">parent</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>Aqrun_HelloWrld::helloworld<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">/&gt;</span></span>
+</span></code></pre>
+<p>属性解释：</p>
+<ul>
+<li>id 是对应节点的唯一标识，并且命名格式必须是 <code>{公司_模块名}::{菜单名或描述}</code></li>
+<li>title 属性指定显示在菜单导航条上的文字</li>
+<li>module 属性指定菜单属于哪个模块</li>
+<li>srotOrder 属性控制菜单项显示顺序，数字越小越靠前</li>
+<li>parent 属性关联其它菜单ID，告诉系统当前菜单是哪个菜单的子项。本例中 <code>parent=&quot;Aqrun_HelloWorld::helloworld&quot;</code>, 由此我们知道 “管理文章”是 “你好世界”的子项，会显示在“你好世界”的菜单页里。</li>
+<li>action 属性值是要链接到的页面URL。上面提到过路由格式是 <code>{路由名}{控制器文件夹}{动作名}</code>，因此当前菜单就链接到 HelloWorld 模块的Post控制器，动作是 Index。</li>
+<li>resource 属性指定权限控制，控制管理员是否有权限查看当前菜单。</li>
+</ul>
+<p>你也可以添加一些其它子菜单，会和店铺菜单一样的格式显示。</p>
+<p>最后要提的是菜单的图标，显示在0级菜单名称的上面。这些图标是 'Admin Icons' 字体生成的，更多关于图标的内容查看<a rel="noopener" target="_blank" href="https://devdocs.magento.com/guides/v2.1/design-styleguide/iconography/iconography.html">这个链接</a></p>
+<h2 id="di-san-bu-qing-kong-huan-cun">第三步 清空缓存</h2>
+<p>要确保自定义菜单正常显示需要清除一下缓存运行 <code>php bin/magento cache:clean</code></p>
+<p>本例显示结果如图：</p>
+<p><img src="https://static.oicnp.com/blog/2023/magento2/6-helloworld-menu-items.png" alt="helloworld" /></p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

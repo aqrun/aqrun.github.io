@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>React 受控组件和非受控组件 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="React 受控组件和非受控组件有没有选择标准？" />
+  <link rel="canonical" href="http://aqrun.com/frontend/controlled-and-uncontrolled-form/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/frontend/controlled-and-uncontrolled-form/" />
+  <meta name="twitter:url" content="http://aqrun.com/frontend/controlled-and-uncontrolled-form/" />
+  <meta property="og:description" content="React 受控组件和非受控组件有没有选择标准？" />
+  <meta name="twitter:description" content="React 受控组件和非受控组件有没有选择标准？" />
+  <meta property="og:title" content="React 受控组件和非受控组件 | 子十" />
+  <meta name="twitter:title" content="React 受控组件和非受控组件 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-07-23" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/frontend/controlled-and-uncontrolled-form/">React 受控组件和非受控组件</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-07-23<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/frontend/">
+                前端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/react/">react</a> </span>
+
+    <blockquote>
+<p>原文：<a rel="noopener" target="_blank" href="https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/">Controlled and uncontrolled form inputs in React don't have to be complicated</a></p>
+</blockquote>
+<p>可能经常看到文章会讲一个很矛盾的观点一边说着“不要使用<code>setState</code>”, 而另一边内容里又大斯宣讲“<code>ref</code>s 的不好”。这就有点难以理解了，那到底有没有选择标准。</p>
+<p>你是如何处理表单的呢？</p>
+<p>毕竟，表单在很多WEB应用里是主要功能。当然表单处理在 React 中或多或少也属于核心功能。</p>
+<p>不用害怕。接下来我们看看他们之间的区别，以及应该在什么场合使用它们。</p>
+<h2 id="fei-shou-kong-zu-jian">非受控组件</h2>
+<p>非受控表单组件如同传统的HTML表单输入框：</p>
+<pre data-lang="tsx" class="language-tsx z-code"><code class="language-tsx" data-lang="tsx"><span class="z-source z-tsx"><span class="z-meta z-class z-tsx"><span class="z-storage z-type z-class z-tsx">class</span> <span class="z-entity z-name z-type z-class z-tsx">Form</span> <span class="z-storage z-modifier z-tsx">extends</span> <span class="z-entity z-other z-inherited-class z-tsx">Component</span> <span class="z-punctuation z-definition z-block z-tsx">{</span>
+<span class="z-meta z-method z-declaration z-tsx">    <span class="z-meta z-definition z-method z-tsx"><span class="z-entity z-name z-function z-tsx">render</span></span><span class="z-meta z-parameters z-tsx"><span class="z-punctuation z-definition z-parameters z-begin z-tsx">(</span><span class="z-punctuation z-definition z-parameters z-end z-tsx">)</span></span><span class="z-meta z-block z-tsx"><span class="z-punctuation z-definition z-block z-tsx">{</span>
+        <span class="z-keyword z-control z-flow z-tsx">return</span> <span class="z-meta z-brace z-round z-tsx">(</span>
+            <span class="z-meta z-tag z-without-attributes z-tsx"><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;</span><span class="z-entity z-name z-tag z-tsx">div</span><span class="z-punctuation z-definition z-tag z-end z-tsx">&gt;</span></span><span class="z-meta z-tag z-without-attributes z-tsx"><span class="z-meta z-jsx z-children z-tsx">
+                <span class="z-meta z-tag z-tsx"><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;</span><span class="z-entity z-name z-tag z-tsx">input</span><span class="z-meta z-tag z-attributes z-tsx"> <span class="z-entity z-other z-attribute-name z-tsx">type</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-string z-quoted z-double z-tsx"><span class="z-punctuation z-definition z-string z-begin z-tsx">&quot;</span>text<span class="z-punctuation z-definition z-string z-end z-tsx">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-tsx">/&gt;</span></span>
+            </span><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;/</span><span class="z-entity z-name z-tag z-tsx">div</span><span class="z-punctuation z-definition z-tag z-end z-tsx">&gt;</span></span>
+        <span class="z-meta z-brace z-round z-tsx">)</span><span class="z-punctuation z-terminator z-statement z-tsx">;</span>
+    <span class="z-punctuation z-definition z-block z-tsx">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-tsx">}</span></span>
+</span></code></pre>
+<p>DOM节点保存你输入的信息，然后你可以通过 <code>ref</code> 获取它们的值。如下：</p>
+<pre data-lang="tsx" class="language-tsx z-code"><code class="language-tsx" data-lang="tsx"><span class="z-source z-tsx"><span class="z-meta z-class z-tsx"><span class="z-storage z-type z-class z-tsx">class</span> <span class="z-entity z-name z-type z-class z-tsx">Form</span> <span class="z-storage z-modifier z-tsx">extends</span> <span class="z-entity z-other z-inherited-class z-tsx">Component</span> <span class="z-punctuation z-definition z-block z-tsx">{</span>
+<span class="z-meta z-field z-declaration z-tsx">    <span class="z-meta z-definition z-property z-tsx"><span class="z-entity z-name z-function z-tsx">handleSubmitClick</span></span> <span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-meta z-arrow z-tsx"> <span class="z-meta z-parameters z-tsx"><span class="z-punctuation z-definition z-parameters z-begin z-tsx">(</span><span class="z-punctuation z-definition z-parameters z-end z-tsx">)</span></span> </span><span class="z-meta z-arrow z-tsx"><span class="z-storage z-type z-function z-arrow z-tsx">=&gt;</span> <span class="z-meta z-block z-tsx"><span class="z-punctuation z-definition z-block z-tsx">{</span>
+        <span class="z-meta z-var z-expr z-tsx"><span class="z-storage z-type z-tsx">const</span> <span class="z-meta z-var-single-variable z-expr z-tsx"><span class="z-meta z-definition z-variable z-tsx"><span class="z-variable z-other z-constant z-tsx">name</span></span> </span><span class="z-keyword z-operator z-assignment z-tsx">=</span> <span class="z-variable z-language z-this z-tsx">this</span><span class="z-punctuation z-accessor z-tsx">.</span><span class="z-variable z-other z-object z-property z-tsx">_name</span><span class="z-punctuation z-accessor z-tsx">.</span><span class="z-support z-variable z-property z-dom z-tsx">value</span></span><span class="z-punctuation z-terminator z-statement z-tsx">;</span>
+<span class="z-punctuation z-whitespace z-comment z-leading z-tsx">        </span><span class="z-comment z-line z-double-slash z-tsx"><span class="z-punctuation z-definition z-comment z-tsx">//</span></span><span class="z-comment z-line z-double-slash z-tsx"> ...</span>
+    <span class="z-punctuation z-definition z-block z-tsx">}</span></span></span></span>
+<span class="z-meta z-method z-declaration z-tsx">    <span class="z-meta z-definition z-method z-tsx"><span class="z-entity z-name z-function z-tsx">render</span></span><span class="z-meta z-parameters z-tsx"><span class="z-punctuation z-definition z-parameters z-begin z-tsx">(</span><span class="z-punctuation z-definition z-parameters z-end z-tsx">)</span></span> <span class="z-meta z-block z-tsx"><span class="z-punctuation z-definition z-block z-tsx">{</span>
+        <span class="z-keyword z-control z-flow z-tsx">return</span> <span class="z-meta z-brace z-round z-tsx">(</span>
+            <span class="z-meta z-tag z-without-attributes z-tsx"><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;</span><span class="z-entity z-name z-tag z-tsx">div</span><span class="z-punctuation z-definition z-tag z-end z-tsx">&gt;</span></span><span class="z-meta z-tag z-without-attributes z-tsx"><span class="z-meta z-jsx z-children z-tsx">
+                <span class="z-meta z-tag z-tsx"><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;</span><span class="z-entity z-name z-tag z-tsx">input</span><span class="z-meta z-tag z-attributes z-tsx"> <span class="z-entity z-other z-attribute-name z-tsx">type</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-string z-quoted z-double z-tsx"><span class="z-punctuation z-definition z-string z-begin z-tsx">&quot;</span>text<span class="z-punctuation z-definition z-string z-end z-tsx">&quot;</span></span> <span class="z-entity z-other z-attribute-name z-tsx">ref</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-punctuation z-section z-embedded z-begin z-tsx">{</span><span class="z-meta z-embedded z-expression z-tsx"><span class="z-meta z-arrow z-tsx"><span class="z-variable z-parameter z-tsx">input</span></span><span class="z-meta z-arrow z-tsx"><span class="z-storage z-type z-function z-arrow z-tsx">=&gt;</span></span><span class="z-variable z-language z-this z-tsx">this</span><span class="z-punctuation z-accessor z-tsx">.</span><span class="z-variable z-other z-property z-tsx">_name</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-variable z-other z-readwrite z-tsx">input</span></span><span class="z-punctuation z-section z-embedded z-end z-tsx">}</span></span><span class="z-punctuation z-definition z-tag z-end z-tsx">/&gt;</span></span>
+                <span class="z-meta z-tag z-tsx"><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;</span><span class="z-entity z-name z-tag z-tsx">button</span><span class="z-meta z-tag z-attributes z-tsx"> <span class="z-entity z-other z-attribute-name z-tsx">onClick</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-punctuation z-section z-embedded z-begin z-tsx">{</span><span class="z-meta z-embedded z-expression z-tsx"><span class="z-variable z-language z-this z-tsx">this</span><span class="z-punctuation z-accessor z-tsx">.</span><span class="z-variable z-other z-property z-tsx">handleSubmitClick</span></span><span class="z-punctuation z-section z-embedded z-end z-tsx">}</span></span><span class="z-punctuation z-definition z-tag z-end z-tsx">&gt;</span><span class="z-meta z-jsx z-children z-tsx">Sign up</span><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;/</span><span class="z-entity z-name z-tag z-tsx">button</span><span class="z-punctuation z-definition z-tag z-end z-tsx">&gt;</span></span>
+            </span><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;/</span><span class="z-entity z-name z-tag z-tsx">div</span><span class="z-punctuation z-definition z-tag z-end z-tsx">&gt;</span></span>
+        <span class="z-meta z-brace z-round z-tsx">)</span><span class="z-punctuation z-terminator z-statement z-tsx">;</span>
+    <span class="z-punctuation z-definition z-block z-tsx">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-tsx">}</span></span>
+</span></code></pre>
+<p>也就是说，你必须在需要的时候从控件中“提取”值。提交表单时就需要这样操作。</p>
+<p>这是实现表单输入的最简单的方法，一般会在学习React时这么写。</p>
+<p>这个功能确实不够强大，接下来再看看受控组件。</p>
+<h2 id="shou-kong-zu-jian">受控组件</h2>
+<p>受控组件使用属性接收它的当前值，以及一个回调函数修改该值。可以说这是一种更符合“React的方式”（并不不是说应该总是使用这种方式）。</p>
+<pre data-lang="tsx" class="language-tsx z-code"><code class="language-tsx" data-lang="tsx"><span class="z-source z-tsx"><span class="z-meta z-tag z-tsx"><span class="z-punctuation z-definition z-tag z-begin z-tsx">&lt;</span><span class="z-entity z-name z-tag z-tsx">input</span><span class="z-meta z-tag z-attributes z-tsx"> <span class="z-entity z-other z-attribute-name z-tsx">value</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-punctuation z-section z-embedded z-begin z-tsx">{</span><span class="z-meta z-embedded z-expression z-tsx"><span class="z-variable z-other z-readwrite z-tsx">someValue</span></span><span class="z-punctuation z-section z-embedded z-end z-tsx">}</span> <span class="z-entity z-other z-attribute-name z-tsx">onChange</span><span class="z-keyword z-operator z-assignment z-tsx">=</span><span class="z-punctuation z-section z-embedded z-begin z-tsx">{</span><span class="z-meta z-embedded z-expression z-tsx"><span class="z-variable z-other z-readwrite z-tsx">handleChange</span></span><span class="z-punctuation z-section z-embedded z-end z-tsx">}</span> </span><span class="z-punctuation z-definition z-tag z-end z-tsx">/&gt;</span></span>
+</span></code></pre>
+<p>看起来很不错，但控件的值必须保存在 <code>state</code> 中。一般渲染表单的组件会把值保存在它的 <code>state</code>:</p>
+<pre data-lang="js" class="language-js z-code"><code class="language-js" data-lang="js"><span class="z-source z-ts"><span class="z-meta z-class z-ts"><span class="z-storage z-type z-class z-ts">class</span> <span class="z-entity z-name z-type z-class z-ts">Form</span> <span class="z-storage z-modifier z-ts">extends</span> <span class="z-entity z-other z-inherited-class z-ts">Component</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+<span class="z-meta z-method z-declaration z-ts">    <span class="z-storage z-type z-ts">constructor</span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span><span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+        <span class="z-meta z-function-call z-ts"><span class="z-variable z-language z-super z-ts">super</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+        <span class="z-variable z-language z-this z-ts">this</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-property z-ts">state</span> <span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-meta z-objectliteral z-ts"> <span class="z-punctuation z-definition z-block z-ts">{</span>
+            <span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts">name</span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span><span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+        <span class="z-punctuation z-definition z-block z-ts">}</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+    <span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+<span class="z-meta z-field z-declaration z-ts">    <span class="z-meta z-definition z-property z-ts"><span class="z-entity z-name z-function z-ts">handleNameChange</span></span> <span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-meta z-arrow z-ts"> <span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span><span class="z-variable z-parameter z-ts">event</span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> </span><span class="z-meta z-arrow z-ts"><span class="z-storage z-type z-function z-arrow z-ts">=&gt;</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+        <span class="z-meta z-function-call z-ts"><span class="z-variable z-language z-this z-ts">this</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">setState</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-objectliteral z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts">name</span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span> <span class="z-support z-variable z-dom z-ts">event</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">target</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">value</span></span><span class="z-punctuation z-definition z-block z-ts">}</span></span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+    <span class="z-punctuation z-definition z-block z-ts">}</span></span></span></span>
+<span class="z-meta z-method z-declaration z-ts">    <span class="z-meta z-definition z-method z-ts"><span class="z-entity z-name z-function z-ts">render</span></span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+        <span class="z-keyword z-control z-flow z-ts">return</span> <span class="z-meta z-brace z-round z-ts">(</span>
+<span class="z-cast z-expr z-ts">            <span class="z-meta z-brace z-angle z-ts">&lt;</span><span class="z-entity z-name z-type z-ts">div</span><span class="z-meta z-brace z-angle z-ts">&gt;</span></span>
+                <span class="z-keyword z-operator z-relational z-ts">&lt;</span><span class="z-variable z-other z-readwrite z-ts">input</span> <span class="z-variable z-other z-readwrite z-ts">type</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>text<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>
+                    <span class="z-variable z-other z-readwrite z-ts">value</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-string z-quoted z-double z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&quot;</span>this.state.name<span class="z-punctuation z-definition z-string z-end z-ts">&quot;</span></span>
+                    <span class="z-variable z-other z-readwrite z-ts">onChange</span><span class="z-keyword z-operator z-assignment z-ts">=</span><span class="z-meta z-objectliteral z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>this.<span class="z-meta z-object z-member z-ts"><span class="z-variable z-other z-readwrite z-ts">handleNameChange</span></span><span class="z-punctuation z-definition z-block z-ts">}</span></span>
+                <span class="z-keyword z-operator z-arithmetic z-ts">/</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span>
+            <span class="z-keyword z-operator z-relational z-ts">&lt;</span><span class="z-keyword z-operator z-arithmetic z-ts">/</span><span class="z-variable z-other z-readwrite z-ts">div</span><span class="z-keyword z-operator z-relational z-ts">&gt;</span>
+        <span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+    <span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></code></pre>
+<blockquote>
+<p>当然，也可以保存在另一个组件的<code>state</code>中，或者分离出去，如使用 redux</p>
+</blockquote>
+<p>每次输入一个新的字符都会调用 <code>handleNameChange</code> 方法，它获取控件最新值并更新到 <code>state</code></p>
+<br/>
+<div style="background:white;padding:20px;">
+<img src="/public/images/js/controlled-flow.png"/>
+</div>
+<br/>
+<ul>
+<li>从一个空字符串开始 —— <code>''</code></li>
+<li>当输入一个 <code>a</code> 然后 <code>handleNameChange</code> 获取到 <code>a</code> 并调用 <code>setState</code>。控件就会重新渲染显示出值 <code>a</code></li>
+<li>输入 <code>b</code> 时 <code>handleNameChange</code> 获取到值 <code>ab</code> 并更新到 <code>state</code>。控件又一次重新渲染，显示出 <code>value=&quot;ab&quot;</code></li>
+</ul>
+<p>这种流程将值的更改“推送”到表单组件，因此表单组件始终具有控件的当前值，而不需要显式地请求它。</p>
+<p>这意味着你的数据(state)和UI(inputs)总是同步的。state 将值提供给 input，而 input 要求表单更改当前值。</p>
+<p>这也意味着表单组件可以立即响应控件修改，如：</p>
+<ul>
+<li>就地反馈，如表单验证</li>
+<li>除非所有字段都有有效数据，否则禁用按钮</li>
+<li>强制执行特定的输入格式，比如信用卡号</li>
+</ul>
+<p>但如果不需要这些功能，并且认为非控组件更方便，那就按你的喜好好了。</p>
+<h2 id="ru-he-rang-yi-ge-biao-dan-yuan-su-shou-kong-ni">如何让一个表单元素受控呢？</h2>
+<p>当然还有其它的表单元素如：checkbox、radio、select、textarea</p>
+<p>如果你通过 <code>prop</code> 属性设置表单元素的值，它就变成了受控组件。就这么简单</p>
+<p>每个表单元素值属性及事件略有不同如下：</p>
+<table><thead><tr><th>元素</th><th>值属性</th><th>change事件</th><th>获取新值</th></tr></thead><tbody>
+<tr><td>&lt;input type=&quot;text&quot;/&gt;</td><td>value=&quot;string&quot;</td><td>onChange</td><td>event.target.value</td></tr>
+<tr><td>&lt;input type=&quot;checkbox&quot;/&gt;</td><td>checked={boolean}</td><td>onChange</td><td>event.target.checked</td></tr>
+<tr><td>&lt;input type=&quot;radio&quot;/&gt;</td><td>checked={boolean}</td><td>onChange</td><td>event.target.checked</td></tr>
+<tr><td>&lt;textarea /&gt;</td><td>value=&quot;string&quot;</td><td>onChange</td><td>event.target.value</td></tr>
+<tr><td>&lt;select /&gt;</td><td>value=&quot;option value&quot;</td><td>onChange</td><td>event.target.value</td></tr>
+</tbody></table>
+<h2 id="zong-jie">总结</h2>
+<p>受控和非受控组件各有优点。具体用哪一种要根据你的使用场景进行选择。</p>
+<p>如果你的表单非常简单，如UI反馈，那么使用 <code>ref</code> 引用的非受控组件完全可以。没必要去听别人说什么“不好”。</p>
+<table><thead><tr><th>功能</th><th>非受控组件</th><th>受控组件</th></tr></thead><tbody>
+<tr><td>一次性的值获取（如表单提交时）</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>表单提交需要验证</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><a rel="noopener" target="_blank" href="https://goshakkk.name/instant-form-fields-validation-react/">即时验证</a></td><td>No</td><td>Yes</td></tr>
+<tr><td><a rel="noopener" target="_blank" href="https://goshakkk.name/form-recipe-disable-submit-button-react/">有条件地禁用提交按钮</a></td><td>No</td><td>Yes</td></tr>
+<tr><td>强制输入格式</td><td>No</td><td>Yes</td></tr>
+<tr><td>多个控件值组成一个数据</td><td>No</td><td>Yes</td></tr>
+<tr><td>动态输入框</td><td>No</td><td>Yes</td></tr>
+</tbody></table>
+<p>当然，这并不是一锤子买卖，你可以随时切换成受控组件。可以查看这个文章：<a rel="noopener" target="_blank" href="https://goshakkk.name/turn-uncontrolled-into-controlled/">非受控组件改为受控组件并不难</a></p>
+<p>最后更多关于React中表单的文章<a rel="noopener" target="_blank" href="https://goshakkk.name/on-forms-react/">点击这里</a></p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

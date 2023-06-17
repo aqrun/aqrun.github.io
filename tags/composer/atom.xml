@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - composer</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/composer/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2014-06-20T17:42:03+00:00</updated>
+    <id>http://aqrun.com/tags/composer/atom.xml</id>
+    <entry xml:lang="en">
+        <title>php autoload之composer篇</title>
+        <published>2014-06-20T17:42:03+00:00</published>
+        <updated>2014-06-20T17:42:03+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/backend/php-autoloadzhi-composerpian/" type="text/html"/>
+        <id>http://aqrun.com/backend/php-autoloadzhi-composerpian/</id>
+        
+        <content type="html">&lt;p&gt;Composer是PHP依赖管理工具 具体介绍官方网站： https:&#x2F;&#x2F;getcomposer.org&#x2F;doc&#x2F;00-intro.md 本篇介绍 小项目如何使用composer生成自动加载类文件&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-chuang-jian-xiang-mu-test-mu-lu-jie-gou&quot;&gt;1. 创建项目 test 目录结构：&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&#x2F;test&#x2F;
+&#x2F;vendor&#x2F; &#x2F;&#x2F;第三方包 类库
+&#x2F;module&#x2F; &#x2F;&#x2F; 模块
+TestClass.php &#x2F;&#x2F;模块TestClass类
+index.php
+composer.json &#x2F;&#x2F;composer.json
+  &lt;span class=&quot;z-meta z-tag z-inline z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-inline z-any z-html&quot;&gt;code&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;pre&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+
+&#x2F;&#x2F;TestClass.php
+
+&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;pre&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-attribute-with-value z-class z-html&quot;&gt;&lt;span class=&quot;z-entity z-other z-attribute-name z-class z-html&quot;&gt;class&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-html&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-html&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-html&quot;&gt;&lt;span class=&quot;z-meta z-class-name z-html&quot;&gt;line-numbers&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-html&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-tag z-inline z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-inline z-any z-html&quot;&gt;code&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-attribute-with-value z-class z-html&quot;&gt;&lt;span class=&quot;z-entity z-other z-attribute-name z-class z-html&quot;&gt;class&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-html&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-html&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-html&quot;&gt;&lt;span class=&quot;z-meta z-class-name z-html&quot;&gt;language-json&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-html&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+    &#x2F;&#x2F; composer.json 
+    { 
+      &amp;quot;name&amp;quot;: &amp;quot;ztest&amp;quot;, &#x2F;&#x2F;name 之类其它好多属性 不是必须的 
+        &amp;quot;autoload&amp;quot;: { &#x2F;&#x2F; autoload 属性用来定义本项目 要自动加载的自定义项 
+        &amp;quot;psr-4&amp;quot;: { &#x2F;&#x2F;使用psr-4规范 会将内容生成到 vendor&#x2F;composer&#x2F;autoload-psr4.php 文件中 
+          &amp;quot;module\\&amp;quot;: &amp;quot;vendor&#x2F;module&#x2F;&amp;quot; 
+        } 
+      }
+    }
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;2-yun-xing-shi-yong-composer-zi-dong-gou-jian-composer-an-zhuang-fang-fa-guan-wang-you-jin-ru-kong-zhi-tai-lu-jing-dao-suo-jian-xiang-mu-gen-lu-jing-ye-jiu-shi-composer-jsonsuo-zai-lu-jing-yun-xing-composer-install-hui-zi-dong-sheng-cheng-vendor-composer-zhe-ge-mu-lu-5ge-wen-jian-hui-gen-ju-composer-jsonpei-zhi-can-shu-sheng-cheng-xiang-guan-nei-rong-vendor-autoload-php-zui-hou-xiang-mu-ru-kou-wen-jian&quot;&gt;2. 运行使用composer 自动构建 composer 安装方法官网有 进入控制台 路径到所建项目根路径 也就是composer.json所在路径 运行： composer install 会自动生成 &#x2F;vendor&#x2F;composer&#x2F;* &#x2F;&#x2F;这个目录5个文件 会根据 composer.json配置参数生成相关内容 &#x2F;vendor&#x2F;autoload.php 最后项目入口文件&lt;&#x2F;h2&gt;
+&lt;p&gt;==============&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&#x2F;&#x2F;index.php
+addPsr4(&amp;quot;module2&amp;quot;, &amp;quot;module2的路径&amp;quot;);     &#x2F;&#x2F;这句在项目调试时可以用      临时增加新的命名空间
+echo (new TestClass())-&amp;gt;name;   &#x2F;&#x2F;输出 test content
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+</feed>

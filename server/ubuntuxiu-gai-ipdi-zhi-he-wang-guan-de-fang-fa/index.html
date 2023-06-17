@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>ubuntu修改IP地址和网关的方法 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内" />
+  <link rel="canonical" href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" />
+  <meta name="twitter:url" content="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" />
+  <meta property="og:description" content="用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内" />
+  <meta name="twitter:description" content="用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内" />
+  <meta property="og:title" content="ubuntu修改IP地址和网关的方法 | 子十" />
+  <meta name="twitter:title" content="ubuntu修改IP地址和网关的方法 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2015-01-08" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/">ubuntu修改IP地址和网关的方法</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2015-01-08<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/server/">
+                服务器
+            </a>]
+           #<a href="http://aqrun.com/tags/ubuntu/">ubuntu</a>  #<a href="http://aqrun.com/tags/ip/">ip</a>  #<a href="http://aqrun.com/tags/wang-guan/">网关</a> </span>
+
+    <h2 id="yi-shi-yong-ming-ling-she-zhi-ubuntu-ipdi-zhi">一、使用命令设置Ubuntu IP地址</h2>
+<h3 id="1-xiu-gai-pei-zhi-wen-jian-blacklist-confjin-yong-ipv6">1.修改配置文件blacklist.conf禁用IPV6</h3>
+<pre class="z-code"><code><span class="z-text z-plain">sudo vi /etc/modprobe.d/blacklist.conf
+</span></code></pre>
+<p>表示用vi编辑器（也可以用其他编辑器，如gedit）编辑etc文件夹下modprobe.d文件夹中blacklist.conf文档的内容。</p>
+<p>注意：只能在root用户模式下才可以修改</p>
+<p>在文档最后添加 blacklist ipv6</p>
+<p>然后查看修改结果</p>
+<pre class="z-code"><code><span class="z-text z-plain">cat /etc/modprobe.d/blacklist.conf
+</span></code></pre>
+<h3 id="2-she-zhi-wang-qia-eth0de-ipdi-zhi-he-zi-wang-yan-ma">2.设置网卡eth0的IP地址和子网掩码</h3>
+<pre class="z-code"><code><span class="z-text z-plain">sudo ifconfig eth0 192.168.2.1 netmask 255.255.255.0
+</span></code></pre>
+<p>将IP地址改为：192.168.2.1，子网掩码改为：255.255.255.0</p>
+<h3 id="3-ubuntu-ipshe-zhi-wang-guan">3.Ubuntu IP设置网关</h3>
+<pre class="z-code"><code><span class="z-text z-plain">sudo route add default gw 192.168.2.254
+</span></code></pre>
+<h3 id="4-ubuntu-ipshe-zhi-dns-xiu-gai-etc-resolv-conf-zai-qi-zhong-jia-ru-nameserver-dnsde-di-zhi-1-he-nameserver-dnsde-di-zhi-2-wan-cheng">4.Ubuntu IP设置DNS 修改/etc/resolv.conf，在其中加入nameserver DNS的地址1 和 nameserver DNS的地址2 完成。</h3>
+<h3 id="5-zhong-qi-wang-luo-fu-wu-ruo-bu-xing-qing-zhong-qi-ubuntu-sudo-reboot">5.重启网络服务（若不行，请重启ubuntu：sudo reboot）</h3>
+<p>sudo /etc/init.d/networking restart</p>
+<h3 id="6-cha-kan-dang-qian-ip">6.查看当前IP</h3>
+<pre class="z-code"><code><span class="z-text z-plain">ifconfig
+</span></code></pre>
+<h2 id="er-zhi-jie-xiu-gai-ubuntu-ipxi-tong-pei-zhi-wen-jian">二、直接修改Ubuntu IP系统配置文件</h2>
+<p>Ubuntu IP的网络配置文件是根目录下：/etc/network/interfaces</p>
+<p>注意：修改完interfaces文档中的内容后，需要修改/etc/NetworkManager/NetworkManager.conf文档中的managed参数，使之为true，并重启。否则，会提示说“有线网络设备未托管”。</p>
+<p>打开后里面可设置DHCP或手动设置静态IP。</p>
+<p>前面auto eth0，表示让网卡开机自动挂载eth0。</p>
+<h3 id="1-yi-dhcpfang-shi-pei-zhi-wang-qia">1. 以DHCP方式配置网卡</h3>
+<p>编辑文件 /etc/network/interfaces</p>
+<pre class="z-code"><code><span class="z-text z-plain">sudo vi /etc/network/interfaces
+</span></code></pre>
+<p>并用下面的行来替换有关eth0的行：</p>
+<pre class="z-code"><code><span class="z-text z-plain">#The primary network interface - use DHCP to find our address
+auto eth0
+iface eth0 inet dhcp
+</span></code></pre>
+<p>用下面的命令使网络设置生效：</p>
+<pre class="z-code"><code><span class="z-text z-plain">sudo /etc/init.d/networking restart
+</span></code></pre>
+<p>也可以在命令行下直接输入下面的命令来获取地址sudo dhclient eth0</p>
+<h3 id="2-wei-wang-qia-pei-zhi-jing-tai-ubuntu-ipdi-zhi">2. 为网卡配置静态Ubuntu IP地址</h3>
+<p>编辑文件 /etc/network/interfaces</p>
+<pre class="z-code"><code><span class="z-text z-plain">sudo vi /etc/network/interfaces
+</span></code></pre>
+<p>并用下面的行来替换有关eth0的行：</p>
+<pre class="z-code"><code><span class="z-text z-plain"># The primary network interface  
+auto eth0  
+iface eth0 inet static  
+address 192.168.2.1  
+gateway 192.168.2.254  
+netmask 255.255.255.0  
+#network 192.168.2.0  
+#broadcast 192.168.2.255 
+</span></code></pre>
+<p>将eth0的IP分配方式修改为静态分配(static)后，为其制定IP、网关、子网掩码等信息。</p>
+<p>将上面的Ubuntu IP地址等信息换成你自己就可以了。</p>
+<p>用下面的命令使网络设置生效：</p>
+<pre class="z-code"><code><span class="z-text z-plain">sudo /etc/init.d/networking restart 
+</span></code></pre>
+<h3 id="3-she-ding-di-er-ge-ubuntu-ipdi-zhi-xu-ni-ipdi-zhi">3. 设定第二个Ubuntu IP地址(虚拟IP地址)</h3>
+<p>编辑文件/etc/network/interfaces：</p>
+<pre class="z-code"><code><span class="z-text z-plain">sudo vi /etc/network/interfaces 
+</span></code></pre>
+<p>在该文件中添加如下的行：</p>
+<pre class="z-code"><code><span class="z-text z-plain">auto eth0:1  
+iface eth0:1 inet static  
+address x.x.x.x  
+netmask x.x.x.x  
+network x.x.x.x  
+broadcast x.x.x.x  
+gateway x.x.x.x 
+</span></code></pre>
+<p>根据你的情况填上所有诸如address,netmask,network,broadcast和gateways等信息；</p>
+<p>用下面的命令使网络设置生效</p>
+<pre class="z-code"><code><span class="z-text z-plain">sudo /etc/init.d/networking restart
+</span></code></pre>
+<h3 id="4-she-zhi-zhu-ji-ming-cheng-hostname">4. 设置主机名称(hostname)</h3>
+<p>使用下面的命令来查看当前主机的主机名称：sudo /bin/hostname</p>
+<p>使用下面的命令来设置当前主机的主机名称：sudo /bin/hostname newname</p>
+<p>系统启动时，它会从/bin/hostname来读取主机的名称。</p>
+<h3 id="5-pei-zhi-dns">5. 配置DNS</h3>
+<p>首先，你可以在/etc/hosts中加入一些主机名称和这些主机名称对应的IP地址，这是 简单使用本机的静态查询。要访问DNS 服务器来进行查询,需要设置/etc/resolv.conf文件，假设DNS服务器的IP地址是192.168.2.2, 那么/etc/resolv.conf文件的内容应为：</p>
+<pre class="z-code"><code><span class="z-text z-plain">search chotim.com
+nameserver 192.168.2.2
+</span></code></pre>
+<h3 id="6-shou-dong-zhong-qi-wang-luo-fu-wu-sudo-etc-init-d-networking-restart">6.手动重启网络服务：sudo /etc/init.d/networking restart</h3>
+<p>返回结果如下：</p>
+<p>*Reconfiguring network interfaces… [OK]</p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - css</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/css/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2020-01-13T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/css/atom.xml</id>
+    <entry xml:lang="en">
+        <title>CSS Grid</title>
+        <published>2020-01-13T00:00:00+00:00</published>
+        <updated>2020-01-13T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/frontend/css-grid/" type="text/html"/>
+        <id>http://aqrun.com/frontend/css-grid/</id>
+        
+        <content type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;CSS3 grid 布局参考链接：&lt;&#x2F;strong&gt;&lt;br&#x2F;&gt;
+&lt;em&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;projects.wojtekmaj.pl&#x2F;react-lifecycle-methods-diagram&#x2F;&quot;&gt;React liftcycle&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;br&#x2F;&gt;
+&lt;em&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;www.html.cn&#x2F;archives&#x2F;8510&#x2F;&quot;&gt;CSS Grid 布局完全指南&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;br&#x2F;&gt;
+&lt;em&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;css-tricks.com&#x2F;snippets&#x2F;css&#x2F;complete-guide-grid&#x2F;&quot;&gt;A Complete Guide to Grid&lt;&#x2F;a&gt;&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;br&#x2F;&gt;
+&lt;br&#x2F;&gt;
+&lt;style&gt;
+    .my-grid .container{
+        font-size:12px;
+        display:grid;
+        max-width: 80%;
+        margin:0 auto;
+        grid-gap: 20px 20px;
+        grid-template-columns: minmax(100px, auto) minmax(150px, auto) repeat(3, minmax(75px, auto)) minmax(150px, auto)
+    }
+    .my-grid section{
+        background: #eee;
+        border:1px solid #999;
+        border-radius: 3px; 
+    }
+    .my-grid .phase{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .my-grid h3{
+        margin:0;
+    }
+    .my-grid p{
+        margin:0;
+    }
+    .my-grid .section-title{
+        display: flex;
+        justify-content: center;
+        height:40px;
+        align-items:center;
+    }
+    .my-grid .methods{
+        background:lightgreen;
+        border: 1px solid green;
+        border-radius: 3px;
+        margin: 0 15px;
+        text-align:center;
+        padding: 10px 8px;
+    }
+    .my-grid .uitem{
+        margin:0 15px;
+        padding: 10px 0px;
+        text-align: center;
+    }
+    .my-grid .rowline{
+        height:0;
+        border:0;
+        border-bottom:1px solid #333;
+    }
+    .my-grid .columnline{
+        border:0;
+        width:0;
+        border-right:1px solid #333;
+        position:relative;
+        margin: -20px auto -10px 50%;
+    }
+    .my-grid .columnline.down:after{
+        content: &quot;&quot;;
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        left: -3px
+    }
+    .my-grid .columnline.down:after{
+        width: 7px;
+        height: 10px;
+        background: #333;
+        clip-path: polygon(0 0,100% 0,50% 100%);
+    }
+    .my-grid .dashed{
+        border-style: dashed;
+    }
+    .my-grid .solid{
+        border-style: solid;
+    }
+    .my-grid .constructor{
+        background:lightskyblue;
+    }
+    .my-grid .render{
+        background: skyblue;
+    }
+    .my-grid .updates{
+        background:lightyellow;
+    }
+    .my-grid .section-white{
+        background:white;
+        border:1px solid #999;
+        border-top-color:#ddd;
+        border-radius: 3px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+&lt;&#x2F;style&gt;
+&lt;div class=&#x27;my-grid&#x27; style=&quot;margin:50px auto;&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+        &lt;section class=&quot;s1&quot; style=&quot;grid-area:1&#x2F;2&#x2F;span 14&#x2F;span 1;&quot;&gt;&lt;&#x2F;section&gt;
+        &lt;section class=&quot;s2&quot; style=&quot;grid-area:1&#x2F;3&#x2F;span 14&#x2F;span 3;&quot;&gt;&lt;&#x2F;section&gt;
+        &lt;section class=&quot;s3&quot; style=&quot;grid-area:1&#x2F;6&#x2F;span 14&#x2F;span 1;&quot;&gt;&lt;&#x2F;section&gt;
+        &lt;div class=&quot;section-white s1&quot; style=&quot;grid-area:8&#x2F;2&#x2F;span 7&#x2F;span 1&quot;&gt;&lt;&#x2F;div&gt;
+        &lt;div class=&quot;section-white s2&quot; style=&quot;grid-area:8&#x2F;3&#x2F;span 7&#x2F;span 3&quot;&gt;&lt;&#x2F;div&gt;
+        &lt;div class=&quot;section-white s3&quot; style=&quot;grid-area:8&#x2F;6&#x2F;span 7&#x2F;span 1&quot;&gt;&lt;&#x2F;div&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    &amp;lt;div class=&amp;quot;phase&amp;quot; style=&amp;quot;grid-area:3&#x2F;1&#x2F;span 6&#x2F;auto;&amp;quot;&amp;gt;
+        &amp;lt;h3&amp;gt;Render phase&amp;lt;&#x2F;h3&amp;gt;
+        &amp;lt;p&amp;gt;Pure and has no side effects,May be paused, aborted or restarted by React.&amp;lt;&#x2F;p&amp;gt;
+    &amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;phase&amp;quot; style=&amp;quot;grid-area:9&#x2F;1&#x2F;span 6&#x2F;auto;&amp;quot;&amp;gt;
+        &amp;lt;h3&amp;gt;Commit phase&amp;lt;&#x2F;h3&amp;gt;
+        &amp;lt;p&amp;gt;Can work with DOM,run side effects, schedule updates&amp;lt;&#x2F;p&amp;gt;
+    &amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;h3 class=&amp;quot;section-title&amp;quot; style=&amp;quot;grid-area:1&#x2F;2&#x2F;auto&#x2F;span 1&amp;quot;&amp;gt;Mounting&amp;lt;&#x2F;h3&amp;gt;
+    &amp;lt;h3 class=&amp;quot;section-title&amp;quot; style=&amp;quot;grid-area:1&#x2F;3&#x2F;auto&#x2F;span 3&amp;quot;&amp;gt;Updating&amp;lt;&#x2F;h3&amp;gt;
+    &amp;lt;h3 class=&amp;quot;section-title&amp;quot; style=&amp;quot;grid-area:1&#x2F;6&#x2F;auto&#x2F;span 1&amp;quot;&amp;gt;Unmounting&amp;lt;&#x2F;h3&amp;gt;
+
+    &amp;lt;div class=&amp;quot;rowline line1 dashed&amp;quot; style=&amp;quot;grid-area:8&#x2F;1&#x2F;span 1&#x2F;1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+
+    &amp;lt;!---mount 箭头--&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s1 l1 dashed down&amp;quot; style=&amp;quot;grid-area:2&#x2F;2&#x2F;3&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s1 l2 dashed down&amp;quot; style=&amp;quot;grid-area:5&#x2F;2&#x2F;6&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s1 l3 dashed down&amp;quot; style=&amp;quot;grid-area:8&#x2F;2&#x2F;9&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt; 
+    &amp;lt;div class=&amp;quot;columnline s1 l4 solid down&amp;quot; style=&amp;quot;grid-area:11&#x2F;2&#x2F;12&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+    
+    &amp;lt;!---updating 箭头--&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s2 l5 dashed down&amp;quot; style=&amp;quot;grid-area:5&#x2F;3&#x2F;6&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s2 l6 dashed down&amp;quot; style=&amp;quot;grid-area:5&#x2F;4&#x2F;6&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s2 l7 dashed down&amp;quot; style=&amp;quot;grid-area:5&#x2F;5&#x2F;6&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s2 l8 dashed down&amp;quot; style=&amp;quot;grid-area:8&#x2F;4&#x2F;9&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt; 
+    &amp;lt;div class=&amp;quot;columnline s2 l9 solid down&amp;quot; style=&amp;quot;grid-area:11&#x2F;4&#x2F;12&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+
+    &amp;lt;!---unmounting 箭头--&amp;gt;
+    &amp;lt;div class=&amp;quot;columnline s3 l9 dashed down&amp;quot; style=&amp;quot;grid-area:2&#x2F;6&#x2F;12&#x2F;span 1&amp;quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;
+
+    &amp;lt;div class=&amp;quot;methods&amp;quot; style=&amp;quot;grid-area:12&#x2F;2&#x2F;span 2&#x2F;span 1&amp;quot;&amp;gt;component&amp;amp;shy;Did&amp;amp;shy;Mount&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;methods&amp;quot; style=&amp;quot;grid-area:12&#x2F;3&#x2F;span 2&#x2F;span 3&amp;quot;&amp;gt;component&amp;amp;shy;Did&amp;amp;shy;Update&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;methods&amp;quot; style=&amp;quot;grid-area:12&#x2F;6&#x2F;span 2&#x2F;span 1&amp;quot;&amp;gt;component&amp;amp;shy;Will&amp;amp;shy;Unmount&amp;lt;&#x2F;div&amp;gt;
+
+    &amp;lt;div class=&amp;quot;methods constructor&amp;quot; style=&amp;quot;grid-area:3&#x2F;2&#x2F;span 2&#x2F;span 1&amp;quot;&amp;gt;constructor&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;methods render&amp;quot; style=&amp;quot;grid-area:6&#x2F;2&#x2F;span 2&#x2F;span 4&amp;quot;&amp;gt;render&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;methods updates&amp;quot; style=&amp;quot;grid-area:9&#x2F;2&#x2F;span 2&#x2F;span 4&amp;quot;&amp;gt;React updates DOM and refs&amp;lt;&#x2F;div&amp;gt;
+
+    &amp;lt;div class=&amp;quot;uitem u1&amp;quot; style=&amp;quot;grid-area:3&#x2F;3&#x2F;span 2&#x2F;span 1&amp;quot;&amp;gt;New Props&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;uitem u2&amp;quot; style=&amp;quot;grid-area:3&#x2F;4&#x2F;span 2&#x2F;span 1&amp;quot;&amp;gt;setSate()&amp;lt;&#x2F;div&amp;gt;
+    &amp;lt;div class=&amp;quot;uitem u3&amp;quot; style=&amp;quot;grid-area:3&#x2F;5&#x2F;span 2&#x2F;span 1&amp;quot;&amp;gt;forceUpdate()&amp;lt;&#x2F;div&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;</content>
+        
+    </entry>
+</feed>

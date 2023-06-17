@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>@ngrx/entity 简介 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="@ngrx&#x2F;entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。" />
+  <link rel="canonical" href="http://aqrun.com/frontend/ngrx-entity-jian-jie/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/frontend/ngrx-entity-jian-jie/" />
+  <meta name="twitter:url" content="http://aqrun.com/frontend/ngrx-entity-jian-jie/" />
+  <meta property="og:description" content="@ngrx&#x2F;entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。" />
+  <meta name="twitter:description" content="@ngrx&#x2F;entity，是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。" />
+  <meta property="og:title" content="@ngrx&#x2F;entity 简介 | 子十" />
+  <meta name="twitter:title" content="@ngrx&#x2F;entity 简介 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2018-03-15" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/frontend/ngrx-entity-jian-jie/">@ngrx&#x2F;entity 简介</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2018-03-15<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/frontend/">
+                前端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/angular/">angular</a>  #<a href="http://aqrun.com/tags/ngrx/">ngrx</a>  #<a href="http://aqrun.com/tags/ngrx-entity/">ngrx&#x2F;entity</a> </span>
+
+    <blockquote>
+<p><a rel="noopener" target="_blank" href="https://medium.com/ngrx/introducing-ngrx-entity-598176456e15">原文链接：https://medium.com/ngrx/introducing-ngrx-entity-598176456e15</a></p>
+</blockquote>
+<p>关于使用NgRx构建应用程序最常见的抱怨之一是开发人员必须编写的样板代码数量。 试图解决样板问题时的挑战在于，为了从体系结构中获得全部优势，必需的明确性至关重要。 我们认为，通过开发有针对性的库，我们可以帮助减少一些这种样板，同时保留NgRx提供的所有好处。</p>
+<p>今天，我们很高兴宣布发布@ngrx/entity，它是NgRx团队中第一个旨在减少样板的类库。 其目标是帮助开发人员编写维护实体集合的Reducer功能。</p>
+<h2 id="ta-shi-ru-he-gong-zuo-de">她是如何工作的</h2>
+<p>@ngrx/entity允许您为不同类型的实体创建实体适配器(entity adapter)。 使用实体适配器，您可以快速编写 reducer 操作并自动生成选择器(selector)。 例如我们的 <a rel="noopener" target="_blank" href="https://ngrx.github.io/platform/example-app">example application</a>，假设我们想编写一个管理书籍集合的应用程序。 Book 接口(interface)如下所示：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-interface z-ts"><span class="z-storage z-type z-interface z-ts">interface</span> <span class="z-entity z-name z-type z-interface z-ts">Book</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+<span class="z-meta z-field z-declaration z-ts">    <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">id</span></span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-support z-type z-primitive z-ts">string</span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-meta z-field z-declaration z-ts">    <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">title</span></span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-support z-type z-primitive z-ts">string</span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></code></pre>
+<p>编写管理这个集合的reducer的第一步是创建一个实体适配器(entity adapter)：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-import z-ts"><span class="z-keyword z-control z-import z-ts">import</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span> <span class="z-variable z-other z-readwrite z-alias z-ts">createEntityAdapter</span> <span class="z-punctuation z-definition z-block z-ts">}</span></span> <span class="z-keyword z-control z-from z-ts">from</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>@ngrx/entity<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+
+<span class="z-meta z-var z-expr z-ts"><span class="z-storage z-type z-ts">const</span> <span class="z-meta z-var-single-variable z-expr z-ts"><span class="z-meta z-definition z-variable z-ts"><span class="z-variable z-other z-constant z-ts">bookAdapter</span></span> </span><span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">createEntityAdapter</span></span><span class="z-meta z-type z-parameters z-ts"><span class="z-punctuation z-definition z-typeparameters z-begin z-ts">&lt;</span><span class="z-entity z-name z-type z-ts">Book</span><span class="z-punctuation z-definition z-typeparameters z-end z-ts">&gt;</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-brace z-round z-ts">)</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+</span></code></pre>
+<p>接下来，我们需要为我们的书籍状态声明接口：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-import z-ts"><span class="z-keyword z-control z-import z-ts">import</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span> <span class="z-variable z-other z-readwrite z-alias z-ts">EntityState</span> <span class="z-punctuation z-definition z-block z-ts">}</span></span> <span class="z-keyword z-control z-from z-ts">from</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>@ngrx/entity<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+
+<span class="z-meta z-interface z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-interface z-ts">interface</span> <span class="z-entity z-name z-type z-interface z-ts">BookState</span> <span class="z-storage z-modifier z-ts">extends</span> <span class="z-entity z-other z-inherited-class z-ts">EntityState</span><span class="z-meta z-type z-parameters z-ts"><span class="z-punctuation z-definition z-typeparameters z-begin z-ts">&lt;</span><span class="z-entity z-name z-type z-ts">Book</span><span class="z-punctuation z-definition z-typeparameters z-end z-ts">&gt;</span></span> <span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></code></pre>
+<p>EntityState的声明如下所示：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-interface z-ts"><span class="z-storage z-type z-interface z-ts">interface</span> <span class="z-entity z-name z-type z-interface z-ts">EntityState</span><span class="z-meta z-type z-parameters z-ts"><span class="z-punctuation z-definition z-typeparameters z-begin z-ts">&lt;</span><span class="z-entity z-name z-type z-ts">V</span><span class="z-punctuation z-definition z-typeparameters z-end z-ts">&gt;</span></span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+<span class="z-meta z-field z-declaration z-ts">    <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">ids</span></span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-support z-type z-primitive z-ts">string</span><span class="z-meta z-type z-tuple z-ts"><span class="z-meta z-brace z-square z-ts">[</span><span class="z-meta z-brace z-square z-ts">]</span></span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-meta z-field z-declaration z-ts">    <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">entities</span></span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-meta z-object z-type z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-meta z-indexer z-declaration z-ts"> <span class="z-meta z-brace z-square z-ts">[</span><span class="z-variable z-parameter z-ts">id</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-support z-type z-primitive z-ts">string</span></span><span class="z-meta z-brace z-square z-ts">]</span></span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">V</span> </span><span class="z-punctuation z-definition z-block z-ts">}</span></span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+</span></code></pre>
+<p>我们维护一个ID列表和 Entity 字典的主要原因有两点：</p>
+<ol>
+<li>我们希望快速查找特定的实体。 如果您只想从 Store 中选择一本书，使用 Entity 词典比搜索数组要快得多</li>
+<li>我们也想维护列表的顺序。 如果你想保持列表排序，这是特别重要的！</li>
+</ol>
+<p>EntityState<V>的声明符合所有目标。 它也是可扩展的，所以我们可以在书籍集合中包含其他相关信息，例如当前选择的书籍。</p>
+<p>接下来，定义一些操作：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-variable z-other z-readwrite z-ts">improt</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span> <span class="z-variable z-other z-readwrite z-ts">Action</span> <span class="z-punctuation z-definition z-block z-ts">}</span></span> <span class="z-variable z-other z-readwrite z-ts">from</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>@ngrx/store<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+
+<span class="z-meta z-enum z-declaration z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-enum z-ts">enum</span> <span class="z-entity z-name z-type z-enum z-ts">BookActionTypes</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+    <span class="z-variable z-other z-enummember z-ts">ADD_ONE</span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>[Books] Add One<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+    <span class="z-variable z-other z-enummember z-ts">UPDATE_ONE</span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>[Books] Update One<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+    <span class="z-variable z-other z-enummember z-ts">DELETE_ONE</span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>[Books] Delete One<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+    <span class="z-variable z-other z-enummember z-ts">GET_ALL</span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>[Books] Get All<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+
+<span class="z-meta z-class z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-class z-ts">class</span> <span class="z-entity z-name z-type z-class z-ts">AddOne</span> <span class="z-storage z-modifier z-ts">implements</span> <span class="z-entity z-other z-inherited-class z-ts">Action</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+    <span class="z-meta z-field z-declaration z-ts"><span class="z-storage z-modifier z-ts">readonly</span> <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">type</span></span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-variable z-other z-object z-ts">BookActionType</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">ADD_ONE</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+
+<span class="z-meta z-method z-declaration z-ts">    <span class="z-storage z-type z-ts">constructor</span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span><span class="z-storage z-modifier z-ts">public</span> <span class="z-variable z-parameter z-ts">book</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">BookModel</span></span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+
+<span class="z-meta z-class z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-class z-ts">class</span> <span class="z-entity z-name z-type z-class z-ts">UpdateOne</span> <span class="z-storage z-modifier z-ts">implements</span> <span class="z-entity z-other z-inherited-class z-ts">Action</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+    <span class="z-meta z-field z-declaration z-ts"><span class="z-storage z-modifier z-ts">readonly</span> <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">type</span></span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-variable z-other z-object z-ts">BookActionType</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">UPDATE_ONE</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-meta z-method z-declaration z-ts">    <span class="z-storage z-type z-ts">constructor</span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span>
+        <span class="z-storage z-modifier z-ts">public</span> <span class="z-variable z-parameter z-ts">id</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-support z-type z-primitive z-ts">string</span></span><span class="z-punctuation z-separator z-parameter z-ts">,</span>
+        <span class="z-storage z-modifier z-ts">public</span> <span class="z-variable z-parameter z-ts">changes</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">Partial</span><span class="z-meta z-type z-parameters z-ts"><span class="z-punctuation z-definition z-typeparameters z-begin z-ts">&lt;</span></span><span class="z-meta z-type z-parameters z-ts"><span class="z-entity z-name z-type z-ts">BookModel</span></span><span class="z-meta z-type z-parameters z-ts"><span class="z-punctuation z-definition z-typeparameters z-end z-ts">&gt;</span></span>
+    </span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+
+<span class="z-meta z-class z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-class z-ts">class</span> <span class="z-entity z-name z-type z-class z-ts">DeleteOne</span> <span class="z-storage z-modifier z-ts">implements</span> <span class="z-entity z-other z-inherited-class z-ts">Action</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+    <span class="z-meta z-field z-declaration z-ts"><span class="z-storage z-modifier z-ts">readonly</span> <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">type</span></span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-variable z-other z-object z-ts">BookActionType</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">DELETE_ONE</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-meta z-method z-declaration z-ts">    <span class="z-storage z-type z-ts">constructor</span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span>
+        <span class="z-storage z-modifier z-ts">public</span> <span class="z-variable z-parameter z-ts">id</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-support z-type z-primitive z-ts">string</span>
+    </span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+
+<span class="z-meta z-class z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-class z-ts">class</span> <span class="z-entity z-name z-type z-class z-ts">GetAll</span> <span class="z-storage z-modifier z-ts">implements</span> <span class="z-entity z-other z-inherited-class z-ts">Action</span> <span class="z-punctuation z-definition z-block z-ts">{</span>
+    <span class="z-meta z-field z-declaration z-ts"><span class="z-storage z-modifier z-ts">readonly</span> <span class="z-meta z-definition z-property z-ts"><span class="z-variable z-object z-property z-ts">type</span></span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-variable z-other z-object z-ts">BookActionType</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">GET_ALL</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+<span class="z-meta z-method z-declaration z-ts">    <span class="z-storage z-type z-ts">constructor</span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span>
+        <span class="z-storage z-modifier z-ts">public</span> <span class="z-variable z-parameter z-ts">books</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">BookModel</span><span class="z-meta z-type z-tuple z-ts"><span class="z-meta z-brace z-square z-ts">[</span><span class="z-meta z-brace z-square z-ts">]</span></span>
+    </span><span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span><span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span>
+
+<span class="z-meta z-type z-declaration z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-type z-ts">type</span> <span class="z-entity z-name z-type z-alias z-ts">BookActions</span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-entity z-name z-type z-ts">AddOne</span>
+    <span class="z-keyword z-operator z-type z-ts">|</span> <span class="z-entity z-name z-type z-ts">UpdateOne</span>
+    <span class="z-keyword z-operator z-type z-ts">|</span> <span class="z-entity z-name z-type z-ts">DeleteOne</span>
+    <span class="z-keyword z-operator z-type z-ts">|</span> <span class="z-entity z-name z-type z-ts">GetAll</span>
+    </span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+
+</span></code></pre>
+<p>现在我们准备使用bookAdapter来创建我们的书籍 reducer：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-var z-expr z-ts"><span class="z-storage z-type z-ts">const</span> <span class="z-meta z-var-single-variable z-expr z-ts"><span class="z-meta z-definition z-variable z-ts"><span class="z-variable z-other z-constant z-ts">initialState</span></span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">BookState</span> </span></span><span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">bookAdapter</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">getInitialState</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-brace z-round z-ts">)</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+
+<span class="z-meta z-function z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-function z-ts">function</span> <span class="z-meta z-definition z-function z-ts"><span class="z-entity z-name z-function z-ts">bookReducer</span></span><span class="z-meta z-parameters z-ts"><span class="z-punctuation z-definition z-parameters z-begin z-ts">(</span>
+    <span class="z-variable z-parameter z-ts">state</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">BookState</span> </span><span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-variable z-other z-readwrite z-ts">initialState</span><span class="z-punctuation z-separator z-parameter z-ts">,</span>
+    <span class="z-variable z-parameter z-ts">action</span><span class="z-meta z-type z-annotation z-ts"><span class="z-keyword z-operator z-type z-annotation z-ts">:</span> <span class="z-entity z-name z-type z-ts">BookActions</span></span><span class="z-punctuation z-separator z-parameter z-ts">,</span>
+<span class="z-punctuation z-definition z-parameters z-end z-ts">)</span></span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+    <span class="z-switch-statement z-expr z-ts"><span class="z-switch-expression z-expr z-ts"><span class="z-keyword z-control z-switch z-ts">switch</span> <span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-object z-ts">action</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">type</span><span class="z-meta z-brace z-round z-ts">)</span></span> <span class="z-switch-block z-expr z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+        <span class="z-case-clause z-expr z-ts"><span class="z-keyword z-control z-switch z-ts">case</span> <span class="z-variable z-other z-object z-ts">BookActionTypes</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">ADD_ONE</span></span><span class="z-case-clause z-expr z-ts"><span class="z-punctuation z-definition z-section z-case-statement z-ts">:</span></span>
+            <span class="z-keyword z-control z-flow z-ts">return</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">bookAdapter</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">addOne</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-object z-ts">action</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">type</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-variable z-other z-readwrite z-ts">state</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+        <span class="z-case-clause z-expr z-ts"><span class="z-keyword z-control z-switch z-ts">case</span> <span class="z-variable z-other z-object z-ts">BookActionTypes</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">UPDATE_ONE</span></span><span class="z-case-clause z-expr z-ts"><span class="z-punctuation z-definition z-section z-case-statement z-ts">:</span></span>
+            <span class="z-keyword z-control z-flow z-ts">return</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">bookAdapter</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">updateOne</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-objectliteral z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span>
+                <span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts">id</span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span> <span class="z-variable z-other z-object z-ts">action</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">id</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+                <span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts">changes</span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span> <span class="z-variable z-other z-object z-ts">action</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-property z-ts">changes</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+            <span class="z-punctuation z-definition z-block z-ts">}</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-variable z-other z-readwrite z-ts">state</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+        <span class="z-case-clause z-expr z-ts"><span class="z-keyword z-control z-switch z-ts">case</span> <span class="z-variable z-other z-object z-ts">BookActionTypes</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">DELETE_ONE</span></span><span class="z-case-clause z-expr z-ts"><span class="z-punctuation z-definition z-section z-case-statement z-ts">:</span></span>
+            <span class="z-keyword z-control z-flow z-ts">return</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">bookAdapter</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">deleteOne</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-object z-ts">action</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-support z-variable z-property z-dom z-ts">id</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-variable z-other z-readwrite z-ts">state</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+        <span class="z-case-clause z-expr z-ts"><span class="z-keyword z-control z-switch z-ts">case</span> <span class="z-variable z-other z-object z-ts">BookActionTypes</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-constant z-property z-ts">GET_ALL</span></span><span class="z-case-clause z-expr z-ts"><span class="z-punctuation z-definition z-section z-case-statement z-ts">:</span></span>
+            <span class="z-keyword z-control z-flow z-ts">return</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">bookAdapter</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">addAll</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-object z-ts">action</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-property z-ts">books</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-variable z-other z-readwrite z-ts">state</span><span class="z-meta z-brace z-round z-ts">)</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+        <span class="z-case-clause z-expr z-ts"><span class="z-keyword z-control z-switch z-ts">default</span></span><span class="z-case-clause z-expr z-ts"><span class="z-punctuation z-definition z-section z-case-statement z-ts">:</span></span>
+            <span class="z-keyword z-control z-flow z-ts">return</span> <span class="z-variable z-other z-readwrite z-ts">state</span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+    </span><span class="z-punctuation z-definition z-block z-ts">}</span></span>
+<span class="z-punctuation z-definition z-block z-ts">}</span></span></span>
+</span></code></pre>
+<p>新的状态可以使用新创建的 reducer 在 Store 中注册。 我们需要做的最后一件事就是生成用于处理这个状态的选择器(selector)：</p>
+<pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-var z-expr z-ts"><span class="z-keyword z-control z-export z-ts">export</span> <span class="z-storage z-type z-ts">const</span> <span class="z-meta z-object-binding-pattern-variable z-ts"><span class="z-punctuation z-definition z-binding-pattern z-object z-ts">{</span>
+    <span class="z-meta z-definition z-variable z-ts"><span class="z-variable z-other z-constant z-ts">selectIds</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+    <span class="z-meta z-definition z-variable z-ts"><span class="z-variable z-other z-constant z-ts">selectEntities</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+    <span class="z-meta z-definition z-variable z-ts"><span class="z-variable z-other z-constant z-ts">selectAll</span></span><span class="z-punctuation z-separator z-comma z-ts">,</span>
+    <span class="z-meta z-definition z-variable z-ts"><span class="z-variable z-other z-constant z-ts">selectToAll</span></span>
+<span class="z-punctuation z-definition z-binding-pattern z-object z-ts">}</span> </span><span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">bookAdapter</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">getSelectors</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-brace z-round z-ts">)</span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
+</span></code></pre>
+<p>那么样板代码做了哪些？</p>
+<ol>
+<li>不再需要显式声明状态接口(state interface)的所有属性</li>
+<li>添加，删除或更新状态实体(state entity)的实现都由适配器处理。</li>
+<li>该适配器会为您生成一组常用的选择器。</li>
+</ol>
+<p>关于 Entity 的更多文档查看 <a rel="noopener" target="_blank" href="https://github.com/ngrx/platform/tree/master/docs/entity">NgRx Gihub仓库</a> 以及 <a rel="noopener" target="_blank" href="https://github.com/ngrx/platform/tree/master/example-app">example application</a>示例项目中的实际应用。</p>
+<h2 id="ngrx-4-1-fa-bu">NgRx 4.1 发布</h2>
+<p>除了发布 @ngrx/entity 之外，我们还发布了 Store，Effects 和 Router Store 的v4.1.0，其中包含许多新功能和错误修复。 有关包含内容的更多信息，<a rel="noopener" target="_blank" href="https://github.com/ngrx/platform/blob/master/CHANGELOG.md">请查看更新日志</a>。</p>
+<h2 id="bang-zhu-zhi-chi-ngrx">帮助支持 NgRx</h2>
+<p>随着 NgRx4，我们宣布创建我们的 <a rel="noopener" target="_blank" href="https://opencollective.com/ngrx">OpenCollective</a>，您可以帮助支持NgRx的开发。 我们非常感谢来自支持者、赞助商和社区的支持。 作为这些贡献的结果，Entity 是第一个创建的库。 Entity 是为NgRx平台创建更多库的第一步。 考虑<a rel="noopener" target="_blank" href="https://opencollective.com/ngrx">通过OpenCollective</a>支持这些开发工作。</p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

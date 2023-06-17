@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - db_select</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/db-select/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2014-11-05T10:30:22+00:00</updated>
+    <id>http://aqrun.com/tags/db-select/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Drupal 7 API 之db_select的一些使用</title>
+        <published>2014-11-05T10:30:22+00:00</published>
+        <updated>2014-11-05T10:30:22+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
+        <id>http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
+        
+        <content type="html">&lt;p&gt;Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更加方便。目的也不言而喻，就是取代db_query()。下面我也就列罗出一些经常使用的技巧，可能不够全面，还请大家多多补充。&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;1-dan-biao-cha-xun-zui-ji-ben-shi-yong-fang-fa&quot;&gt;1. 单表查询（最基本使用方法）&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-php&quot;&gt;
+$result = db_select(&#x27;contact&#x27;, &#x27;c&#x27;)  &#x2F;&#x2F;选择表contact,名一个别名c
+ -&gt;fields(&#x27;c&#x27;) &#x2F;&#x2F;查询c表中的字段，后面不跟参数就是查询所有
+ -&gt;execute()  &#x2F;&#x2F;执行操作
+ -&gt;fetchAssoc(); &#x2F;&#x2F;处理结果集
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;2-tiao-jian-cha-xun-condition&quot;&gt;2. 条件查询（condition）&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-php&quot;&gt;
+    $result = db_select(&#x27;node&#x27;, &#x27;n&#x27;)
+    -&gt;fields(&#x27;n&#x27;)
+    -&gt;condition(&#x27;nid&#x27;, 5,&#x27;=&#x27;)  &#x2F;&#x2F;nid等于5的条件
+    -&gt;condition(&#x27;status&#x27;, 0,&#x27;&gt;&#x27;) &#x2F;&#x2F; 状态大于0,也就是为真等于1
+    -&gt;condition(&#x27;uid&#x27;, array(1,5,7),&#x27;IN&#x27;) &#x2F;&#x2F;使用IN操作，当然还可以使用 NOT IN
+    -&gt;execute()
+    -&gt;fetchAssoc();
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;3-lian-he-cha-xun-join&quot;&gt;3. 联合查询（Join）&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-php&quot;&gt;
+ $query = db_select(&#x27;field_data_field_slide&#x27;,&#x27;f&#x27;); &#x2F;&#x2F;主表
+
+ $query-&gt;join(&#x27;node&#x27;, &#x27;n&#x27;, &#x27;fa.entity_id = n.nid&#x27;); &#x2F;&#x2F; 联合node表,条件是nid
+
+ $query-&gt;condition(&#x27;f.field_slide_channel_tid&#x27;,$chanid,&#x27;=&#x27;);
+
+ $query-&gt;condition(&#x27;n.status&#x27;,&#x27;1&#x27;,&#x27;=&#x27;);  &#x2F;&#x2F;发布状态
+
+ $query-&gt;fields(&#x27;n&#x27;,array(&#x27;nid&#x27;));  &#x2F;&#x2F;查询nid
+
+ $query-&gt;orderBy(&#x27;n.nid&#x27;,&#x27;DESC&#x27;); &#x2F;&#x2F;排序条件
+
+  $query-&gt;range(0,4); &#x2F;&#x2F;取得4条数据
+
+   $result = $query-&gt;execute();
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;4-tian-jia-zi-duan-addfield&quot;&gt;4. 添加字段（addField）&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-php&quot;&gt;
+    $query = db_select(&#x27;taxonomy_term_hierarchy&#x27;,&#x27;h&#x27;); &#x2F;&#x2F;选择表
+    $query-&gt;join(&#x27;taxonomy_term_data&#x27;,&#x27;d&#x27;,&#x27;h.tid = d.tid&#x27;); &#x2F;&#x2F; 联合查询
+    $query-&gt;addField(&#x27;d&#x27;, &#x27;tid&#x27;); &#x2F;&#x2F; 添加字段
+    $query-&gt;condition(&#x27;h.parent&#x27;,0); &#x2F;&#x2F; 添加条件where 
+    $query-&gt;condition(&#x27;d.vid&#x27;,$vid); &#x2F;&#x2F; 再添加一个条件 and ....
+    $query-&gt;addTag(&#x27;ditusearch_generate_path&#x27;); &#x2F;&#x2F; 添加Tag 可选项，这个就是方便其他地方可以改变这   个查询$query 比如如果添加了tag 可以使用 hook_query_alter 对其进行查询 如果你使用过views开发，views 也可以了类似的hook
+    $tid = $query-&gt;execute()-&gt;fetchCol();
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;5-fen-ye-shi-yong-pager&quot;&gt;5. 分页使用（pager）&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-javascript&quot;&gt;
+  $query = db_select(&#x27;node&#x27;, &#x27;n&#x27;)
+      -&gt;condition(&#x27;type&#x27;, &#x27;article&#x27;)
+      -&gt;fields(&#x27;n&#x27;);
+  $query = $query-&gt;extend(&#x27;PagerDefault&#x27;)-&gt;limit(2); &#x2F;&#x2F;limit条件是分页数目
+  $result = $query-&gt;execute();
+  foreach($result as $res){
+     $output .= $res-&gt;title;
+   }
+    $output .= theme(‘pager’); &#x2F;&#x2F;添加分页theme
+    Return $output; 
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h4 id=&quot;6-duo-biao-lian-he-fen-ye&quot;&gt;6. 多表联合分页&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-javascript&quot;&gt;
+  $query = db_select(&#x27;field_data_field_news&#x27;,&#x27;fa&#x27;)-&gt;extend(&#x27;PagerDefault&#x27;); &#x2F;&#x2F;多表联合查询extend条件必须放在db_select之后
+
+  $query-&gt;join(&#x27;node&#x27;,&#x27;n&#x27;,&#x27;fa.entity_id = n.nid&#x27;);
+
+  $query-&gt;join(&#x27;field_data_field_news_date_sort&#x27;, &#x27;fb&#x27;, &#x27;fa.entity_id = fb.entity_id&#x27;);
+
+  $query-&gt;fields(&#x27;n&#x27;, array(&#x27;nid&#x27;,&#x27;title&#x27;));
+
+  $query-&gt;condition(&#x27;fa.field_news_classify_tid&#x27;,$tids,&#x27;in&#x27;); 
+
+  $query-&gt;condition(&#x27;n.type&#x27;,&#x27;news&#x27;,&#x27;=&#x27;); 
+
+  $query-&gt;condition(&#x27;n.status&#x27;,&#x27;1&#x27;,&#x27;=&#x27;);     
+
+ $query-&gt;orderBy(&#x27;fb.field_news_date_sort_value&#x27;,&#x27;DESC&#x27;);
+
+  $query-&gt;limit(14);
+
+   $result = $query-&gt;execute();
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;http:&#x2F;&#x2F;drupalchina.cn&#x2F;node&#x2F;2026  &lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

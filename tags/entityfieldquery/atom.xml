@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - EntityFieldQuery</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/entityfieldquery/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2014-11-10T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/entityfieldquery/atom.xml</id>
+    <entry xml:lang="en">
+        <title>drupal7 EntityFieldQuery获取指定类型的内容列表</title>
+        <published>2014-11-10T00:00:00+00:00</published>
+        <updated>2014-11-10T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/" type="text/html"/>
+        <id>http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</id>
+        
+        <content type="html">&lt;p&gt;EntityFieldQuery获取指定类型的内容列表&lt;&#x2F;p&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-php&quot;&gt;
+
+&#x2F;&#x2F;先获取指定类型内容nid列表
+$query = new EntityFieldQuery();
+$entities = $query-&gt;entityCondition(&#x27;entity_type&#x27;, &#x27;node&#x27;)
+      -&gt; propertyCondition(&#x27;type&#x27;, &#x27;your node type&#x27;);
+$total = $entities-&gt;count()-&gt;execute(); &#x2F;&#x2F;获取数据总条数
+$entities-&gt;count() = false;  &#x2F;&#x2F;设置计数为false
+$nodes = $entities-&gt;range(1,1)-&gt;count(false)-&gt;execute(); &#x2F;&#x2F;获取指定类型node数据
+
+foreach($nodes[&#x27;node&#x27;] as $k=$v){
+    $nids[] = $v[&#x27;nid&#x27;];
+}
+$nodesData = node_load_multiple($nids);  &#x2F;&#x2F;获取指定nid内容对象列表
+foeach($nodesData as $n){
+   &#x2F;&#x2F;处理相关数据
+}
+
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;EntityFieldQuery 类在 entity.inc文件&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Compiling PHP 5.4 on Ubuntu 12. | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times" />
+  <link rel="canonical" href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" />
+  <meta property="og:description" content="I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times" />
+  <meta name="twitter:description" content="I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times" />
+  <meta property="og:title" content="Compiling PHP 5.4 on Ubuntu 12. | 子十" />
+  <meta name="twitter:title" content="Compiling PHP 5.4 on Ubuntu 12. | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2015-03-15" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/">Compiling PHP 5.4 on Ubuntu 12.</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2015-03-15<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/compile/">compile</a>  #<a href="http://aqrun.com/tags/ubuntu/">ubuntu</a> </span>
+
+    <p>So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.</p>
+<p>Not a daunting as it may first appear. The really tricky part is working out your dependencies and configure script.</p>
+<p>Hence the reason for this post as a reminder for myself and others that may want to do a quick compile. (I would recommend that if your compiling for a production/live environment that you make sure you understand what it is your compiling though before just using what’s here)</p>
+<p>So where to start. Dependencies first I think</p>
+<p>Ubuntu allows you to install dependencies for building source apt-get build-deps. We will use this and install any extras we may need.</p>
+<pre class="line-numbers">
+    <code class="language-shell">
+
+    apt-get install \
+    libxml2 \
+    libxml2-dev \
+    libssl-dev \
+    pkg-config \
+    curl \
+    libcurl4-nss-dev \
+    enchant \
+    libenchant-dev \
+    libjpeg8 \
+    libjpeg8-dev \
+    libpng12-0 \
+    libpng12-dev \
+    libvpx1 \
+    libvpx-dev \
+    libfreetype6 \
+    libfreetype6-dev \
+    libt1-5 \
+    libt1-dev \
+    libgmp10 \
+    libgmp-dev \
+    libicu48 \
+    libicu-dev \
+    mcrypt \
+    libmcrypt4 \
+    libmcrypt-dev \
+    libpspell-dev \
+    libedit2 \
+    libedit-dev \
+    libsnmp15 \
+    libsnmp-dev \
+    libxslt1.1 \
+    libxslt1-dev
+        
+</code></pre>
+<p>And now the configure</p>
+<pre class="line-numbers">
+    <code class="language-shell">
+
+    ./configure \
+    --prefix=/usr/local/php \
+    --with-apxs2=/usr/local/apache2/bin/apxs \
+    --enable-fpm \
+    --with-fpm-user=www-data \
+    --with-fpm-group=www-data \
+    --with-config-file-path=/usr/local/php/conf \
+    --with-config-file-scan-dir=/usr/local/php/conf.d \
+    --enable-debug \
+    --with-openssl \
+    --with-kerberos \
+    --with-zlib \
+    --enable-calendar \
+    --with-curl \
+    --with-curlwrappers \
+    --with-enchant \
+    --enable-exif \
+    --enable-ftp \
+    --with-gd \
+    --with-jpeg-dir=/usr \
+    --with-png-dir=/usr \
+    --with-vpx-dir=/usr \
+    --with-freetype-dir=/usr \
+    --with-t1lib \
+    --enable-exif \
+    --enable-gd-native-ttf \
+    --enable-gd-jis-conv \
+    --with-gettext \
+    --with-gmp \
+    --with-mhash \
+    --enable-intl \
+    --enable-mbstring \
+    --with-mcrypt \
+    --with-mysql \
+    --with-mysqli \
+    --enable-pcntl \
+    --with-pdo-mysql \
+    --with-pdo-pgsql \
+    --with-pgsql \
+    --with-pspell \
+    --with-libedit \
+    --with-readline \
+    --enable-shmop \
+    --with-snmp \
+    --enable-soap \
+    --enable-sockets \
+    --enable-sysvmsg \
+    --enable-sysvshm \
+    --with-xsl \
+    --enable-zip \
+    --with-pear \
+    --enable-zend-signals \
+    --enable-maintainer-zts
+
+</code>
+</pre>
+<p>Once these are done then we follow the standard make process. Notice we are also running make test… very important as it givges more data for the developers to work with.</p>
+<pre class="z-code"><code><span class="z-text z-plain">Make PHP
+make &amp;&amp; make test &amp;&amp; make install
+</span></code></pre>
+<p>1</p>
+<pre class="z-code"><code><span class="z-text z-plain">make &amp;&amp; make test &amp;&amp; make install
+</span></code></pre>
+<p>The next thing is configuring your php.ini file as the install doesn’t have one yet so we copy either the production or development default from the source code to the new conf dir and edit to suit your needs.</p>
+<pre class="z-code"><code><span class="z-text z-plain">Shell
+cp {&lt;a href=&quot;http://www.php.net/&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;/a&gt;-source-dir}/&lt;a href=&quot;http://www.php.net/&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;/a&gt;.ini-(development|production) /usr/local/&lt;a href=&quot;http://www.php.net/&quot; title=&quot;PHP&quot; target=&quot;_blank&quot;&gt;php&lt;/a&gt;/conf
+</span></code></pre>
+<p>1</p>
+<pre class="z-code"><code><span class="z-text z-plain">cp {php-source-dir}/php.ini-(development|production) /usr/local/php/conf
+</span></code></pre>
+<p>Thats it. All ready to roll… almost, this installation is the one I use for use with a webserver so you will want to add the appropriate directives to apache.</p>
+<p>Shell
+LoadModule php5_module modules/libphp5.so AddHandler php5-script .<a href="http://www.php.net/" title="PHP" target="_blank">php</a> AddType text/html .<a href="http://www.php.net/" title="PHP" target="_blank">php</a></p>
+<pre class="z-code"><code><span class="z-text z-plain">LoadModule php5_module        modules/libphp5.so
+
+AddHandler php5-script .php
+AddType text/html .php</span></code></pre>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

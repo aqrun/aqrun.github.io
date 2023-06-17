@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>仿starZoom图片移动缩放插件 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="canvas实现 图片移动缩放 旋转 效果" />
+  <link rel="canonical" href="http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" />
+  <meta name="twitter:url" content="http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" />
+  <meta property="og:description" content="canvas实现 图片移动缩放 旋转 效果" />
+  <meta name="twitter:description" content="canvas实现 图片移动缩放 旋转 效果" />
+  <meta property="og:title" content="仿starZoom图片移动缩放插件 | 子十" />
+  <meta name="twitter:title" content="仿starZoom图片移动缩放插件 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2015-06-04" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/">仿starZoom图片移动缩放插件</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2015-06-04<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/frontend/">
+                前端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/starzoom/">starzoom</a>  #<a href="http://aqrun.com/tags/tu-pian-cao-zuo/">图片操作</a> </span>
+
+    <pre class="line-numbers">
+    <code class="language-javascript">
+
+    /**
+     * starZoom  jquery扩展
+     * date: 2015-6-3
+     * canvas实现 图片移动缩放 旋转 效果
+     *
+     * 参数可用 data-options 及 starZoom({}) 形参两种形式
+     *
+     * ///////
+     * &lt;div class="iamge_wrap"&gt;
+     *      &lt;img src="" class="star_zoom" data-options="{'width':400,'height':300}"&gt;
+     * &lt;/div&gt;
+     *
+     * $(".star_zoom").starZoom();
+     * //////
+     *
+     */
+    
+    (function($){
+        var Events = {
+            REDRAW: "redraw",
+            MOUSE_WHEEL: "mousewheel",
+            MOUSE_DOWN: "mousedown",
+            MOUSE_UP: "mouseup",
+            MOUSE_MOVE: "mousemove"
+        };
+        /**
+         * 类定义
+         * @param options
+         * @constructor
+         */
+        var StarZoom = function(options){
+            this.$s = -1;  //当前操作的imgDOM
+            this.$wrapper = -1; this.$canvas = -1; this.$blank = -1;//appended DOM object
+            this.backgroundColor = "white";//canvas background
+            this.ctx = -1; //canvas context
+            this.img = -1; this.ratio = 0;//image dom  image ratio
+            this.width = 0;this.height = 0; //canvas width height
+            this.mouseIsDown = false;
+            this.ow = 0; this.oh = 0;//image original width height
+            this.sx = 0; this.sy = 0; this.sw=0; this.sh=0;this.dx=0; this.dy=0;//drawImage()
+            this.dw=0; this.dh=0;//drawImage()
+            this.mouseX = 0; this.mouseY = 0; //mouse position
+            this.zoomStep = 30;
+            this.minWidth = 50;
+            this.centerx = 0;this.centery = 0;
+            this.olddw = 0; this.olddh = 0;
+            this.degree = 0; //旋转的角度
+            this.btnRotateLeft = '.btn_rotate_left';//向左转class
+            this.btnRotateRight = '.btn_rotate_right';
+            this.btnZoomIn = '.btn_zoom_in'; //放大按钮
+            this.btnZoomOut = '.btn_zoom_out'; //缩小按钮
+            this.initialize(options);
+        };
+        StarZoom.prototype = {
+            initialize: function(options){
+                var self = this;
+                $.extend(this, options);
+                self.img = new Image();
+                self.img.onload = function(){
+                    self.ow = self.img.width;
+                    self.oh = self.img.height;
+                    self.initDom();//初始化所需DOM
+                    self.bindEvents(); //绑定相关事件
+    
+                    self.ctx = self.$canvas[0].getContext("2d");
+                    self.initImage();//初始化图片绘制
+                }
+                self.img.src = this.$s.attr("src");
+            },
+            bindEvents: function(){
+                var self = this;
+                //空白层 mouse wheel down up move事件
+                self.$blank.on(Events.MOUSE_WHEEL +" "+ Events.MOUSE_DOWN +" "+ Events.MOUSE_UP
+                +" "+ Events.MOUSE_MOVE, function(e){
+                    switch(e.type) {
+                        case Events.MOUSE_MOVE:
+                            self.handleBlankMouseMove(e);
+                            break;
+                        case Events.MOUSE_DOWN:
+                            self.mouseX = e.pageX;
+                            self.mouseY = e.pageY;
+                            self.mouseIsDown = true;
+                            self.$blank.css({cursor:"move"});
+                            //console.log(e.pageX - self.$canvas.offset().left);
+                            break;
+                        case Events.MOUSE_UP:
+                            self.mouseIsDown = false;
+                            self.$blank.css({cursor:"auto"});
+                            break;
+                        case Events.MOUSE_WHEEL:
+                            e.preventDefault();
+                            self.handleBlankMouseWheel(e);
+                            break;
+                    }
+                });
+                //绑定重绘事件
+                self.$canvas.bind(Events.REDRAW, function(){
+                    self.ctx.fillStyle = self.backgroundColor;
+                    self.ctx.fillRect(0,0,self.width,self.height); //重置背景
+                    self.getCenter();  //获取图片中心在canvas上的坐标值
+                    self.ctx.save();
+                    self.ctx.translate(self.centerx, self.centery);//参考点移动到图片中心
+                    self.ctx.rotate(self.degree*Math.PI/180);   //旋转
+                    self.ctx.translate(-self.centerx, -self.centery); //重置参考点
+                    self.ctx.drawImage(self.img, self.sx, self.sy, self.sw, self.sh,self.dx, self.dy, self.dw, self.dh);
+                    self.ctx.restore();
+                });
+                var $parent = self.$s.parent();
+                $parent.find(self.btnRotateLeft).on("click", function(){
+                    self.degree -= 90;
+                    self.redraw();
+                });
+                $parent.find(self.btnRotateRight).on("click", function(){
+                    self.degree += 90;
+                    self.redraw();
+                });
+                $parent.find(self.btnZoomIn).on("click", function(){
+                    self.olddw = self.dw;
+                    self.olddh = self.dh;
+                    self.resizeByDelta(1, 0.5, 0.5);
+                    self.redraw();
+                });
+                $parent.find(self.btnZoomOut).on("click", function(){
+                    self.olddw = self.dw;
+                    self.olddh = self.dh;
+                    self.resizeByDelta(-1, 0.5, 0.5);
+                    self.redraw();
+                });
+            },
+            //获取当前图片中心点坐标 相对canvas
+            getCenter: function(){
+                var self = this;
+                self.centerx = self.dw/2 + self.dx;
+                self.centery = self.dh/2 + self.dy;
+            },
+            //初始化图片绘制
+            initImage: function(){
+                var self = this;
+                self.ratio = self.ow/self.oh;
+                self.sh = self.oh; self.sw = self.ow;
+                if(self.width >= self.height){ //显示区域宽大与高
+                    self.initByHeight();
+                    if(self.dw > self.width){
+                        self.initByWidth();
+                    }
+                }else{
+                    self.initByWidth();
+                    if(self.dh > self.height){
+                        self.initByHeight();
+                    }
+                }
+                self.redraw();
+                self.$canvas.stop(true,false).animate({opacity:1},1500,'linear');
+            },
+            //鼠标移动事件
+            handleBlankMouseMove: function(e){
+                var self = this;
+                if(!self.mouseIsDown) return;
+                self.dx += (e.pageX - self.mouseX );
+                self.dy += (e.pageY - self.mouseY);
+                self.mouseX = e.pageX;
+                self.mouseY = e.pageY;
+                self.redraw();
+            },
+            //滚轮事件
+            handleBlankMouseWheel: function(e){
+                var self = this, delta, posx,posy,deltax=0.5, deltay=0.5;
+                self.olddw = self.dw;
+                self.olddh = self.dh;
+                if(e.deltaY > 0){delta = 1;}else{delta = -1;}
+    
+                posx = Math.abs(e.pageX - self.$canvas.offset().left - self.dx);
+                posy = Math.abs(e.pageY - self.$canvas.offset().top - self.dy);
+                deltax = posx/self.olddw;
+                deltay = posy/self.olddh;
+                self.resizeByDelta(delta, deltax, deltay);
+                self.redraw();
+            },
+            resizeByDelta: function(delta, deltax, deltay){
+                var self = this;
+                self.dw += delta * self.zoomStep;
+                self.dw = self.dw<self.minWidth ? self.minWidth : self.dw;
+                self.dh = self.dw/self.ratio;
+    
+                self.dx -= delta*Math.abs(self.olddw-self.dw)*deltax;
+                self.dy -= delta*Math.abs(self.olddh-self.dh)*deltay;
+            },
+            //触发重绘事件
+            redraw: function(){
+                this.$canvas.trigger(Events.REDRAW);
+            },
+            //以高为准定位图片位置
+            initByHeight: function(){
+                var self = this;
+                self.dh = self.height;
+                self.dw = self.dh * self.ratio;
+                self.dy = 0;
+                self.dx = (self.width-self.dw)/2;
+            },
+            //以宽为准定位
+            initByWidth: function(){
+                var self = this;
+                self.dw = self.width;
+                self.dh = self.dw/self.ratio;
+                self.dx = 0;
+                self.dy = (self.height-self.dh)/2;
+            },
+            //初始化所需的DOM
+            initDom: function(){
+                var self = this;
+                self.$wrapper = $('&lt;div class="star_zoom sw"&gt;&lt;/div&gt;');
+                self.$canvas = $('&lt;canvas class="star_zoom sc"&gt;&lt;/canvas&gt;');
+                self.$blank = $('&lt;div class="star_zoom sl" unselectable="on"&gt;&lt;/div&gt;');
+                self.$canvas.css({
+                    position:"absolute",top:0,left:0,zIndex:100, opacity:0
+                }).attr({width:self.width,height:self.height}).appendTo(self.$wrapper);
+                self.$blank.css({
+                    width:self.width + "px",height:self.height+"px",position:"absolute",top:0,left:0,zIndex:110
+                }).appendTo(self.$wrapper);
+                self.$wrapper.css({
+                    width:self.width + "px",height:self.height+"px",overflow:"hidden",position:"relative"
+                }).appendTo(self.$s.css({display:"none"}).parent());
+            }
+        }
+        ///////添加到jquery扩展
+        $.fn.starZoom = function(args){
+            $.each(this, function(i,n){
+                var $s = $(n);
+                var options = $s.data("options");
+                options = !options?{}: $.parseJSON(options.replace(/'/ig, "\""));
+                if(typeof(args) == "object"){
+                    options = $.extend(args, options);
+                }
+                options.$s = $s;
+                new StarZoom(options);
+            });
+            return this;
+        }
+    })(jQuery);
+
+    </code>
+</pre>
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>

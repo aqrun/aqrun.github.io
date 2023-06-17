@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - myself</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/myself/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2018-01-23T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/myself/atom.xml</id>
+    <entry xml:lang="en">
+        <title>About Me</title>
+        <published>2018-01-23T00:00:00+00:00</published>
+        <updated>2018-01-23T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/diary/about-me/" type="text/html"/>
+        <id>http://aqrun.com/diary/about-me/</id>
+        
+        <content type="html">&lt;p&gt;画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不一定与技术相关，技术本只是世界上的一个小目录，技术是为了实现某个目的的手段。&lt;&#x2F;p&gt;
+&lt;p&gt;我们也许在很多地方扮演不同的角色去适应环境，但在这里，一切都由自己控制。未来的日子里，希望在这里写下一些自己的思考和感悟。如果可以的话，创造一些美好的事物。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;li-xiang-de-gong-zuo-huan-jing&quot;&gt;理想的工作环境&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;高配的电脑&lt;&#x2F;li&gt;
+&lt;li&gt;超快的网速&lt;&#x2F;li&gt;
+&lt;li&gt;宽松的环境&lt;&#x2F;li&gt;
+&lt;li&gt;很少的会议&lt;&#x2F;li&gt;
+&lt;li&gt;整洁的代码&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;guan-yu-zi-ji&quot;&gt;关于自己&lt;&#x2F;h2&gt;
+&lt;p&gt;做努力的自己&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ji-zhu-biao-qian&quot;&gt;技术标签&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Html&lt;&#x2F;li&gt;
+&lt;li&gt;CSS, SASS&lt;&#x2F;li&gt;
+&lt;li&gt;JQuery, ReactJS, VueJS&lt;&#x2F;li&gt;
+&lt;li&gt;PHP
+&lt;ul&gt;
+&lt;li&gt;YII2&lt;&#x2F;li&gt;
+&lt;li&gt;Laravel&lt;&#x2F;li&gt;
+&lt;li&gt;Thinkphp&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;MySQL&lt;&#x2F;li&gt;
+&lt;li&gt;Ubuntu&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - nginx</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/nginx/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2016-06-22T15:33:10+00:00</updated>
+    <id>http://aqrun.com/tags/nginx/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Drupal 7 在 nginx服务器 子目录及虚拟机访问时配置伪静态</title>
+        <published>2016-06-22T15:33:10+00:00</published>
+        <updated>2016-06-22T15:33:10+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/" type="text/html"/>
+        <id>http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</id>
+        
+        <content type="html">&lt;h2 id=&quot;wen-jian-mu-lu-jie-gou&quot;&gt;文件目录结构：&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;&#x2F;nginx
+&#x2F;nginx&#x2F;conf
+&#x2F;nginx&#x2F;conf&#x2F;nginx.conf         #默认nginx配置文件
+&#x2F;nginx&#x2F;conf&#x2F;vhost
+&#x2F;nginx&#x2F;conf&#x2F;vhost&#x2F;localhost.conf    #
+&#x2F;nginx&#x2F;conf&#x2F;vhost&#x2F;*.conf       #各虚拟主机配置文件
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;以下列出三个主要配置文件内容：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-nginx&quot;&gt;
+    #＝＝＝＝＝＝＝＝＝＝＝＝＝
+    #默认配置文件
+    #nginx.conf
+    #user  nobody;
+    worker_processes  1;
+    #error_log  logs&#x2F;error.log;
+    #error_log  logs&#x2F;error.log  notice;
+    #error_log  logs&#x2F;error.log  info;
+    #pid        logs&#x2F;nginx.pid;
+    events {
+        worker_connections  1024;
+    }
+    http {
+        include       mime.types;
+        default_type  application&#x2F;octet-stream;
+        autoindex        on;
+        sendfile        on;
+        keepalive_timeout  65;
+        include tools-*.conf;  #引入各种配置文件
+        include vhost&#x2F;*.conf; 
+    }
+    #==============================
+
+    #========================
+    #默认访问控制
+    #localhost.conf
+    server {
+        listen 80; # IPv4
+        server_name localhost;
+        ## Parameterization using hostname of access and log filenames.
+        access_log logs&#x2F;localhost_access.log;
+        error_log logs&#x2F;localhost_error.log;
+        ## Root and index files.
+        root D:&#x2F;xampp&#x2F;htdocs;
+        index  index.php index.html index.htm;
+        ## If no favicon exists return a 204 (no content error).
+        location = &#x2F;favicon.ico {
+            try_files $uri =204;
+            log_not_found off;
+            access_log off;
+        }
+        ## Don&#x27;t log robots.txt requests.
+        location = &#x2F;robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+        }
+        ## Try the requested URI as files before handling it to PHP.
+            location &#x2F; {
+        
+            } # &#x2F; location
+
+            ## Regular PHP processing.
+            location ~ \.php$ {
+                try_files  $uri =404;
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+                include        fastcgi_params;
+            }
+
+            ## Static files
+            location ~* \.(?:css|gif|htc|ico|js|jpe?g|png|swf)$ {
+                expires max;
+                log_not_found off;
+                ## No need to bleed constant updates. Send the all shebang in one
+                ## fell swoop.
+                tcp_nodelay off;
+                ## Set the OS file cache.
+                open_file_cache max=1000 inactive=120s;
+                open_file_cache_valid 45s;
+                open_file_cache_min_uses 2;
+                open_file_cache_errors off;
+            }
+
+            ## Keep a tab on the &#x27;big&#x27; static files.
+            location ~* ^.+\.(?:ogg|pdf|pptx?)$ {
+                expires 30d;
+                ## No need to bleed constant updates. Send the all shebang in one
+                ## fell swoop.
+                tcp_nodelay off;
+            }
+            #子目录访问 rewrite方式   
+            #   http:&#x2F;&#x2F;localhost&#x2F;drupal&#x2F;user         会rewrite到       http:&#x2F;&#x2F;localhost&#x2F;drupal&#x2F;index.php?q=user
+            location &#x2F;drupal{
+                    #使用“-f”和“!-f”运算符检查文件是否存在
+                    #使用“-d”和“!-d”运算符检查目录是否存在
+                if (!-f $request_filename) {
+                    rewrite  ^&#x2F;drupal&#x2F;(.*)$  &#x2F;drupal&#x2F;index.php?q=$1  last;
+                    break;
+                }
+                if (!-d $request_filename) {
+                    rewrite  ^&#x2F;drupal&#x2F;(.*)$  &#x2F;drupal&#x2F;index.php?q=$1  last;
+                    break;
+                }
+            }
+    } # end http server
+    #==================================
+
+
+    #===================================
+    #  www.drupal.my    虚拟跟径指向  localhost&#x2F;drupal
+    #www.drupal.my.conf
+    server {
+        listen   80; ## listen for ipv4; this line is default and implied
+
+        root D:&#x2F;xampp&#x2F;htdocs&#x2F;drupal;
+        index index.html index.php;
+
+        server_name www.drupal.my;
+        location &#x2F; {
+                index  index.php index.html;
+                #rewrite
+                # 使用“-e”和“!-e”运算符检查文件、目录或符号链接是否存在；
+                if (!-e $request_filename) {
+                    rewrite ^&#x2F;(.*)$ &#x2F;index.php?q=$1 last;
+                }
+            }
+        
+        error_page 404 &#x2F;404.php;
+
+        location ~ \.php$ {
+            try_files  $uri =404;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+        #rewrite rules
+        #include vhost&#x2F;www.drupal.my.rules;
+
+    
+    }
+&lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+</feed>

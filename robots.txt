@@ -1,0 +1,4 @@
+Sitemap: http://aqrun.com/sitemap.xml
+User-Agent: *
+Allow: /
+Host: http://aqrun.com

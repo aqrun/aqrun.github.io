@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>移动页面基本结构 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="移动端rem自适应" />
+  <link rel="canonical" href="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" />
+  <meta name="twitter:url" content="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" />
+  <meta property="og:description" content="移动端rem自适应" />
+  <meta name="twitter:description" content="移动端rem自适应" />
+  <meta property="og:title" content="移动页面基本结构 | 子十" />
+  <meta name="twitter:title" content="移动页面基本结构 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2015-07-17" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/">移动页面基本结构</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2015-07-17<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/frontend/">
+                前端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/yi-dong/">移动</a>  #<a href="http://aqrun.com/tags/web/">web</a>  #<a href="http://aqrun.com/tags/rem/">rem</a> </span>
+
+    <h3 id="viewport">Viewport</h3>
+<pre class="line-numbers" markdown="0">
+  <code class="language-javascript">
+
+    // meta:
+    // &lt;meta content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" name="viewport"&gt;
+
+    (function(init_width){
+      var isAndroid=navigator.userAgent.match(/(Android)/i)
+      , viewPort = document.querySelector("meta[name=viewport]");
+      window.html_font_size = isAndroid?100:window.innerWidth*100/init_width;
+      
+      function setHtmlWidth(){
+        document.querySelector("html").style.fontSize = html_font_size + "px";
+      }
+      
+      if (isAndroid) {
+        content = "target-densitydpi=320,width="+init_width+",user-scalable=no";
+        viewPort.setAttribute("content",content);
+      }else{
+        setHtmlWidth();window.onresize = setHtmlWidth;
+      }
+    })(640)
+</code>
+</pre>
+<h3 id="css-reset">CSS reset</h3>
+<pre class="line-numbers">
+    <code class="language-css">
+    /*css reset*/
+    html{font-size:100px}
+    body{
+      font-size: 0.12rem;
+      font-family: "微软雅黑","宋体","arial";
+      font-weight: normal;
+      overflow-x: hidden;
+    }
+    body, ul, ol, p, h1, h2, h3, h4, h5, h6, dl, dt, dd ,form ,textarea ,input{margin:0;}
+      ul,ol{list-style:none;}
+      ul,ol,input{padding:0;}
+      table{margin:0 auto;width:100%;border-collapse:collapse;}
+      a img{border:0;
+    }
+    input[type="button"], input[type="submit"], input[type="reset"] {
+      -webkit-appearance: none;
+    }
+    .clearfix:after {
+      content: " ";
+      display: block;
+      clear: both;
+      height: 0;
+    }
+    img{width:100%;}
+      .max_width{
+      width:6.4rem;
+      margin:0 auto;
+      position: relative;
+    }
+    .clear{
+      width:100%;
+      height:0;
+      clear:both;
+    }
+    .clear30{
+      height: 30px;
+    }
+    .clearfix {
+      zoom: 1;
+    }
+    img,object,audio,vedio{
+      max-width: 100%;
+    }
+    a{
+      text-decoration: none;
+    }
+</code>
+</pre>
+<h3 id="html">html</h3>
+<pre>
+<code class="language-html">
+&lt;div class="wrap clearfix"&gt;
+  &lt;div class="max_width"&gt;
+  
+  &lt;/div&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+</body>
+</html>

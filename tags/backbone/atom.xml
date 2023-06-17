@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>子十 - backbone</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="http://aqrun.com/tags/backbone/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2014-06-20T00:00:00+00:00</updated>
+    <id>http://aqrun.com/tags/backbone/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Jquery + Backbone + ejs分页</title>
+        <published>2014-06-20T00:00:00+00:00</published>
+        <updated>2014-06-20T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/" type="text/html"/>
+        <id>http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</id>
+        
+        <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-javascript&quot;&gt;
+&lt;!--分页模板--&gt;
+&lt;script type=&quot;text&#x2F;template&quot; id=&quot;tpl_pager&quot;&gt;
+    &lt;a data-index=&quot;[%= index %]&quot; title=&quot;[%= title %]&quot;
+       class=&quot;[% if(current){ %]current [% } %][%= addclass %]&quot;&gt;[%= text %]&lt;&#x2F;a&gt;
+&lt;&#x2F;script&gt;
+    &lt;&#x2F;code&gt;
+&lt;&#x2F;pre&gt;
+&lt;pre class=&quot;line-numbers&quot;&gt;
+    &lt;code class=&quot;language-javascript&quot;&gt;
+&#x2F;&#x2F;model
+var PagerModel = Backbone.Model.extend({
+            defaults:{
+                page:17,
+                total:20
+            }
+        });
+
+        &#x2F;&#x2F;翻页视图
+        window.Pager = Backbone.View.extend({
+            el:&quot;#pager&quot;,
+            template: &quot;tpl_pager&quot;,
+            initialize:function(){
+                _.bindAll(this,&quot;handlePager&quot;);
+                this.listenTo(this.model,&quot;change&quot;,this.render);
+            },
+            events:{
+                &quot;click a&quot; : &quot;handlePager&quot;
+            },
+            &#x2F;&#x2F;处理页码点击事件
+            handlePager: function(e){
+                var $s = $(e.target);
+                if($s.hasClass(&quot;dot&quot;) || $s.hasClass(&quot;current&quot;)){
+                    return;
+                }
+                var page = parseInt($s.attr(&quot;data-index&quot;));
+                var data = {
+                    action: &quot;prosource&quot;,
+                    meetid: mMeeting.meetid,
+                    page: page
+                };
+                &#x2F;&#x2F;请求产品列表
+                $.getJSON(mMeeting.url, data,function(data){
+                    proSources.add(data.data);  &#x2F;&#x2F;保存检索到的数据
+                    &#x2F;&#x2F;获取数据成功 更新DOM
+                    new EJS({element:&quot;tpl_pro_item&quot;}).update(mMeeting.sourceid,{data:data.data});
+                    &#x2F;&#x2F;设置页码
+                    mPager.set({page:page,total:data.total});
+                });
+                &#x2F;&#x2F;console.log(e.target);
+            },
+            render: function(){
+                var page = this.model.get(&quot;page&quot;),   &#x2F;&#x2F;当前页码
+                    total = this.model.get(&quot;total&quot;); &#x2F;&#x2F;总页数
+                var show = 5;   &#x2F;&#x2F;显示几个页码控制块
+                var start = Math.ceil(page-show&#x2F;2)&lt;1?1:Math.ceil(page-show&#x2F;2); &#x2F;&#x2F;起始页码
+                var end = Math.ceil(page+show&#x2F;2-1)&gt;total?total:Math.ceil(page+show&#x2F;2-1); &#x2F;&#x2F;结束
+
+                var html = &#x27;&#x27;;
+                if(page&gt;1){  &#x2F;&#x2F;显示上一页
+                    html += this.tpl(page-1,false,&quot;prev&quot;,&quot;&lt;&quot;,&quot;上一页&quot;);
+                }
+                if(start &gt; 1){
+                    html += this.tpl(1,false,&quot;item&quot;,1,&quot;第1页&quot;);  &#x2F;&#x2F;显示第一页
+                }
+                if(start &gt; 2){
+                    html += this.tpl(1,false,&#x27;dot&#x27;, &#x27;...&#x27;,&#x27;&#x27;);
+                }
+                for(var i=start; i&lt;=end; i++){ &#x2F;&#x2F;显示中间页码
+                    html += this.tpl(i,(page==i?true:false),&#x27;item&#x27;,i,&quot;第&quot;+i+&quot;页&quot;);
+                }
+                if(end&lt;total-1){
+                    html += this.tpl(1,false,&#x27;dot&#x27;, &#x27;...&#x27;,&#x27;&#x27;);
+                }
+                if(end &lt; total){ &#x2F;&#x2F;显示最后一页
+                    html += this.tpl(total,false,&quot;item&quot;,total,&quot;第&quot;+total+&quot;页&quot;);  &#x2F;&#x2F;显示第一页
+                }
+                if(page&lt;total-1){ &#x2F;&#x2F;显示下一页
+                    html += this.tpl(page+1,false,&quot;next&quot;,&quot;&gt;&quot;,&quot;下一页&quot;);
+                }
+
+                this.$el.html(html);&#x2F;&#x2F;添加dom到页面
+            },
+            tpl: function(index,current,addclass,text,title){
+                var data = {
+                    index:index,      &#x2F;&#x2F;页码
+                    current: current, &#x2F;&#x2F;是否是当前页
+                    addclass:addclass, &#x2F;&#x2F;要添加的class
+                    text:text,        &#x2F;&#x2F;显示的文本
+                    title: title      &#x2F;&#x2F;title属性文字
+                };
+                return new EJS({element:this.template}).render(data);
+            }
+        });
+
+        window.mPager = new PagerModel;
+        var pager= new Pager({model:mPager});
+        pager.render(); 
+
+&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;&#x2F;
+console 测试代码   mPager.set({page:3}) 
+
+
+ &lt;&#x2F;code&gt;
+ &lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+</feed>

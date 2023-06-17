@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="http://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="http://aqrun.com/abridge-switcher.css?h=f7d00fb4383fbc8087dc" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="http://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="http://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="http://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>15.如何使用控制台命令 | 子十</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="子十" />
+  <meta name="description" content="Magento系统提供的一些命令" />
+  <link rel="canonical" href="http://aqrun.com/backend/15-how-to-use-cli/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="http://aqrun.com/backend/15-how-to-use-cli/" />
+  <meta name="twitter:url" content="http://aqrun.com/backend/15-how-to-use-cli/" />
+  <meta property="og:description" content="Magento系统提供的一些命令" />
+  <meta name="twitter:description" content="Magento系统提供的一些命令" />
+  <meta property="og:title" content="15.如何使用控制台命令 | 子十" />
+  <meta name="twitter:title" content="15.如何使用控制台命令 | 子十" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:image" content="http://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="子十" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2019-12-20" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="http://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="http://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="http://aqrun.com/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="http://aqrun.com/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="http://aqrun.com/favicon-16x16.png" />
+  <noscript><link rel="stylesheet" href="http://aqrun.com/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><h1><a href="http://aqrun.com/"><img src="http://aqrun.com/icons/logo_default.svg" alt="子十个人博客" width="22" height="22" />子十个人博客</a></h1></div>
+      <div>
+        <ul><li> <h2><a href="http://aqrun.com/">首页</a></h2> </li><li> <h2><a href="http://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="http://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="http://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="http://aqrun.com/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="http://aqrun.com/backend/15-how-to-use-cli/">15.如何使用控制台命令</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2019-12-20<span class="hpad"> </span>
+          [<a href="http://aqrun.com/categories/backend/">
+                后端开发
+            </a>]
+           #<a href="http://aqrun.com/tags/php/">php</a>  #<a href="http://aqrun.com/tags/magento2/">magento2</a> </span>
+
+    <blockquote>
+<p><a href="http://aqrun.com/backend/0-magento-menu/">Magento 2 开发内容目录</a></p>
+</blockquote>
+<p>本文研究一下Magento系统提供的一些命令。Magento 通过 bin/magento 提供了很多命令，刚开始感觉会有些复杂，接下来我们就仔细了解一下：</p>
+<p>当运行如下命令</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento</span>
+</span></code></pre>
+<p>或</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">bin/magento</span></span>
+</span></code></pre>
+<p>就会输出所有可用的命令列表，当括我们自定义的命令：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Usage:</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                      </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-command z-shell">command</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>options<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span> <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>arguments<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span>                                                                                              </span>
+                                                                                                                            
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Options:</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                    </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--help</span></span><span class="z-meta z-function-call z-arguments z-shell"> (-h</span><span class="z-meta z-function-call z-shell"></span>)           <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Display</span></span><span class="z-meta z-function-call z-arguments z-shell"> this help message                                                                            </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--quiet</span></span><span class="z-meta z-function-call z-arguments z-shell"> (-q</span><span class="z-meta z-function-call z-shell"></span>)          <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Do</span></span><span class="z-meta z-function-call z-arguments z-shell"> not output any message                                                                            </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--verbose</span></span><span class="z-meta z-function-call z-arguments z-shell"> (-v</span><span class="z-keyword z-operator z-logical z-pipe z-shell">|</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vv</span></span><span class="z-keyword z-operator z-logical z-pipe z-shell">|</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">vvv</span></span><span class="z-meta z-function-call z-shell"></span>) <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Increase</span></span><span class="z-meta z-function-call z-arguments z-shell"> the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug   </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--version</span></span><span class="z-meta z-function-call z-arguments z-shell"> (-V</span><span class="z-meta z-function-call z-shell"></span>)        <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Display</span></span><span class="z-meta z-function-call z-arguments z-shell"> this application version                                                                     </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--ansi</span></span><span class="z-meta z-function-call z-arguments z-shell">                Force ANSI output                                                                                    </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--no-ansi</span></span><span class="z-meta z-function-call z-arguments z-shell">             Disable ANSI output                                                                                  </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">--no-interaction</span></span><span class="z-meta z-function-call z-arguments z-shell"> (-n</span><span class="z-meta z-function-call z-shell"></span>) <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Do</span></span><span class="z-meta z-function-call z-arguments z-shell"> not ask any interactive question                                                                  </span>
+                                                                                                                            
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Available</span></span><span class="z-meta z-function-call z-arguments z-shell"> commands:                                                                                                         </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-help z-shell">help</span></span><span class="z-meta z-function-call z-arguments z-shell">                                      Displays help for a command                                                      </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">list</span></span><span class="z-meta z-function-call z-arguments z-shell">                                      Lists commands                                                                   </span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">admin</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                       </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">admin:user:create</span></span><span class="z-meta z-function-call z-arguments z-shell">                         Creates an administrator                                                         </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">admin:user:unlock</span></span><span class="z-meta z-function-call z-arguments z-shell">                         Unlock Admin Account                                                             </span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cache</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                       </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cache:clean</span></span><span class="z-meta z-function-call z-arguments z-shell">                               Cleans cache type(s</span><span class="z-meta z-function-call z-shell"></span>)                                                             
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cache:disable</span></span><span class="z-meta z-function-call z-arguments z-shell">                             Disables cache type(s</span><span class="z-meta z-function-call z-shell"></span>)                                                           
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cache:enable</span></span><span class="z-meta z-function-call z-arguments z-shell">                              Enables cache type(s</span><span class="z-meta z-function-call z-shell"></span>)                                                            
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cache:flush</span></span><span class="z-meta z-function-call z-arguments z-shell">                               Flushes cache storage used by cache type(s</span><span class="z-meta z-function-call z-shell"></span>)                                      
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cache:status</span></span><span class="z-meta z-function-call z-arguments z-shell">                              Checks cache status                                                              </span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">catalog</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                     </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">catalog:images:resize</span></span><span class="z-meta z-function-call z-arguments z-shell">                     Creates resized product images                                                   </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">catalog:product:attributes:cleanup</span></span><span class="z-meta z-function-call z-arguments z-shell">        Removes unused product attributes.                                               </span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cron</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                        </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cron:run</span></span><span class="z-meta z-function-call z-arguments z-shell">                                  Runs jobs by schedule                                                            </span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">customer</span></span><span class="z-meta z-function-call z-arguments z-shell">                                                                                                                    </span>
+ <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">customer:hash:upgrade</span></span><span class="z-meta z-function-call z-arguments z-shell">                     Upgrade customer<span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>s hash according to the latest algorithm                        
+deploy                                                                                                                      
+ deploy:mode:set                           Set application mode.                                                            
+ deploy:mode:show                          Displays current application mode.                                               
+dev                                                                                                                         
+ dev:source-theme:deploy                   Collects and publishes source files for theme.                                   
+ dev:tests:run                             Runs tests                                                                       
+ dev:urn-catalog:generate                  Generates the catalog of URNs to *.xsd mappings for the IDE to highlight xml.    
+ dev:xml:convert                           Converts XML file using XSL style sheets                                         
+i18n                                                                                                                        
+ i18n:collect-phrases                      Discovers phrases in the codebase                                                
+ i18n:pack                                 Saves language package                                                           
+ i18n:uninstall                            Uninstalls language packages                                                     
+indexer                                                                                                                     
+ indexer:info                              Shows allowed Indexers                                                           
+ indexer:reindex                           Reindexes Data                                                                   
+ indexer:reset                             Resets indexer status to invalid                                                 
+ indexer:set-mode                          Sets index mode type                                                             
+ indexer:show-mode                         Shows Index Mode                                                                 
+ indexer:status                            Shows status of Indexer                                                          
+info                                                                                                                        
+ info:adminuri                             Displays the Magento Admin URI                                                   
+ info:backups:list                         Prints list of available backup files                                            
+ info:currency:list                        Displays the list of available currencies                                        
+ info:dependencies:show-framework          Shows number of dependencies on Magento framework                                
+ info:dependencies:show-modules            Shows number of dependencies between modules                                     
+ info:dependencies:show-modules-circular   Shows number of circular dependencies between modules                            
+ info:language:list                        Displays the list of available language locales                                  
+ info:timezone:list                        Displays the list of available timezones                                         
+maintenance                                                                                                                 
+ maintenance:allow-ips                     Sets maintenance mode exempt IPs                                                 
+ maintenance:disable                       Disables maintenance mode                                                        
+ maintenance:enable                        Enables maintenance mode                                                         
+ maintenance:status                        Displays maintenance mode status                                                 
+module                                                                                                                      
+ module:disable                            Disables specified modules                                                       
+ module:enable                             Enables specified modules                                                        
+ module:status                             Displays status of modules                                                       
+ module:uninstall                          Uninstalls modules installed by composer                                         
+sampledata                                                                                                                  
+ sampledata:deploy                         Deploy sample data modules                                                       
+ sampledata:remove                         Remove all sample data packages from composer.json                               
+ sampledata:reset                          Reset all sample data modules for re-installation                                
+setup                                                                                                                       
+ setup:backup                              Takes backup of Magento Application code base, media and database                
+ setup:config:set                          Creates or modifies the deployment configuration                                 
+ setup:cron:run                            Runs cron job scheduled for setup application                                    
+ setup:db-data:upgrade                     Installs and upgrades data in the DB                                             
+ setup:db-schema:upgrade                   Installs and upgrades the DB schema                                              
+ setup:db:status                           Checks if DB schema or data requires upgrade                                     
+ setup:di:compile                          Generates DI configuration and all missing classes that can be auto-generated    
+ setup:install                             Installs the Magento application                                                 
+ setup:performance:generate-fixtures       Generates fixtures                                                               
+ setup:rollback                            Rolls back Magento Application codebase, media and database                      
+ setup:static-content:deploy               Deploys static view files                                                        
+ setup:store-config:set                    Installs the store configuration                                                 
+ setup:uninstall                           Uninstalls the Magento application                                               
+ setup:upgrade                             Upgrades the Magento application, DB data, and schema                            
+theme                                                                                                                       
+ theme:uninstall                           Uninstalls theme      
+</span></span></span></code></pre>
+<h2 id="ming-ling-xing-fen-lei">命令行分类</h2>
+<p>可以将上面的列表分为以下类别：</p>
+<ul>
+<li>缓存 Cache</li>
+<li>索引器 Indexer</li>
+<li>定时任务 Cron Job</li>
+<li>代码编译器  Code Compiler</li>
+<li>设置系统模式  Set the magento mode</li>
+<li>i18n 国际化翻译  i18n translation</li>
+<li>运行单元测试   unit test</li>
+<li>维护模式   Maintenance</li>
+<li>模块管理  Module management</li>
+<li>安装 Setup: Install, upgrde, uninstall, backup, rollback</li>
+<li>主题 theme</li>
+<li>部署 deployment</li>
+</ul>
+<p>接下来看下每个类别的一些示例：</p>
+<h2 id="huan-cun-ming-ling">缓存命令</h2>
+<p>查看缓存状态</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento cache:status</span>
+</span></code></pre>
+<p>输出：</p>
+<pre class="z-code"><code><span class="z-text z-plain">                    config: 1
+                    layout: 1
+                block_html: 1
+               collections: 1
+                    db_ddl: 1
+                       eav: 1
+                 full_page: 1
+                 translate: 1
+        config_integration: 1
+    config_integration_api: 1
+         config_webservice: 1
+</span></code></pre>
+<p>清除缓存：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento cache:clean</span>
+</span></code></pre>
+<p>输出：</p>
+<pre class="z-code"><code><span class="z-text z-plain">$ php bin/magento cache:clean                  
+Cleaned cache types:                           
+config                                         
+layout                                         
+block_html                                     
+collections                                    
+reflection                                     
+db_ddl                                         
+eav                                            
+customer_notification                          
+full_page                                      
+config_integration                             
+config_integration_api                         
+translate                                      
+config_webservice  
+</span></code></pre>
+<p>如何刷新缓存：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento cache:flush</span>
+</span></code></pre>
+<p>如何启用或停用缓存：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento cache:enable</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento cache:disable</span>
+
+<span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> 加参数</span><span class="z-comment z-line z-number-sign z-shell">
+</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">magento</span></span><span class="z-meta z-function-call z-arguments z-shell"> cache:enable <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>type<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span> ... <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>type<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span></span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">magento</span></span><span class="z-meta z-function-call z-arguments z-shell"> cache:disable <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>type<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span> ... <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>type<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span></span>
+
+<span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> 示例 停用页面缓存</span><span class="z-comment z-line z-number-sign z-shell">
+</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">magento</span></span><span class="z-meta z-function-call z-arguments z-shell"> cache:disable full_page</span>
+</span></code></pre>
+<h2 id="suo-yin-qi-ming-ling">索引器命令</h2>
+<p>查看索引状态</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento indexer:info</span>
+</span></code></pre>
+<p>输出：</p>
+<pre class="z-code"><code><span class="z-text z-plain">design_config_grid                       Design Config Grid
+customer_grid                            Customer Grid
+catalog_category_product                 Category Products
+catalog_product_category                 Product Categories
+catalog_product_price                    Product Price
+catalog_product_attribute                Product EAV
+catalogsearch_fulltext                   Catalog Search
+cataloginventory_stock                   Stock
+catalogrule_rule                         Catalog Rule Product
+catalogrule_product                      Catalog Product Rule
+</span></code></pre>
+<p>重建索引：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento indexer:reindex</span>
+</span></code></pre>
+<p>重置索引</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento indexer:reset</span>
+</span></code></pre>
+<p>显示索引模式</p>
+<pre class="z-code"><code><span class="z-text z-plain">php bin/magento indexer:show-mode
+</span></code></pre>
+<p>输出：</p>
+<pre class="z-code"><code><span class="z-text z-plain">$ php bin/magento indexer:show-mode
+
+Design Config Grid:                                Update on Save
+Customer Grid:                                     Update on Save
+Category Products:                                 Update on Save
+Product Categories:                                Update on Save
+Product Price:                                     Update on Save
+Product EAV:                                       Update on Save
+Catalog Search:                                    Update on Save
+Stock:                                             Update on Save
+Catalog Rule Product:                              Update on Save
+Catalog Product Rule:                              Update on Save
+</span></code></pre>
+<p>设置索引模式类型</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento indexer:set-mode <span class="z-meta z-group z-expansion z-brace z-shell"><span class="z-punctuation z-section z-expansion z-brace z-begin z-shell">{</span>realtime|schedule<span class="z-punctuation z-section z-expansion z-brace z-end z-shell">}</span></span> <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>indexer<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span></span>
+
+<span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> 示例：</span><span class="z-comment z-line z-number-sign z-shell">
+</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">magento</span></span><span class="z-meta z-function-call z-arguments z-shell"> indexer:set-mode scedule catalog_category_product catalog_product_category</span>
+</span></code></pre>
+<h2 id="bu-shu-ming-ling">部署命令</h2>
+<p>语法：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento setup:static-content:deploy <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>lang<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> ... <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>lang<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> <span class="z-keyword z-control z-regexp z-set z-begin z-shell">[</span>-<span class="z-keyword z-operator z-word z-shell">-</span>dry<span class="z-keyword z-operator z-word z-shell">-</span>run<span class="z-keyword z-control z-regexp z-set z-end z-shell">]</span></span>
+</span></code></pre>
+<p>发布静态内容</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento setup:static-content:deploy</span>
+</span></code></pre>
+<p>输出：</p>
+<pre class="z-code"><code><span class="z-text z-plain">$ php bin/magento setup:static-content:deploy
+
+Requested languages: en_US
+=== frontend -&gt; Magento/blank -&gt; en_US ===
+...........................................
+</span></code></pre>
+<p>发布静态内容默认使用语言： en_EN</p>
+<p>如果要使用其它语言如简体中文： zh_Hans_CN</p>
+<p>运行</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento setup:static-content:deploy zh_Hans_CN</span>
+</span></code></pre>
+<h2 id="shi-yong-ming-ling-huo-qu-hou-tai-urilu-jing">使用命令获取后台URI路径</h2>
+<p>可以不用查看 <code>etc/env.php</code> 文件也能知道后台路径：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento info:adminuri</span>
+</span></code></pre>
+<h2 id="shi-yong-ming-ling-guan-li-wei-hu-mo-shi">使用命令管理维护模式</h2>
+<pre class="z-code"><code><span class="z-text z-plain"># 开启维护模式
+php bin/magento maintenance:enable
+
+# 关闭
+php bin/magento maintenance:disable
+</span></code></pre>
+<p>设置允许指定IP访问维护模式的网站</p>
+<pre class="z-code"><code><span class="z-text z-plain">php bin/magento maintenance:allow-ips
+
+# 示例：
+php bin/magento maintenance:allow-ips 168.168.168.168
+</span></code></pre>
+<h2 id="she-zhi-xi-tong-kai-fa-zhe-mo-shi-huo-xian-shang-mo-shi">设置系统开发者模式或线上模式</h2>
+<p>有3种模式定义在 <code>Magneto\Framework\App\State</code>： default, developer, production</p>
+<p>显示当前系统模式</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento deploy:mode:show</span>
+
+<span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> 默认输出 default</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></code></pre>
+<p>切换到开发者模式：</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">php</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/magento deploy:mode:set developer</span>
+</span></code></pre>
+<p>恭喜你老铁！你的店铺现在就是开发者模式了。开始享受写代码的快感吧 :)</p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="http://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 子十</p>
+      <nav>
+        <ul><li class="s90"> <a href="http://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="http://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="http://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="http://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+<span class="topleft"> </span><a href="#" class="top" title="Back to Top"><i class="svgs svgh angu"></i></a>
+</span>
+</body>
+</html>
