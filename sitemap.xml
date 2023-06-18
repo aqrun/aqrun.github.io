@@ -5,6 +5,7 @@
     </url>
     <url>
         <loc>http://aqrun.com/about/</loc>
+        <lastmod>2023-06-18</lastmod>
     </url>
     <url>
         <loc>http://aqrun.com/backend/</loc>
@@ -127,11 +128,11 @@
         <loc>http://aqrun.com/categories/server/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/diary/</loc>
+        <loc>http://aqrun.com/contact/</loc>
+        <lastmod>2023-06-18</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/diary/about-me/</loc>
-        <lastmod>2018-01-23</lastmod>
+        <loc>http://aqrun.com/diary/</loc>
     </url>
     <url>
         <loc>http://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/</loc>
@@ -325,9 +326,6 @@
     </url>
     <url>
         <loc>http://aqrun.com/tags/magento2/</loc>
-    </url>
-    <url>
-        <loc>http://aqrun.com/tags/myself/</loc>
     </url>
     <url>
         <loc>http://aqrun.com/tags/nginx/</loc>

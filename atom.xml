@@ -1,12 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-    <title>子十</title>
+    <title>光鹿跑冰</title>
     <subtitle>子十个人博客</subtitle>
     <link href="http://aqrun.com/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="http://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2022-08-27T00:00:00+00:00</updated>
+    <updated>2023-06-18T00:00:00+00:00</updated>
     <id>http://aqrun.com/atom.xml</id>
+    <entry xml:lang="en">
+        <title>About Me</title>
+        <published>2023-06-18T00:00:00+00:00</published>
+        <updated>2023-06-18T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/about/" type="text/html"/>
+        <id>http://aqrun.com/about/</id>
+        
+        <content type="html">&lt;p&gt;画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不一定与技术相关，技术本只是世界上的一个小目录，技术是为了实现某个目的的手段。&lt;&#x2F;p&gt;
+&lt;p&gt;我们也许在很多地方扮演不同的角色去适应环境，但在这里，一切都由自己控制。未来的日子里，希望在这里写下一些自己的思考和感悟。如果可以的话，创造一些美好的事物。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;guan-yu-guang-lu-pao-bing&quot;&gt;关于光鹿跑冰&lt;&#x2F;h2&gt;
+&lt;p&gt;光鹿跑冰 - 秦岭山脉经典户外穿越路线，光头山-&amp;gt;鹿角梁-&amp;gt;跑马梁-&amp;gt;冰晶顶&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;光头山 - 海拔2903米，距离西安市区约70公里，上建有陕西电视台调频发射台&lt;&#x2F;li&gt;
+&lt;li&gt;鹿角梁 - 海拔2700米，秦岭地区深处，因山梁形似鹿角而得名。去的假驴友太多，环境污染严重，现已划为保护区，禁止踏足&lt;&#x2F;li&gt;
+&lt;li&gt;跑马梁 - 海拔2660米，紧邻鹿角梁，大抵也是因形得名，暂时还无机缘去一睹其风采&lt;&#x2F;li&gt;
+&lt;li&gt;冰晶顶 - 海拔3015米，因山上常有冰晶，故名。距西安市74公里，朱雀国家森林公园与太平森林公园交界处，为太白山以东秦岭最高峰&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;guan-yu-zi-ji&quot;&gt;关于自己&lt;&#x2F;h2&gt;
+&lt;p&gt;子十（Aqrun） 主要的网络名，想法来自成语“子时三刻”简化。土著陕西人。喜欢阅读，但买书如山倒，读书如抽丝。喜欢看电影和各种美剧。喜欢户外，自驾、摩旅、爬山、骑行、跑步。秦岭已完成路线：光头山、光鹿、终南山、东观音山、冰晶顶、大坪梁、光大、东梁、鳌山南北、牛背梁、箭峪岭。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ji-zhu-biao-qian&quot;&gt;技术标签&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;React&lt;&#x2F;li&gt;
+&lt;li&gt;Rust&#x2F;PHP&lt;&#x2F;li&gt;
+&lt;li&gt;Postgresql&#x2F;MySQL&lt;&#x2F;li&gt;
+&lt;li&gt;Ubuntu&#x2F;AlmaLinux&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>联系我</title>
+        <published>2023-06-18T00:00:00+00:00</published>
+        <updated>2023-06-18T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="http://aqrun.com/contact/" type="text/html"/>
+        <id>http://aqrun.com/contact/</id>
+        
+        <content type="html">&lt;ul&gt;
+&lt;li&gt;E-mail：aqrun@sina.com&lt;&#x2F;li&gt;
+&lt;li&gt;GitHub: https:&#x2F;&#x2F;github.com&#x2F;aqrun&lt;&#x2F;li&gt;
+&lt;li&gt;抖音: aqrun&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Rust 过程宏之derive派生宏实战入门</title>
         <published>2022-08-27T00:00:00+00:00</published>
@@ -5838,46 +5888,6 @@ class Test extends \Magento\Framework\App\Action\Action
 &lt;p&gt;除了发布 @ngrx&#x2F;entity 之外，我们还发布了 Store，Effects 和 Router Store 的v4.1.0，其中包含许多新功能和错误修复。 有关包含内容的更多信息，&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;ngrx&#x2F;platform&#x2F;blob&#x2F;master&#x2F;CHANGELOG.md&quot;&gt;请查看更新日志&lt;&#x2F;a&gt;。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;bang-zhu-zhi-chi-ngrx&quot;&gt;帮助支持 NgRx&lt;&#x2F;h2&gt;
 &lt;p&gt;随着 NgRx4，我们宣布创建我们的 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;opencollective.com&#x2F;ngrx&quot;&gt;OpenCollective&lt;&#x2F;a&gt;，您可以帮助支持NgRx的开发。 我们非常感谢来自支持者、赞助商和社区的支持。 作为这些贡献的结果，Entity 是第一个创建的库。 Entity 是为NgRx平台创建更多库的第一步。 考虑&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;opencollective.com&#x2F;ngrx&quot;&gt;通过OpenCollective&lt;&#x2F;a&gt;支持这些开发工作。&lt;&#x2F;p&gt;
-</content>
-        
-    </entry>
-    <entry xml:lang="en">
-        <title>About Me</title>
-        <published>2018-01-23T00:00:00+00:00</published>
-        <updated>2018-01-23T00:00:00+00:00</updated>
-        <author>
-          <name>Unknown</name>
-        </author>
-        <link rel="alternate" href="http://aqrun.com/diary/about-me/" type="text/html"/>
-        <id>http://aqrun.com/diary/about-me/</id>
-        
-        <content type="html">&lt;p&gt;画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不一定与技术相关，技术本只是世界上的一个小目录，技术是为了实现某个目的的手段。&lt;&#x2F;p&gt;
-&lt;p&gt;我们也许在很多地方扮演不同的角色去适应环境，但在这里，一切都由自己控制。未来的日子里，希望在这里写下一些自己的思考和感悟。如果可以的话，创造一些美好的事物。&lt;&#x2F;p&gt;
-&lt;h2 id=&quot;li-xiang-de-gong-zuo-huan-jing&quot;&gt;理想的工作环境&lt;&#x2F;h2&gt;
-&lt;ul&gt;
-&lt;li&gt;高配的电脑&lt;&#x2F;li&gt;
-&lt;li&gt;超快的网速&lt;&#x2F;li&gt;
-&lt;li&gt;宽松的环境&lt;&#x2F;li&gt;
-&lt;li&gt;很少的会议&lt;&#x2F;li&gt;
-&lt;li&gt;整洁的代码&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;h2 id=&quot;guan-yu-zi-ji&quot;&gt;关于自己&lt;&#x2F;h2&gt;
-&lt;p&gt;做努力的自己&lt;&#x2F;p&gt;
-&lt;h2 id=&quot;ji-zhu-biao-qian&quot;&gt;技术标签&lt;&#x2F;h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Html&lt;&#x2F;li&gt;
-&lt;li&gt;CSS, SASS&lt;&#x2F;li&gt;
-&lt;li&gt;JQuery, ReactJS, VueJS&lt;&#x2F;li&gt;
-&lt;li&gt;PHP
-&lt;ul&gt;
-&lt;li&gt;YII2&lt;&#x2F;li&gt;
-&lt;li&gt;Laravel&lt;&#x2F;li&gt;
-&lt;li&gt;Thinkphp&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;li&gt;MySQL&lt;&#x2F;li&gt;
-&lt;li&gt;Ubuntu&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
 </content>
         
     </entry>
