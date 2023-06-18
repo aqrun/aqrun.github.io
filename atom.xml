@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2023-06-18T00:00:00+00:00</updated>
-    <id>http://aqrun.com/atom.xml</id>
+    <id>https://aqrun.com/atom.xml</id>
     <entry xml:lang="en">
         <title>About Me</title>
         <published>2023-06-18T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/about/" type="text/html"/>
-        <id>http://aqrun.com/about/</id>
+        <link rel="alternate" href="https://aqrun.com/about/" type="text/html"/>
+        <id>https://aqrun.com/about/</id>
         
         <content type="html">&lt;p&gt;画家与黑客是相似的：他们都是创造者，就好像作曲家，建筑师，以及作家一样，他们的目的是创造某种美好的事物。博客内容不一定与技术相关，技术本只是世界上的一个小目录，技术是为了实现某个目的的手段。&lt;&#x2F;p&gt;
 &lt;p&gt;我们也许在很多地方扮演不同的角色去适应环境，但在这里，一切都由自己控制。未来的日子里，希望在这里写下一些自己的思考和感悟。如果可以的话，创造一些美好的事物。&lt;&#x2F;p&gt;
@@ -46,8 +46,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/contact/" type="text/html"/>
-        <id>http://aqrun.com/contact/</id>
+        <link rel="alternate" href="https://aqrun.com/contact/" type="text/html"/>
+        <id>https://aqrun.com/contact/</id>
         
         <content type="html">&lt;ul&gt;
 &lt;li&gt;E-mail：aqrun@sina.com&lt;&#x2F;li&gt;
@@ -65,8 +65,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/custom-derive-macro/" type="text/html"/>
-        <id>http://aqrun.com/rust/custom-derive-macro/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/custom-derive-macro/" type="text/html"/>
+        <id>https://aqrun.com/rust/custom-derive-macro/</id>
         
         <content type="html">&lt;h1 id=&quot;rust-guo-cheng-hong-zhi-derivepai-sheng-hong-shi-zhan-ru-men&quot;&gt;Rust 过程宏之derive派生宏实战入门&lt;&#x2F;h1&gt;
 &lt;h2 id=&quot;xu-qiu&quot;&gt;需求:&lt;&#x2F;h2&gt;
@@ -306,8 +306,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/how-to-build-a-blockchain-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/how-to-build-a-blockchain-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/how-to-build-a-blockchain-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/how-to-build-a-blockchain-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;blog.logrocket.com&#x2F;how-to-build-a-blockchain-in-rust&#x2F;&quot;&gt;英文原文链接 https:&#x2F;&#x2F;blog.logrocket.com&#x2F;how-to-build-a-blockchain-in-rust&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -483,8 +483,8 @@ pretty_env_logger &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;coinsbench.com&#x2F;how-to-build-a-blockchain-from-scratch-in-rust-9cedb59f8897&quot;&gt;英文原文链接 https:&#x2F;&#x2F;coinsbench.com&#x2F;how-to-build-a-blockchain-from-scratch-in-rust-9cedb59f8897&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -709,8 +709,8 @@ pretty_env_logger &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/snow-flake-generate/" type="text/html"/>
-        <id>http://aqrun.com/rust/snow-flake-generate/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/snow-flake-generate/" type="text/html"/>
+        <id>https://aqrun.com/rust/snow-flake-generate/</id>
         
         <content type="html">&lt;h2 id=&quot;qi-yin&quot;&gt;起因&lt;&#x2F;h2&gt;
 &lt;p&gt;发现简书一类的网站资源ID很短不知道如何实现&lt;&#x2F;p&gt;
@@ -873,8 +873,8 @@ raw_id: 6888082660225327099  id: 1gbytipve4ruj  de: 6888082660225327099
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/rust-1-57-0/" type="text/html"/>
-        <id>http://aqrun.com/rust/rust-1-57-0/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/rust-1-57-0/" type="text/html"/>
+        <id>https://aqrun.com/rust/rust-1-57-0/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;https:&#x2F;&#x2F;blog.rust-lang.org&#x2F;2021&#x2F;12&#x2F;02&#x2F;Rust-1.57.0.html&lt;&#x2F;p&gt;
@@ -950,8 +950,8 @@ Cargo 构建代码时可以使用参数 &lt;code&gt;--profile production&lt;&#x2
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/rust-with-emacs/" type="text/html"/>
-        <id>http://aqrun.com/rust/rust-with-emacs/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/rust-with-emacs/" type="text/html"/>
+        <id>https://aqrun.com/rust/rust-with-emacs/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文链接：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;robert.kra.hn&#x2F;posts&#x2F;2021-02-07_rust-with-emacs&#x2F;&quot;&gt;https:&#x2F;&#x2F;robert.kra.hn&#x2F;posts&#x2F;2021-02-07_rust-with-emacs&#x2F;&lt;&#x2F;a&gt;。翻译有错漏欢迎评论区指正吐槽😂。&lt;&#x2F;p&gt;
@@ -1272,8 +1272,8 @@ Error: spawn lldb-mi ENOENT
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/array-vector-slice-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/array-vector-slice-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文链接：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hashrust.com&#x2F;blog&#x2F;arrays-vectors-and-slices-in-rust&#x2F;&quot;&gt;Arrays, vectors and slices in Rust&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -1508,28 +1508,28 @@ s --&amp;gt; |--------------|
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/0-magento-menu/" type="text/html"/>
-        <id>http://aqrun.com/backend/0-magento-menu/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/0-magento-menu/" type="text/html"/>
+        <id>https://aqrun.com/backend/0-magento-menu/</id>
         
         <content type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;1-magento-2-module-development&#x2F;&quot;&gt;1. Magneto 2 模块开发 - 简单的 Hello World 模块&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;&quot;&gt;2. 如何创建 Magento 2 控制器&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;&quot;&gt;3. Magento2 中模型 CRUD&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;4-view-layouts-block-and-templates&#x2F;&quot;&gt;4.Magento 2 创建视图：区块、布局、模板&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;5-configuration-system-xml&#x2F;&quot;&gt;5.Magento2 如何添加System.xml配置参数&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;6-admin-menu&#x2F;&quot;&gt;6.Magento 2 添加后台管理菜单&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;7-admin-acl&#x2F;&quot;&gt;7.Magento 2 后台 ACL 权限控制列表&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;8-admin-grid&#x2F;&quot;&gt;8.如何添加后台数据网格&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;1-magento-2-module-development&#x2F;&quot;&gt;1. Magneto 2 模块开发 - 简单的 Hello World 模块&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;&quot;&gt;2. 如何创建 Magento 2 控制器&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;&quot;&gt;3. Magento2 中模型 CRUD&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;4-view-layouts-block-and-templates&#x2F;&quot;&gt;4.Magento 2 创建视图：区块、布局、模板&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;5-configuration-system-xml&#x2F;&quot;&gt;5.Magento2 如何添加System.xml配置参数&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;6-admin-menu&#x2F;&quot;&gt;6.Magento 2 添加后台管理菜单&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;7-admin-acl&#x2F;&quot;&gt;7.Magento 2 后台 ACL 权限控制列表&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;8-admin-grid&#x2F;&quot;&gt;8.如何添加后台数据网格&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;hr &#x2F;&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;9-install-upgrade-script&#x2F;&quot;&gt;9.如何创建安装、升级、卸载脚本&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;10-magento2-events&#x2F;&quot;&gt;10.Magento 2 事件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;11-magento2-plugin-interceptor&#x2F;&quot;&gt;11. Magento 2 拦截器插件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;&quot;&gt;12.Magento 2 索引和重建索引&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;13-magento-2-routing&#x2F;&quot;&gt;13.Magento2 路由&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;14-console-command-line&#x2F;&quot;&gt;14.Magento 2 中如何添加控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;15-how-to-use-cli&#x2F;&quot;&gt;15.如何使用控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;9-install-upgrade-script&#x2F;&quot;&gt;9.如何创建安装、升级、卸载脚本&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;10-magento2-events&#x2F;&quot;&gt;10.Magento 2 事件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;11-magento2-plugin-interceptor&#x2F;&quot;&gt;11. Magento 2 拦截器插件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;&quot;&gt;12.Magento 2 索引和重建索引&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;13-magento-2-routing&#x2F;&quot;&gt;13.Magento2 路由&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;14-console-command-line&#x2F;&quot;&gt;14.Magento 2 中如何添加控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;15-how-to-use-cli&#x2F;&quot;&gt;15.如何使用控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 </content>
         
@@ -1541,8 +1541,8 @@ s --&amp;gt; |--------------|
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/css-grid/" type="text/html"/>
-        <id>http://aqrun.com/frontend/css-grid/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/css-grid/" type="text/html"/>
+        <id>https://aqrun.com/frontend/css-grid/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;CSS3 grid 布局参考链接：&lt;&#x2F;strong&gt;&lt;br&#x2F;&gt;
@@ -1707,11 +1707,11 @@ s --&amp;gt; |--------------|
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/15-how-to-use-cli/" type="text/html"/>
-        <id>http://aqrun.com/backend/15-how-to-use-cli/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/15-how-to-use-cli/" type="text/html"/>
+        <id>https://aqrun.com/backend/15-how-to-use-cli/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文研究一下Magento系统提供的一些命令。Magento 通过 bin&#x2F;magento 提供了很多命令，刚开始感觉会有些复杂，接下来我们就仔细了解一下：&lt;&#x2F;p&gt;
 &lt;p&gt;当运行如下命令&lt;&#x2F;p&gt;
@@ -1982,11 +1982,11 @@ php bin&#x2F;magento maintenance:allow-ips 168.168.168.168
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/14-console-command-line/" type="text/html"/>
-        <id>http://aqrun.com/backend/14-console-command-line/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/14-console-command-line/" type="text/html"/>
+        <id>https://aqrun.com/backend/14-console-command-line/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文讨论如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作：&lt;&#x2F;p&gt;
 &lt;ul&gt;
@@ -2095,11 +2095,11 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/13-magento-2-routing/" type="text/html"/>
-        <id>http://aqrun.com/backend/13-magento-2-routing/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/13-magento-2-routing/" type="text/html"/>
+        <id>https://aqrun.com/backend/13-magento-2-routing/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文讨论一下路由系统（Routing）。路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法&lt;&#x2F;p&gt;
 &lt;p&gt;本文内容目录：&lt;&#x2F;p&gt;
@@ -2241,11 +2241,11 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/12-magento2-indexing-reindex/" type="text/html"/>
-        <id>http://aqrun.com/backend/12-magento2-indexing-reindex/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/12-magento2-indexing-reindex/" type="text/html"/>
+        <id>https://aqrun.com/backend/12-magento2-indexing-reindex/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文讨论如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器。为了代码演示我们继续使用 HelloWorld 模块。&lt;&#x2F;p&gt;
 &lt;p&gt;Magento 系统使用索引来变换数据如产品、分类等进而提高店铺的性能。当数据变化时，变换的数据也必须同步更新或重建索引。Magento 使用非常精致的架构在很多数据表中存储大量的店铺数据（包括产品、价格、用户、店铺等数据）。为了优化店铺性能，Magento 使用索引器把累积的数据存储到特定数据表。&lt;&#x2F;p&gt;
@@ -2343,7 +2343,7 @@ class Sayhello extends Command
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;你可以在索引器类方法中添加代码向索引器表更新数据&lt;&#x2F;p&gt;
 &lt;p&gt;接下来，清空缓存并到后台菜单  system &amp;gt; Index Management 查看代码结果&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;images&#x2F;12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;images&#x2F;12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;zhong-jian-suo-yin-shi-yong-ming-ling&quot;&gt;重建索引使用命令：&lt;&#x2F;h2&gt;
 &lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; bin&#x2F;magento indexer:redinex&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
@@ -2357,8 +2357,8 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/array-reduce/" type="text/html"/>
-        <id>http://aqrun.com/frontend/array-reduce/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/array-reduce/" type="text/html"/>
+        <id>https://aqrun.com/frontend/array-reduce/</id>
         
         <content type="html">&lt;pre data-lang=&quot;js&quot; class=&quot;language-js z-code&quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;z-source z-ts&quot;&gt;&lt;span class=&quot;z-meta z-var z-expr z-ts&quot;&gt;&lt;span class=&quot;z-storage z-type z-ts&quot;&gt;const&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-var-single-variable z-expr z-ts&quot;&gt;&lt;span class=&quot;z-meta z-definition z-variable z-ts&quot;&gt;&lt;span class=&quot;z-variable z-other z-constant z-ts&quot;&gt;products&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-ts&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-array z-literal z-ts&quot;&gt; &lt;span class=&quot;z-meta z-brace z-square z-ts&quot;&gt;[&lt;&#x2F;span&gt;
     &lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;id&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-decimal z-ts&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;name&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-single z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-ts&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;alex&lt;span class=&quot;z-punctuation z-definition z-string z-end z-ts&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;price&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-decimal z-ts&quot;&gt;10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt;
@@ -2394,11 +2394,11 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/11-magento2-plugin-interceptor/" type="text/html"/>
-        <id>http://aqrun.com/backend/11-magento2-plugin-interceptor/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/11-magento2-plugin-interceptor/" type="text/html"/>
+        <id>https://aqrun.com/backend/11-magento2-plugin-interceptor/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;插件在技术上可以让你写出结构更合理的代码。拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的执行结果，拦截后可以在原函数之前(before)、之后(after)或包围(around)的方式添加新增代码。通过使用拦截器插件可以在对原类代码不做任何修改的情况下改变它的执行结果。&lt;&#x2F;p&gt;
 &lt;p&gt;本文内容目录：&lt;&#x2F;p&gt;
@@ -2664,11 +2664,11 @@ class MyUtilityPlugin
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/10-magento2-events/" type="text/html"/>
-        <id>http://aqrun.com/backend/10-magento2-events/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/10-magento2-events/" type="text/html"/>
+        <id>https://aqrun.com/backend/10-magento2-events/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文件讨论Magneto 2 事件列表。众所周知，Magento 2 主要使用事件驱动架构，非常便于扩展系统的核心功能。可以把事件看作在某种情况发生时抛出的信号旗。继续使用之前的 HelloWorld 模块演示本节代码。&lt;&#x2F;p&gt;
 &lt;p&gt;内容目录：&lt;&#x2F;p&gt;
@@ -2785,11 +2785,11 @@ varienGlobalEvents.fireEvent(&amp;#39;gridRowClick&amp;#39;, event);
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/9-install-upgrade-script/" type="text/html"/>
-        <id>http://aqrun.com/backend/9-install-upgrade-script/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/9-install-upgrade-script/" type="text/html"/>
+        <id>https://aqrun.com/backend/9-install-upgrade-script/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文主要研究一下Magento2 模块中如何使用安装升级的SQL脚本。在你安装或升级一个模块时，你或许想要修改数据表结构或新增一些数据，Magento 2为这些需求提供了一些类。&lt;&#x2F;p&gt;
 &lt;p&gt;本节目录：&lt;&#x2F;p&gt;
@@ -3074,11 +3074,11 @@ varienGlobalEvents.fireEvent(&amp;#39;gridRowClick&amp;#39;, event);
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/8-admin-grid/" type="text/html"/>
-        <id>http://aqrun.com/backend/8-admin-grid/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/8-admin-grid/" type="text/html"/>
+        <id>https://aqrun.com/backend/8-admin-grid/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章节讨论Magento 2后台数据网格。如你所知Magento 2 网格是一种数据表格，用来显示数据库中对应表的数据，并提供了排序、筛选、删除、更新数据的功能。示例网格可以查看后台产品列表和用户列表。&lt;&#x2F;p&gt;
 &lt;p&gt;Magento 2 提供了两种创建网格的方式：使用布局文件和使用组件（component）。接下来会讨论他们的实现细节。在此之前请确保已经创建了前几章节的简单模块，并添加了后台菜单和路由文件，这些在本节都会用到。&lt;&#x2F;p&gt;
@@ -3581,11 +3581,11 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/7-admin-acl/" type="text/html"/>
-        <id>http://aqrun.com/backend/7-admin-acl/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/7-admin-acl/" type="text/html"/>
+        <id>https://aqrun.com/backend/7-admin-acl/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色。本文我们来研究它的工作机制并为我们的自定义模块添加权限控制。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;magento-2-quan-xian-kong-zhi-lie-biao-gui-ze&quot;&gt;Magento 2 权限控制列表规则&lt;&#x2F;h2&gt;
@@ -3670,8 +3670,8 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/controlled-and-uncontrolled-form/" type="text/html"/>
-        <id>http://aqrun.com/frontend/controlled-and-uncontrolled-form/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/controlled-and-uncontrolled-form/" type="text/html"/>
+        <id>https://aqrun.com/frontend/controlled-and-uncontrolled-form/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;goshakkk.name&#x2F;controlled-vs-uncontrolled-inputs-react&#x2F;&quot;&gt;Controlled and uncontrolled form inputs in React don&#x27;t have to be complicated&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -3796,11 +3796,11 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/6-admin-menu/" type="text/html"/>
-        <id>http://aqrun.com/backend/6-admin-menu/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/6-admin-menu/" type="text/html"/>
+        <id>https://aqrun.com/backend/6-admin-menu/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章节讨论如何在后台左侧导航菜单条添加自定义链接。&lt;&#x2F;p&gt;
 &lt;p&gt;首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。&lt;&#x2F;p&gt;
@@ -3875,11 +3875,11 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/5-configuration-system-xml/" type="text/html"/>
-        <id>http://aqrun.com/backend/5-configuration-system-xml/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/5-configuration-system-xml/" type="text/html"/>
+        <id>https://aqrun.com/backend/5-configuration-system-xml/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;System.xml是参数配置文件，用来添加参数配置字段。如果你需要添加一些管理员可以配置的参数就要用到这个功能。可以到后台 Store -&amp;gt; Setting -&amp;gt; Configuration 查看显示方式。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;chuang-jian-system-xmlyou-ru-xia-ji-bu&quot;&gt;创建system.xml有如下几步&lt;&#x2F;h2&gt;
@@ -4073,11 +4073,11 @@ class Config extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/4-view-layouts-block-and-templates/" type="text/html"/>
-        <id>http://aqrun.com/backend/4-view-layouts-block-and-templates/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/4-view-layouts-block-and-templates/" type="text/html"/>
+        <id>https://aqrun.com/backend/4-view-layouts-block-and-templates/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章了解 Magento 2 的视图(view)包含区块（Block）、布局（Layouts）、模板（Templates）。视图是用来输出页面显示的，在Magento 2中视图由三部分组成区块、布局、模板。现在改造我们的Hello World模块使用视图实现之前的功能以便了解视图的工作机制。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;chuang-jian-shi-tu-bu-zou&quot;&gt;创建视图步骤：&lt;&#x2F;h2&gt;
@@ -4236,11 +4236,11 @@ class Display extends \Magento\Framework\View\Element\Template
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/3-models-crud/" type="text/html"/>
-        <id>http://aqrun.com/backend/3-models-crud/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/3-models-crud/" type="text/html"/>
+        <id>https://aqrun.com/backend/3-models-crud/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;通过 Magento 2 的模型可以很容易管理数据库数据，不需要写很多代码来实现基础的 CRUD。CRUD代表新增(create)、读取(read)、更新(update)和删除(delete)。本节主要了解如何创建数据表、模型(model)、资源模型(resource model)和资源模型集合(resource model collection)及数据库的相关操作。&lt;&#x2F;p&gt;
 &lt;p&gt;开始之前先定好要用到的数据表，表名 &lt;code&gt;aqrun_helloworld_post&lt;&#x2F;code&gt; ,字段如下：&lt;&#x2F;p&gt;
@@ -4621,7 +4621,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 &lt;p&gt;接下来可以使用数据库管理软件到 aqrun_helloworld_post 表添加2条假数据，测试模型是否正常工作。&lt;&#x2F;p&gt;
 &lt;p&gt;添加完数据访问URL &lt;code&gt;http:&#x2F;&#x2F;mage.dev&#x2F;helloworld&#x2F;index&#x2F;index&lt;&#x2F;code&gt; 确认添加的数据列表已经显示。&lt;&#x2F;p&gt;
 &lt;p&gt;如果显示错误信息： Exception printing is disabled by default for security reasons 。可以到  var&#x2F;report 目录检查错误日志。&lt;&#x2F;p&gt;
-&lt;p&gt;模型相关就完结了，下一章节了解下&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;0&quot;&gt;视图：布局、区块、模板&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;模型相关就完结了，下一章节了解下&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;0&quot;&gt;视图：布局、区块、模板&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
@@ -4632,11 +4632,11 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/2-create-controller/" type="text/html"/>
-        <id>http://aqrun.com/backend/2-create-controller/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/2-create-controller/" type="text/html"/>
+        <id>https://aqrun.com/backend/2-create-controller/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面。&lt;&#x2F;p&gt;
@@ -4682,7 +4682,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;router&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;config&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;在上一章节的&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;1.magento-2-module-development.md&quot;&gt;如何创建模块&lt;&#x2F;a&gt;中，我们已经添加过 routes.xml 文件，如何做过了这一步可以跳过。&lt;&#x2F;p&gt;
+&lt;p&gt;在上一章节的&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;1.magento-2-module-development.md&quot;&gt;如何创建模块&lt;&#x2F;a&gt;中，我们已经添加过 routes.xml 文件，如何做过了这一步可以跳过。&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;di-er-bu-zeng-jia-kong-zhi-qi-wen-jian&quot;&gt;第二步：增加控制器文件&lt;&#x2F;h3&gt;
 &lt;p&gt;文件： &lt;code&gt;app&#x2F;code&#x2F;Aqrun&#x2F;HelloWorld&#x2F;Controller&#x2F;Index&#x2F;Index.php&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-embedded z-begin z-php&quot;&gt;&amp;lt;?php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-source z-php&quot;&gt;
@@ -4730,9 +4730,9 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 &lt;p&gt;文件：&lt;code&gt;app&#x2F;code&#x2F;Aqrun&#x2F;HelloWorld&#x2F;view&#x2F;frontend&#x2F;templates&#x2F;index.phtml&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;html&quot; class=&quot;language-html z-code&quot;&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;h2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;欢迎你我的朋友！&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;h2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;关于视图(布局、区块、模板)的更多内容查看&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;这里&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;关于视图(布局、区块、模板)的更多内容查看&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;这里&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;di-liu-bu-shua-xin-huan-cun&quot;&gt;第六步：刷新缓存&lt;&#x2F;h3&gt;
-&lt;p&gt;查看&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何清除Magento缓存&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;查看&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何清除Magento缓存&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;di-qi-bu-yun-xing-ce-shi&quot;&gt;第七步：运行测试&lt;&#x2F;h3&gt;
 &lt;p&gt;浏览器访问：&lt;&#x2F;p&gt;
 &lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;http:&#x2F;&#x2F;mage.dev&#x2F;helloworld&#x2F;index&#x2F;index
@@ -4747,7 +4747,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     return $this-&amp;gt;_authorization-&amp;gt;isAllowed(&amp;#39;Magento_AdminNotification::show_list&amp;#39;);
 }
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;这段代码会检测当前用户是否有权限执行这个动作，更多内容查看&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;后台权限控制&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;这段代码会检测当前用户是否有权限执行这个动作，更多内容查看&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;后台权限控制&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;magento-2-kong-zhi-qi-de-qi-ta-fang-fa&quot;&gt;Magento 2 控制器的其它方法&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;forward-he-redirect-fang-fa&quot;&gt;&lt;code&gt;_forward()&lt;&#x2F;code&gt; 和 &lt;code&gt;_redirect()&lt;&#x2F;code&gt; 方法&lt;&#x2F;h3&gt;
 &lt;p&gt;&lt;code&gt;\Magento\Framework\App\Action\Action&lt;&#x2F;code&gt; 类给我们提供了2个重要的方法： &lt;code&gt;_forward&lt;&#x2F;code&gt; 和 &lt;code&gt;_redirect&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
@@ -4794,7 +4794,7 @@ class Forward extends \Magento\Framework\App\Action\Action
 &lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;    $this-&amp;gt;_rediect(&amp;#39;*&#x2F;*&#x2F;hello&amp;#39;);
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;现在访问链接 &lt;code&gt;http:&#x2F;&#x2F;mage.dev&#x2F;route_name&#x2F;test&#x2F;forward&lt;&#x2F;code&gt;, URL会变为 &lt;code&gt;http:&#x2F;&#x2F;mage.dev&#x2F;route_name&#x2F;test&#x2F;hello&lt;&#x2F;code&gt;, 页面也会显示 “欢迎你我的朋友！”。&lt;&#x2F;p&gt;
-&lt;p&gt;到这里控制器部分就完结了，下一章节了解&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何创建模型&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;到这里控制器部分就完结了，下一章节了解&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何创建模型&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
@@ -4805,11 +4805,11 @@ class Forward extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/1-magento-2-module-development/" type="text/html"/>
-        <id>http://aqrun.com/backend/1-magento-2-module-development/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/1-magento-2-module-development/" type="text/html"/>
+        <id>https://aqrun.com/backend/1-magento-2-module-development/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文主要描述如何创建一个最简单的模块。&lt;&#x2F;p&gt;
 &lt;p&gt;模块 (Module) 也就是一个包含特定业务子目录（&lt;code&gt;区块blocks&lt;&#x2F;code&gt;、&lt;code&gt;控制器controllers&lt;&#x2F;code&gt;、&lt;code&gt;模型models&lt;&#x2F;code&gt;、&lt;code&gt;帮助文件helper&lt;&#x2F;code&gt;、&lt;code&gt;配置相关etc&lt;&#x2F;code&gt;）的文件夹。&lt;code&gt;etc&lt;&#x2F;code&gt; 目录包含有后台权限控制（admin acl）、后台菜单配置、其它配置文件。模块一般在 &lt;code&gt;app&#x2F;code&lt;&#x2F;code&gt; 目录，全路径: &lt;code&gt;app&#x2F;code&#x2F;&amp;lt;Vendor&amp;gt;&#x2F;&amp;lt;ModuleName&amp;gt;&lt;&#x2F;code&gt;， Vendor 是企业名称如 Baidu。下面创建一个可以执行的模块并显示 “Hello World”。&lt;&#x2F;p&gt;
@@ -4934,8 +4934,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/samba-configuration/" type="text/html"/>
-        <id>http://aqrun.com/server/samba-configuration/</id>
+        <link rel="alternate" href="https://aqrun.com/server/samba-configuration/" type="text/html"/>
+        <id>https://aqrun.com/server/samba-configuration/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
 &lt;code class=&quot;language-ini&quot;&gt;
@@ -5201,8 +5201,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
         
         <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;61688-17511fd57565df77.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240&quot; alt=&quot;GUN EMACS&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;huan-jing-zhun-bei&quot;&gt;环境准备&lt;&#x2F;h2&gt;
@@ -5249,8 +5249,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/" type="text/html"/>
-        <id>http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</id>
+        <link rel="alternate" href="https://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/" type="text/html"/>
+        <id>https://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</id>
         
         <content type="html">&lt;h2 id=&quot;2-16-make-copy-paste-working-with-the-mouse-in-x11-terminals&quot;&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;spacemacs.org&#x2F;doc&#x2F;FAQ.html#make-copypaste-working-with-the-mouse-in-x11-terminals&quot;&gt;2.16 Make copy&#x2F;paste working with the mouse in X11 terminals?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;It is possible to disable the mouse support in X11 terminals in order to enable copying&#x2F;pasting with the mouse. You need to add this line to your &lt;code&gt;dotspacemacs&#x2F;user-config&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
@@ -5267,8 +5267,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/" type="text/html"/>
-        <id>http://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/" type="text/html"/>
+        <id>https://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;toddmotto.com&#x2F;ngrx-store-understanding-state-selectors&quot;&gt;原文链接：https:&#x2F;&#x2F;toddmotto.com&#x2F;ngrx-store-understanding-state-selectors&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -5548,16 +5548,16 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/" type="text/html"/>
-        <id>http://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/" type="text/html"/>
+        <id>https://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;youngers-consulting&#x2F;ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d&quot;&gt;原文链接：https:&#x2F;&#x2F;medium.com&#x2F;youngers-consulting&#x2F;ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;blog&#x2F;javascript&#x2F;2018&#x2F;03&#x2F;17-NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html&quot;&gt;NgRx技巧 1-带延迟加载的模块配置&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 2-选择器和测试&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 3-操作 Actions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 2-选择器和测试&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 3-操作 Actions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;p&gt;如果您的Angular项目针对延迟加载进行了调整，并使用按需加载的独立模块进行加载，这些模块通过`StoreModule.forFeature(...) 定义了自己的 state 片段，您可以像这样定义根模块：&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;ts&quot; class=&quot;language-ts z-code&quot;&gt;&lt;code class=&quot;language-ts&quot; data-lang=&quot;ts&quot;&gt;&lt;span class=&quot;z-source z-ts&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-ts&quot;&gt;&lt;span class=&quot;z-variable z-other z-object z-ts&quot;&gt;StoreModule&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-ts&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-ts&quot;&gt;forRoot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-brace z-round z-ts&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-as z-ts&quot;&gt;as&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-type z-primitive z-ts&quot;&gt;any&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;initialState&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-readwrite z-ts&quot;&gt;getInitialState&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-brace z-round z-ts&quot;&gt;)&lt;&#x2F;span&gt;
@@ -5610,8 +5610,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/" type="text/html"/>
-        <id>http://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/" type="text/html"/>
+        <id>https://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@flashMasterJim&#x2F;the-basics-of-ngrx-effects-effect-and-async-middleware-for-ngrx-store-in-angular-2-f25587493329&quot;&gt;原文链接：https:&#x2F;&#x2F;medium.com&#x2F;@flashMasterJim&#x2F;the-basics-of-ngrx-effects-effect-and-async-middleware-for-ngrx-store-in-angular-2-f25587493329&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -5764,8 +5764,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/ngrx-entity-jian-jie/" type="text/html"/>
-        <id>http://aqrun.com/frontend/ngrx-entity-jian-jie/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/ngrx-entity-jian-jie/" type="text/html"/>
+        <id>https://aqrun.com/frontend/ngrx-entity-jian-jie/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;ngrx&#x2F;introducing-ngrx-entity-598176456e15&quot;&gt;原文链接：https:&#x2F;&#x2F;medium.com&#x2F;ngrx&#x2F;introducing-ngrx-entity-598176456e15&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -5899,8 +5899,8 @@ class Test extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/" type="text/html"/>
-        <id>http://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/</id>
+        <link rel="alternate" href="https://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/" type="text/html"/>
+        <id>https://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/</id>
         
         <content type="html">&lt;h2 id=&quot;xiang-mu&quot;&gt;项目&lt;&#x2F;h2&gt;
 &lt;ul&gt;
@@ -5934,8 +5934,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/" type="text/html"/>
-        <id>http://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/" type="text/html"/>
+        <id>https://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
   &lt;code class=&quot;language-php&quot;&gt;
@@ -5951,8 +5951,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</id>
         
         <content type="html">&lt;h2 id=&quot;wen-jian-mu-lu-jie-gou&quot;&gt;文件目录结构：&lt;&#x2F;h2&gt;
 &lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;&#x2F;nginx
@@ -6110,8 +6110,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" type="text/html"/>
-        <id>http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" type="text/html"/>
+        <id>https://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</id>
         
         <content type="html">&lt;h3 id=&quot;viewport&quot;&gt;Viewport&lt;&#x2F;h3&gt;
 &lt;pre class=&quot;line-numbers&quot; markdown=&quot;0&quot;&gt;
@@ -6209,8 +6209,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" type="text/html"/>
-        <id>http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" type="text/html"/>
+        <id>https://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-javascript&quot;&gt;
@@ -6466,8 +6466,8 @@ AIDMA法则、费米推理、时间管理四象限、正反面决策法、决策
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
         
         <content type="html">&lt;h3 id=&quot;1-ben-ren-pei-zhi-de-ftpfu-wu-qi-de-she-ji-yao-qiu-ru-xia&quot;&gt;1、 本人配置的ftp服务器的设计要求如下：&lt;&#x2F;h3&gt;
 &lt;p&gt;（1）、匿名用户可登录浏览，但不能下载
@@ -6680,8 +6680,8 @@ http:&#x2F;&#x2F;www.517sou.net&#x2F;blogview.asp?logID=515#commmark_241 这个�
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
-        <id>http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
+        <id>https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
         
         <content type="html">&lt;p&gt;So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.&lt;&#x2F;p&gt;
 &lt;p&gt;Not a daunting as it may first appear. The really tricky part is working out your dependencies and configure script.&lt;&#x2F;p&gt;
@@ -6817,8 +6817,8 @@ AddType text&#x2F;html .php&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
         
         <content type="html">&lt;p&gt;目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行&lt;&#x2F;p&gt;
 &lt;p&gt;首要得卸载Ubuntu默认的ibus输入法：&lt;&#x2F;p&gt;
@@ -6848,8 +6848,8 @@ http:&#x2F;&#x2F;pan.baidu.com&#x2F;share&#x2F;link?shareid=437349&amp;amp;uk=31
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
         
         <content type="html">&lt;h2 id=&quot;yi-shi-yong-ming-ling-she-zhi-ubuntu-ipdi-zhi&quot;&gt;一、使用命令设置Ubuntu IP地址&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;1-xiu-gai-pei-zhi-wen-jian-blacklist-confjin-yong-ipv6&quot;&gt;1.修改配置文件blacklist.conf禁用IPV6&lt;&#x2F;h3&gt;
@@ -6950,8 +6950,8 @@ nameserver 192.168.2.2
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/" type="text/html"/>
-        <id>http://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/" type="text/html"/>
+        <id>https://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/</id>
         
         <content type="html">&lt;p&gt;modules&#x2F;image&#x2F;image.module&lt;&#x2F;p&gt;
 &lt;pre class=&quot;line-numbers&quot;&gt;
@@ -6974,8 +6974,8 @@ nameserver 192.168.2.2
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</id>
         
         <content type="html">&lt;p&gt;EntityFieldQuery获取指定类型的内容列表&lt;&#x2F;p&gt;
 &lt;pre class=&quot;line-numbers&quot;&gt;
@@ -7009,8 +7009,8 @@ foeach($nodesData as $n){
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
         
         <content type="html">&lt;p&gt;Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更加方便。目的也不言而喻，就是取代db_query()。下面我也就列罗出一些经常使用的技巧，可能不够全面，还请大家多多补充。&lt;&#x2F;p&gt;
 &lt;h4 id=&quot;1-dan-biao-cha-xun-zui-ji-ben-shi-yong-fang-fa&quot;&gt;1. 单表查询（最基本使用方法）&lt;&#x2F;h4&gt;
@@ -7114,8 +7114,8 @@ $result = db_select(&#x27;contact&#x27;, &#x27;c&#x27;)  &#x2F;&#x2F;选择表co
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/" type="text/html"/>
-        <id>http://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/" type="text/html"/>
+        <id>https://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-javascript&quot;&gt;
@@ -7502,8 +7502,8 @@ $result = db_select(&#x27;contact&#x27;, &#x27;c&#x27;)  &#x2F;&#x2F;选择表co
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/php-autoloadzhi-composerpian/" type="text/html"/>
-        <id>http://aqrun.com/backend/php-autoloadzhi-composerpian/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/php-autoloadzhi-composerpian/" type="text/html"/>
+        <id>https://aqrun.com/backend/php-autoloadzhi-composerpian/</id>
         
         <content type="html">&lt;p&gt;Composer是PHP依赖管理工具 具体介绍官方网站： https:&#x2F;&#x2F;getcomposer.org&#x2F;doc&#x2F;00-intro.md 本篇介绍 小项目如何使用composer生成自动加载类文件&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;1-chuang-jian-xiang-mu-test-mu-lu-jie-gou&quot;&gt;1. 创建项目 test 目录结构：&lt;&#x2F;h2&gt;
@@ -7546,8 +7546,8 @@ echo (new TestClass())-&amp;gt;name;   &#x2F;&#x2F;输出 test content
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/" type="text/html"/>
-        <id>http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/jquery-backbone-ejsfen-ye/" type="text/html"/>
+        <id>https://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-javascript&quot;&gt;
@@ -7665,8 +7665,8 @@ console 测试代码   mPager.set({page:3})
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/phpdai-ma-zhan-shi/" type="text/html"/>
-        <id>http://aqrun.com/backend/phpdai-ma-zhan-shi/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/phpdai-ma-zhan-shi/" type="text/html"/>
+        <id>https://aqrun.com/backend/phpdai-ma-zhan-shi/</id>
         
         <content type="html">&lt;h2 id=&quot;foreach&quot;&gt;foreach&lt;&#x2F;h2&gt;
 &lt;p&gt;PHP 4 引入了 foreach 结构，和 Perl 以及其他语言很像。这只是一种遍历数组简便方法。foreach 仅能用于数组，当试图将其用于其它数据类型或者一个未初始化的变量时会产生错误。有两种语法，第二种比较次要但却是第一种的有用的扩展。&lt;&#x2F;p&gt;

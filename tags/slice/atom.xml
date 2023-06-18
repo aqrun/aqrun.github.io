@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - slice</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/slice/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/slice/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2020-10-25T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/slice/atom.xml</id>
+    <id>https://aqrun.com/tags/slice/atom.xml</id>
     <entry xml:lang="en">
         <title>Rust 数组、动态数组和切片（Array, Vector and slice）</title>
         <published>2020-10-25T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/array-vector-slice-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/array-vector-slice-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文链接：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hashrust.com&#x2F;blog&#x2F;arrays-vectors-and-slices-in-rust&#x2F;&quot;&gt;Arrays, vectors and slices in Rust&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;

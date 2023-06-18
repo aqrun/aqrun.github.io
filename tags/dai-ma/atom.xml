@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - 代码</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/dai-ma/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/dai-ma/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2014-02-24T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/dai-ma/atom.xml</id>
+    <id>https://aqrun.com/tags/dai-ma/atom.xml</id>
     <entry xml:lang="en">
         <title>php代码部分展示!</title>
         <published>2014-02-24T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/phpdai-ma-zhan-shi/" type="text/html"/>
-        <id>http://aqrun.com/backend/phpdai-ma-zhan-shi/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/phpdai-ma-zhan-shi/" type="text/html"/>
+        <id>https://aqrun.com/backend/phpdai-ma-zhan-shi/</id>
         
         <content type="html">&lt;h2 id=&quot;foreach&quot;&gt;foreach&lt;&#x2F;h2&gt;
 &lt;p&gt;PHP 4 引入了 foreach 结构，和 Perl 以及其他语言很像。这只是一种遍历数组简便方法。foreach 仅能用于数组，当试图将其用于其它数据类型或者一个未初始化的变量时会产生错误。有两种语法，第二种比较次要但却是第一种的有用的扩展。&lt;&#x2F;p&gt;

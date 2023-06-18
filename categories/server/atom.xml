@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - server</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/categories/server/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/categories/server/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2018-11-27T00:00:00+00:00</updated>
-    <id>http://aqrun.com/categories/server/atom.xml</id>
+    <id>https://aqrun.com/categories/server/atom.xml</id>
     <entry xml:lang="en">
         <title>Ubuntu Win10 目录共享Samba配置</title>
         <published>2018-11-27T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/samba-configuration/" type="text/html"/>
-        <id>http://aqrun.com/server/samba-configuration/</id>
+        <link rel="alternate" href="https://aqrun.com/server/samba-configuration/" type="text/html"/>
+        <id>https://aqrun.com/server/samba-configuration/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
 &lt;code class=&quot;language-ini&quot;&gt;
@@ -281,8 +281,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
         
         <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;61688-17511fd57565df77.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240&quot; alt=&quot;GUN EMACS&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;huan-jing-zhun-bei&quot;&gt;环境准备&lt;&#x2F;h2&gt;
@@ -329,8 +329,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/" type="text/html"/>
-        <id>http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</id>
+        <link rel="alternate" href="https://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/" type="text/html"/>
+        <id>https://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</id>
         
         <content type="html">&lt;h2 id=&quot;2-16-make-copy-paste-working-with-the-mouse-in-x11-terminals&quot;&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;spacemacs.org&#x2F;doc&#x2F;FAQ.html#make-copypaste-working-with-the-mouse-in-x11-terminals&quot;&gt;2.16 Make copy&#x2F;paste working with the mouse in X11 terminals?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
 &lt;p&gt;It is possible to disable the mouse support in X11 terminals in order to enable copying&#x2F;pasting with the mouse. You need to add this line to your &lt;code&gt;dotspacemacs&#x2F;user-config&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
@@ -347,8 +347,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
         
         <content type="html">&lt;h3 id=&quot;1-ben-ren-pei-zhi-de-ftpfu-wu-qi-de-she-ji-yao-qiu-ru-xia&quot;&gt;1、 本人配置的ftp服务器的设计要求如下：&lt;&#x2F;h3&gt;
 &lt;p&gt;（1）、匿名用户可登录浏览，但不能下载
@@ -561,8 +561,8 @@ http:&#x2F;&#x2F;www.517sou.net&#x2F;blogview.asp?logID=515#commmark_241 这个�
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
         
         <content type="html">&lt;p&gt;目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行&lt;&#x2F;p&gt;
 &lt;p&gt;首要得卸载Ubuntu默认的ibus输入法：&lt;&#x2F;p&gt;
@@ -592,8 +592,8 @@ http:&#x2F;&#x2F;pan.baidu.com&#x2F;share&#x2F;link?shareid=437349&amp;amp;uk=31
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
         
         <content type="html">&lt;h2 id=&quot;yi-shi-yong-ming-ling-she-zhi-ubuntu-ipdi-zhi&quot;&gt;一、使用命令设置Ubuntu IP地址&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;1-xiu-gai-pei-zhi-wen-jian-blacklist-confjin-yong-ipv6&quot;&gt;1.修改配置文件blacklist.conf禁用IPV6&lt;&#x2F;h3&gt;

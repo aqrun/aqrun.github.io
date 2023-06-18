@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - ubuntu</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/ubuntu/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/ubuntu/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2018-11-27T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/ubuntu/atom.xml</id>
+    <id>https://aqrun.com/tags/ubuntu/atom.xml</id>
     <entry xml:lang="en">
         <title>Ubuntu Win10 目录共享Samba配置</title>
         <published>2018-11-27T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/samba-configuration/" type="text/html"/>
-        <id>http://aqrun.com/server/samba-configuration/</id>
+        <link rel="alternate" href="https://aqrun.com/server/samba-configuration/" type="text/html"/>
+        <id>https://aqrun.com/server/samba-configuration/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
 &lt;code class=&quot;language-ini&quot;&gt;
@@ -281,8 +281,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
         
         <content type="html">&lt;h3 id=&quot;1-ben-ren-pei-zhi-de-ftpfu-wu-qi-de-she-ji-yao-qiu-ru-xia&quot;&gt;1、 本人配置的ftp服务器的设计要求如下：&lt;&#x2F;h3&gt;
 &lt;p&gt;（1）、匿名用户可登录浏览，但不能下载
@@ -495,8 +495,8 @@ http:&#x2F;&#x2F;www.517sou.net&#x2F;blogview.asp?logID=515#commmark_241 这个�
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
-        <id>http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
+        <id>https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
         
         <content type="html">&lt;p&gt;So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.&lt;&#x2F;p&gt;
 &lt;p&gt;Not a daunting as it may first appear. The really tricky part is working out your dependencies and configure script.&lt;&#x2F;p&gt;
@@ -632,8 +632,8 @@ AddType text&#x2F;html .php&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</id>
         
         <content type="html">&lt;p&gt;目前搜狗输入法是基于fcitx框架下的，所以我们得安装fcitx才行&lt;&#x2F;p&gt;
 &lt;p&gt;首要得卸载Ubuntu默认的ibus输入法：&lt;&#x2F;p&gt;
@@ -663,8 +663,8 @@ http:&#x2F;&#x2F;pan.baidu.com&#x2F;share&#x2F;link?shareid=437349&amp;amp;uk=31
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</id>
         
         <content type="html">&lt;h2 id=&quot;yi-shi-yong-ming-ling-she-zhi-ubuntu-ipdi-zhi&quot;&gt;一、使用命令设置Ubuntu IP地址&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;1-xiu-gai-pei-zhi-wen-jian-blacklist-confjin-yong-ipv6&quot;&gt;1.修改配置文件blacklist.conf禁用IPV6&lt;&#x2F;h3&gt;

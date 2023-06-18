@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - compile</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/compile/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/compile/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2018-07-27T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/compile/atom.xml</id>
+    <id>https://aqrun.com/tags/compile/atom.xml</id>
     <entry xml:lang="en">
         <title>Ubuntu 18.04 源码编译安装 Emacs 26.1</title>
         <published>2018-07-27T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</id>
         
         <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;61688-17511fd57565df77.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240&quot; alt=&quot;GUN EMACS&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;huan-jing-zhun-bei&quot;&gt;环境准备&lt;&#x2F;h2&gt;
@@ -62,8 +62,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
-        <id>http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/" type="text/html"/>
+        <id>https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</id>
         
         <content type="html">&lt;p&gt;So recently I’ve been working with PHP 5.4 a LOT. Unfortunately Ubuntu (my main dev environment) is behind the times. So I’m resorting to compiling PHP manually.&lt;&#x2F;p&gt;
 &lt;p&gt;Not a daunting as it may first appear. The really tricky part is working out your dependencies and configure script.&lt;&#x2F;p&gt;

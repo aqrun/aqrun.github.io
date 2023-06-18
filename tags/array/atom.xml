@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - array</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/array/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/array/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2020-10-25T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/array/atom.xml</id>
+    <id>https://aqrun.com/tags/array/atom.xml</id>
     <entry xml:lang="en">
         <title>Rust 数组、动态数组和切片（Array, Vector and slice）</title>
         <published>2020-10-25T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/array-vector-slice-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/array-vector-slice-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文链接：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hashrust.com&#x2F;blog&#x2F;arrays-vectors-and-slices-in-rust&#x2F;&quot;&gt;Arrays, vectors and slices in Rust&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -250,8 +250,8 @@ s --&amp;gt; |--------------|
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/array-reduce/" type="text/html"/>
-        <id>http://aqrun.com/frontend/array-reduce/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/array-reduce/" type="text/html"/>
+        <id>https://aqrun.com/frontend/array-reduce/</id>
         
         <content type="html">&lt;pre data-lang=&quot;js&quot; class=&quot;language-js z-code&quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;z-source z-ts&quot;&gt;&lt;span class=&quot;z-meta z-var z-expr z-ts&quot;&gt;&lt;span class=&quot;z-storage z-type z-ts&quot;&gt;const&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-var-single-variable z-expr z-ts&quot;&gt;&lt;span class=&quot;z-meta z-definition z-variable z-ts&quot;&gt;&lt;span class=&quot;z-variable z-other z-constant z-ts&quot;&gt;products&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-ts&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-array z-literal z-ts&quot;&gt; &lt;span class=&quot;z-meta z-brace z-square z-ts&quot;&gt;[&lt;&#x2F;span&gt;
     &lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;id&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-decimal z-ts&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;name&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-single z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-ts&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;alex&lt;span class=&quot;z-punctuation z-definition z-string z-end z-ts&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;price&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-decimal z-ts&quot;&gt;10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt;

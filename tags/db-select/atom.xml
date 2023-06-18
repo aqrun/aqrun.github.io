@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - db_select</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/db-select/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/db-select/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2014-11-05T10:30:22+00:00</updated>
-    <id>http://aqrun.com/tags/db-select/atom.xml</id>
+    <id>https://aqrun.com/tags/db-select/atom.xml</id>
     <entry xml:lang="en">
         <title>Drupal 7 API 之db_select的一些使用</title>
         <published>2014-11-05T10:30:22+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
         
         <content type="html">&lt;p&gt;Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更加方便。目的也不言而喻，就是取代db_query()。下面我也就列罗出一些经常使用的技巧，可能不够全面，还请大家多多补充。&lt;&#x2F;p&gt;
 &lt;h4 id=&quot;1-dan-biao-cha-xun-zui-ji-ben-shi-yong-fang-fa&quot;&gt;1. 单表查询（最基本使用方法）&lt;&#x2F;h4&gt;

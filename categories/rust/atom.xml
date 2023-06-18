@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - rust</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/categories/rust/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/categories/rust/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2022-08-27T00:00:00+00:00</updated>
-    <id>http://aqrun.com/categories/rust/atom.xml</id>
+    <id>https://aqrun.com/categories/rust/atom.xml</id>
     <entry xml:lang="en">
         <title>Rust 过程宏之derive派生宏实战入门</title>
         <published>2022-08-27T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/custom-derive-macro/" type="text/html"/>
-        <id>http://aqrun.com/rust/custom-derive-macro/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/custom-derive-macro/" type="text/html"/>
+        <id>https://aqrun.com/rust/custom-derive-macro/</id>
         
         <content type="html">&lt;h1 id=&quot;rust-guo-cheng-hong-zhi-derivepai-sheng-hong-shi-zhan-ru-men&quot;&gt;Rust 过程宏之derive派生宏实战入门&lt;&#x2F;h1&gt;
 &lt;h2 id=&quot;xu-qiu&quot;&gt;需求:&lt;&#x2F;h2&gt;
@@ -255,8 +255,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/how-to-build-a-blockchain-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/how-to-build-a-blockchain-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/how-to-build-a-blockchain-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/how-to-build-a-blockchain-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;blog.logrocket.com&#x2F;how-to-build-a-blockchain-in-rust&#x2F;&quot;&gt;英文原文链接 https:&#x2F;&#x2F;blog.logrocket.com&#x2F;how-to-build-a-blockchain-in-rust&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -432,8 +432,8 @@ pretty_env_logger &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;coinsbench.com&#x2F;how-to-build-a-blockchain-from-scratch-in-rust-9cedb59f8897&quot;&gt;英文原文链接 https:&#x2F;&#x2F;coinsbench.com&#x2F;how-to-build-a-blockchain-from-scratch-in-rust-9cedb59f8897&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -658,8 +658,8 @@ pretty_env_logger &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/snow-flake-generate/" type="text/html"/>
-        <id>http://aqrun.com/rust/snow-flake-generate/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/snow-flake-generate/" type="text/html"/>
+        <id>https://aqrun.com/rust/snow-flake-generate/</id>
         
         <content type="html">&lt;h2 id=&quot;qi-yin&quot;&gt;起因&lt;&#x2F;h2&gt;
 &lt;p&gt;发现简书一类的网站资源ID很短不知道如何实现&lt;&#x2F;p&gt;
@@ -822,8 +822,8 @@ raw_id: 6888082660225327099  id: 1gbytipve4ruj  de: 6888082660225327099
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/rust-1-57-0/" type="text/html"/>
-        <id>http://aqrun.com/rust/rust-1-57-0/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/rust-1-57-0/" type="text/html"/>
+        <id>https://aqrun.com/rust/rust-1-57-0/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;https:&#x2F;&#x2F;blog.rust-lang.org&#x2F;2021&#x2F;12&#x2F;02&#x2F;Rust-1.57.0.html&lt;&#x2F;p&gt;
@@ -899,8 +899,8 @@ Cargo 构建代码时可以使用参数 &lt;code&gt;--profile production&lt;&#x2
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/rust-with-emacs/" type="text/html"/>
-        <id>http://aqrun.com/rust/rust-with-emacs/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/rust-with-emacs/" type="text/html"/>
+        <id>https://aqrun.com/rust/rust-with-emacs/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文链接：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;robert.kra.hn&#x2F;posts&#x2F;2021-02-07_rust-with-emacs&#x2F;&quot;&gt;https:&#x2F;&#x2F;robert.kra.hn&#x2F;posts&#x2F;2021-02-07_rust-with-emacs&#x2F;&lt;&#x2F;a&gt;。翻译有错漏欢迎评论区指正吐槽😂。&lt;&#x2F;p&gt;
@@ -1221,8 +1221,8 @@ Error: spawn lldb-mi ENOENT
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
-        <id>http://aqrun.com/rust/array-vector-slice-in-rust/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/array-vector-slice-in-rust/" type="text/html"/>
+        <id>https://aqrun.com/rust/array-vector-slice-in-rust/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文链接：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;hashrust.com&#x2F;blog&#x2F;arrays-vectors-and-slices-in-rust&#x2F;&quot;&gt;Arrays, vectors and slices in Rust&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;

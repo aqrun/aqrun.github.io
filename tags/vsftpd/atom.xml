@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - vsftpd</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/vsftpd/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/vsftpd/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2015-03-31T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/vsftpd/atom.xml</id>
+    <id>https://aqrun.com/tags/vsftpd/atom.xml</id>
     <entry xml:lang="en">
         <title>ubuntu下vsftpd配置详细篇</title>
         <published>2015-03-31T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
-        <id>http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
+        <link rel="alternate" href="https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/" type="text/html"/>
+        <id>https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</id>
         
         <content type="html">&lt;h3 id=&quot;1-ben-ren-pei-zhi-de-ftpfu-wu-qi-de-she-ji-yao-qiu-ru-xia&quot;&gt;1、 本人配置的ftp服务器的设计要求如下：&lt;&#x2F;h3&gt;
 &lt;p&gt;（1）、匿名用户可登录浏览，但不能下载

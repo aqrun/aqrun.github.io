@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - magento2</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/magento2/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/magento2/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2020-02-02T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/magento2/atom.xml</id>
+    <id>https://aqrun.com/tags/magento2/atom.xml</id>
     <entry xml:lang="en">
         <title>0. Magento2 开发内容目录</title>
         <published>2020-02-02T00:00:00+00:00</published>
@@ -14,28 +14,28 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/0-magento-menu/" type="text/html"/>
-        <id>http://aqrun.com/backend/0-magento-menu/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/0-magento-menu/" type="text/html"/>
+        <id>https://aqrun.com/backend/0-magento-menu/</id>
         
         <content type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;1-magento-2-module-development&#x2F;&quot;&gt;1. Magneto 2 模块开发 - 简单的 Hello World 模块&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;&quot;&gt;2. 如何创建 Magento 2 控制器&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;&quot;&gt;3. Magento2 中模型 CRUD&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;4-view-layouts-block-and-templates&#x2F;&quot;&gt;4.Magento 2 创建视图：区块、布局、模板&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;5-configuration-system-xml&#x2F;&quot;&gt;5.Magento2 如何添加System.xml配置参数&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;6-admin-menu&#x2F;&quot;&gt;6.Magento 2 添加后台管理菜单&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;7-admin-acl&#x2F;&quot;&gt;7.Magento 2 后台 ACL 权限控制列表&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;8-admin-grid&#x2F;&quot;&gt;8.如何添加后台数据网格&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;1-magento-2-module-development&#x2F;&quot;&gt;1. Magneto 2 模块开发 - 简单的 Hello World 模块&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;&quot;&gt;2. 如何创建 Magento 2 控制器&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;&quot;&gt;3. Magento2 中模型 CRUD&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;4-view-layouts-block-and-templates&#x2F;&quot;&gt;4.Magento 2 创建视图：区块、布局、模板&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;5-configuration-system-xml&#x2F;&quot;&gt;5.Magento2 如何添加System.xml配置参数&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;6-admin-menu&#x2F;&quot;&gt;6.Magento 2 添加后台管理菜单&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;7-admin-acl&#x2F;&quot;&gt;7.Magento 2 后台 ACL 权限控制列表&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;8-admin-grid&#x2F;&quot;&gt;8.如何添加后台数据网格&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;hr &#x2F;&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;9-install-upgrade-script&#x2F;&quot;&gt;9.如何创建安装、升级、卸载脚本&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;10-magento2-events&#x2F;&quot;&gt;10.Magento 2 事件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;11-magento2-plugin-interceptor&#x2F;&quot;&gt;11. Magento 2 拦截器插件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;&quot;&gt;12.Magento 2 索引和重建索引&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;13-magento-2-routing&#x2F;&quot;&gt;13.Magento2 路由&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;14-console-command-line&#x2F;&quot;&gt;14.Magento 2 中如何添加控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;15-how-to-use-cli&#x2F;&quot;&gt;15.如何使用控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;9-install-upgrade-script&#x2F;&quot;&gt;9.如何创建安装、升级、卸载脚本&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;10-magento2-events&#x2F;&quot;&gt;10.Magento 2 事件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;11-magento2-plugin-interceptor&#x2F;&quot;&gt;11. Magento 2 拦截器插件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;&quot;&gt;12.Magento 2 索引和重建索引&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;13-magento-2-routing&#x2F;&quot;&gt;13.Magento2 路由&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;14-console-command-line&#x2F;&quot;&gt;14.Magento 2 中如何添加控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;15-how-to-use-cli&#x2F;&quot;&gt;15.如何使用控制台命令&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 </content>
         
@@ -47,11 +47,11 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/15-how-to-use-cli/" type="text/html"/>
-        <id>http://aqrun.com/backend/15-how-to-use-cli/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/15-how-to-use-cli/" type="text/html"/>
+        <id>https://aqrun.com/backend/15-how-to-use-cli/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文研究一下Magento系统提供的一些命令。Magento 通过 bin&#x2F;magento 提供了很多命令，刚开始感觉会有些复杂，接下来我们就仔细了解一下：&lt;&#x2F;p&gt;
 &lt;p&gt;当运行如下命令&lt;&#x2F;p&gt;
@@ -322,11 +322,11 @@ php bin&#x2F;magento maintenance:allow-ips 168.168.168.168
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/14-console-command-line/" type="text/html"/>
-        <id>http://aqrun.com/backend/14-console-command-line/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/14-console-command-line/" type="text/html"/>
+        <id>https://aqrun.com/backend/14-console-command-line/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文讨论如何添加控制台命令。Magento 2 使用命令行可以快速实现一些操作：&lt;&#x2F;p&gt;
 &lt;ul&gt;
@@ -435,11 +435,11 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/13-magento-2-routing/" type="text/html"/>
-        <id>http://aqrun.com/backend/13-magento-2-routing/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/13-magento-2-routing/" type="text/html"/>
+        <id>https://aqrun.com/backend/13-magento-2-routing/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文讨论一下路由系统（Routing）。路由定义会指定模块名称，可用于根据URL参数找到对应模块并执行控制器方法&lt;&#x2F;p&gt;
 &lt;p&gt;本文内容目录：&lt;&#x2F;p&gt;
@@ -581,11 +581,11 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/12-magento2-indexing-reindex/" type="text/html"/>
-        <id>http://aqrun.com/backend/12-magento2-indexing-reindex/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/12-magento2-indexing-reindex/" type="text/html"/>
+        <id>https://aqrun.com/backend/12-magento2-indexing-reindex/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文讨论如何创建一个索引器（Indexer）重建索引（Reindex）。Magento 2 索引中最主要的是索引器。为了代码演示我们继续使用 HelloWorld 模块。&lt;&#x2F;p&gt;
 &lt;p&gt;Magento 系统使用索引来变换数据如产品、分类等进而提高店铺的性能。当数据变化时，变换的数据也必须同步更新或重建索引。Magento 使用非常精致的架构在很多数据表中存储大量的店铺数据（包括产品、价格、用户、店铺等数据）。为了优化店铺性能，Magento 使用索引器把累积的数据存储到特定数据表。&lt;&#x2F;p&gt;
@@ -683,7 +683,7 @@ class Sayhello extends Command
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;你可以在索引器类方法中添加代码向索引器表更新数据&lt;&#x2F;p&gt;
 &lt;p&gt;接下来，清空缓存并到后台菜单  system &amp;gt; Index Management 查看代码结果&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;images&#x2F;12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;images&#x2F;12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;zhong-jian-suo-yin-shi-yong-ming-ling&quot;&gt;重建索引使用命令：&lt;&#x2F;h2&gt;
 &lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; bin&#x2F;magento indexer:redinex&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
@@ -697,11 +697,11 @@ class Sayhello extends Command
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/11-magento2-plugin-interceptor/" type="text/html"/>
-        <id>http://aqrun.com/backend/11-magento2-plugin-interceptor/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/11-magento2-plugin-interceptor/" type="text/html"/>
+        <id>https://aqrun.com/backend/11-magento2-plugin-interceptor/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;插件在技术上可以让你写出结构更合理的代码。拦截器（Interceptor）插件是Magento 2 的一个小扩展，可以通过拦截一个公开的函数或方法来修改它的执行结果，拦截后可以在原函数之前(before)、之后(after)或包围(around)的方式添加新增代码。通过使用拦截器插件可以在对原类代码不做任何修改的情况下改变它的执行结果。&lt;&#x2F;p&gt;
 &lt;p&gt;本文内容目录：&lt;&#x2F;p&gt;
@@ -967,11 +967,11 @@ class MyUtilityPlugin
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/10-magento2-events/" type="text/html"/>
-        <id>http://aqrun.com/backend/10-magento2-events/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/10-magento2-events/" type="text/html"/>
+        <id>https://aqrun.com/backend/10-magento2-events/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文件讨论Magneto 2 事件列表。众所周知，Magento 2 主要使用事件驱动架构，非常便于扩展系统的核心功能。可以把事件看作在某种情况发生时抛出的信号旗。继续使用之前的 HelloWorld 模块演示本节代码。&lt;&#x2F;p&gt;
 &lt;p&gt;内容目录：&lt;&#x2F;p&gt;
@@ -1088,11 +1088,11 @@ varienGlobalEvents.fireEvent(&amp;#39;gridRowClick&amp;#39;, event);
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/9-install-upgrade-script/" type="text/html"/>
-        <id>http://aqrun.com/backend/9-install-upgrade-script/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/9-install-upgrade-script/" type="text/html"/>
+        <id>https://aqrun.com/backend/9-install-upgrade-script/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文主要研究一下Magento2 模块中如何使用安装升级的SQL脚本。在你安装或升级一个模块时，你或许想要修改数据表结构或新增一些数据，Magento 2为这些需求提供了一些类。&lt;&#x2F;p&gt;
 &lt;p&gt;本节目录：&lt;&#x2F;p&gt;
@@ -1377,11 +1377,11 @@ varienGlobalEvents.fireEvent(&amp;#39;gridRowClick&amp;#39;, event);
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/8-admin-grid/" type="text/html"/>
-        <id>http://aqrun.com/backend/8-admin-grid/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/8-admin-grid/" type="text/html"/>
+        <id>https://aqrun.com/backend/8-admin-grid/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章节讨论Magento 2后台数据网格。如你所知Magento 2 网格是一种数据表格，用来显示数据库中对应表的数据，并提供了排序、筛选、删除、更新数据的功能。示例网格可以查看后台产品列表和用户列表。&lt;&#x2F;p&gt;
 &lt;p&gt;Magento 2 提供了两种创建网格的方式：使用布局文件和使用组件（component）。接下来会讨论他们的实现细节。在此之前请确保已经创建了前几章节的简单模块，并添加了后台菜单和路由文件，这些在本节都会用到。&lt;&#x2F;p&gt;
@@ -1884,11 +1884,11 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/7-admin-acl/" type="text/html"/>
-        <id>http://aqrun.com/backend/7-admin-acl/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/7-admin-acl/" type="text/html"/>
+        <id>https://aqrun.com/backend/7-admin-acl/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色。本文我们来研究它的工作机制并为我们的自定义模块添加权限控制。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;magento-2-quan-xian-kong-zhi-lie-biao-gui-ze&quot;&gt;Magento 2 权限控制列表规则&lt;&#x2F;h2&gt;
@@ -1973,11 +1973,11 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/6-admin-menu/" type="text/html"/>
-        <id>http://aqrun.com/backend/6-admin-menu/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/6-admin-menu/" type="text/html"/>
+        <id>https://aqrun.com/backend/6-admin-menu/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章节讨论如何在后台左侧导航菜单条添加自定义链接。&lt;&#x2F;p&gt;
 &lt;p&gt;首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。&lt;&#x2F;p&gt;
@@ -2052,11 +2052,11 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/5-configuration-system-xml/" type="text/html"/>
-        <id>http://aqrun.com/backend/5-configuration-system-xml/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/5-configuration-system-xml/" type="text/html"/>
+        <id>https://aqrun.com/backend/5-configuration-system-xml/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;System.xml是参数配置文件，用来添加参数配置字段。如果你需要添加一些管理员可以配置的参数就要用到这个功能。可以到后台 Store -&amp;gt; Setting -&amp;gt; Configuration 查看显示方式。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;chuang-jian-system-xmlyou-ru-xia-ji-bu&quot;&gt;创建system.xml有如下几步&lt;&#x2F;h2&gt;
@@ -2250,11 +2250,11 @@ class Config extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/4-view-layouts-block-and-templates/" type="text/html"/>
-        <id>http://aqrun.com/backend/4-view-layouts-block-and-templates/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/4-view-layouts-block-and-templates/" type="text/html"/>
+        <id>https://aqrun.com/backend/4-view-layouts-block-and-templates/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章了解 Magento 2 的视图(view)包含区块（Block）、布局（Layouts）、模板（Templates）。视图是用来输出页面显示的，在Magento 2中视图由三部分组成区块、布局、模板。现在改造我们的Hello World模块使用视图实现之前的功能以便了解视图的工作机制。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;chuang-jian-shi-tu-bu-zou&quot;&gt;创建视图步骤：&lt;&#x2F;h2&gt;
@@ -2413,11 +2413,11 @@ class Display extends \Magento\Framework\View\Element\Template
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/3-models-crud/" type="text/html"/>
-        <id>http://aqrun.com/backend/3-models-crud/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/3-models-crud/" type="text/html"/>
+        <id>https://aqrun.com/backend/3-models-crud/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;通过 Magento 2 的模型可以很容易管理数据库数据，不需要写很多代码来实现基础的 CRUD。CRUD代表新增(create)、读取(read)、更新(update)和删除(delete)。本节主要了解如何创建数据表、模型(model)、资源模型(resource model)和资源模型集合(resource model collection)及数据库的相关操作。&lt;&#x2F;p&gt;
 &lt;p&gt;开始之前先定好要用到的数据表，表名 &lt;code&gt;aqrun_helloworld_post&lt;&#x2F;code&gt; ,字段如下：&lt;&#x2F;p&gt;
@@ -2798,7 +2798,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 &lt;p&gt;接下来可以使用数据库管理软件到 aqrun_helloworld_post 表添加2条假数据，测试模型是否正常工作。&lt;&#x2F;p&gt;
 &lt;p&gt;添加完数据访问URL &lt;code&gt;http:&#x2F;&#x2F;mage.dev&#x2F;helloworld&#x2F;index&#x2F;index&lt;&#x2F;code&gt; 确认添加的数据列表已经显示。&lt;&#x2F;p&gt;
 &lt;p&gt;如果显示错误信息： Exception printing is disabled by default for security reasons 。可以到  var&#x2F;report 目录检查错误日志。&lt;&#x2F;p&gt;
-&lt;p&gt;模型相关就完结了，下一章节了解下&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;0&quot;&gt;视图：布局、区块、模板&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;模型相关就完结了，下一章节了解下&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;3-models-crud&#x2F;0&quot;&gt;视图：布局、区块、模板&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
@@ -2809,11 +2809,11 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/2-create-controller/" type="text/html"/>
-        <id>http://aqrun.com/backend/2-create-controller/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/2-create-controller/" type="text/html"/>
+        <id>https://aqrun.com/backend/2-create-controller/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;控制器(Controller)在模块开发和 PHP MVC 框架中都很重要。主要功能是接收请求、处理逻辑并显示页面。&lt;&#x2F;p&gt;
@@ -2859,7 +2859,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;router&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;config&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;在上一章节的&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;1.magento-2-module-development.md&quot;&gt;如何创建模块&lt;&#x2F;a&gt;中，我们已经添加过 routes.xml 文件，如何做过了这一步可以跳过。&lt;&#x2F;p&gt;
+&lt;p&gt;在上一章节的&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;1.magento-2-module-development.md&quot;&gt;如何创建模块&lt;&#x2F;a&gt;中，我们已经添加过 routes.xml 文件，如何做过了这一步可以跳过。&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;di-er-bu-zeng-jia-kong-zhi-qi-wen-jian&quot;&gt;第二步：增加控制器文件&lt;&#x2F;h3&gt;
 &lt;p&gt;文件： &lt;code&gt;app&#x2F;code&#x2F;Aqrun&#x2F;HelloWorld&#x2F;Controller&#x2F;Index&#x2F;Index.php&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-embedded z-begin z-php&quot;&gt;&amp;lt;?php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-source z-php&quot;&gt;
@@ -2907,9 +2907,9 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 &lt;p&gt;文件：&lt;code&gt;app&#x2F;code&#x2F;Aqrun&#x2F;HelloWorld&#x2F;view&#x2F;frontend&#x2F;templates&#x2F;index.phtml&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;html&quot; class=&quot;language-html z-code&quot;&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;h2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;欢迎你我的朋友！&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;h2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;关于视图(布局、区块、模板)的更多内容查看&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;这里&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;关于视图(布局、区块、模板)的更多内容查看&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;这里&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;di-liu-bu-shua-xin-huan-cun&quot;&gt;第六步：刷新缓存&lt;&#x2F;h3&gt;
-&lt;p&gt;查看&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何清除Magento缓存&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;查看&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何清除Magento缓存&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;di-qi-bu-yun-xing-ce-shi&quot;&gt;第七步：运行测试&lt;&#x2F;h3&gt;
 &lt;p&gt;浏览器访问：&lt;&#x2F;p&gt;
 &lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;http:&#x2F;&#x2F;mage.dev&#x2F;helloworld&#x2F;index&#x2F;index
@@ -2924,7 +2924,7 @@ class Post extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     return $this-&amp;gt;_authorization-&amp;gt;isAllowed(&amp;#39;Magento_AdminNotification::show_list&amp;#39;);
 }
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;这段代码会检测当前用户是否有权限执行这个动作，更多内容查看&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;后台权限控制&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;这段代码会检测当前用户是否有权限执行这个动作，更多内容查看&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;后台权限控制&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;magento-2-kong-zhi-qi-de-qi-ta-fang-fa&quot;&gt;Magento 2 控制器的其它方法&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;forward-he-redirect-fang-fa&quot;&gt;&lt;code&gt;_forward()&lt;&#x2F;code&gt; 和 &lt;code&gt;_redirect()&lt;&#x2F;code&gt; 方法&lt;&#x2F;h3&gt;
 &lt;p&gt;&lt;code&gt;\Magento\Framework\App\Action\Action&lt;&#x2F;code&gt; 类给我们提供了2个重要的方法： &lt;code&gt;_forward&lt;&#x2F;code&gt; 和 &lt;code&gt;_redirect&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
@@ -2971,7 +2971,7 @@ class Forward extends \Magento\Framework\App\Action\Action
 &lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;    $this-&amp;gt;_rediect(&amp;#39;*&#x2F;*&#x2F;hello&amp;#39;);
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;现在访问链接 &lt;code&gt;http:&#x2F;&#x2F;mage.dev&#x2F;route_name&#x2F;test&#x2F;forward&lt;&#x2F;code&gt;, URL会变为 &lt;code&gt;http:&#x2F;&#x2F;mage.dev&#x2F;route_name&#x2F;test&#x2F;hello&lt;&#x2F;code&gt;, 页面也会显示 “欢迎你我的朋友！”。&lt;&#x2F;p&gt;
-&lt;p&gt;到这里控制器部分就完结了，下一章节了解&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何创建模型&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;到这里控制器部分就完结了，下一章节了解&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;2-create-controller&#x2F;0&quot;&gt;如何创建模型&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
@@ -2982,11 +2982,11 @@ class Forward extends \Magento\Framework\App\Action\Action
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/1-magento-2-module-development/" type="text/html"/>
-        <id>http://aqrun.com/backend/1-magento-2-module-development/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/1-magento-2-module-development/" type="text/html"/>
+        <id>https://aqrun.com/backend/1-magento-2-module-development/</id>
         
         <content type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;0-magento-menu&#x2F;&quot;&gt;Magento 2 开发内容目录&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本文主要描述如何创建一个最简单的模块。&lt;&#x2F;p&gt;
 &lt;p&gt;模块 (Module) 也就是一个包含特定业务子目录（&lt;code&gt;区块blocks&lt;&#x2F;code&gt;、&lt;code&gt;控制器controllers&lt;&#x2F;code&gt;、&lt;code&gt;模型models&lt;&#x2F;code&gt;、&lt;code&gt;帮助文件helper&lt;&#x2F;code&gt;、&lt;code&gt;配置相关etc&lt;&#x2F;code&gt;）的文件夹。&lt;code&gt;etc&lt;&#x2F;code&gt; 目录包含有后台权限控制（admin acl）、后台菜单配置、其它配置文件。模块一般在 &lt;code&gt;app&#x2F;code&lt;&#x2F;code&gt; 目录，全路径: &lt;code&gt;app&#x2F;code&#x2F;&amp;lt;Vendor&amp;gt;&#x2F;&amp;lt;ModuleName&amp;gt;&lt;&#x2F;code&gt;， Vendor 是企业名称如 Baidu。下面创建一个可以执行的模块并显示 “Hello World”。&lt;&#x2F;p&gt;

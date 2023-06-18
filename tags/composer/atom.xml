@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - composer</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/composer/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/composer/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2014-06-20T17:42:03+00:00</updated>
-    <id>http://aqrun.com/tags/composer/atom.xml</id>
+    <id>https://aqrun.com/tags/composer/atom.xml</id>
     <entry xml:lang="en">
         <title>php autoload之composer篇</title>
         <published>2014-06-20T17:42:03+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/php-autoloadzhi-composerpian/" type="text/html"/>
-        <id>http://aqrun.com/backend/php-autoloadzhi-composerpian/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/php-autoloadzhi-composerpian/" type="text/html"/>
+        <id>https://aqrun.com/backend/php-autoloadzhi-composerpian/</id>
         
         <content type="html">&lt;p&gt;Composer是PHP依赖管理工具 具体介绍官方网站： https:&#x2F;&#x2F;getcomposer.org&#x2F;doc&#x2F;00-intro.md 本篇介绍 小项目如何使用composer生成自动加载类文件&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;1-chuang-jian-xiang-mu-test-mu-lu-jie-gou&quot;&gt;1. 创建项目 test 目录结构：&lt;&#x2F;h2&gt;

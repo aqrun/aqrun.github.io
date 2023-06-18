@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - uuid</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/uuid/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/uuid/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2022-01-15T00:00:00+00:00</updated>
-    <id>http://aqrun.com/tags/uuid/atom.xml</id>
+    <id>https://aqrun.com/tags/uuid/atom.xml</id>
     <entry xml:lang="en">
         <title>Rust实现雪花算法生成唯一ID方案</title>
         <published>2022-01-15T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/rust/snow-flake-generate/" type="text/html"/>
-        <id>http://aqrun.com/rust/snow-flake-generate/</id>
+        <link rel="alternate" href="https://aqrun.com/rust/snow-flake-generate/" type="text/html"/>
+        <id>https://aqrun.com/rust/snow-flake-generate/</id>
         
         <content type="html">&lt;h2 id=&quot;qi-yin&quot;&gt;起因&lt;&#x2F;h2&gt;
 &lt;p&gt;发现简书一类的网站资源ID很短不知道如何实现&lt;&#x2F;p&gt;

@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - frontend</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/categories/frontend/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/categories/frontend/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2020-01-13T00:00:00+00:00</updated>
-    <id>http://aqrun.com/categories/frontend/atom.xml</id>
+    <id>https://aqrun.com/categories/frontend/atom.xml</id>
     <entry xml:lang="en">
         <title>CSS Grid</title>
         <published>2020-01-13T00:00:00+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/css-grid/" type="text/html"/>
-        <id>http://aqrun.com/frontend/css-grid/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/css-grid/" type="text/html"/>
+        <id>https://aqrun.com/frontend/css-grid/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;CSS3 grid 布局参考链接：&lt;&#x2F;strong&gt;&lt;br&#x2F;&gt;
@@ -180,8 +180,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/array-reduce/" type="text/html"/>
-        <id>http://aqrun.com/frontend/array-reduce/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/array-reduce/" type="text/html"/>
+        <id>https://aqrun.com/frontend/array-reduce/</id>
         
         <content type="html">&lt;pre data-lang=&quot;js&quot; class=&quot;language-js z-code&quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;z-source z-ts&quot;&gt;&lt;span class=&quot;z-meta z-var z-expr z-ts&quot;&gt;&lt;span class=&quot;z-storage z-type z-ts&quot;&gt;const&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-var-single-variable z-expr z-ts&quot;&gt;&lt;span class=&quot;z-meta z-definition z-variable z-ts&quot;&gt;&lt;span class=&quot;z-variable z-other z-constant z-ts&quot;&gt;products&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-ts&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-array z-literal z-ts&quot;&gt; &lt;span class=&quot;z-meta z-brace z-square z-ts&quot;&gt;[&lt;&#x2F;span&gt;
     &lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;id&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-decimal z-ts&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;name&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-single z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-ts&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;alex&lt;span class=&quot;z-punctuation z-definition z-string z-end z-ts&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;price&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-decimal z-ts&quot;&gt;10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt;
@@ -217,8 +217,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/controlled-and-uncontrolled-form/" type="text/html"/>
-        <id>http://aqrun.com/frontend/controlled-and-uncontrolled-form/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/controlled-and-uncontrolled-form/" type="text/html"/>
+        <id>https://aqrun.com/frontend/controlled-and-uncontrolled-form/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;原文：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;goshakkk.name&#x2F;controlled-vs-uncontrolled-inputs-react&#x2F;&quot;&gt;Controlled and uncontrolled form inputs in React don&#x27;t have to be complicated&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -343,8 +343,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/" type="text/html"/>
-        <id>http://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/" type="text/html"/>
+        <id>https://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;toddmotto.com&#x2F;ngrx-store-understanding-state-selectors&quot;&gt;原文链接：https:&#x2F;&#x2F;toddmotto.com&#x2F;ngrx-store-understanding-state-selectors&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -624,16 +624,16 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/" type="text/html"/>
-        <id>http://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/" type="text/html"/>
+        <id>https://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;youngers-consulting&#x2F;ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d&quot;&gt;原文链接：https:&#x2F;&#x2F;medium.com&#x2F;youngers-consulting&#x2F;ngrx-tips-part-1-module-setup-with-lazy-loading-5dc8994b5a2d&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;blog&#x2F;javascript&#x2F;2018&#x2F;03&#x2F;17-NgRx%E6%8A%80%E5%B7%A71-%E5%B8%A6%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE.html&quot;&gt;NgRx技巧 1-带延迟加载的模块配置&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 2-选择器和测试&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 3-操作 Actions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 2-选择器和测试&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;frontend&#x2F;ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi&#x2F;0&quot;&gt;NgRx技巧 3-操作 Actions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;p&gt;如果您的Angular项目针对延迟加载进行了调整，并使用按需加载的独立模块进行加载，这些模块通过`StoreModule.forFeature(...) 定义了自己的 state 片段，您可以像这样定义根模块：&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;ts&quot; class=&quot;language-ts z-code&quot;&gt;&lt;code class=&quot;language-ts&quot; data-lang=&quot;ts&quot;&gt;&lt;span class=&quot;z-source z-ts&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-ts&quot;&gt;&lt;span class=&quot;z-variable z-other z-object z-ts&quot;&gt;StoreModule&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-ts&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-ts&quot;&gt;forRoot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-brace z-round z-ts&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-as z-ts&quot;&gt;as&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-type z-primitive z-ts&quot;&gt;any&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-ts&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-objectliteral z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;{&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;initialState&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-object z-member z-ts&quot;&gt;&lt;span class=&quot;z-meta z-object-literal z-key z-ts&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-ts&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-readwrite z-ts&quot;&gt;getInitialState&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-block z-ts&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-brace z-round z-ts&quot;&gt;)&lt;&#x2F;span&gt;
@@ -686,8 +686,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/" type="text/html"/>
-        <id>http://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/" type="text/html"/>
+        <id>https://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@flashMasterJim&#x2F;the-basics-of-ngrx-effects-effect-and-async-middleware-for-ngrx-store-in-angular-2-f25587493329&quot;&gt;原文链接：https:&#x2F;&#x2F;medium.com&#x2F;@flashMasterJim&#x2F;the-basics-of-ngrx-effects-effect-and-async-middleware-for-ngrx-store-in-angular-2-f25587493329&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -840,8 +840,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/ngrx-entity-jian-jie/" type="text/html"/>
-        <id>http://aqrun.com/frontend/ngrx-entity-jian-jie/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/ngrx-entity-jian-jie/" type="text/html"/>
+        <id>https://aqrun.com/frontend/ngrx-entity-jian-jie/</id>
         
         <content type="html">&lt;blockquote&gt;
 &lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;ngrx&#x2F;introducing-ngrx-entity-598176456e15&quot;&gt;原文链接：https:&#x2F;&#x2F;medium.com&#x2F;ngrx&#x2F;introducing-ngrx-entity-598176456e15&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
@@ -975,8 +975,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" type="text/html"/>
-        <id>http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/" type="text/html"/>
+        <id>https://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</id>
         
         <content type="html">&lt;h3 id=&quot;viewport&quot;&gt;Viewport&lt;&#x2F;h3&gt;
 &lt;pre class=&quot;line-numbers&quot; markdown=&quot;0&quot;&gt;
@@ -1074,8 +1074,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" type="text/html"/>
-        <id>http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/" type="text/html"/>
+        <id>https://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-javascript&quot;&gt;
@@ -1331,8 +1331,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/" type="text/html"/>
-        <id>http://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/" type="text/html"/>
+        <id>https://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-javascript&quot;&gt;
@@ -1719,8 +1719,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/" type="text/html"/>
-        <id>http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</id>
+        <link rel="alternate" href="https://aqrun.com/frontend/jquery-backbone-ejsfen-ye/" type="text/html"/>
+        <id>https://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</id>
         
         <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
     &lt;code class=&quot;language-javascript&quot;&gt;

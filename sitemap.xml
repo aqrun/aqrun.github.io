@@ -1,420 +1,420 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://aqrun.com/</loc>
+        <loc>https://aqrun.com/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/about/</loc>
+        <loc>https://aqrun.com/about/</loc>
         <lastmod>2023-06-18</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/</loc>
+        <loc>https://aqrun.com/backend/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/0-magento-menu/</loc>
+        <loc>https://aqrun.com/backend/0-magento-menu/</loc>
         <lastmod>2020-02-02</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/1-magento-2-module-development/</loc>
+        <loc>https://aqrun.com/backend/1-magento-2-module-development/</loc>
         <lastmod>2019-06-10</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/10-magento2-events/</loc>
+        <loc>https://aqrun.com/backend/10-magento2-events/</loc>
         <lastmod>2019-10-12</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/11-magento2-plugin-interceptor/</loc>
+        <loc>https://aqrun.com/backend/11-magento2-plugin-interceptor/</loc>
         <lastmod>2019-10-18</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/12-magento2-indexing-reindex/</loc>
+        <loc>https://aqrun.com/backend/12-magento2-indexing-reindex/</loc>
         <lastmod>2019-11-10</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/13-magento-2-routing/</loc>
+        <loc>https://aqrun.com/backend/13-magento-2-routing/</loc>
         <lastmod>2019-11-18</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/14-console-command-line/</loc>
+        <loc>https://aqrun.com/backend/14-console-command-line/</loc>
         <lastmod>2019-11-23</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/15-how-to-use-cli/</loc>
+        <loc>https://aqrun.com/backend/15-how-to-use-cli/</loc>
         <lastmod>2019-12-20</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/2-create-controller/</loc>
+        <loc>https://aqrun.com/backend/2-create-controller/</loc>
         <lastmod>2019-06-11</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/3-models-crud/</loc>
+        <loc>https://aqrun.com/backend/3-models-crud/</loc>
         <lastmod>2019-06-12</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/4-view-layouts-block-and-templates/</loc>
+        <loc>https://aqrun.com/backend/4-view-layouts-block-and-templates/</loc>
         <lastmod>2019-07-15</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/5-configuration-system-xml/</loc>
+        <loc>https://aqrun.com/backend/5-configuration-system-xml/</loc>
         <lastmod>2019-07-16</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/6-admin-menu/</loc>
+        <loc>https://aqrun.com/backend/6-admin-menu/</loc>
         <lastmod>2019-07-18</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/7-admin-acl/</loc>
+        <loc>https://aqrun.com/backend/7-admin-acl/</loc>
         <lastmod>2019-09-10</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/8-admin-grid/</loc>
+        <loc>https://aqrun.com/backend/8-admin-grid/</loc>
         <lastmod>2019-09-13</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/9-install-upgrade-script/</loc>
+        <loc>https://aqrun.com/backend/9-install-upgrade-script/</loc>
         <lastmod>2019-10-02</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</loc>
+        <loc>https://aqrun.com/backend/compiling-php-5-4-on-ubuntu-12-04/</loc>
         <lastmod>2015-03-15</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</loc>
+        <loc>https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</loc>
         <lastmod>2014-11-05T10:30:22</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</loc>
+        <loc>https://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</loc>
         <lastmod>2016-06-22T15:33:10</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</loc>
+        <loc>https://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</loc>
         <lastmod>2014-11-10</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/</loc>
+        <loc>https://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/</loc>
         <lastmod>2014-11-16</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/php-autoloadzhi-composerpian/</loc>
+        <loc>https://aqrun.com/backend/php-autoloadzhi-composerpian/</loc>
         <lastmod>2014-06-20T17:42:03</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/phpdai-ma-zhan-shi/</loc>
+        <loc>https://aqrun.com/backend/phpdai-ma-zhan-shi/</loc>
         <lastmod>2014-02-24</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/</loc>
+        <loc>https://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/</loc>
         <lastmod>2016-08-17</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/</loc>
+        <loc>https://aqrun.com/categories/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/article/</loc>
+        <loc>https://aqrun.com/categories/article/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/backend/</loc>
+        <loc>https://aqrun.com/categories/backend/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/diary/</loc>
+        <loc>https://aqrun.com/categories/diary/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/frontend/</loc>
+        <loc>https://aqrun.com/categories/frontend/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/rust/</loc>
+        <loc>https://aqrun.com/categories/rust/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/categories/server/</loc>
+        <loc>https://aqrun.com/categories/server/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/contact/</loc>
+        <loc>https://aqrun.com/contact/</loc>
         <lastmod>2023-06-18</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/diary/</loc>
+        <loc>https://aqrun.com/diary/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/</loc>
+        <loc>https://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/</loc>
         <lastmod>2017-10-07</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/</loc>
+        <loc>https://aqrun.com/frontend/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/</loc>
+        <loc>https://aqrun.com/frontend/angular2zhong-ngrx-effetctsji-chu-he-ngrx-storeyi-bu-zhong-jian-jian/</loc>
         <lastmod>2018-03-16</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/array-reduce/</loc>
+        <loc>https://aqrun.com/frontend/array-reduce/</loc>
         <lastmod>2019-11-10</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/controlled-and-uncontrolled-form/</loc>
+        <loc>https://aqrun.com/frontend/controlled-and-uncontrolled-form/</loc>
         <lastmod>2019-07-23</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/css-grid/</loc>
+        <loc>https://aqrun.com/frontend/css-grid/</loc>
         <lastmod>2020-01-13</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/</loc>
+        <loc>https://aqrun.com/frontend/dan-chu-ceng-tu-pian-fang-da-suo-xiao-imagemoveable/</loc>
         <lastmod>2014-06-21</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/</loc>
+        <loc>https://aqrun.com/frontend/fang-starzoomtu-pian-yi-dong-suo-fang-cha-jian/</loc>
         <lastmod>2015-06-04</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</loc>
+        <loc>https://aqrun.com/frontend/jquery-backbone-ejsfen-ye/</loc>
         <lastmod>2014-06-20</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/ngrx-entity-jian-jie/</loc>
+        <loc>https://aqrun.com/frontend/ngrx-entity-jian-jie/</loc>
         <lastmod>2018-03-15</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/</loc>
+        <loc>https://aqrun.com/frontend/ngrx-store-li-jie-zhuang-tai-xuan-ze-qi/</loc>
         <lastmod>2018-03-19</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/</loc>
+        <loc>https://aqrun.com/frontend/ngrxji-qiao-1-dai-yan-chi-jia-zai-de-mo-kuai-pei-zhi/</loc>
         <lastmod>2018-03-17</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</loc>
+        <loc>https://aqrun.com/frontend/yi-dong-ye-mian-ji-ben-jie-gou/</loc>
         <lastmod>2015-07-17</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/posts/</loc>
+        <loc>https://aqrun.com/posts/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/</loc>
+        <loc>https://aqrun.com/rust/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/array-vector-slice-in-rust/</loc>
+        <loc>https://aqrun.com/rust/array-vector-slice-in-rust/</loc>
         <lastmod>2020-10-25</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/custom-derive-macro/</loc>
+        <loc>https://aqrun.com/rust/custom-derive-macro/</loc>
         <lastmod>2022-08-27</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/</loc>
+        <loc>https://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/</loc>
         <lastmod>2022-05-21</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/how-to-build-a-blockchain-in-rust/</loc>
+        <loc>https://aqrun.com/rust/how-to-build-a-blockchain-in-rust/</loc>
         <lastmod>2022-05-22</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/rust-1-57-0/</loc>
+        <loc>https://aqrun.com/rust/rust-1-57-0/</loc>
         <lastmod>2021-12-03</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/rust-with-emacs/</loc>
+        <loc>https://aqrun.com/rust/rust-with-emacs/</loc>
         <lastmod>2021-11-20</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/rust/snow-flake-generate/</loc>
+        <loc>https://aqrun.com/rust/snow-flake-generate/</loc>
         <lastmod>2022-01-15</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/server/</loc>
+        <loc>https://aqrun.com/server/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</loc>
+        <loc>https://aqrun.com/server/kong-zhi-tai-emacsqi-yong-shu-biao-fu-zhi-gong-neng/</loc>
         <lastmod>2018-06-09</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/server/samba-configuration/</loc>
+        <loc>https://aqrun.com/server/samba-configuration/</loc>
         <lastmod>2018-11-27</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</loc>
+        <loc>https://aqrun.com/server/ubuntu-18-04-yuan-ma-bian-yi-an-zhuang-emacs-26-1/</loc>
         <lastmod>2018-07-27</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</loc>
+        <loc>https://aqrun.com/server/ubuntu-fcitxshu-ru-fa-an-zhuang/</loc>
         <lastmod>2015-01-08</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</loc>
+        <loc>https://aqrun.com/server/ubuntuxia-vsftpdpei-zhi-xiang-xi-pian/</loc>
         <lastmod>2015-03-31</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</loc>
+        <loc>https://aqrun.com/server/ubuntuxiu-gai-ipdi-zhi-he-wang-guan-de-fang-fa/</loc>
         <lastmod>2015-01-08</lastmod>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/</loc>
+        <loc>https://aqrun.com/tags/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/angular/</loc>
+        <loc>https://aqrun.com/tags/angular/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/array/</loc>
+        <loc>https://aqrun.com/tags/array/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/backbone/</loc>
+        <loc>https://aqrun.com/tags/backbone/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/blockchain/</loc>
+        <loc>https://aqrun.com/tags/blockchain/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/build-source/</loc>
+        <loc>https://aqrun.com/tags/build-source/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/cargo/</loc>
+        <loc>https://aqrun.com/tags/cargo/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/cheng-xu-yuan/</loc>
+        <loc>https://aqrun.com/tags/cheng-xu-yuan/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/compile/</loc>
+        <loc>https://aqrun.com/tags/compile/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/composer/</loc>
+        <loc>https://aqrun.com/tags/composer/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/copy/</loc>
+        <loc>https://aqrun.com/tags/copy/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/crpto/</loc>
+        <loc>https://aqrun.com/tags/crpto/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/crypto/</loc>
+        <loc>https://aqrun.com/tags/crypto/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/css/</loc>
+        <loc>https://aqrun.com/tags/css/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/dai-ma/</loc>
+        <loc>https://aqrun.com/tags/dai-ma/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/db-select/</loc>
+        <loc>https://aqrun.com/tags/db-select/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/diary/</loc>
+        <loc>https://aqrun.com/tags/diary/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/drupal7/</loc>
+        <loc>https://aqrun.com/tags/drupal7/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/emacs/</loc>
+        <loc>https://aqrun.com/tags/emacs/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/entityfieldquery/</loc>
+        <loc>https://aqrun.com/tags/entityfieldquery/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/fcitx/</loc>
+        <loc>https://aqrun.com/tags/fcitx/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/fen-ye/</loc>
+        <loc>https://aqrun.com/tags/fen-ye/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/global/</loc>
+        <loc>https://aqrun.com/tags/global/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/grid/</loc>
+        <loc>https://aqrun.com/tags/grid/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/image-style-url/</loc>
+        <loc>https://aqrun.com/tags/image-style-url/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/ip/</loc>
+        <loc>https://aqrun.com/tags/ip/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/magento2/</loc>
+        <loc>https://aqrun.com/tags/magento2/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/nginx/</loc>
+        <loc>https://aqrun.com/tags/nginx/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/ngrx-entity/</loc>
+        <loc>https://aqrun.com/tags/ngrx-entity/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/ngrx/</loc>
+        <loc>https://aqrun.com/tags/ngrx/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/p2p/</loc>
+        <loc>https://aqrun.com/tags/p2p/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/paste/</loc>
+        <loc>https://aqrun.com/tags/paste/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/php/</loc>
+        <loc>https://aqrun.com/tags/php/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/preg-replace/</loc>
+        <loc>https://aqrun.com/tags/preg-replace/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/react/</loc>
+        <loc>https://aqrun.com/tags/react/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/reduce/</loc>
+        <loc>https://aqrun.com/tags/reduce/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/rem/</loc>
+        <loc>https://aqrun.com/tags/rem/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/rust/</loc>
+        <loc>https://aqrun.com/tags/rust/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/rustban-ben/</loc>
+        <loc>https://aqrun.com/tags/rustban-ben/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/samba/</loc>
+        <loc>https://aqrun.com/tags/samba/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/selectors/</loc>
+        <loc>https://aqrun.com/tags/selectors/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/shu-ru-fa/</loc>
+        <loc>https://aqrun.com/tags/shu-ru-fa/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/slice/</loc>
+        <loc>https://aqrun.com/tags/slice/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/snow-flake/</loc>
+        <loc>https://aqrun.com/tags/snow-flake/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/starzoom/</loc>
+        <loc>https://aqrun.com/tags/starzoom/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/state/</loc>
+        <loc>https://aqrun.com/tags/state/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/symlinks/</loc>
+        <loc>https://aqrun.com/tags/symlinks/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/terminal/</loc>
+        <loc>https://aqrun.com/tags/terminal/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/tu-pian-cao-zuo/</loc>
+        <loc>https://aqrun.com/tags/tu-pian-cao-zuo/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/ubuntu/</loc>
+        <loc>https://aqrun.com/tags/ubuntu/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/uuid/</loc>
+        <loc>https://aqrun.com/tags/uuid/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/vector/</loc>
+        <loc>https://aqrun.com/tags/vector/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/vsftpd/</loc>
+        <loc>https://aqrun.com/tags/vsftpd/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/wang-guan/</loc>
+        <loc>https://aqrun.com/tags/wang-guan/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/web/</loc>
+        <loc>https://aqrun.com/tags/web/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/xue-xi/</loc>
+        <loc>https://aqrun.com/tags/xue-xi/</loc>
     </url>
     <url>
-        <loc>http://aqrun.com/tags/yi-dong/</loc>
+        <loc>https://aqrun.com/tags/yi-dong/</loc>
     </url>
 </urlset>

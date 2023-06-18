@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>光鹿跑冰 - drupal7</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="http://aqrun.com/tags/drupal7/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="http://aqrun.com"/>
+    <link href="https://aqrun.com/tags/drupal7/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2016-06-22T15:33:10+00:00</updated>
-    <id>http://aqrun.com/tags/drupal7/atom.xml</id>
+    <id>https://aqrun.com/tags/drupal7/atom.xml</id>
     <entry xml:lang="en">
         <title>Drupal 7 在 nginx服务器 子目录及虚拟机访问时配置伪静态</title>
         <published>2016-06-22T15:33:10+00:00</published>
@@ -14,8 +14,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal-7-zai-nginxfu-wu-qi-zi-mu-lu-ji-xu-ni-ji-fang-wen-shi-pei-zhi-wei-jing-tai/</id>
         
         <content type="html">&lt;h2 id=&quot;wen-jian-mu-lu-jie-gou&quot;&gt;文件目录结构：&lt;&#x2F;h2&gt;
 &lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;&#x2F;nginx
@@ -173,8 +173,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/" type="text/html"/>
-        <id>http://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/" type="text/html"/>
+        <id>https://aqrun.com/backend/image-style-url-sheng-cheng-zhi-ding-suo-lue-tu-url/</id>
         
         <content type="html">&lt;p&gt;modules&#x2F;image&#x2F;image.module&lt;&#x2F;p&gt;
 &lt;pre class=&quot;line-numbers&quot;&gt;
@@ -197,8 +197,8 @@
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal7-entityfieldqueryhuo-qu-zhi-ding-lei-xing-de-nei-rong-lie-biao/</id>
         
         <content type="html">&lt;p&gt;EntityFieldQuery获取指定类型的内容列表&lt;&#x2F;p&gt;
 &lt;pre class=&quot;line-numbers&quot;&gt;
@@ -232,8 +232,8 @@ foeach($nodesData as $n){
         <author>
           <name>Unknown</name>
         </author>
-        <link rel="alternate" href="http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
-        <id>http://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
+        <link rel="alternate" href="https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/" type="text/html"/>
+        <id>https://aqrun.com/backend/drupal-7-api-zhi-db-selectde-yi-xie-shi-yong/</id>
         
         <content type="html">&lt;p&gt;Drupal 7 数据库API增加了db_select()方法，和db_query()相比，语法更加清晰，使用也更加方便。目的也不言而喻，就是取代db_query()。下面我也就列罗出一些经常使用的技巧，可能不够全面，还请大家多多补充。&lt;&#x2F;p&gt;
 &lt;h4 id=&quot;1-dan-biao-cha-xun-zui-ji-ben-shi-yong-fang-fa&quot;&gt;1. 单表查询（最基本使用方法）&lt;&#x2F;h4&gt;
