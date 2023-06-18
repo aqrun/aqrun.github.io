@@ -1,6 +1,7 @@
 ---
 title: "Rust 数组、动态数组和切片（Array, Vector and slice）"
 description: "本文主要讨论`Rust`中的数组(Array)、动态数组(Vector)和切片(Slice)。C/C++程序员应该很熟悉数组和动态数组，由于rust注重安全性"
+reading_time: 10
 
 taxonomies:
     categories: ["rust", "article"]

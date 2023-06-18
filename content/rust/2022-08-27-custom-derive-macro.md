@@ -7,8 +7,6 @@ taxonomies:
     tags: ["rust", "blockchain", "crypto", "p2p"]
 ---
 
-# Rust 过程宏之derive派生宏实战入门
-
 ## 需求:
 
 获取枚举类型附加信息，如备注说明，传统作法如下：

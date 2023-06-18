@@ -50,14 +50,15 @@
     {{- macros::footer(page=page) }}
     {%- endblock page_footer %}
     </article>
+
     {%- block toc %}
-    {%- if page.extra.toc and config.extra.recent %}
+    {%- if page.toc and config.extra.recent %}
     {%- set toc = page.toc %}
     {%- endif %}
     {%- if toc %}
     <div class="toc" aria-hidden="true">
       <div class="toc-sticky">
-        <h3>Index</h3>
+        <h3>目录</h3>
         {%- for h in toc %}
         <div class="toc-item">
           <a class="subtext" href="{{h.permalink | safe}}">{{ h.title }}</a>
@@ -82,7 +83,14 @@
 {%- if page.reading_time %}
 {%- if page.reading_time > 2 %}
 <span class="topout">
-<span class="topleft"> </span><a href="#" class="top" title="Back to Top">{%- if config.extra.icon_top %}<i class="{{ config.extra.icon_top }}"></i>{%- else %}&cuwed;{%- endif %}</a>
+    <span class="topleft"> </span>
+    <a href="#" class="top" title="Back to Top">
+        {%- if config.extra.icon_top %}
+        <i class="{{ config.extra.icon_top }}"></i>
+        {%- else %}
+        &cuwed;
+        {%- endif %}
+    </a>
 </span>
 {%- endif %}
 {%- endif %}
