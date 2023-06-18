@@ -20,7 +20,7 @@
 {%- block content %}
     <div>
       <div class="c">
-        <h1>共{{ terms | length }}个分类</h1>
+        <h1>共<!--{{ terms | length }}-->4个分类</h1>
         <p>
           {% for term in terms %}
             {% if term.name != "article" and term.name != "diary" %}

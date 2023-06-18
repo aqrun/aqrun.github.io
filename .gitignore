@@ -6,3 +6,7 @@ node_modules
 .jekyll-cache
 *.lock
 public
+
+themes
+storage
+static/demo.html
