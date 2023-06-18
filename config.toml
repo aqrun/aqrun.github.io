@@ -1,5 +1,5 @@
 # do NOT include a trailing slash on the base URL for web urls
-base_url = "http://aqrun.com"
+base_url = "https://aqrun.com"
 #base_url = "/home/jieiku/.dev/abridge/public/" # for locally usable build directly from disk, also set in [extra] section uglyurls = true
 title = "光鹿跑冰"
 description = "子十个人博客"
