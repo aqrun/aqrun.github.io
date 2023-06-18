@@ -3114,11 +3114,10 @@ class Test extends \Magento\Framework\App\Action\Action
         <link rel="alternate" href="https://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/" type="text/html"/>
         <id>https://aqrun.com/backend/zheng-wen-nei-rong-an-huan-xing-yong-biao-qian-bao-zhuang/</id>
         
-        <content type="html">&lt;pre class=&quot;line-numbers&quot;&gt;
-  &lt;code class=&quot;language-php&quot;&gt;
-  preg_replace(&#x27;&#x2F;[\r\n]+&#x2F;&#x27;, &#x27;&lt;&#x2F;p&gt;&lt;p&gt;&#x27;, $content)
-  &lt;&#x2F;code&gt;
-&lt;&#x2F;pre&gt;</content>
+        <content type="html">&lt;p&gt;换行替换为 &lt;code&gt;&amp;lt;p&amp;gt;&lt;&#x2F;code&gt; 标签&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;preg_replace(&amp;#39;&#x2F;[\r\n]+&#x2F;&amp;#39;, &amp;#39;&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-tag z-block z-any z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-block z-any z-html&quot;&gt;p&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&amp;#39;, $content)
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
         
     </entry>
     <entry xml:lang="en">

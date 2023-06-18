@@ -76,11 +76,10 @@
             </a>]
            #<a href="https://aqrun.com/tags/php/">php</a>  #<a href="https://aqrun.com/tags/preg-replace/">preg_replace</a> </span>
 
-    <pre class="line-numbers">
-  <code class="language-php">
-  preg_replace('/[\r\n]+/', '</p><p>', $content)
-  </code>
-</pre>
+    <p>换行替换为 <code>&lt;p&gt;</code> 标签</p>
+<pre data-lang="php" class="language-php z-code"><code class="language-php" data-lang="php"><span class="z-embedding z-php"><span class="z-text z-html z-basic">preg_replace(&#39;/[\r\n]+/&#39;, &#39;<span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-block z-any z-html">p</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span><span class="z-meta z-tag z-block z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-block z-any z-html">p</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>&#39;, $content)
+</span></span></code></pre>
+
     </article>
   </main>
   <footer>

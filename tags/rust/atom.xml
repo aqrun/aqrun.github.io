@@ -17,8 +17,7 @@
         <link rel="alternate" href="https://aqrun.com/rust/custom-derive-macro/" type="text/html"/>
         <id>https://aqrun.com/rust/custom-derive-macro/</id>
         
-        <content type="html">&lt;h1 id=&quot;rust-guo-cheng-hong-zhi-derivepai-sheng-hong-shi-zhan-ru-men&quot;&gt;Rust 过程宏之derive派生宏实战入门&lt;&#x2F;h1&gt;
-&lt;h2 id=&quot;xu-qiu&quot;&gt;需求:&lt;&#x2F;h2&gt;
+        <content type="html">&lt;h2 id=&quot;xu-qiu&quot;&gt;需求:&lt;&#x2F;h2&gt;
 &lt;p&gt;获取枚举类型附加信息，如备注说明，传统作法如下：&lt;&#x2F;p&gt;
 &lt;p&gt;实现 comment 方法根据匹配值返回对应字符串&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-enum z-rust&quot;&gt;enum&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-enum z-rust&quot;&gt;Robot&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
