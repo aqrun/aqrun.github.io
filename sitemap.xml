@@ -139,6 +139,10 @@
         <lastmod>2017-10-07</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/rust-slugify/</loc>
+        <lastmod>2023-06-20</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/frontend/</loc>
     </url>
     <url>
@@ -374,6 +378,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/slice/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/slug/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/snow-flake/</loc>
