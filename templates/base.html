@@ -30,6 +30,7 @@
   {%- if config.build_search_index %}
   <noscript><link rel="stylesheet" href="{{ get_url(path='nojs.css', trailing_slash=false) | safe }}" /></noscript>
   {%- endif %}
+  {{- macros::wx_pic(img=config.extra.wx_pic) -}}
 </head>
 <body>
 {%- block header %}

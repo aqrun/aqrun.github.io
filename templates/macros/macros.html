@@ -16,7 +16,7 @@
     {%- else -%}
         {{ name }}
     {%- endif -%}
-{%- endmacro %}
+{%- endmacro get_category_name %}
 
 {#- 首页文章列表模块 #}
 {%- macro generate_index_posts_block(block_name, posts) -%}
@@ -34,7 +34,18 @@
     </p>
     {%- endfor %}
 </div>
-{%- endmacro -%}
+{%- endmacro generate_index_posts_block -%}
+
+{%- macro wx_pic(img) -%}
+{%- if img -%}
+<noscript>
+    <div id="wx_pic" style="margin:0 auto;display:none;">
+        {#- pic300.jpg -#}
+        <img src="{{ img | safe }}" />
+    </div>
+</noscript>
+{%- endif -%}
+{%- endmacro wx_pic -%}
 
 {%- macro meta_post(page, config) %}
         <span{%- if config.extra.meta_post.size %} class="{{ config.extra.meta_post.size }}"{% endif %}>
