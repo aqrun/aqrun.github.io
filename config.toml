@@ -75,7 +75,7 @@ menu = [
     {url = "/posts/", name = "全部内容", slash = true, blank = false},
     {url = "/categories/", name = "分类", slash = true, blank = false},
     {url = "/tags/", name = "标签", slash = true, blank = false},
-    {url = "/diary/", name = "每日随笔", slash = true, blank = false},
+    {url = "/categories/diary/", name = "每日随笔", slash = true, blank = false},
     # {url = "/about/", name = "关于我", slash = true, blank = false},
 ]
 menu_footer = [
