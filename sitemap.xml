@@ -147,6 +147,10 @@
         <lastmod>2023-06-20</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/sea-orm-left-join/</loc>
+        <lastmod>2023-07-03</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/frontend/</loc>
     </url>
     <url>
@@ -354,6 +358,9 @@
         <loc>https://aqrun.com/tags/php/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/posgresql/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/preg-replace/</loc>
     </url>
     <url>
@@ -373,6 +380,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/samba/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/seaorm/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/selectors/</loc>
