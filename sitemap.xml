@@ -139,6 +139,10 @@
         <lastmod>2017-10-07</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/rust-from-trait/</loc>
+        <lastmod>2023-07-04</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/rust-sha2-jia-mi-suan-fa/</loc>
         <lastmod>2023-06-21</lastmod>
     </url>
@@ -325,6 +329,9 @@
         <loc>https://aqrun.com/tags/fen-ye/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/from/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/global/</loc>
     </url>
     <url>
@@ -410,6 +417,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/terminal/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/trait/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/tu-pian-cao-zuo/</loc>
