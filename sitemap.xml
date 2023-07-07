@@ -236,6 +236,10 @@
         <lastmod>2021-12-03</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/rust/rust-shared-ownership/</loc>
+        <lastmod>2023-07-07</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/rust/rust-with-emacs/</loc>
         <lastmod>2021-11-20</lastmod>
     </url>
@@ -275,6 +279,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/angular/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/arc/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/array/</loc>
@@ -358,6 +365,9 @@
         <loc>https://aqrun.com/tags/magento2/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/mutex/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/nginx/</loc>
     </url>
     <url>
@@ -365,6 +375,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/ngrx/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/ownership/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/p2p/</loc>
@@ -380,6 +393,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/preg-replace/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/rc/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/react/</loc>
