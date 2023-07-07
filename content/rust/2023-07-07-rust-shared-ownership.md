@@ -3,8 +3,8 @@ title: "Rust 共享所有权: Rc/RefCell/Arc/Mutex/RwLock"
 description: "Rust 共享所有权: Rc/RefCell/Arc/Mutex/RwLock，可以让你实现一个值拥有多个所有者、可变的全局数据和对共享数据的并发访问，同时仍可保证Rust众所周知的安全性"
 
 taxonomies:
-    categories: ["diary"]
-    tags: ["diary", "rust", "ownership", "mutex", "arc", "rc"]
+    categories: ["rust", "article"]
+    tags: ["rust", "ownership", "Arc", "Rc", "RefCell", "Mutex"]
 ---
 
 > [Rust Shared Ownership: Rc, RefCell, Arc, Mutex, RwLock](https://levelup.gitconnected.com/exploring-multiple-ownership-in-rust-66baa5e4847b)
