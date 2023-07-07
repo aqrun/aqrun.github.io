@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-    <title>光鹿跑冰 - Arc</title>
+    <title>光鹿跑冰 - RefCell</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="https://aqrun.com/tags/arc/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com/tags/refcell/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2023-07-07T00:00:00+00:00</updated>
-    <id>https://aqrun.com/tags/arc/atom.xml</id>
+    <id>https://aqrun.com/tags/refcell/atom.xml</id>
     <entry xml:lang="en">
         <title>Rust 共享所有权: Rc&#x2F;RefCell&#x2F;Arc&#x2F;Mutex&#x2F;RwLock</title>
         <published>2023-07-07T00:00:00+00:00</published>
