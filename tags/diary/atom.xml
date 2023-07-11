@@ -5,8 +5,39 @@
     <link href="https://aqrun.com/tags/diary/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2023-07-10T00:00:00+00:00</updated>
+    <updated>2023-07-11T00:00:00+00:00</updated>
     <id>https://aqrun.com/tags/diary/atom.xml</id>
+    <entry xml:lang="en">
+        <title>架构模式之单一数据源SSOT</title>
+        <published>2023-07-11T00:00:00+00:00</published>
+        <updated>2023-07-11T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://aqrun.com/diary/single-source-of-truth/" type="text/html"/>
+        <id>https://aqrun.com/diary/single-source-of-truth/</id>
+        
+        <content type="html">&lt;p&gt;单一数据源(SSOT - Single source of truth) ，架构模式的一种， 类比MVC、MVVM、MVP、MVI、Compose&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;reduxsan-yuan-ze&quot;&gt;Redux三原则：&lt;&#x2F;h2&gt;
+&lt;p&gt;Redux 是 Web 端的状态管理库，深受Flux、CQRS、Event Sourcing 的影响。Redux 三原则包括：&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;1-single-source-of-truth&quot;&gt;1. Single Source of Truth&lt;&#x2F;h3&gt;
+&lt;p&gt;单一数据源，App 的全局状态存储在一个 tree 对象里面，而这个 tree 对象被单一的 store 持有。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-state-is-read-only&quot;&gt;2. State is read-only&lt;&#x2F;h3&gt;
+&lt;p&gt;状态只读。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-changes-are-make-with-pure-functions&quot;&gt;3. Changes are make with pure functions&lt;&#x2F;h3&gt;
+&lt;p&gt;状态的改变动作必需是纯函数。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;graphqlye-wu-luo-ji-ceng&quot;&gt;Graphql业务逻辑层&lt;&#x2F;h2&gt;
+&lt;p&gt;实际的业务逻辑、数据验证、权限认证都是在业务逻辑层实现。Graphql 建议业务逻辑层要遵循业务域的单一数据源规则。&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;business_layer.png&quot; alt=&quot;Graphsql Business layer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;如图，所有进入系统的入口点(REST、GraphQL和RPC)都将使用相同的验证、授权和错误处理规则进行处理。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;can-kao-lian-jie&quot;&gt;参考链接&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;graphql.org&#x2F;learn&#x2F;thinking-in-graphs&#x2F;#business-logic-layer&quot;&gt;Thinking in Graphs&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;blog.zhangwen.site&#x2F;single-source-of-truth&#x2F;&quot;&gt;架构设计之Single source of truth&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>如何更具产品意识</title>
         <published>2023-07-10T00:00:00+00:00</published>

@@ -163,6 +163,10 @@
         <lastmod>2023-07-03</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/single-source-of-truth/</loc>
+        <lastmod>2023-07-11</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/uuid-snowflake-cai-keng/</loc>
         <lastmod>2023-07-06</lastmod>
     </url>
@@ -291,6 +295,9 @@
         <loc>https://aqrun.com/tags/array/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/auth/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/backbone/</loc>
     </url>
     <url>
@@ -355,6 +362,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/global/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/graphql/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/grid/</loc>
@@ -445,6 +455,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/snowflake/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/ssot/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/starzoom/</loc>

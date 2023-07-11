@@ -12,25 +12,25 @@
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <title>Rust语言 | 光鹿跑冰</title>
+  <title>架构模式之单一数据源SSOT | 光鹿跑冰</title>
   <meta name="author" content="子十" />
   <meta name="copyright" content="光鹿跑冰" />
-  <meta name="description" content="子十个人博客" />
-  <link rel="canonical" href="https://aqrun.com/rust/" />
+  <meta name="description" content="单一数据源架构模式的一种， 类比MVC、MVVM、MVP、MVI、Compose。所有进入系统的入口点(REST、GraphQL和RPC)都将使用相同的验证、授权和错误处理规则" />
+  <link rel="canonical" href="https://aqrun.com/diary/single-source-of-truth/" />
   <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
-  <meta property="og:url" content="https://aqrun.com/rust/" />
-  <meta name="twitter:url" content="https://aqrun.com/rust/" />
-  <meta property="og:description" content="子十个人博客" />
-  <meta name="twitter:description" content="子十个人博客" />
-  <meta property="og:title" content="光鹿跑冰" />
-  <meta name="twitter:title" content="光鹿跑冰" />
+  <meta property="og:url" content="https://aqrun.com/diary/single-source-of-truth/" />
+  <meta name="twitter:url" content="https://aqrun.com/diary/single-source-of-truth/" />
+  <meta property="og:description" content="单一数据源架构模式的一种， 类比MVC、MVVM、MVP、MVI、Compose。所有进入系统的入口点(REST、GraphQL和RPC)都将使用相同的验证、授权和错误处理规则" />
+  <meta name="twitter:description" content="单一数据源架构模式的一种， 类比MVC、MVVM、MVP、MVI、Compose。所有进入系统的入口点(REST、GraphQL和RPC)都将使用相同的验证、授权和错误处理规则" />
+  <meta property="og:title" content="架构模式之单一数据源SSOT | 光鹿跑冰" />
+  <meta name="twitter:title" content="架构模式之单一数据源SSOT | 光鹿跑冰" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://aqrun.com/banner.png" />
   <meta property="og:image" content="https://aqrun.com/banner.png" />
   <meta property="og:site_name" content="光鹿跑冰" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
-  <meta property="og:updated_time" content="2021-07-04T07:07:00-07:00" />
+  <meta property="og:updated_time" content="2023-07-11" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -70,21 +70,56 @@
     </nav>
   </header>
   <main>
-    <div>
-      <div class="c">
-        <h1>Rust语言</h1>
-        <p>
-          去年今日此门中，人面桃花相映红。
-        </p>
+    <article class="oic-page">
+        <h1><a href="https://aqrun.com/diary/single-source-of-truth/">架构模式之单一数据源SSOT</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2023-07-11<span class="hpad"> </span>
+          [<a href="https://aqrun.com/categories/diary/">
+                每日随笔
+            </a>]
+           #<a href="https://aqrun.com/tags/diary/">diary</a>  #<a href="https://aqrun.com/tags/graphql/">graphql</a>  #<a href="https://aqrun.com/tags/auth/">auth</a>  #<a href="https://aqrun.com/tags/ssot/">ssot</a> </span>
+
+    <p>单一数据源(SSOT - Single source of truth) ，架构模式的一种， 类比MVC、MVVM、MVP、MVI、Compose</p>
+<h2 id="reduxsan-yuan-ze">Redux三原则：</h2>
+<p>Redux 是 Web 端的状态管理库，深受Flux、CQRS、Event Sourcing 的影响。Redux 三原则包括：</p>
+<h3 id="1-single-source-of-truth">1. Single Source of Truth</h3>
+<p>单一数据源，App 的全局状态存储在一个 tree 对象里面，而这个 tree 对象被单一的 store 持有。</p>
+<h3 id="2-state-is-read-only">2. State is read-only</h3>
+<p>状态只读。</p>
+<h3 id="3-changes-are-make-with-pure-functions">3. Changes are make with pure functions</h3>
+<p>状态的改变动作必需是纯函数。</p>
+<h2 id="graphqlye-wu-luo-ji-ceng">Graphql业务逻辑层</h2>
+<p>实际的业务逻辑、数据验证、权限认证都是在业务逻辑层实现。Graphql 建议业务逻辑层要遵循业务域的单一数据源规则。</p>
+<p><img src="https://static.oicnp.com/blog/2023/business_layer.png" alt="Graphsql Business layer" /></p>
+<p>如图，所有进入系统的入口点(REST、GraphQL和RPC)都将使用相同的验证、授权和错误处理规则进行处理。</p>
+<h2 id="can-kao-lian-jie">参考链接</h2>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://graphql.org/learn/thinking-in-graphs/#business-logic-layer">Thinking in Graphs</a></li>
+<li><a rel="noopener" target="_blank" href="https://blog.zhangwen.site/single-source-of-truth/">架构设计之Single source of truth</a></li>
+</ul>
+
+    </article>
+    <div class="toc" aria-hidden="true">
+      <div class="toc-sticky">
+        <h3>目录</h3>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/single-source-of-truth/#reduxsan-yuan-ze">Redux三原则：</a>
+        </div>
+        <div class="toc-item-child">
+          <a class="subtext" href="https://aqrun.com/diary/single-source-of-truth/#1-single-source-of-truth"><small>- 1. Single Source of Truth</small></a>
+        </div>
+        <div class="toc-item-child">
+          <a class="subtext" href="https://aqrun.com/diary/single-source-of-truth/#2-state-is-read-only"><small>- 2. State is read-only</small></a>
+        </div>
+        <div class="toc-item-child">
+          <a class="subtext" href="https://aqrun.com/diary/single-source-of-truth/#3-changes-are-make-with-pure-functions"><small>- 3. Changes are make with pure functions</small></a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/single-source-of-truth/#graphqlye-wu-luo-ji-ceng">Graphql业务逻辑层</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/single-source-of-truth/#can-kao-lian-jie">参考链接</a>
+        </div>
       </div>
-      <p><a href="https://aqrun.com/rust/custom-derive-macro/">Rust 过程宏之derive派生宏实战入门</a> - <time datetime="2022-08-27">2022-08-27</time></p>
-      <p><a href="https://aqrun.com/rust/rust-shared-ownership/">Rust 共享所有权: Rc&#x2F;RefCell&#x2F;Arc&#x2F;Mutex&#x2F;RwLock</a> - <time datetime="2023-07-07">2023-07-07</time></p>
-      <p><a href="https://aqrun.com/rust/array-vector-slice-in-rust/">Rust 数组、动态数组和切片（Array, Vector and slice）</a> - <time datetime="2020-10-25">2020-10-25</time></p>
-      <p><a href="https://aqrun.com/rust/snow-flake-generate/">Rust实现雪花算法生成唯一ID方案</a> - <time datetime="2022-01-15">2022-01-15</time></p>
-      <p><a href="https://aqrun.com/rust/how-to-build-a-blockchain-in-rust/">Rust 语言打造带P2P网络的区块链</a> - <time datetime="2022-05-22">2022-05-22</time></p>
-      <p><a href="https://aqrun.com/rust/rust-with-emacs/">Emacs 编辑器配置 Rust 开发环境</a> - <time datetime="2021-11-20">2021-11-20</time></p>
-      <p><a href="https://aqrun.com/rust/how-to-build-a-blockchain-from-scratch-in-rust/">如何使用 Rust 从头构建一个区块链</a> - <time datetime="2022-05-21">2022-05-21</time></p>
-      <p><a href="https://aqrun.com/rust/rust-1-57-0/">Rust 1.57 稳定版发布了</a> - <time datetime="2021-12-03">2021-12-03</time></p>
     </div>
   </main>
   <footer>
