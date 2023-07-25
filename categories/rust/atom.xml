@@ -144,7 +144,7 @@
 &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;测试结果输出类似：&lt;&#x2F;p&gt;
-&lt;pre data-lang=&quot;test&quot; class=&quot;language-test z-code&quot;&gt;&lt;code class=&quot;language-test&quot; data-lang=&quot;test&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;running 4 tests
+&lt;pre data-lang=&quot;text&quot; class=&quot;language-text z-code&quot;&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;running 4 tests
 
 test utils::auth::test::test_generate_salt ... ok
 test utils::auth::test::test_encrypt_password ... ok
