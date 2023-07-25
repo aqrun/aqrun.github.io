@@ -244,6 +244,10 @@
         <lastmod>2021-12-03</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/rust/rust-encryption/</loc>
+        <lastmod>2023-07-25</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/rust/rust-shared-ownership/</loc>
         <lastmod>2023-07-07</lastmod>
     </url>
@@ -349,6 +353,9 @@
         <loc>https://aqrun.com/tags/emacs/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/encryption/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/entityfieldquery/</loc>
     </url>
     <url>
@@ -376,10 +383,16 @@
         <loc>https://aqrun.com/tags/ip/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/jia-mi/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/less/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/magento2/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/mi-ma/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/mutex/</loc>
