@@ -141,7 +141,7 @@ mod test {
 
 测试结果输出类似：
 
-```text
+```txt
 running 4 tests
 
 test utils::auth::test::test_generate_salt ... ok
