@@ -147,6 +147,10 @@
         <lastmod>2023-07-05</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/poem-share-data-to-graphql/</loc>
+        <lastmod>2023-07-26</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/rust-from-trait/</loc>
         <lastmod>2023-07-04</lastmod>
     </url>
@@ -419,6 +423,9 @@
         <loc>https://aqrun.com/tags/php/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/poem/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/posgresql/</loc>
     </url>
     <url>
@@ -516,5 +523,8 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/yi-dong/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/zhong-jian-jian/</loc>
     </url>
 </urlset>
