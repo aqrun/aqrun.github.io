@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="https://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="https://aqrun.com/abridge-switcher.css?h=2973f26bcd9308b43249" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="https://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="https://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="https://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Rust Tracing 日志同时输出到文件和控制台 | 光鹿跑冰</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="光鹿跑冰" />
+  <meta name="description" content="通常日志会需要同时输出到文件或标准控制台, 输出到文件相当于持久存储，输出到控制台方便开发过程中错误信息查看。官方库示例好像不能正常运行" />
+  <link rel="canonical" href="https://aqrun.com/diary/tracing-with-multi-layer/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="https://aqrun.com/diary/tracing-with-multi-layer/" />
+  <meta name="twitter:url" content="https://aqrun.com/diary/tracing-with-multi-layer/" />
+  <meta property="og:description" content="通常日志会需要同时输出到文件或标准控制台, 输出到文件相当于持久存储，输出到控制台方便开发过程中错误信息查看。官方库示例好像不能正常运行" />
+  <meta name="twitter:description" content="通常日志会需要同时输出到文件或标准控制台, 输出到文件相当于持久存储，输出到控制台方便开发过程中错误信息查看。官方库示例好像不能正常运行" />
+  <meta property="og:title" content="Rust Tracing 日志同时输出到文件和控制台 | 光鹿跑冰" />
+  <meta name="twitter:title" content="Rust Tracing 日志同时输出到文件和控制台 | 光鹿跑冰" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="光鹿跑冰" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2023-08-30" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="https://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="https://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aqrun.com/favicon.ico" />
+  <noscript><link rel="stylesheet" href="https://aqrun.com/nojs.css" /></noscript><noscript>
+    <div id="wx_pic" style="margin:0 auto;display:none;"><img src="https://static.oicnp.com/blog/pic300.jpg" />
+    </div>
+</noscript></head>
+<body>
+  <header>
+    <nav>
+      <div><h1 class="oic-header-logfile">
+            <a
+               href="https://aqrun.com/"
+               title="子十个人博客"
+            ><img src="https://aqrun.com/icons/logo_default.svg" alt="光鹿跑冰" width="22" height="22" />光鹿跑冰</a>
+          </h1></div>
+      <div>
+        <ul><li> <h2><a href="https://aqrun.com/">首页</a></h2> </li><li> <h2><a href="https://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="https://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="https://aqrun.com/diary/tracing-with-multi-layer/">Rust Tracing 日志同时输出到文件和控制台</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2023-08-30<span class="hpad"> </span>
+          [<a href="https://aqrun.com/categories/diary/">
+                每日随笔
+            </a>]
+           #<a href="https://aqrun.com/tags/diary/">diary</a>  #<a href="https://aqrun.com/tags/rust/">rust</a>  #<a href="https://aqrun.com/tags/tracing/">tracing</a>  #<a href="https://aqrun.com/tags/log/">log</a>  #<a href="https://aqrun.com/tags/ri-zhi/">日志</a> </span>
+
+    <p><a rel="noopener" target="_blank" href="https://github.com/tokio-rs/tracing"><code>tracing</code></a> 是 <strong>tokio</strong> 团队出品的日志处理库。</p>
+<p><code>tracing</code> <code>tracing_subscriber</code> 有改动，官方库示例好像也不能正常运行。</p>
+<p>通常日志会需要同时输出到文件或标准控制台。</p>
+<p>输出到文件相当于持久存储，输出到控制台方便开发过程中错误信息查看。</p>
+<p>多目标输出具体参考官方示例： <a rel="noopener" target="_blank" href="https://github.com/tokio-rs/tracing/blob/master/examples/examples/fmt-multiple-writers.rs">fmt-multiple-writer</a></p>
+<p>这个代码会报错，但大体写法改动不多，通过查找 doc.rs 很容易修复：</p>
+<h2 id="yong-dao-de-ku">用到的库</h2>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> Cargo.toml
+</span>
+<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">[</span>dependencies<span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+<span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> Rust团队官方日志门面库
+</span>log <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>^0<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span>
+<span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 提供 warn! error! info! 相关标准错误输出宏
+</span>tracing <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>^0<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span>
+<span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 提供不同输出层初始化，以及生成注册中心绑定多个层
+</span>tracing<span class="z-keyword z-operator z-arithmetic z-rust">-</span>subscriber <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span> version <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>^0.3<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-separator z-rust">,</span> features <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>fmt<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>std<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+<span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 提供非阻塞的方式输出日志，如写入文件
+</span>tracing<span class="z-keyword z-operator z-arithmetic z-rust">-</span>appender <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>^0<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span>
+<span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 提供指定输出内容的颜色
+</span>colored <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>^2<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span>
+</span></code></pre>
+<h2 id="dai-ma-shi-li">代码示例</h2>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">colored<span class="z-punctuation z-accessor z-rust">::</span></span>Colorize<span class="z-punctuation z-terminator z-rust">;</span>
+<span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">tracing_subscriber<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>fmt<span class="z-punctuation z-separator z-rust">,</span> Registry</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+<span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">tracing_subscriber<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">prelude<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-keyword z-operator z-arithmetic z-rust">*</span><span class="z-punctuation z-terminator z-rust">;</span>
+
+<span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">main</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> </span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 日志配置初始化
+</span>  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 这里需要接收 guard 否则文件输出内容会是空的
+</span>  <span class="z-storage z-type z-rust">let</span> _guard <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-function z-rust">init_log</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 测试代码执行
+</span>  <span class="z-support z-function z-rust">run</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+
+<span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">run</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> </span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 这里使用log库的错误信息 tracing不会收集
+</span>  <span class="z-meta z-path z-rust">log<span class="z-punctuation z-accessor z-rust">::</span></span>error<span class="z-keyword z-operator z-logical z-rust">!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>无视log错误<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> tracing相关标准信息输出
+</span>  <span class="z-meta z-path z-rust">tracing<span class="z-punctuation z-accessor z-rust">::</span></span>warn<span class="z-keyword z-operator z-logical z-rust">!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>
+    <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>Tracing 警告信息 {} {}<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-separator z-rust">,</span>
+    <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>蓝色文本<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">blue</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+    <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>红色文本<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">red</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+  </span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+  <span class="z-meta z-path z-rust">tracing<span class="z-punctuation z-accessor z-rust">::</span></span>error<span class="z-keyword z-operator z-logical z-rust">!</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>Tracing 错误信息!!<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+
+<span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span>
+</span><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 日志配置初始化
+</span><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span>
+</span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">init_log</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> <span class="z-meta z-function z-return-type z-rust"><span class="z-punctuation z-separator z-rust">-&gt;</span> <span class="z-meta z-path z-rust">tracing_appender<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">non_blocking<span class="z-punctuation z-accessor z-rust">::</span></span>WorkerGuard</span> </span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 标准控制台输出layer
+</span>  <span class="z-storage z-type z-rust">let</span> fmt_layer <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">fmt<span class="z-punctuation z-accessor z-rust">::</span></span>layer<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+    <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 指定标准控制台输出
+</span>    <span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">with_writer</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-meta z-path z-rust">std<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">io<span class="z-punctuation z-accessor z-rust">::</span></span>stdout</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 文件 appender 指定日志文件输出目录和文件名前缀 
+</span>  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> daily 指定生成文件名日期到年月日
+</span>  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 如： test-log.2023-08-30
+</span>  <span class="z-storage z-type z-rust">let</span> file_appender <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">tracing_appender<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">rolling<span class="z-punctuation z-accessor z-rust">::</span></span>daily<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>target/<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span><span class="z-punctuation z-separator z-rust">,</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>test-log<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span> 
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 生成非阻塞写入器
+</span>  <span class="z-storage z-type z-rust">let</span> <span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>non_blocking<span class="z-punctuation z-separator z-rust">,</span> guard</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">tracing_appender<span class="z-punctuation z-accessor z-rust">::</span></span>non_blocking<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>file_appender</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 文件输出层
+</span>  <span class="z-storage z-type z-rust">let</span> file_layer <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">fmt<span class="z-punctuation z-accessor z-rust">::</span></span>layer<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+    <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 移除输出内容中的 颜色或其它格式相关转义字符
+</span>    <span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">with_ansi</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-constant z-language z-rust">false</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+    <span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">with_writer</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>non_blocking</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 生成注册中心 Registry 绑定多个输出层
+</span>  <span class="z-storage z-type z-rust">let</span> collector <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-meta z-path z-rust">tracing_subscriber<span class="z-punctuation z-accessor z-rust">::</span></span>registry<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+    <span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">with</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>file_layer</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span>
+    <span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">with</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>fmt_layer</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+  
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 订阅者全局注册
+</span>  <span class="z-meta z-path z-rust">tracing<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-path z-rust">subscriber<span class="z-punctuation z-accessor z-rust">::</span></span>set_global_default<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>collector</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">expect</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>Tracing collect error<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+
+  guard
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+
+</span></code></pre>
+<h2 id="shu-chu-jie-guo">输出结果</h2>
+<p>文件和控制台输出类似：</p>
+<p><img src="https://oicnp.oss-cn-shanghai.aliyuncs.com/blog/2023/tracing-log.png" alt="tracing-log-content" /></p>
+<h2 id="ri-zhi-jian-kong-xiang-guan-nei-rong-lian-jie">日志监控相关内容链接</h2>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://zhuanlan.zhihu.com/p/496025829">Rust语言圣经75 - [日志与监控] 日志详解</a></li>
+<li><a rel="noopener" target="_blank" href="https://zhuanlan.zhihu.com/p/496027284">Rust语言圣经76 - [日志与监控] 门面即排场的 log</a></li>
+<li><a rel="noopener" target="_blank" href="https://zhuanlan.zhihu.com/p/496028010">Rust语言圣经77 - [日志与监控] 可咸可甜的 tracing</a></li>
+<li><a rel="noopener" target="_blank" href="https://rust-lang-nursery.github.io/rust-cookbook/development_tools/debugging/config_log.html">Rust Lang Nursery - Config log</a></li>
+</ul>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+    <div class="toc" aria-hidden="true">
+      <div class="toc-sticky">
+        <h3>目录</h3>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/tracing-with-multi-layer/#yong-dao-de-ku">用到的库</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/tracing-with-multi-layer/#dai-ma-shi-li">代码示例</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/tracing-with-multi-layer/#shu-chu-jie-guo">输出结果</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/tracing-with-multi-layer/#ri-zhi-jian-kong-xiang-guan-nei-rong-lian-jie">日志监控相关内容链接</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="https://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 光鹿跑冰</p>
+      <nav>
+        <ul><li class="s90"> <a href="https://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="https://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="https://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="https://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+    <span class="topleft"> </span>
+    <a href="#" class="top" title="Back to Top">
+        <i class="svgs svgh angu"></i>
+    </a>
+</span>
+</body>
+</html>

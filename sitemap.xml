@@ -171,6 +171,10 @@
         <lastmod>2023-07-11</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/tracing-with-multi-layer/</loc>
+        <lastmod>2023-08-30</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/uuid-snowflake-cai-keng/</loc>
         <lastmod>2023-07-06</lastmod>
     </url>
@@ -393,6 +397,9 @@
         <loc>https://aqrun.com/tags/less/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/log/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/magento2/</loc>
     </url>
     <url>
@@ -447,6 +454,9 @@
         <loc>https://aqrun.com/tags/rem/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/ri-zhi/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/rust/</loc>
     </url>
     <url>
@@ -490,6 +500,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/terminal/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/tracing/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/trait/</loc>
