@@ -32,7 +32,7 @@
     "abridge-stork": "npm run search-bundle-stork && npm run sha256-stork && npm run sha384-stork && npm run abridge-bundle-stork",
     "abridge-tinysearch": "npm run search-bundle-tinysearch && npm run sha256-tinysearch && npm run sha384-tinysearch && npm run abridge-bundle-tinysearch",
     "all": "npm run searchonly && npm run noswitcher && npm run nofacade && npm run theme && npm run katex-bundle && npm run abridge-demo && npm run abridge-stork && npm run abridge-tinysearch",
-    "deploy": "zola build && gh-pages -d public"
+    "deploy": "zola build && pnpm gh-pages -d public"
   },
   "author": "",
   "license": "ISC",
