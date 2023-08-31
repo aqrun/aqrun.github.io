@@ -36,14 +36,13 @@
 </div>
 {%- endmacro generate_index_posts_block -%}
 
+{#- 图片 -#}
 {%- macro wx_pic(img) -%}
 {%- if img -%}
-<noscript>
-    <div id="wx_pic" style="margin:0 auto;display:none;">
-        {#- pic300.jpg -#}
-        <img src="{{ img | safe }}" />
-    </div>
-</noscript>
+<div id="wx_pic" style="margin:0 auto;display:none;">
+{#- pic300.jpg -#}
+<img src="{{ img | safe }}" />
+</div>
 {%- endif -%}
 {%- endmacro wx_pic -%}
 
