@@ -110,3 +110,5 @@ fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
 * [Rust语言圣经76 - [日志与监控] 门面即排场的 log](https://zhuanlan.zhihu.com/p/496027284)
 * [Rust语言圣经77 - [日志与监控] 可咸可甜的 tracing](https://zhuanlan.zhihu.com/p/496028010)
 * [Rust Lang Nursery - Config log](https://rust-lang-nursery.github.io/rust-cookbook/development_tools/debugging/config_log.html)
+* [Command Line Applications in Rust - Output for humans and machines](https://rust-cli.github.io/book/tutorial/output.html)
+
