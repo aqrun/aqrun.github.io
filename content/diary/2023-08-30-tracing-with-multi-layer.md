@@ -106,6 +106,8 @@ fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
 
 ## 日志监控相关内容链接
 
+* [Tokio - Getting started with Tracing](https://tokio.rs/tokio/topics/tracing)
+* [Tokio - Next steps with Tracing](https://tokio.rs/tokio/topics/tracing-next-steps)
 * [Rust语言圣经75 - [日志与监控] 日志详解](https://zhuanlan.zhihu.com/p/496025829)
 * [Rust语言圣经76 - [日志与监控] 门面即排场的 log](https://zhuanlan.zhihu.com/p/496027284)
 * [Rust语言圣经77 - [日志与监控] 可咸可甜的 tracing](https://zhuanlan.zhihu.com/p/496028010)

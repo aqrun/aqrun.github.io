@@ -1,10 +1,11 @@
-//@import "fonts/Abridge";
-//@import "fonts/Roboto";
-//@import "fonts/Arimo";
-//@import "fonts/Lato";
-//@import "fonts/FiraCode"; // Monospaced
+// @import "fonts/Abridge";
+// @import "fonts/Roboto";
+// @import "fonts/Arimo";
+// @import "fonts/Lato";
+// @import "fonts/FiraCode"; // Monospaced
 @import "imports";
-@import "syntax/syntax-abridge";
+// @import "syntax/syntax-abridge";
+@import "syntax/syntax-material-abridge-dark";
 
 :root {
   --f1: #ccc;// Font Color Primary

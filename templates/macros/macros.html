@@ -47,6 +47,19 @@
 {%- endif -%}
 {%- endmacro wx_pic -%}
 
+{#- 百度统计 #}
+{%- macro baidu_data() -%}
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1595a1ffd0fb91f5014d44a66c02dfbd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+{%- endmacro baidu_data -%}
+
 {%- macro meta_post(page, config) %}
         <span{%- if config.extra.meta_post.size %} class="{{ config.extra.meta_post.size }}"{% endif %}>
 

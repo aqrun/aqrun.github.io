@@ -7,10 +7,11 @@ tt,
 var {
   border-radius: var(--br);
   background: var(--c2);
-  font-family: var(--fm);
+  // font-family: var(--fm);
+  font-family: 'Fira Code', Consolas, "Source Code Pro", Monaco, Menlo, Consolas, monospace, "Courier New";
   line-height: initial;
   font-size: 1rem;
-  padding: .3rem .2rem;
+  padding: .3rem .6rem;
 }
 pre {
   display: block;
@@ -21,6 +22,10 @@ pre {
     display: block;
     background: transparent;
   }
+}
+
+pre[class*="language-"] {
+  background: transparent url(code-bk.png) repeat scroll 0% 0%;
 }
 
 // kbd

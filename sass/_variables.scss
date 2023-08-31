@@ -114,7 +114,7 @@ $icon-sun: false !default;// light sun
 // add an icon link to an html template like this:  <a href="#"><span class="svg home"></span></a>
 
 :root {
-  --ff: "微软雅黑","Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Noto Sans", Helvetica, Arial, sans-serif;
+  --ff: "PingFang SC", "微软雅黑","Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Noto Sans", Helvetica, Arial, sans-serif;
   --fm: ui-monospace, Menlo, Monaco, Consolas, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "DejaVu Sans Mono", "Liberation Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Ubuntu Mono", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", Courier, monospace;
 
   // Spacings
@@ -127,7 +127,7 @@ $icon-sun: false !default;// light sun
   --bw: 0.0625rem; //border width
   --ow: 0.1875rem; //outline width
 
-  --fs: 1.151rem; //font-size
+  --fs: 16px/1.6em; // 1.151rem; //font-size
   --lh: 1.5; //line-height
   --lhh: 1.2; //line-height headers
   --fw: 400; //font-weight
