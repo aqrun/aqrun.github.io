@@ -18,7 +18,7 @@
 {%- endblock seo %}
 
 {%- block content %}
-    <div>
+    <div class="section-content">
       <div class="c">
         <h1>{{ section.title }}</h1>
         <p>
@@ -27,7 +27,11 @@
       </div>
 
       {%- for post in section.pages %}
-      <p><a href="{{ post.permalink | safe }}">{{ post.title }}</a> - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time></p>
+      <p>
+        <a href="{{ post.permalink | safe }}">{{ post.title }}</a>
+        -
+        <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time>
+      </p>
       {%- endfor %}
     </div>
 {%- endblock content %}
