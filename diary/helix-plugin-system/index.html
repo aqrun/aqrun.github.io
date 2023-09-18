@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="https://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="https://aqrun.com/abridge-switcher.css?h=b1785a1c8dc3e0ee55de" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="https://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="https://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="https://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Helix 编辑器插件系统 Scheme 方案锁定 | 光鹿跑冰</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="光鹿跑冰" />
+  <meta name="description" content="Rust 实现的TUI编辑器 - Helix。插件系统讨论贴#3806是22年9月12日开启的经过差不多一年收集了近320个回复和讨论。终于在23年8月10日初步锁定为Scheme实现方案。" />
+  <link rel="canonical" href="https://aqrun.com/diary/helix-plugin-system/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="https://aqrun.com/diary/helix-plugin-system/" />
+  <meta name="twitter:url" content="https://aqrun.com/diary/helix-plugin-system/" />
+  <meta property="og:description" content="Rust 实现的TUI编辑器 - Helix。插件系统讨论贴#3806是22年9月12日开启的经过差不多一年收集了近320个回复和讨论。终于在23年8月10日初步锁定为Scheme实现方案。" />
+  <meta name="twitter:description" content="Rust 实现的TUI编辑器 - Helix。插件系统讨论贴#3806是22年9月12日开启的经过差不多一年收集了近320个回复和讨论。终于在23年8月10日初步锁定为Scheme实现方案。" />
+  <meta property="og:title" content="Helix 编辑器插件系统 Scheme 方案锁定 | 光鹿跑冰" />
+  <meta name="twitter:title" content="Helix 编辑器插件系统 Scheme 方案锁定 | 光鹿跑冰" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="光鹿跑冰" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2023-09-18" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="https://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="https://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aqrun.com/favicon.ico" />
+  <noscript><link rel="stylesheet" href="https://aqrun.com/nojs.css" /></noscript><div id="wx_pic" style="margin:0 auto;display:none;"><img src="https://static.oicnp.com/blog/pic300.jpg" />
+</div><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1595a1ffd0fb91f5014d44a66c02dfbd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script></head>
+<body>
+  <header>
+    <nav>
+      <div><h1 class="oic-header-logfile">
+            <a
+               href="https://aqrun.com/"
+               title="子十个人博客"
+            ><img src="https://aqrun.com/icons/logo_default.svg" alt="光鹿跑冰" width="22" height="22" />光鹿跑冰</a>
+          </h1></div>
+      <div>
+        <ul><li> <h2><a href="https://aqrun.com/">首页</a></h2> </li><li> <h2><a href="https://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="https://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="https://aqrun.com/diary/helix-plugin-system/">Helix 编辑器插件系统 Scheme 方案锁定</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2023-09-18<span class="hpad"> </span>
+          [<a href="https://aqrun.com/categories/diary/">
+                每日随笔
+            </a>]
+           #<a href="https://aqrun.com/tags/diary/">diary</a>  #<a href="https://aqrun.com/tags/rust/">rust</a>  #<a href="https://aqrun.com/tags/helix/">helix</a>  #<a href="https://aqrun.com/tags/bian-ji-qi/">编辑器</a>  #<a href="https://aqrun.com/tags/cha-jian/">插件</a> </span>
+
+    <p><img src="https://raw.githubusercontent.com/helix-editor/helix/7fa5f341e931f9bdb4058e51ebf77276e9b82242/screenshot.png" alt="Helix Editor Screenshot" /></p>
+<p>Rust 实现的TUI编辑器 - <a rel="noopener" target="_blank" href="https://helix-editor.com/">Helix</a>。插件系统讨论贴<a rel="noopener" target="_blank" href="https://github.com/helix-editor/helix/discussions/3806">#3806</a>
+是22年9月12日开启的经过差不多一年收集了近320个回复和讨论。终于在23年8月10日初步锁定实现方案。</p>
+<br/>
+<h2 id="ge-chong-shi-xian-fang-an-du-you-ti-chu">各种实现方案都有提出</h2>
+<p>如</p>
+<ul>
+<li>wasm</li>
+<li>scheme</li>
+<li>deno</li>
+<li>纯Rust插件（云构建）</li>
+<li>解释型rust(如iRust)</li>
+<li>lua</li>
+<li>lisp家族</li>
+<li>rahi</li>
+<li>js</li>
+<li>python</li>
+</ul>
+<p>等等，最终主开发者 <a rel="noopener" target="_blank" href="https://github.com/archseer">archseer</a> 冻结了此讨论贴，
+基本上确认是采用了类 Scheme 的实现方案。
+<a rel="noopener" target="_blank" href="https://github.com/helix-editor/helix/discussions/3806#discussioncomment-6686976">原回复贴内容链接</a>。</p>
+<br/>
+<h2 id="ju-ti-li-you-da-ti-ru-xia">具体理由大体如下：</h2>
+<br/>
+<p>archseer 后面还会再出一个详细的文章，详述已经考虑过的替代方案(包括WASM)和所选择的设计约束，
+但目前倾向于类scheme的实现方式(并且 @mattwparas在<a rel="noopener" target="_blank" href="https://github.com/helix-editor/helix/discussions/3806#discussioncomment-6064568">#3806回复</a>
+中已经实现了一个基本的原型，甚至涵盖了类似vim-dirvish的文件树，这是目前插件系统实现比较完善的项目)。</p>
+<br/>
+<h3 id="scheme-de-you-shi">Scheme 的优势</h3>
+<ul>
+<li>从维护的角度来看，Scheme是一种非常小的语言(您可以一次阅读完整的规范)，可以很方便把编译器和VM嵌入编辑器内核。</li>
+<li>从长期维护Helix考虑，使用一个我们完全理解的实现会有非常多的好处(也不必担心语言会消亡)。</li>
+<li>Scheme 语法或许不是每个人都会喜欢，但她非常容易解析，没有歧义，可以很容易地从更高级别的语言编译目标。</li>
+<li>宏系统非常灵活且富有表现力。Elisp是emacs如此流行和可扩展的主要原因之一。</li>
+</ul>
+<br/>
+<p>Helix是一个实用的编辑器: 她应该像你期望的那样开箱即用，不期望用户编写大量的Scheme，
+除非他们是插件作者。事实上，编辑器核心已经有了足够的可扩展性，还没有真正需要一个插件系统。
+但仍然希望有一个足够灵活的插件系统，以扩展编辑器以适应不太常见的用例。</p>
+<br/>
+<h3 id="wei-shi-yao-bu-shi-yong-wasm">为什么不使用WASM</h3>
+<p>WebAssembly很流行，但它并不是万能的解决方案。我们需要向该语言公开一个非常大的ABI，
+而且由于没有跨语言兼容的内存布局，我们最终还是会被锁定在运行在WASM之上的单一语言中
+(或者承担支持其他语言的多个sim的维护负担)。我们只会得到WASM的VM的好处，
+也不得不导入一个比编辑器本身还要大很多数量级的项目。暂时还不清楚这种权衡是否值得。</p>
+<br/>
+<p>即使我们能够通过WASM支持多种语言，对我来说，专注于一种语言似乎更好，这样生态系统就不会分裂成更小的部分，
+如果每个插件都可能使用不同的语言，会使插件贡献变得更加困难。</p>
+<br/>
+<h3 id="wei-shi-yao-bu-xuan-ze-bian-yi-xing-shi-de-cha-jian">为什么不选择编译形式的插件</h3>
+<p>脚本语言也应该用于配置。虽然有软件可以做到这一点(例如dwm)，
+但它给用户设置了一个障碍: Helix 需要 Rust 知识，切换配置也可能会导致几分钟的编译时间。</p>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+    <div class="toc" aria-hidden="true">
+      <div class="toc-sticky">
+        <h3>目录</h3>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/helix-plugin-system/#ge-chong-shi-xian-fang-an-du-you-ti-chu">各种实现方案都有提出</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/helix-plugin-system/#ju-ti-li-you-da-ti-ru-xia">具体理由大体如下：</a>
+        </div>
+        <div class="toc-item-child">
+          <a class="subtext" href="https://aqrun.com/diary/helix-plugin-system/#scheme-de-you-shi"><small>- Scheme 的优势</small></a>
+        </div>
+        <div class="toc-item-child">
+          <a class="subtext" href="https://aqrun.com/diary/helix-plugin-system/#wei-shi-yao-bu-shi-yong-wasm"><small>- 为什么不使用WASM</small></a>
+        </div>
+        <div class="toc-item-child">
+          <a class="subtext" href="https://aqrun.com/diary/helix-plugin-system/#wei-shi-yao-bu-xuan-ze-bian-yi-xing-shi-de-cha-jian"><small>- 为什么不选择编译形式的插件</small></a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="https://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 光鹿跑冰</p>
+      <nav>
+        <ul><li class="s90"> <a href="https://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="https://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="https://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="https://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+    <span class="topleft"> </span>
+    <a href="#" class="top" title="Back to Top">
+        <i class="svgs svgh angu"></i>
+    </a>
+</span>
+</body>
+</html>
