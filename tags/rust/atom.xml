@@ -17,7 +17,7 @@
         <link rel="alternate" href="https://aqrun.com/diary/helix-plugin-system/" type="text/html"/>
         <id>https://aqrun.com/diary/helix-plugin-system/</id>
         
-        <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;helix-editor&#x2F;helix&#x2F;7fa5f341e931f9bdb4058e51ebf77276e9b82242&#x2F;screenshot.png&quot; alt=&quot;Helix Editor Screenshot&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+        <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;65084935204c2e34d3a72b92.png&quot; alt=&quot;Helix Editor Screenshot&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Rust 实现的TUI编辑器 - &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;helix-editor.com&#x2F;&quot;&gt;Helix&lt;&#x2F;a&gt;。插件系统讨论贴&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;helix-editor&#x2F;helix&#x2F;discussions&#x2F;3806&quot;&gt;#3806&lt;&#x2F;a&gt;
 是22年9月12日开启的经过差不多一年收集了近320个回复和讨论。终于在23年8月10日初步锁定实现方案。&lt;&#x2F;p&gt;
 &lt;br&#x2F;&gt;
