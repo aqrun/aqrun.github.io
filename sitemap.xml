@@ -139,6 +139,10 @@
         <lastmod>2017-10-07</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/</loc>
+        <lastmod>2023-11-03</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/helix-plugin-system/</loc>
         <lastmod>2023-09-18</lastmod>
     </url>
@@ -369,6 +373,9 @@
         <loc>https://aqrun.com/tags/diary/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/dioxus/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/drupal7/</loc>
     </url>
     <url>
@@ -541,6 +548,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/wang-guan/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/wasm-bindgen/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/web/</loc>

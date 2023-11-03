@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="https://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="https://aqrun.com/abridge-switcher.css?h=b1785a1c8dc3e0ee55de" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="https://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="https://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="https://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Dioxus 踩坑之cli和wasm-bindgen版本冲突问题 | 光鹿跑冰</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="光鹿跑冰" />
+  <meta name="description" content="Dioxus-cli 依赖的 wasm-bindgen 版本锁定，和项目打包版本冲突" />
+  <link rel="canonical" href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/" />
+  <meta name="twitter:url" content="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/" />
+  <meta property="og:description" content="Dioxus-cli 依赖的 wasm-bindgen 版本锁定，和项目打包版本冲突" />
+  <meta name="twitter:description" content="Dioxus-cli 依赖的 wasm-bindgen 版本锁定，和项目打包版本冲突" />
+  <meta property="og:title" content="Dioxus 踩坑之cli和wasm-bindgen版本冲突问题 | 光鹿跑冰" />
+  <meta name="twitter:title" content="Dioxus 踩坑之cli和wasm-bindgen版本冲突问题 | 光鹿跑冰" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="光鹿跑冰" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2023-11-03" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="https://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="https://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aqrun.com/favicon.ico" />
+  <noscript><link rel="stylesheet" href="https://aqrun.com/nojs.css" /></noscript><div id="wx_pic" style="margin:0 auto;display:none;"><img src="https://static.oicnp.com/blog/pic300.jpg" />
+</div><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1595a1ffd0fb91f5014d44a66c02dfbd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script></head>
+<body>
+  <header>
+    <nav>
+      <div><h1 class="oic-header-logfile">
+            <a
+               href="https://aqrun.com/"
+               title="子十个人博客"
+            ><img src="https://aqrun.com/icons/logo_default.svg" alt="光鹿跑冰" width="22" height="22" />光鹿跑冰</a>
+          </h1></div>
+      <div>
+        <ul><li> <h2><a href="https://aqrun.com/">首页</a></h2> </li><li> <h2><a href="https://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="https://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="oic-page">
+        <h1><a href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/">Dioxus 踩坑之cli和wasm-bindgen版本冲突问题</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2023-11-03<span class="hpad"> </span>
+          [<a href="https://aqrun.com/categories/diary/">
+                每日随笔
+            </a>]
+           #<a href="https://aqrun.com/tags/diary/">diary</a>  #<a href="https://aqrun.com/tags/rust/">rust</a>  #<a href="https://aqrun.com/tags/dioxus/">dioxus</a>  #<a href="https://aqrun.com/tags/wasm-bindgen/">wasm-bindgen</a> </span>
+
+    <h2 id="wen-ti">问题</h2>
+<p>使用官网示例执行打包时报错，提示wasm-bindgen版本冲突：</p>
+<pre data-lang="shell" class="language-shell z-code"><code class="language-shell" data-lang="shell"><span class="z-text z-plain">dx build --features web
+</span></code></pre>
+<p>输出：</p>
+<pre class="z-code"><code><span class="z-text z-plain">[INFO] 🚅 Running build command...
+/ ⚙️ Compiling syn 2.0.38 (registry+https://github.com/rust-lang/crates.io-index)                                                                                                           [INFO] 👑 Build done.
+[WARN] failed to parse `name` custom section Invalid name type (at offset 41143549)
+thread &#39;main&#39; panicked at &#39;called `Result::unwrap()` on an `Err` value: 
+
+it looks like the Rust project used to create this wasm file was linked against
+version of wasm-bindgen that uses a different bindgen format than this binary:
+
+  rust wasm file schema version: 0.2.88
+     this binary schema version: 0.2.87
+
+Currently the bindgen format is unstable enough that these two schema versions
+must exactly match. You can accomplish this by either updating this binary or 
+the wasm-bindgen dependency in the Rust project.
+
+You should be able to update the wasm-bindgen dependency with:
+
+    cargo update -p wasm-bindgen --precise 0.2.87
+
+don&#39;t forget to recompile your wasm file! Alternatively, you can update the 
+binary with:
+
+    cargo install -f wasm-bindgen-cli --version 0.2.88
+
+if this warning fails to go away though and you&#39;re not sure what to do feel free
+to open an issue at https://github.com/rustwasm/wasm-bindgen/issues!
+&#39;, /Users/aqrun/workspace/apps/rust/cargo/registry/src/mirrors.ustc.edu.cn-12df342d903acd47/dioxus-cli-0.4.1/src/builder.rs:129:14
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Error: 🚫 Building project failed: Build Failed: Bindgen build failed! 
+This is probably due to the Bindgen version, dioxus-cli using `0.2.81` Bindgen crate.
+</span></code></pre>
+<h2 id="fang-an">方案</h2>
+<p>解决方法也很简单，不使用 <code>--locked</code> 参数重新安装cli就可以</p>
+<p>如果已经安装过一次要加 <code>--force</code> 强制更新</p>
+<pre data-lang="shell" class="language-shell z-code"><code class="language-shell" data-lang="shell"><span class="z-text z-plain">cargo install dioxus-cli --force
+</span></code></pre>
+<h2 id="can-kao">参考</h2>
+<ul>
+<li><a rel="noopener" target="_blank" href="https://github.com/DioxusLabs/dioxus/issues/1601">Rust project used to create this wasm file was linked against version of wasm-bindgen that uses a different bindgen format #1601</a></li>
+<li><a rel="noopener" target="_blank" href="https://github.com/DioxusLabs/dioxus/issues/1101">Dioxus CLI wasm-bindgen version mismatch #1101</a></li>
+<li><a rel="noopener" target="_blank" href="https://github.com/DioxusLabs/docsite/pull/153">remove --locked from dioxus-cli installation instructions #153</a></li>
+</ul>
+
+    </article>
+    <div class="toc" aria-hidden="true">
+      <div class="toc-sticky">
+        <h3>目录</h3>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/#wen-ti">问题</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/#fang-an">方案</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/#can-kao">参考</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="https://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 光鹿跑冰</p>
+      <nav>
+        <ul><li class="s90"> <a href="https://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="https://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="https://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="https://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+</body>
+</html>

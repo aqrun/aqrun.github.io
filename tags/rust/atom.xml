@@ -5,8 +5,68 @@
     <link href="https://aqrun.com/tags/rust/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2023-09-18T00:00:00+00:00</updated>
+    <updated>2023-11-03T00:00:00+00:00</updated>
     <id>https://aqrun.com/tags/rust/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Dioxus 踩坑之cli和wasm-bindgen版本冲突问题</title>
+        <published>2023-11-03T00:00:00+00:00</published>
+        <updated>2023-11-03T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/" type="text/html"/>
+        <id>https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/</id>
+        
+        <content type="html">&lt;h2 id=&quot;wen-ti&quot;&gt;问题&lt;&#x2F;h2&gt;
+&lt;p&gt;使用官网示例执行打包时报错，提示wasm-bindgen版本冲突：&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; class=&quot;language-shell z-code&quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;dx build --features web
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;输出：&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;[INFO] 🚅 Running build command...
+&#x2F; ⚙️ Compiling syn 2.0.38 (registry+https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;crates.io-index)                                                                                                           [INFO] 👑 Build done.
+[WARN] failed to parse `name` custom section Invalid name type (at offset 41143549)
+thread &amp;#39;main&amp;#39; panicked at &amp;#39;called `Result::unwrap()` on an `Err` value: 
+
+it looks like the Rust project used to create this wasm file was linked against
+version of wasm-bindgen that uses a different bindgen format than this binary:
+
+  rust wasm file schema version: 0.2.88
+     this binary schema version: 0.2.87
+
+Currently the bindgen format is unstable enough that these two schema versions
+must exactly match. You can accomplish this by either updating this binary or 
+the wasm-bindgen dependency in the Rust project.
+
+You should be able to update the wasm-bindgen dependency with:
+
+    cargo update -p wasm-bindgen --precise 0.2.87
+
+don&amp;#39;t forget to recompile your wasm file! Alternatively, you can update the 
+binary with:
+
+    cargo install -f wasm-bindgen-cli --version 0.2.88
+
+if this warning fails to go away though and you&amp;#39;re not sure what to do feel free
+to open an issue at https:&#x2F;&#x2F;github.com&#x2F;rustwasm&#x2F;wasm-bindgen&#x2F;issues!
+&amp;#39;, &#x2F;Users&#x2F;aqrun&#x2F;workspace&#x2F;apps&#x2F;rust&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;mirrors.ustc.edu.cn-12df342d903acd47&#x2F;dioxus-cli-0.4.1&#x2F;src&#x2F;builder.rs:129:14
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Error: 🚫 Building project failed: Build Failed: Bindgen build failed! 
+This is probably due to the Bindgen version, dioxus-cli using `0.2.81` Bindgen crate.
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;fang-an&quot;&gt;方案&lt;&#x2F;h2&gt;
+&lt;p&gt;解决方法也很简单，不使用 &lt;code&gt;--locked&lt;&#x2F;code&gt; 参数重新安装cli就可以&lt;&#x2F;p&gt;
+&lt;p&gt;如果已经安装过一次要加 &lt;code&gt;--force&lt;&#x2F;code&gt; 强制更新&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; class=&quot;language-shell z-code&quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;cargo install dioxus-cli --force
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;can-kao&quot;&gt;参考&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;DioxusLabs&#x2F;dioxus&#x2F;issues&#x2F;1601&quot;&gt;Rust project used to create this wasm file was linked against version of wasm-bindgen that uses a different bindgen format #1601&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;DioxusLabs&#x2F;dioxus&#x2F;issues&#x2F;1101&quot;&gt;Dioxus CLI wasm-bindgen version mismatch #1101&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;DioxusLabs&#x2F;docsite&#x2F;pull&#x2F;153&quot;&gt;remove --locked from dioxus-cli installation instructions #153&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Helix 编辑器插件系统 Scheme 方案锁定</title>
         <published>2023-09-18T00:00:00+00:00</published>
