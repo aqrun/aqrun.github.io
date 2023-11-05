@@ -86,8 +86,8 @@ var _hmt = _hmt || [];
 
     <h2 id="wen-ti">问题</h2>
 <p>使用官网示例执行打包时报错，提示wasm-bindgen版本冲突：</p>
-<pre data-lang="shell" class="language-shell z-code"><code class="language-shell" data-lang="shell"><span class="z-text z-plain">dx build --features web
-</span></code></pre>
+<pre data-lang="fish" class="language-fish z-code"><code class="language-fish" data-lang="fish"><span class="z-source z-shell z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">dx</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">build</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-option z-long z-fish"><span class="z-variable z-parameter z-fish"><span class="z-punctuation z-definition z-option z-long z-begin z-fish"><span class="z-meta z-string z-unquoted z-fish">--</span></span><span class="z-meta z-string z-unquoted z-fish">features</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">web</span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span></code></pre>
 <p>输出：</p>
 <pre class="z-code"><code><span class="z-text z-plain">[INFO] 🚅 Running build command...
 / ⚙️ Compiling syn 2.0.38 (registry+https://github.com/rust-lang/crates.io-index)                                                                                                           [INFO] 👑 Build done.
@@ -123,8 +123,8 @@ This is probably due to the Bindgen version, dioxus-cli using `0.2.81` Bindgen c
 <h2 id="fang-an">方案</h2>
 <p>解决方法也很简单，不使用 <code>--locked</code> 参数重新安装cli就可以</p>
 <p>如果已经安装过一次要加 <code>--force</code> 强制更新</p>
-<pre data-lang="shell" class="language-shell z-code"><code class="language-shell" data-lang="shell"><span class="z-text z-plain">cargo install dioxus-cli --force
-</span></code></pre>
+<pre data-lang="fish" class="language-fish z-code"><code class="language-fish" data-lang="fish"><span class="z-source z-shell z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">cargo</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">install</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">dioxus-cli</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-option z-long z-fish"><span class="z-variable z-parameter z-fish"><span class="z-punctuation z-definition z-option z-long z-begin z-fish"><span class="z-meta z-string z-unquoted z-fish">--</span></span><span class="z-meta z-string z-unquoted z-fish">force</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span></code></pre>
 <h2 id="can-kao">参考</h2>
 <ul>
 <li><a rel="noopener" target="_blank" href="https://github.com/DioxusLabs/dioxus/issues/1601">Rust project used to create this wasm file was linked against version of wasm-bindgen that uses a different bindgen format #1601</a></li>
