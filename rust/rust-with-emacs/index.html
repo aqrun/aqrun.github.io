@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
     <blockquote>
 <p>原文链接：<a rel="noopener" target="_blank" href="https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/">https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/</a>。翻译有错漏欢迎评论区指正吐槽😂。</p>
 </blockquote>
-<p><img src="https://assets.oicnp.com/pic/demo.png" alt="demo" /></p>
+<p><img src="https://cdn.oicnp.com/images/2023/demo.png" alt="demo" /></p>
 <p>过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：</p>
 <ul>
 <li>源代码导航（跳转到实现、引用列表、模块大纲）</li>
@@ -195,7 +195,7 @@ var _hmt = _hmt || [];
     <span class="z-meta z-group z-lisp"><span class="z-punctuation z-definition z-group z-begin z-lisp">(</span><span class="z-support z-function z-lisp">setq</span><span class="z-keyword z-operator z-arithmetic z-lisp">-</span>local buffer<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>save<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>without<span class="z-keyword z-operator z-arithmetic z-lisp">-</span>query <span class="z-constant z-language z-lisp">t</span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span><span class="z-punctuation z-definition z-group z-end z-lisp">)</span></span>
 </span></code></pre>
 <p>rustic 的大部分功能都绑定到 <code>C-c C-c</code> 前缀（也就是按 Control-c 键两次再按其它键）：</p>
-<p><img src="http://assets.oicnp.com/pic/rustic-shortcuts-1.png" alt="shortcut" /></p>
+<p><img src="https://cdn.oicnp.com/images/2023/rustic-shortcuts-1.png" alt="shortcut" /></p>
 <p>你可以使用 <code>C-c C-c C-r</code> 调用 <code>cargo run</code> 运行程序。有可能需要你指定一些参数例如使用发布模式运行可以指定 <code>--release</code> 或要运行名称为 &quot;other-bin&quot; 的目标程序使用参数 <code>--bin other-bin</code>（替换 mina.rs）。 要给可执行程序本身传递参数使用 <code>-- --arg1 --arg2</code>。</p>
 <p>快捷键 <code>C-c C-c C-c</code> 会运行测试。非常方便执行内联测试而不用经常的来切回在终端和 Emacs 之间切换。</p>
 <p><code>C-c C-p</code> 命令会打开一个固定位置的弹出缓冲区显示上面的快捷命令。</p>
@@ -228,9 +228,9 @@ var _hmt = _hmt || [];
 <p>上面的配置也关闭了 lsp-ui 内联显示的文档功能。这个比较符合我的习惯，由于它经常遮住源代码。如果你也想关闭在 mini 缓冲区显示的文档可以添加 <code>(setq lsp-eldoc-hook nil)</code>。在光标移动时想操作的更少可以考虑 <code>(setq lsp-signature-auto-activate nil)</code> 和 <code>(setq lsp-enable-symbol-highlighting nil)</code>。</p>
 <h3 id="code-navigation">Code Navigation</h3>
 <p>配置好 lsp-mode 当你的光标在一个标记上面时你就可以使用 <code>M-.</code> 来跳转到函数、结构体、包等的定义处。<code>M-,</code> 可以再跳回来。使用 <code>M-?</code> 你可以列出标记的所有引用。如下演示：</p>
-<p><img src="https://assets.oicnp.com/pic/rust-lsp-demo-1.gif" alt="rust-lsp-demo" /></p>
+<p><img src="https://cdn.oicnp.com/images/2023/rust-lsp-demo-1.gif" alt="rust-lsp-demo" /></p>
 <p>使用 <code>M-j</code> 你可以打开允许你在函数和其它定义之间快速跳转的当前模块大纲。</p>
-<p><img src="https://assets.oicnp.com/pic/imenu.png" alt="imenu" /></p>
+<p><img src="https://cdn.oicnp.com/images/2023/imenu.png" alt="imenu" /></p>
 <h3 id="dai-ma-cao-zuo-code-actions">代码操作（Code Actions）</h3>
 <p>可以使用 <code>M-x lsp-rename</code> 和 <code>lsp-execute-code-action</code> 进行重构。代码操作基本上就是代码转换和修复。例如代码检查可能会发现更优雅的代码表达方式：</p>
 <p><img src="http://assets.oicnp.com/pic/rust-lsp-demo-2.gif" alt="rust-lsp-demo-2" /></p>
@@ -370,10 +370,10 @@ Error: spawn lldb-mi ENOENT
 </span></code></pre>
 <p>即使 <code>lldb-mi</code> 在我的环境变量并且我可以在 Emacs 里面启动它。结果表明错误不是来自 <code>lldb-mi</code> 而是你启动目标的目录。当你使用 <code>M-x dap-debug</code> 或通过 <code>dap-hydra d d</code> 启动调试，然后选择 <code>Rust::LLDB Run Configuration</code> 时确保你想要调试的可执行目标的目录不是相对路径也不能包含 <code>~</code>。如果是绝对路径就应该可以工作。</p>
 <p>如下可能会发生上面错误的失败（注意未展开的 <code>~/</code>）：</p>
-<p><img src="https://assets.oicnp.com/pic/dap-fail.png" alt="dap-fail" /></p>
+<p><img src="https://cdn.oicnp.com/images/2023/dap-fail.png" alt="dap-fail" /></p>
 <p>我需要指定完整的路径 <code>/Users/robert/projects/rust/emacs/test-project/target/debug/test-project</code>。</p>
 <p>一旦成功执行看起来应该如下：</p>
-<video controls src="https://assets.oicnp.com/pic/emacs-debugging-dap.mp4" style="max-height: 620px" />
+<video controls src="https://cdn.oicnp.com/images/2023/emacs-debugging-dap.mp4" style="max-height: 620px" />
 <p>上面示例我首先使用 <code>C-c C-c d</code> 激活 <code>dab-hydra</code>。然后使用 <code>d d</code> 选择 Rust 调试目标（提前使用 cargo 构建的）。在这之前还用 <code>d p</code> 设置了一个断点。然后我使用 <code>n</code> 和 <code>i</code> 在代码中步进。注意你也可以使用鼠标设置断点和步进。</p>
 <p>配置调试并没有预期的顺畅，但一旦运行起来会非常有趣！</p>
 <h3 id="rust-playground">Rust playground</h3>

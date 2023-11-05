@@ -97,7 +97,7 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="di-yi-bu-tian-jia-system-xml">第一步 添加System.xml</h2>
 <p>Magento 2 配置系统页面在逻辑上分为几个部分：标签页（Tabs）、区域（Sections）、组（Groups）、字段（Fields）。具体看图：</p>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/5-config-sections.png" alt="configuration" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/5-config-sections.png" alt="configuration" /></p>
 <p>现在给我们的模块添加一些简单的配置参数。<code>system.xml</code> 文件在模块的 <code>etc/adminhtml</code> 目录，为模块新增一个标签名 “Aqrun”， 区域名“欢迎”，组中有一些简单的字段： enable 和 display_text。</p>
 <p>文件： <code>app/code/Aqrun/HelloWorld/etc/adminhtml/system.xml</code></p>
 <pre data-lang="xml" class="language-xml z-code"><code class="language-xml" data-lang="xml"><span class="z-text z-xml"><span class="z-meta z-tag z-preprocessor z-xml"><span class="z-punctuation z-definition z-tag z-begin z-xml">&lt;?</span><span class="z-entity z-name z-tag z-xml">xml</span> <span class="z-entity z-other z-attribute-name z-localname z-xml">version</span><span class="z-punctuation z-separator z-key-value z-xml">=</span><span class="z-string z-quoted z-double z-xml"><span class="z-punctuation z-definition z-string z-begin z-xml">&quot;</span>1.0<span class="z-punctuation z-definition z-string z-end z-xml">&quot;</span></span><span class="z-punctuation z-definition z-tag z-end z-xml">?&gt;</span></span>
@@ -144,7 +144,7 @@ var _hmt = _hmt || [];
 </li>
 <li>区域 section 节点和标签一样也有 id，sortOrder, translate这些属性。还有（showInDefault, showInWebsite, showInStore）几个属性决定元素在哪个范围显示。可以在这里改变范围显示：</li>
 </ul>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/5-scope.png" alt="scope" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/5-scope.png" alt="scope" /></p>
 <p>区域元素又会有很多组group和其它一些子节点：</p>
 <ul>
 <li>class 会做为html的CLSS显示，如果要改变元素的样式就会用到这个属性</li>
@@ -203,7 +203,7 @@ var _hmt = _hmt || [];
 </span></code></pre>
 <h2 id="di-san-bu-qing-kong-huan-cun">第三步 清空缓存</h2>
 <p>如下显示：</p>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/5-config-result.png" alt="step 3" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/5-config-result.png" alt="step 3" /></p>
 <p>如果出现404错误需要登录重新登录应该可以。</p>
 <h2 id="di-si-bu-huo-qu-pei-zhi-can-shu">第四步 获取配置参数</h2>
 <p>首先保存配置并清除缓存，然后就可以从数据库获取保存的值了。</p>

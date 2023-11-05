@@ -97,7 +97,7 @@ var _hmt = _hmt || [];
 </span></code></pre>
 <p>但是，在我们使用所有状态初始化应用程序时，我们不提供任何 reducer。 这种方法的问题是，如果 reducer 不可用，那么任何尚未加载的功能将在操作分派时从状态中删除。</p>
 <p>例如，假设我们的应用程序有一个“settings”区域和一个“Todos”区域，如果我们最初加载应用程序的“Todos”区域而不访问“settings”，该状态的一部分将在第一个操作分派时被移除，因为还没有可用的reducer来处理该功能的状态：</p>
-<p>![settings removed]({{ site.url }}/public/images/js/ngrxtipimg1.png)</p>
+<p><img src="https://cdn.oicnp.com/images/js/ngrxtipimg1.png" alt="settings removed" /></p>
 <p>由于settings功能尚未加载，因此settings部分被删除。</p>
 <p>防止这种情况的一种方法（不影响应用程序中的所有reducer）是，首先对所有功能设置一个默认reducer，该reducer只取得当前状态并返回：</p>
 <pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-import z-ts"><span class="z-keyword z-control z-import z-ts">import</span> <span class="z-meta z-block z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span> <span class="z-variable z-other z-readwrite z-alias z-ts">ActionReducerMap</span> <span class="z-punctuation z-definition z-block z-ts">}</span></span> <span class="z-keyword z-control z-from z-ts">from</span> <span class="z-string z-quoted z-single z-ts"><span class="z-punctuation z-definition z-string z-begin z-ts">&#39;</span>@ngrx/store<span class="z-punctuation z-definition z-string z-end z-ts">&#39;</span></span></span><span class="z-punctuation z-terminator z-statement z-ts">;</span>
@@ -128,7 +128,7 @@ var _hmt = _hmt || [];
 <pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-function-call z-ts"><span class="z-variable z-other z-object z-ts">StoreModule</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-entity z-name z-function z-ts">forRoot</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-variable z-other z-readwrite z-ts">initialReducerMap</span><span class="z-punctuation z-separator z-comma z-ts">,</span> <span class="z-meta z-objectliteral z-ts"><span class="z-punctuation z-definition z-block z-ts">{</span> <span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts">initialState</span></span><span class="z-meta z-object z-member z-ts"><span class="z-meta z-object-literal z-key z-ts"><span class="z-punctuation z-separator z-key-value z-ts">:</span></span> <span class="z-variable z-other z-readwrite z-ts">getInitialState</span> </span><span class="z-punctuation z-definition z-block z-ts">}</span></span><span class="z-meta z-brace z-round z-ts">)</span>
 </span></code></pre>
 <p>随着您的功能模块被加载，它们将替换默认的 reducer。 在此之前，他们会在任何派发的操作上返回初始状态，以防止这些功能从状态移除：</p>
-<p>![settings removed]({{ site.url }}/public/images/js/ngrxtipimg2.png)</p>
+<p><img src="https://cdn.oicnp.com/images/js/ngrxtipimg2.png" alt="settings removed" /></p>
 <p>“settings” 现在被保留</p>
 <p>随着您的继续开发，如果添加新功能并更新了ApplicationState接口，它应该会导致编译错误，直到initialReducerMap更新。</p>
 <p>然后，您的store选择器可以安全地假定功能状态部分将始终存在，而无需执行未定义(undefined)的检查。</p>

@@ -88,7 +88,7 @@
 &lt;p&gt;每次输入一个新的字符都会调用 &lt;code&gt;handleNameChange&lt;&#x2F;code&gt; 方法，它获取控件最新值并更新到 &lt;code&gt;state&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;br&#x2F;&gt;
 &lt;div style=&quot;background:white;padding:20px;&quot;&gt;
-&lt;img src=&quot;&#x2F;public&#x2F;images&#x2F;js&#x2F;controlled-flow.png&quot;&#x2F;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;js&#x2F;controlled-flow.png&quot;&#x2F;&gt;
 &lt;&#x2F;div&gt;
 &lt;br&#x2F;&gt;
 &lt;ul&gt;

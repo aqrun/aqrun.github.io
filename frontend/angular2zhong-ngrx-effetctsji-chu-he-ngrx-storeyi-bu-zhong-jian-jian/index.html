@@ -205,7 +205,7 @@ var _hmt = _hmt || [];
 </span></code></pre>
 <h2 id="switchmap-jin-jin-xu-yao-yi-ge-han-shu">SwitchMap 仅仅需要一个函数</h2>
 <p>我们在这里使用了很多switchMaps，所以理解它背后的原力很重要。 以下是来自reactive.io <a rel="noopener" target="_blank" href="http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-switchMap">switchMap文档</a>页面的屏幕截图：</p>
-<p>![img]({{ site.url }}/public/images/js/rximg1.jpg)</p>
+<p><img src="https://cdn.oicnp.com/images/js/rximg1.jpg" alt="img" /></p>
 <p>看看这里的描述。 switchMap的第一个（也是唯一的）参数是一个函数，该函数应用于由源Observable发出的项目并返回Observable。 还值得注意的是，我们这里的胖箭头是lambda表达式匿名函数。 由于函数体observable，它只是一行，我们可以忽略大括号和return关键字。 例如，除了一些额外的日志记录之外，下面的代码与上面的代码片段相同：</p>
 <pre data-lang="ts" class="language-ts z-code"><code class="language-ts" data-lang="ts"><span class="z-source z-ts"><span class="z-meta z-decorator z-ts"><span class="z-punctuation z-decorator z-ts">@</span><span class="z-meta z-function-call z-ts"><span class="z-entity z-name z-function z-ts">Effect</span></span><span class="z-meta z-brace z-round z-ts">(</span><span class="z-meta z-brace z-round z-ts">)</span></span>
 <span class="z-variable z-other z-readwrite z-ts">pullObjectFromFirebase$</span> <span class="z-keyword z-operator z-assignment z-ts">=</span> <span class="z-variable z-other z-object z-ts">$this</span><span class="z-punctuation z-accessor z-ts">.</span><span class="z-variable z-other z-property z-ts">action$</span>

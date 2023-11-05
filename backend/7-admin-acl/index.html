@@ -90,7 +90,7 @@ var _hmt = _hmt || [];
 <p>Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色。本文我们来研究它的工作机制并为我们的自定义模块添加权限控制。</p>
 <h2 id="magento-2-quan-xian-kong-zhi-lie-biao-gui-ze">Magento 2 权限控制列表规则</h2>
 <p>后台 ACL资源 可以在 <code>System &gt; Permissions &gt; User Roles</code> 菜单下看到。当我们点击 <code>Add new Role</code> 按钮会看到如下图页面：</p>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/7-role-resources.png" alt="role resources" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/7-role-resources.png" alt="role resources" /></p>
 <p>在这个权限资源面板你可看到一个树状列表显示的系统中定义的所有权限资源。你可以选择所有权限资源，也可以给角色或用户选择某几个权限资源。所有属于当前角色的用户都限定只能访问你选择的权限资源，他们不能看到或访问其它权限资源。</p>
 <p>要添加后台管理员ACL有如下几步：</p>
 <ul>
@@ -134,7 +134,7 @@ var _hmt = _hmt || [];
 <li>sortOrder 控制权限资源在树中显示的顺序</li>
 </ul>
 <p>接下来清空缓存并查看权限资源树：</p>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/7-role-resources-result.png" alt="role resources added" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/7-role-resources-result.png" alt="role resources added" /></p>
 <h2 id="di-er-bu-qing-huan-cun">第二步 清缓存</h2>
 <h2 id="di-san-bu-ce-shi-acl-gui-ze">第三步 测试 ACL 规则</h2>
 <p>有很多地方我们可以使用ACL权限资源控制用户的访问：</p>

@@ -89,7 +89,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <p>本章节讨论如何在后台左侧导航菜单条添加自定义链接。</p>
 <p>首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。</p>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/6-store-menu-items.png" alt="stores menu" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/6-store-menu-items.png" alt="stores menu" /></p>
 <p>在前端时路由名称的格式为：<code>{router_name}_{controller_name}_{actions_name}</code>，后台路由格式也一样，但需要指定一个不同的名称以便让系统知道调用的是后台的路由。</p>
 <p>菜单到底如何添加？接下来继续使用之前的Hello World模块进行演示菜单项的添加。</p>
 <p>添加菜单使用 <code>menu.xml</code> 配置文件步骤如下：</p>
@@ -149,7 +149,7 @@ var _hmt = _hmt || [];
 <h2 id="di-san-bu-qing-kong-huan-cun">第三步 清空缓存</h2>
 <p>要确保自定义菜单正常显示需要清除一下缓存运行 <code>php bin/magento cache:clean</code></p>
 <p>本例显示结果如图：</p>
-<p><img src="https://static.oicnp.com/blog/2023/magento2/6-helloworld-menu-items.png" alt="helloworld" /></p>
+<p><img src="https://cdn.oicnp.com/images/magento2/6-helloworld-menu-items.png" alt="helloworld" /></p>
 
 <p><b><a href="#">返回顶部</a></b></p>
     </article>

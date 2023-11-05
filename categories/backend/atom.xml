@@ -384,9 +384,9 @@ class Sayhello extends Command
 &lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;php magento list
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;可以输出所有可用命令，我们刚添加的自定义命令也在：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;14-cli-list1.png&quot; alt=&quot;14-cli-list1.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;14-cli-list1.png&quot; alt=&quot;14-cli-list1.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;现在可以在控制台运行 &lt;code&gt;php bin&#x2F;magento example:sayhello&lt;&#x2F;code&gt;：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;14-cli-list1-result.png&quot; alt=&quot;14-cli-list1-result.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;14-cli-list1-result.png&quot; alt=&quot;14-cli-list1-result.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;接下来可以给命令添加一些参数。&lt;&#x2F;p&gt;
 &lt;p&gt;代码如下：&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-embedded z-begin z-php&quot;&gt;&amp;lt;?php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-source z-php&quot;&gt;
@@ -683,7 +683,7 @@ class Sayhello extends Command
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;你可以在索引器类方法中添加代码向索引器表更新数据&lt;&#x2F;p&gt;
 &lt;p&gt;接下来，清空缓存并到后台菜单  system &amp;gt; Index Management 查看代码结果&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;backend&#x2F;12-magento2-indexing-reindex&#x2F;images&#x2F;12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;12-custom-indexer.png&quot; alt=&quot;custom indexer&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;zhong-jian-suo-yin-shi-yong-ming-ling&quot;&gt;重建索引使用命令：&lt;&#x2F;h2&gt;
 &lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; bin&#x2F;magento indexer:redinex&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
@@ -907,7 +907,7 @@ class Sayhello extends Command
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-class z-php&quot;&gt;&lt;span class=&quot;z-meta z-block z-php&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-php&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;然后清空缓存查看如下所示：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;11-interceptor-result.png&quot; alt=&quot;11-interceptor-result.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;11-interceptor-result.png&quot; alt=&quot;11-interceptor-result.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;你需要小心应对原始参数，被调用的插件方法的参数必须一致并完全匹配。在处理时注意原始方法的参数签名及默认值。&lt;&#x2F;p&gt;
 &lt;p&gt;比如下面的代码 SomeType 类型的参数默认可以是 null&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;php&quot; class=&quot;language-php z-code&quot;&gt;&lt;code class=&quot;language-php&quot; data-lang=&quot;php&quot;&gt;&lt;span class=&quot;z-embedding z-php&quot;&gt;&lt;span class=&quot;z-text z-html z-basic&quot;&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-embedded z-begin z-php&quot;&gt;&amp;lt;?php&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-embedded z-block z-php&quot;&gt;&lt;span class=&quot;z-source z-php&quot;&gt;
@@ -1064,7 +1064,7 @@ class Text extends \Magento\Framework\App\Action\Action
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-class z-php&quot;&gt;&lt;span class=&quot;z-meta z-block z-php&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-php&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;这个类实现了 ObserverInterface 接口的 execute 方法。清除缓存后页面显示如下：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;10-event-result.png&quot; alt=&quot;event result&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;10-event-result.png&quot; alt=&quot;event result&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;cha-kan-xi-tong-suo-you-shi-jian-lie-biao&quot;&gt;查看系统所有事件列表&lt;&#x2F;h2&gt;
 &lt;p&gt;系统核心文件定义的事件可以使用编辑器（PHPSTORM等）的全文搜索功能查看，搜索关键字如下：&lt;&#x2F;p&gt;
 &lt;ul&gt;
@@ -1631,7 +1631,7 @@ varienGlobalEvents.fireEvent(&amp;#39;gridRowClick&amp;#39;, event);
 &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;listing&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;根据以上代码可以了解如何定义网格布局，如何调用数据。现在清除缓存如下显示：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;8-post-list-1.png&quot; alt=&quot;8-post-list-1.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;8-post-list-1.png&quot; alt=&quot;8-post-list-1.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;5-4-tian-jia-lie-biao-gong-ju-tiao&quot;&gt;5.4 添加列表工具条&lt;&#x2F;h3&gt;
 &lt;p&gt;如本文开始所提到的，网格系统也支持一些交互操作如：排序、筛选、删除更新等。排序是网格的默认功能，可以点击表头进行排序显示。接下来看看其它功能如何实现：&lt;&#x2F;p&gt;
 &lt;p&gt;添加控件需要在组件布局文件的父节点listing下面进行编辑：&lt;&#x2F;p&gt;
@@ -1760,7 +1760,7 @@ varienGlobalEvents.fireEvent(&amp;#39;gridRowClick&amp;#39;, event);
 &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;listing&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;清空缓存如下显示&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;8-post-list-2.png&quot; alt=&quot;8-post-list-2.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;8-post-list-2.png&quot; alt=&quot;8-post-list-2.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;di-liu-bu-di-er-chong-fang-shi-shi-yong-bu-ju-wen-jian-chuang-jian-wang-ge&quot;&gt;第六步 第二种方式 使用布局文件创建网格&lt;&#x2F;h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;注意！ 如果第五步已经完成了就路过这一步，当然也可以新增一个路由在新的页面使用这种方式实现&lt;&#x2F;p&gt;
@@ -1873,7 +1873,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;span class=&quot;z-meta z-tag z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-localname z-xml&quot;&gt;block&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;清空缓存如下显示：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;8-post-list-3.png&quot; alt=&quot;8-post-list-3.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;8-post-list-3.png&quot; alt=&quot;8-post-list-3.png&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
@@ -1893,7 +1893,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;p&gt;Magneto 2的ACL面板使用授权系统来创建权控制规则，权限控制规则可以让店铺所有者为每个用户创建非常细粒度的角色。本文我们来研究它的工作机制并为我们的自定义模块添加权限控制。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;magento-2-quan-xian-kong-zhi-lie-biao-gui-ze&quot;&gt;Magento 2 权限控制列表规则&lt;&#x2F;h2&gt;
 &lt;p&gt;后台 ACL资源 可以在 &lt;code&gt;System &amp;gt; Permissions &amp;gt; User Roles&lt;&#x2F;code&gt; 菜单下看到。当我们点击 &lt;code&gt;Add new Role&lt;&#x2F;code&gt; 按钮会看到如下图页面：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;7-role-resources.png&quot; alt=&quot;role resources&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;7-role-resources.png&quot; alt=&quot;role resources&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;在这个权限资源面板你可看到一个树状列表显示的系统中定义的所有权限资源。你可以选择所有权限资源，也可以给角色或用户选择某几个权限资源。所有属于当前角色的用户都限定只能访问你选择的权限资源，他们不能看到或访问其它权限资源。&lt;&#x2F;p&gt;
 &lt;p&gt;要添加后台管理员ACL有如下几步：&lt;&#x2F;p&gt;
 &lt;ul&gt;
@@ -1937,7 +1937,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;li&gt;sortOrder 控制权限资源在树中显示的顺序&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;p&gt;接下来清空缓存并查看权限资源树：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;7-role-resources-result.png&quot; alt=&quot;role resources added&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;7-role-resources-result.png&quot; alt=&quot;role resources added&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;di-er-bu-qing-huan-cun&quot;&gt;第二步 清缓存&lt;&#x2F;h2&gt;
 &lt;h2 id=&quot;di-san-bu-ce-shi-acl-gui-ze&quot;&gt;第三步 测试 ACL 规则&lt;&#x2F;h2&gt;
 &lt;p&gt;有很多地方我们可以使用ACL权限资源控制用户的访问：&lt;&#x2F;p&gt;
@@ -1981,7 +1981,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;本章节讨论如何在后台左侧导航菜单条添加自定义链接。&lt;&#x2F;p&gt;
 &lt;p&gt;首先要理解后台菜单的结构及每个菜单项的交互方式。菜单是分为层级式的父子结构。在左侧导航菜单条直接显示的是第0层，当你点击第0层菜单项时会显示出对应更高层级的分组子菜单项。如下图是店铺Store菜单，Stores就是第0层直接显示在左侧导航条上，点击Stores之后子菜单就会展开显示：Settings、Attributes、Taxes等，以及它们的子子菜单项（Settings就有子项：All Stores、Configuration、Terms and Conditions、Order Status）。&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;6-store-menu-items.png&quot; alt=&quot;stores menu&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;6-store-menu-items.png&quot; alt=&quot;stores menu&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;在前端时路由名称的格式为：&lt;code&gt;{router_name}_{controller_name}_{actions_name}&lt;&#x2F;code&gt;，后台路由格式也一样，但需要指定一个不同的名称以便让系统知道调用的是后台的路由。&lt;&#x2F;p&gt;
 &lt;p&gt;菜单到底如何添加？接下来继续使用之前的Hello World模块进行演示菜单项的添加。&lt;&#x2F;p&gt;
 &lt;p&gt;添加菜单使用 &lt;code&gt;menu.xml&lt;&#x2F;code&gt; 配置文件步骤如下：&lt;&#x2F;p&gt;
@@ -2041,7 +2041,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;h2 id=&quot;di-san-bu-qing-kong-huan-cun&quot;&gt;第三步 清空缓存&lt;&#x2F;h2&gt;
 &lt;p&gt;要确保自定义菜单正常显示需要清除一下缓存运行 &lt;code&gt;php bin&#x2F;magento cache:clean&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;本例显示结果如图：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;6-helloworld-menu-items.png&quot; alt=&quot;helloworld&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;6-helloworld-menu-items.png&quot; alt=&quot;helloworld&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
@@ -2068,7 +2068,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;di-yi-bu-tian-jia-system-xml&quot;&gt;第一步 添加System.xml&lt;&#x2F;h2&gt;
 &lt;p&gt;Magento 2 配置系统页面在逻辑上分为几个部分：标签页（Tabs）、区域（Sections）、组（Groups）、字段（Fields）。具体看图：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;5-config-sections.png&quot; alt=&quot;configuration&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;5-config-sections.png&quot; alt=&quot;configuration&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;现在给我们的模块添加一些简单的配置参数。&lt;code&gt;system.xml&lt;&#x2F;code&gt; 文件在模块的 &lt;code&gt;etc&#x2F;adminhtml&lt;&#x2F;code&gt; 目录，为模块新增一个标签名 “Aqrun”， 区域名“欢迎”，组中有一些简单的字段： enable 和 display_text。&lt;&#x2F;p&gt;
 &lt;p&gt;文件： &lt;code&gt;app&#x2F;code&#x2F;Aqrun&#x2F;HelloWorld&#x2F;etc&#x2F;adminhtml&#x2F;system.xml&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;xml&quot; class=&quot;language-xml z-code&quot;&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;z-text z-xml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-preprocessor z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-xml&quot;&gt;&amp;lt;?&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-xml&quot;&gt;xml&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-other z-attribute-name z-localname z-xml&quot;&gt;version&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-key-value z-xml&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-xml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-xml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;1.0&lt;span class=&quot;z-punctuation z-definition z-string z-end z-xml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-xml&quot;&gt;?&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
@@ -2115,7 +2115,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;&#x2F;li&gt;
 &lt;li&gt;区域 section 节点和标签一样也有 id，sortOrder, translate这些属性。还有（showInDefault, showInWebsite, showInStore）几个属性决定元素在哪个范围显示。可以在这里改变范围显示：&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;5-scope.png&quot; alt=&quot;scope&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;5-scope.png&quot; alt=&quot;scope&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;区域元素又会有很多组group和其它一些子节点：&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;class 会做为html的CLSS显示，如果要改变元素的样式就会用到这个属性&lt;&#x2F;li&gt;
@@ -2174,7 +2174,7 @@ class Post extends \Magento\Backend\Blcok\Widget\Grid\Container
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;h2 id=&quot;di-san-bu-qing-kong-huan-cun&quot;&gt;第三步 清空缓存&lt;&#x2F;h2&gt;
 &lt;p&gt;如下显示：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;5-config-result.png&quot; alt=&quot;step 3&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;5-config-result.png&quot; alt=&quot;step 3&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;如果出现404错误需要登录重新登录应该可以。&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;di-si-bu-huo-qu-pei-zhi-can-shu&quot;&gt;第四步 获取配置参数&lt;&#x2F;h2&gt;
 &lt;p&gt;首先保存配置并清除缓存，然后就可以从数据库获取保存的值了。&lt;&#x2F;p&gt;
@@ -2402,7 +2402,7 @@ class Display extends \Magento\Framework\View\Element\Template
 &lt;span class=&quot;z-meta z-tag z-inline z-table z-html&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-begin z-html&quot;&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-tag z-inline z-table z-html&quot;&gt;table&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-tag z-end z-html&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
 &lt;p&gt;修改后执行 &lt;code&gt;php bin&#x2F;magento cache:clean&lt;&#x2F;code&gt; 刷新浏览器如下显示：&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;static.oicnp.com&#x2F;blog&#x2F;2023&#x2F;magento2&#x2F;4-sayhello-page.png&quot; alt=&quot;sayhello page&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;magento2&#x2F;4-sayhello-page.png&quot; alt=&quot;sayhello page&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 </content>
         
     </entry>
