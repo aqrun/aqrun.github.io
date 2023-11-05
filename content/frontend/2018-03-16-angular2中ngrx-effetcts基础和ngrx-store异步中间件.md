@@ -175,7 +175,7 @@ pullObjectFromFirebase$ = this.action$
 
 我们在这里使用了很多switchMaps，所以理解它背后的原力很重要。 以下是来自reactive.io [switchMap文档](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-switchMap)页面的屏幕截图：
 
-![img]({{ site.url }}/public/images/js/rximg1.jpg)
+![img](https://cdn.oicnp.com/images/js/rximg1.jpg)
 
 看看这里的描述。 switchMap的第一个（也是唯一的）参数是一个函数，该函数应用于由源Observable发出的项目并返回Observable。 还值得注意的是，我们这里的胖箭头是lambda表达式匿名函数。 由于函数体observable，它只是一行，我们可以忽略大括号和return关键字。 例如，除了一些额外的日志记录之外，下面的代码与上面的代码片段相同：
 

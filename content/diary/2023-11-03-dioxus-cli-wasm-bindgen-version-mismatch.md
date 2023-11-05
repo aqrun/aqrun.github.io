@@ -11,7 +11,7 @@ taxonomies:
 
 使用官网示例执行打包时报错，提示wasm-bindgen版本冲突：
 
-```shell
+```fish
 dx build --features web
 ```
 
@@ -56,7 +56,7 @@ This is probably due to the Bindgen version, dioxus-cli using `0.2.81` Bindgen c
 
 如果已经安装过一次要加 `--force` 强制更新
 
-```shell
+```fish
 cargo install dioxus-cli --force
 ```
 

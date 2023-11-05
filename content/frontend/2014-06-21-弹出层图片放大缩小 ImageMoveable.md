@@ -7,8 +7,7 @@ taxonomies:
   tags: ["starzoom", "图片操作"]
 ---
 
-<pre class="line-numbers">
-    <code class="language-javascript">
+```javascript
     /**
      * 弹出层图片放大缩小 ImageMoveable(selector)
      * ========================================
@@ -380,6 +379,4 @@ taxonomies:
         $("body").append(bg).append($css);//添加弹出层背景 及对应CSS样式
       }
     })(jQuery, _, Backbone);
-    
-</code>
-</pre>
+```

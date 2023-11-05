@@ -9,7 +9,7 @@ taxonomies:
 
 > 原文链接：[https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/](https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/)。翻译有错漏欢迎评论区指正吐槽😂。
 
-![demo](https://assets.oicnp.com/pic/demo.png)
+![demo](https://cdn.oicnp.com/images/2023/demo.png)
 
 过去的两年时间 Emacs 对 Rust 支持有了很大的提升。本文主要配置 Emacs 开发环境，功能如下：
 
@@ -144,7 +144,7 @@ $ cargo xtask install --server # 会安装 rust-analyzer 到 $HOME/.cargo/bin �
 
 rustic 的大部分功能都绑定到 `C-c C-c` 前缀（也就是按 Control-c 键两次再按其它键）：
 
-![shortcut](http://assets.oicnp.com/pic/rustic-shortcuts-1.png)
+![shortcut](https://cdn.oicnp.com/images/2023/rustic-shortcuts-1.png)
 
 你可以使用 `C-c C-c C-r` 调用 `cargo run` 运行程序。有可能需要你指定一些参数例如使用发布模式运行可以指定 `--release` 或要运行名称为 "other-bin" 的目标程序使用参数 `--bin other-bin`（替换 mina.rs）。 要给可执行程序本身传递参数使用 `-- --arg1 --arg2`。
 
@@ -192,11 +192,11 @@ lsp-ui 是可选的，它提供在光标处标记并显示内联弹层以及光�
 
 配置好 lsp-mode 当你的光标在一个标记上面时你就可以使用 `M-.` 来跳转到函数、结构体、包等的定义处。`M-,` 可以再跳回来。使用 `M-?` 你可以列出标记的所有引用。如下演示：
 
-![rust-lsp-demo](https://assets.oicnp.com/pic/rust-lsp-demo-1.gif)
+![rust-lsp-demo](https://cdn.oicnp.com/images/2023/rust-lsp-demo-1.gif)
 
 使用 `M-j` 你可以打开允许你在函数和其它定义之间快速跳转的当前模块大纲。
 
-![imenu](https://assets.oicnp.com/pic/imenu.png)
+![imenu](https://cdn.oicnp.com/images/2023/imenu.png)
 
 ### 代码操作（Code Actions）
 
@@ -374,13 +374,13 @@ Error: spawn lldb-mi ENOENT
 
 如下可能会发生上面错误的失败（注意未展开的 `~/`）：
 
-![dap-fail](https://assets.oicnp.com/pic/dap-fail.png)
+![dap-fail](https://cdn.oicnp.com/images/2023/dap-fail.png)
 
 我需要指定完整的路径 `/Users/robert/projects/rust/emacs/test-project/target/debug/test-project`。
 
 一旦成功执行看起来应该如下：
 
-<video controls src="https://assets.oicnp.com/pic/emacs-debugging-dap.mp4" style="max-height: 620px" />
+<video controls src="https://cdn.oicnp.com/images/2023/emacs-debugging-dap.mp4" style="max-height: 620px" />
 
 上面示例我首先使用 `C-c C-c d` 激活 `dab-hydra`。然后使用 `d d` 选择 Rust 调试目标（提前使用 cargo 构建的）。在这之前还用 `d p` 设置了一个断点。然后我使用 `n` 和 `i` 在代码中步进。注意你也可以使用鼠标设置断点和步进。
 

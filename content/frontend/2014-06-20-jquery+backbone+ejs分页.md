@@ -7,18 +7,16 @@ taxonomies:
   tags: ["backbone", "分页"]
 ---
 
-<pre class="line-numbers">
-    <code class="language-javascript">
+```html
 <!--分页模板-->
 <script type="text/template" id="tpl_pager">
     <a data-index="[%= index %]" title="[%= title %]"
        class="[% if(current){ %]current [% } %][%= addclass %]">[%= text %]</a>
 </script>
-    </code>
-</pre>
+```
 
-<pre class="line-numbers">
-    <code class="language-javascript">
+
+```javascript
 //model
 var PagerModel = Backbone.Model.extend({
             defaults:{
@@ -111,7 +109,5 @@ var PagerModel = Backbone.Model.extend({
 //////////////////
 console 测试代码   mPager.set({page:3}) 
 
-
- </code>
- </pre>
+```
 

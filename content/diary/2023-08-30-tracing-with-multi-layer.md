@@ -102,7 +102,7 @@ fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
 
 文件和控制台输出类似：
 
-![tracing-log-content](https://oicnp.oss-cn-shanghai.aliyuncs.com/blog/2023/tracing-log.png)
+![tracing-log-content](https://cdn.oicnp.com/images/2023/tracing-log.png)
 
 ## 日志监控相关内容链接
 

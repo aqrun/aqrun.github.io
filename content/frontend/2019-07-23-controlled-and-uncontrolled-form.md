@@ -98,7 +98,7 @@ class Form extends Component {
 
 <br/>
 <div style="background:white;padding:20px;">
-<img src="/public/images/js/controlled-flow.png"/>
+<img src="https://cdn.oicnp.com/images/js/controlled-flow.png"/>
 </div>
 <br/>
 
