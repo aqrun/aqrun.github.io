@@ -31,6 +31,7 @@
 {%- endblock seo %}
 
 {%- block content %}
+  <div class="oic-content-block">
     <article class="oic-page">
     {{- macros::title_post(page=page, config=config) }}
 
@@ -75,7 +76,11 @@
     </div>
     {%- endif %}
     {%- endblock toc %}
+  </div>
 
+  <div class="oic-comment-wrapper">
+    {{- macros::giscus_comment(enable=true) }}
+  </div>
 {%- endblock content %}
 
 {%- block gotop %}

@@ -46,6 +46,28 @@
 {%- endif -%}
 {%- endmacro wx_pic -%}
 
+{#- giscus.app 评论接入 #}
+{%- macro giscus_comment(enable) -%}
+{%- if enable -%}
+<script src="https://giscus.app/client.js"
+  data-repo="aqrun/aqrun.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkxNzA4Njk2MA=="
+  data-category="blog-comments"
+  data-category-id="DIC_kwDOAQS58M4CZAme"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+{%- endif %}
+{%- endmacro %}
+
 {#- 百度统计 #}
 {%- macro baidu_data() -%}
 <script>

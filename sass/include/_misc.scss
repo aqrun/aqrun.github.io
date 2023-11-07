@@ -13,3 +13,13 @@ template {
 canvas {
   display: inline-block;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  .giscus {
+    margin: 24px 0;
+    min-height: 450px;
+  }
+}

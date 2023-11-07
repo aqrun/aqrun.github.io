@@ -74,7 +74,7 @@ code {
 }
 .oic-index-section-block {
   min-width: 80%;
-  box-shadow: 0 1px 2px rgba(0,0,0,.4);
+  box-shadow: 0 1px 3px rgb(255 153 0 / 40%);
   border-radius: 2px;
   padding: 12px 24px;
 
@@ -88,4 +88,25 @@ code {
     margin-top: 0;
     font-size: 14px;
   }
+}
+
+:root.light {
+  .oic-index-section-block {
+    box-shadow: 0 1px 3px rgba(0,0,0,.4);
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  .giscus {
+    min-height: 450px;
+  }
+}
+
+.oic-content-block {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 }

@@ -27,6 +27,7 @@
 
 
 {%- block content %}
+  <div class="oic-content-block">
     {%- set server_section_item = get_section(path="server/_index.md") %}
     {%- set rust_section_item = get_section(path="rust/_index.md") %}
     {%- set backend_section_item = get_section(path="backend/_index.md") %}
@@ -101,18 +102,19 @@
     {%- endfor %}
     {{- macros::pagination(paginator=paginator, config=config) }}
     </div>
-  {%- set section_item = get_section(path="_index.md") %}
-  {%- if config.extra.recent | default(value=true) %}
-    <div class="toc">
-      <div class="toc-sticky">
-        <h1><span class="s75">最新发表</span></h1>
-        {%- for page in articles.pages | slice(end=config.extra.recent_items) -%}
+    {%- set section_item = get_section(path="_index.md") %}
+    {%- if config.extra.recent | default(value=true) %}
+      <div class="toc">
+        <div class="toc-sticky">
+          <h1><span class="s75">最新发表</span></h1>
+          {%- for page in articles.pages | slice(end=config.extra.recent_items) -%}
+              {{- page_macros::page_listing(page=page, config=config) }}
+          {%- endfor -%}
+          {%- for page in section_item.pages | slice(end=config.extra.recent_items) %}
             {{- page_macros::page_listing(page=page, config=config) }}
-        {%- endfor -%}
-        {%- for page in section_item.pages | slice(end=config.extra.recent_items) %}
-          {{- page_macros::page_listing(page=page, config=config) }}
-        {%- endfor %}
+          {%- endfor %}
+        </div>
       </div>
-    </div>
-  {%- endif %}
+    {%- endif %}
+  </div>
 {%- endblock content %}
