@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-    <title>光鹿跑冰 - dioxus</title>
+    <title>光鹿跑冰 - web-sys</title>
     <subtitle>子十个人博客</subtitle>
-    <link href="https://aqrun.com/tags/dioxus/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com/tags/web-sys/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2023-11-10T00:00:00+00:00</updated>
-    <id>https://aqrun.com/tags/dioxus/atom.xml</id>
+    <id>https://aqrun.com/tags/web-sys/atom.xml</id>
     <entry xml:lang="en">
         <title>Dioxus 实现监听界面滚动事件</title>
         <published>2023-11-10T00:00:00+00:00</published>
@@ -79,66 +79,6 @@
 &lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;rustwasm.github.io&#x2F;wasm-bindgen&#x2F;examples&#x2F;paint.html&quot;&gt;Rust wasm-bindgen Paint Example&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;hooks&#x2F;blob&#x2F;master&#x2F;packages&#x2F;hooks&#x2F;src&#x2F;useScroll&#x2F;index.ts#L26&quot;&gt;ahooks useScroll&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;docs.rs&#x2F;web-sys&quot;&gt;web-sys crate&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-</content>
-        
-    </entry>
-    <entry xml:lang="en">
-        <title>Dioxus 踩坑之cli和wasm-bindgen版本冲突问题</title>
-        <published>2023-11-03T00:00:00+00:00</published>
-        <updated>2023-11-03T00:00:00+00:00</updated>
-        <author>
-          <name>Unknown</name>
-        </author>
-        <link rel="alternate" href="https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/" type="text/html"/>
-        <id>https://aqrun.com/diary/dioxus-cli-wasm-bindgen-version-mismatch/</id>
-        
-        <content type="html">&lt;h2 id=&quot;wen-ti&quot;&gt;问题&lt;&#x2F;h2&gt;
-&lt;p&gt;使用官网示例执行打包时报错，提示wasm-bindgen版本冲突：&lt;&#x2F;p&gt;
-&lt;pre data-lang=&quot;fish&quot; class=&quot;language-fish z-code&quot;&gt;&lt;code class=&quot;language-fish&quot; data-lang=&quot;fish&quot;&gt;&lt;span class=&quot;z-source z-shell z-fish&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-name z-fish&quot;&gt;&lt;span class=&quot;z-variable z-function z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;dx&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-fish&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-parameter z-argument z-path z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;build&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-fish&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-parameter z-option z-long z-fish&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-fish&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-option z-long z-begin z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;--&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;features&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-fish&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-parameter z-argument z-path z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;web&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-operator z-control z-fish&quot;&gt;
-&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;p&gt;输出：&lt;&#x2F;p&gt;
-&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;[INFO] 🚅 Running build command...
-&#x2F; ⚙️ Compiling syn 2.0.38 (registry+https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;crates.io-index)                                                                                                           [INFO] 👑 Build done.
-[WARN] failed to parse `name` custom section Invalid name type (at offset 41143549)
-thread &amp;#39;main&amp;#39; panicked at &amp;#39;called `Result::unwrap()` on an `Err` value: 
-
-it looks like the Rust project used to create this wasm file was linked against
-version of wasm-bindgen that uses a different bindgen format than this binary:
-
-  rust wasm file schema version: 0.2.88
-     this binary schema version: 0.2.87
-
-Currently the bindgen format is unstable enough that these two schema versions
-must exactly match. You can accomplish this by either updating this binary or 
-the wasm-bindgen dependency in the Rust project.
-
-You should be able to update the wasm-bindgen dependency with:
-
-    cargo update -p wasm-bindgen --precise 0.2.87
-
-don&amp;#39;t forget to recompile your wasm file! Alternatively, you can update the 
-binary with:
-
-    cargo install -f wasm-bindgen-cli --version 0.2.88
-
-if this warning fails to go away though and you&amp;#39;re not sure what to do feel free
-to open an issue at https:&#x2F;&#x2F;github.com&#x2F;rustwasm&#x2F;wasm-bindgen&#x2F;issues!
-&amp;#39;, &#x2F;Users&#x2F;aqrun&#x2F;workspace&#x2F;apps&#x2F;rust&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;mirrors.ustc.edu.cn-12df342d903acd47&#x2F;dioxus-cli-0.4.1&#x2F;src&#x2F;builder.rs:129:14
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-Error: 🚫 Building project failed: Build Failed: Bindgen build failed! 
-This is probably due to the Bindgen version, dioxus-cli using `0.2.81` Bindgen crate.
-&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;h2 id=&quot;fang-an&quot;&gt;方案&lt;&#x2F;h2&gt;
-&lt;p&gt;解决方法也很简单，不使用 &lt;code&gt;--locked&lt;&#x2F;code&gt; 参数重新安装cli就可以&lt;&#x2F;p&gt;
-&lt;p&gt;如果已经安装过一次要加 &lt;code&gt;--force&lt;&#x2F;code&gt; 强制更新&lt;&#x2F;p&gt;
-&lt;pre data-lang=&quot;fish&quot; class=&quot;language-fish z-code&quot;&gt;&lt;code class=&quot;language-fish&quot; data-lang=&quot;fish&quot;&gt;&lt;span class=&quot;z-source z-shell z-fish&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-name z-fish&quot;&gt;&lt;span class=&quot;z-variable z-function z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;cargo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-fish&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-parameter z-argument z-path z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;install&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-fish&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-parameter z-argument z-path z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;dioxus-cli&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-fish&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-parameter z-option z-long z-fish&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-fish&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-option z-long z-begin z-fish&quot;&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;--&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-unquoted z-fish&quot;&gt;force&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-operator z-control z-fish&quot;&gt;
-&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
-&lt;h2 id=&quot;can-kao&quot;&gt;参考&lt;&#x2F;h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;DioxusLabs&#x2F;dioxus&#x2F;issues&#x2F;1601&quot;&gt;Rust project used to create this wasm file was linked against version of wasm-bindgen that uses a different bindgen format #1601&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;DioxusLabs&#x2F;dioxus&#x2F;issues&#x2F;1101&quot;&gt;Dioxus CLI wasm-bindgen version mismatch #1101&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;DioxusLabs&#x2F;docsite&#x2F;pull&#x2F;153&quot;&gt;remove --locked from dioxus-cli installation instructions #153&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 </content>
         

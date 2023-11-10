@@ -143,6 +143,10 @@
         <lastmod>2023-11-03</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/dioxus-listen-document-scroll-event/</loc>
+        <lastmod>2023-11-10</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/helix-plugin-system/</loc>
         <lastmod>2023-09-18</lastmod>
     </url>
@@ -490,6 +494,9 @@
         <loc>https://aqrun.com/tags/samba/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/scroll/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/seaorm/</loc>
     </url>
     <url>
@@ -551,6 +558,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/wasm-bindgen/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/web-sys/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/web/</loc>
