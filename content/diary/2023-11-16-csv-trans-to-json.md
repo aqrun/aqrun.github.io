@@ -1,10 +1,10 @@
 ---
 title: "Rust 读取CSV再转为所需的JSON格式"
-description: "Dioxus 使用 web-sys 实现监听界面滚动事件, 并获取滚动偏移量"
+description: "Rust 读取CSV再转为所需的JSON格式"
 
 taxonomies:
     categories: ["diary"]
-    tags: ["diary", "rust", "dioxus", "web-sys", "scroll"]
+    tags: ["diary", "rust", "csv", "json"]
 ---
 
 ## 场景
