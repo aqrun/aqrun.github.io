@@ -135,6 +135,10 @@
         <loc>https://aqrun.com/diary/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/backup-dev-block-by-line/</loc>
+        <lastmod>2023-11-17</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/cheng-xu-yuan-ti-gao-fang-shi/</loc>
         <lastmod>2017-10-07</lastmod>
     </url>
@@ -372,10 +376,16 @@
         <loc>https://aqrun.com/tags/css/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/csv/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/dai-ma/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/db-select/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/dev/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/diary/</loc>
@@ -426,6 +436,9 @@
         <loc>https://aqrun.com/tags/jia-mi/</loc>
     </url>
     <url>
+        <loc>https://aqrun.com/tags/json/</loc>
+    </url>
+    <url>
         <loc>https://aqrun.com/tags/less/</loc>
     </url>
     <url>
@@ -457,6 +470,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/paste/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/pear/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/php/</loc>
