@@ -17,7 +17,7 @@ taxonomies:
 
 多目标输出具体参考官方示例： [fmt-multiple-writer](https://github.com/tokio-rs/tracing/blob/master/examples/examples/fmt-multiple-writers.rs)
 
-这个代码会报错，但大体写法改动不多，通过查找 doc.rs 很容易修复：
+这个代码会报错，但大体写法改动不多，通过查找 doc.rs 很容易修复。
 
 ## 用到的库
 
@@ -33,6 +33,8 @@ tracing = "^0"
 tracing-subscriber = { version = "^0.3", features = ["fmt", "std"]}
 // 提供非阻塞的方式输出日志，如写入文件
 tracing-appender = "^0"
+// log 库 与 tracing 库适配层
+tracing-log = "^0"
 // 提供指定输出内容的颜色
 colored = "^2"
 ```
@@ -41,8 +43,9 @@ colored = "^2"
 
 ```rust
 use colored::Colorize;
-use tracing_subscriber::{fmt, Registry};
+use tracing_subscriber::{fmt, filter::LevelFilter};
 use tracing_subscriber::prelude::*;
+use tracing_log::LogTracer;
 
 fn main() {
   // 日志配置初始化
@@ -68,10 +71,19 @@ fn run() {
 /// 日志配置初始化
 ///
 fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
+  // 消费log门面日志 转为 tracing Event日志
+  LogTracer::builder()
+    // .with_max_level(log::LevelFilter::Error)
+    .init()
+    .expect("[PEAR] LogTracer 初始化失败");
+
   // 标准控制台输出layer
   let fmt_layer = fmt::layer()
+    .with_level(true)
     // 指定标准控制台输出
-    .with_writer(std::io::stdout);
+    .with_writer(std::io::stdout)
+    // 日志等级过滤
+    .with_filter(LevelFilter::INFO);
 
   // 文件 appender 指定日志文件输出目录和文件名前缀 
   // daily 指定生成文件名日期到年月日
@@ -83,7 +95,9 @@ fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
   let file_layer = fmt::layer()
     // 移除输出内容中的 颜色或其它格式相关转义字符
     .with_ansi(false)
-    .with_writer(non_blocking);
+    .with_writer(non_blocking)
+    // 日志等级过滤
+    .with_filter(LevelFilter::INFO);
 
   // 生成注册中心 Registry 绑定多个输出层
   let collector = tracing_subscriber::registry()
@@ -104,6 +118,11 @@ fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
 
 ![tracing-log-content](https://cdn.oicnp.com/images/2023/tracing-log.png)
 
+## 2023年12月5日内容修正
+
+* 增加LogTracer消费log日志
+* 增加with_filter按日志等级过滤
+
 ## 日志监控相关内容链接
 
 * [Tokio - Getting started with Tracing](https://tokio.rs/tokio/topics/tracing)
@@ -113,4 +132,3 @@ fn init_log() -> tracing_appender::non_blocking::WorkerGuard {
 * [Rust语言圣经77 - [日志与监控] 可咸可甜的 tracing](https://zhuanlan.zhihu.com/p/496028010)
 * [Rust Lang Nursery - Config log](https://rust-lang-nursery.github.io/rust-cookbook/development_tools/debugging/config_log.html)
 * [Command Line Applications in Rust - Output for humans and machines](https://rust-cli.github.io/book/tutorial/output.html)
-
