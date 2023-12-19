@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>光鹿跑冰 - 指针</title>
+    <subtitle>子十个人博客</subtitle>
+    <link href="https://aqrun.com/tags/zhi-zhen/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://aqrun.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2023-12-19T00:00:00+00:00</updated>
+    <id>https://aqrun.com/tags/zhi-zhen/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Rust 智能指针</title>
+        <published>2023-12-19T00:00:00+00:00</published>
+        <updated>2023-12-19T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://aqrun.com/rust/smart-pointers/" type="text/html"/>
+        <id>https://aqrun.com/rust/smart-pointers/</id>
+        
+        <content type="html">&lt;p&gt;指针 （pointer）是一个包含内存地址的变量的通用概念。这个地址引用，
+或 “指向”（points at）一些其他数据。Rust 中最常见的指针是引用（reference）。
+引用以 &amp;amp; 符号为标志并借用了它们所指向的值。
+除了引用数据没有任何其他特殊功能，也没有额外开销。&lt;&#x2F;p&gt;
+&lt;p&gt;智能指针（smart pointers）是一类数据结构，它们的表现类似指针，但是也拥有额外的元数据和功能。
+智能指针的概念并不为 Rust 所独有；其起源于 C++ 并存在于其他语言中。
+Rust 标准库中定义了多种不同的智能指针，它们提供了多于引用的额外功能。
+如引用计数 （reference counting）智能指针类型。这种指针允许数据有多个所有者，
+它会记录所有者的数量，当没有所有者时清理数据。在 Rust 中因为引用和借用，
+普通引用和智能指针的一个额外的区别是引用是一类只借用数据的指针；
+相反，在大部分情况下，智能指针 拥有 它们指向的数据。&lt;&#x2F;p&gt;
+&lt;p&gt;常见的智能指针：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Box&lt;T&gt; 用于在堆上分配值&lt;&#x2F;li&gt;
+&lt;li&gt;Rc&lt;T&gt;&#x2F;Week&lt;T&gt; 一个引用计数类型，其数据可以有多个所有者&lt;&#x2F;li&gt;
+&lt;li&gt;Cell&lt;T&gt;&#x2F;RefCell&lt;T&gt;&#x2F;OnceCell&lt;T&gt; 在运行时而不是在编译时执行借用规则&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;dui-zhi-neng-zhi-zhen-box&quot;&gt;堆智能指针 Box&lt;T&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;通常数据都是存储在栈中。Box指针可将数据存储到堆中。&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据较大时，又不想在转移所有权时进行数据拷贝&lt;&#x2F;li&gt;
+&lt;li&gt;类型大小在编译期无法确定，但又需要固定大小的类型时&lt;&#x2F;li&gt;
+&lt;li&gt;当你需要一个数据，但你只关心它的类型实现了
+指定的特型（Trait），而不是具体类型&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;yin-yong-ji-shu-zhi-neng-zhi-zhen-rc&quot;&gt;引用计数智能指针 Rc&lt;T&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;在Rust中一个数据同一时间只能存在一个所有者，
+但Rc可以让数据同时拥有多个所有者。&lt;&#x2F;p&gt;
+&lt;p&gt;Rc循环引用时会生成数据永不会释放，这种情况下就可以
+使用Weak打破循环引用。如树结构父节点可以使用Rc
+强引用子节点，而子节点可以使用Weak弱引用父节点&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;gong-xiang-ke-bian-rong-qi-zhi-zhen-cell-refcell-oncecell&quot;&gt;共享可变容器指针 Cell&lt;T&gt;\RefCell&lt;T&gt;\OnceCell&lt;T&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Rust中一个重要的设计模式-内部可变性（Interior mutability）
+允许你在数据存在多个不可变引用时可以修改数据&lt;&#x2F;p&gt;
+&lt;p&gt;Cell 和 RefCell功能上一毛一样，
+唯一区别是 Cell&lt;T&gt; 只适用于 T 实现了 Copy 的情况&lt;&#x2F;p&gt;
+&lt;p&gt;RefCell可以让借用规则检查从编译时转移到运行时。
+即使数据有多个不可变引用，你依然可以修改数据。
+这个检查并不能绕过，苍天饶过谁，如果有错运行时就会panic。&lt;&#x2F;p&gt;
+&lt;p&gt;OncelCell某种程序上是Cell和RefCell和集合体，作用于值
+只能被初始化一次就不能再改动，意味着保存的值不需要移动或复制
+（不同于Cell）同时不需要运行时检查（不同于RefCell）。&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cell用于实现Copy的数据类型 RefCell用于引用数据类型&lt;&#x2F;li&gt;
+&lt;li&gt;RefCell适用于编译期误报或一个引用被多次使用、修改以至于
+难于管理借用关系时&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;shi-yong-zong-jie&quot;&gt;使用总结&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Rc让数据可以拥有多个所有者，Box\RefCell只能有一个所有者&lt;&#x2F;li&gt;
+&lt;li&gt;Box可变不可变借用检查在编译期，Rc编译期只检测不可变借用，
+RefCell可变不可变借用检查都在运行时&lt;&#x2F;li&gt;
+&lt;li&gt;由于RefCell允许运行时借用检查，所以可以修改RefCell的内部值&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;单线程&lt;&#x2F;th&gt;&lt;th&gt;多线程&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;Rc&#x2F;Weak&lt;&#x2F;td&gt;&lt;td&gt;Arc&#x2F;Weak&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;Cell&#x2F;RefCell&lt;&#x2F;td&gt;&lt;td&gt;Mutex&#x2F;RwLock&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;OnceCell&lt;&#x2F;td&gt;&lt;td&gt;OncelLock&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+</content>
+        
+    </entry>
+</feed>

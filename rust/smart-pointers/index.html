@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="https://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="https://aqrun.com/abridge-switcher.css?h=4e5c90d051658432e152" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="https://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="https://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="https://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Rust 智能指针 | 光鹿跑冰</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="光鹿跑冰" />
+  <meta name="description" content="指针（pointer）是一个包含内存地址的变量的通用概念，智能指针（smart pointers）是一类数据结构，它们的表现类似指针，但是也拥有额外的元数据和功能" />
+  <link rel="canonical" href="https://aqrun.com/rust/smart-pointers/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="https://aqrun.com/rust/smart-pointers/" />
+  <meta name="twitter:url" content="https://aqrun.com/rust/smart-pointers/" />
+  <meta property="og:description" content="指针（pointer）是一个包含内存地址的变量的通用概念，智能指针（smart pointers）是一类数据结构，它们的表现类似指针，但是也拥有额外的元数据和功能" />
+  <meta name="twitter:description" content="指针（pointer）是一个包含内存地址的变量的通用概念，智能指针（smart pointers）是一类数据结构，它们的表现类似指针，但是也拥有额外的元数据和功能" />
+  <meta property="og:title" content="Rust 智能指针 | 光鹿跑冰" />
+  <meta name="twitter:title" content="Rust 智能指针 | 光鹿跑冰" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="光鹿跑冰" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2023-12-19" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="https://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="https://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aqrun.com/favicon.ico" />
+  <noscript><link rel="stylesheet" href="https://aqrun.com/nojs.css" /></noscript><div id="wx_pic" style="margin:0 auto;display:none;"><img src="https://cdn.oicnp.com/images/2023/pic300.jpg" />
+</div><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1595a1ffd0fb91f5014d44a66c02dfbd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script></head>
+<body>
+  <header>
+    <nav>
+      <div><h1 class="oic-header-logfile">
+            <a
+               href="https://aqrun.com/"
+               title="子十个人博客"
+            ><img src="https://aqrun.com/icons/logo_default.svg" alt="光鹿跑冰" width="22" height="22" />光鹿跑冰</a>
+          </h1></div>
+      <div>
+        <ul><li> <h2><a href="https://aqrun.com/">首页</a></h2> </li><li> <h2><a href="https://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="https://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+  <div class="oic-content-block">
+    <article class="oic-page">
+        <h1><a href="https://aqrun.com/rust/smart-pointers/">Rust 智能指针</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2023-12-19<span class="hpad"> </span>
+          [<a href="https://aqrun.com/categories/rust/">
+                Rust 语言
+            </a>]
+           #<a href="https://aqrun.com/tags/rust/">rust</a>  #<a href="https://aqrun.com/tags/zhi-neng-zhi-zhen/">智能指针</a>  #<a href="https://aqrun.com/tags/yin-yong-ji-shu/">引用计数</a>  #<a href="https://aqrun.com/tags/zhi-zhen/">指针</a> </span>
+
+    <p>指针 （pointer）是一个包含内存地址的变量的通用概念。这个地址引用，
+或 “指向”（points at）一些其他数据。Rust 中最常见的指针是引用（reference）。
+引用以 &amp; 符号为标志并借用了它们所指向的值。
+除了引用数据没有任何其他特殊功能，也没有额外开销。</p>
+<p>智能指针（smart pointers）是一类数据结构，它们的表现类似指针，但是也拥有额外的元数据和功能。
+智能指针的概念并不为 Rust 所独有；其起源于 C++ 并存在于其他语言中。
+Rust 标准库中定义了多种不同的智能指针，它们提供了多于引用的额外功能。
+如引用计数 （reference counting）智能指针类型。这种指针允许数据有多个所有者，
+它会记录所有者的数量，当没有所有者时清理数据。在 Rust 中因为引用和借用，
+普通引用和智能指针的一个额外的区别是引用是一类只借用数据的指针；
+相反，在大部分情况下，智能指针 拥有 它们指向的数据。</p>
+<p>常见的智能指针：</p>
+<ul>
+<li>Box<T> 用于在堆上分配值</li>
+<li>Rc<T>/Week<T> 一个引用计数类型，其数据可以有多个所有者</li>
+<li>Cell<T>/RefCell<T>/OnceCell<T> 在运行时而不是在编译时执行借用规则</li>
+</ul>
+<h2 id="dui-zhi-neng-zhi-zhen-box">堆智能指针 Box<T></h2>
+<p>通常数据都是存储在栈中。Box指针可将数据存储到堆中。</p>
+<ul>
+<li>数据较大时，又不想在转移所有权时进行数据拷贝</li>
+<li>类型大小在编译期无法确定，但又需要固定大小的类型时</li>
+<li>当你需要一个数据，但你只关心它的类型实现了
+指定的特型（Trait），而不是具体类型</li>
+</ul>
+<h2 id="yin-yong-ji-shu-zhi-neng-zhi-zhen-rc">引用计数智能指针 Rc<T></h2>
+<p>在Rust中一个数据同一时间只能存在一个所有者，
+但Rc可以让数据同时拥有多个所有者。</p>
+<p>Rc循环引用时会生成数据永不会释放，这种情况下就可以
+使用Weak打破循环引用。如树结构父节点可以使用Rc
+强引用子节点，而子节点可以使用Weak弱引用父节点</p>
+<h2 id="gong-xiang-ke-bian-rong-qi-zhi-zhen-cell-refcell-oncecell">共享可变容器指针 Cell<T>\RefCell<T>\OnceCell<T></h2>
+<p>Rust中一个重要的设计模式-内部可变性（Interior mutability）
+允许你在数据存在多个不可变引用时可以修改数据</p>
+<p>Cell 和 RefCell功能上一毛一样，
+唯一区别是 Cell<T> 只适用于 T 实现了 Copy 的情况</p>
+<p>RefCell可以让借用规则检查从编译时转移到运行时。
+即使数据有多个不可变引用，你依然可以修改数据。
+这个检查并不能绕过，苍天饶过谁，如果有错运行时就会panic。</p>
+<p>OncelCell某种程序上是Cell和RefCell和集合体，作用于值
+只能被初始化一次就不能再改动，意味着保存的值不需要移动或复制
+（不同于Cell）同时不需要运行时检查（不同于RefCell）。</p>
+<ul>
+<li>Cell用于实现Copy的数据类型 RefCell用于引用数据类型</li>
+<li>RefCell适用于编译期误报或一个引用被多次使用、修改以至于
+难于管理借用关系时</li>
+</ul>
+<h2 id="shi-yong-zong-jie">使用总结</h2>
+<ul>
+<li>Rc让数据可以拥有多个所有者，Box\RefCell只能有一个所有者</li>
+<li>Box可变不可变借用检查在编译期，Rc编译期只检测不可变借用，
+RefCell可变不可变借用检查都在运行时</li>
+<li>由于RefCell允许运行时借用检查，所以可以修改RefCell的内部值</li>
+</ul>
+<table><thead><tr><th>单线程</th><th>多线程</th></tr></thead><tbody>
+<tr><td>Rc/Weak</td><td>Arc/Weak</td></tr>
+<tr><td>Cell/RefCell</td><td>Mutex/RwLock</td></tr>
+<tr><td>OnceCell</td><td>OncelLock</td></tr>
+</tbody></table>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+    <div class="toc" aria-hidden="true">
+      <div class="toc-sticky">
+        <h3>目录</h3>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/smart-pointers/#dui-zhi-neng-zhi-zhen-box">堆智能指针 Box</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/smart-pointers/#yin-yong-ji-shu-zhi-neng-zhi-zhen-rc">引用计数智能指针 Rc</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/smart-pointers/#gong-xiang-ke-bian-rong-qi-zhi-zhen-cell-refcell-oncecell">共享可变容器指针 Cell\RefCell\OnceCell</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/smart-pointers/#shi-yong-zong-jie">使用总结</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oic-comment-wrapper"><script src="https://giscus.app/client.js"
+  data-repo="aqrun/aqrun.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkxNzA4Njk2MA=="
+  data-category="blog-comments"
+  data-category-id="DIC_kwDOAQS58M4CZAme"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+  </div>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="https://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2023 光鹿跑冰</p>
+      <nav>
+        <ul><li class="s90"> <a href="https://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="https://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="https://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="https://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+    <span class="topleft"> </span>
+    <a href="#" class="top" title="Back to Top">
+        <i class="svgs svgh angu"></i>
+    </a>
+</span>
+</body>
+</html>
