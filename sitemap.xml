@@ -167,6 +167,10 @@
         <lastmod>2023-07-05</lastmod>
     </url>
     <url>
+        <loc>https://aqrun.com/diary/merge-json/</loc>
+        <lastmod>2024-01-02</lastmod>
+    </url>
+    <url>
         <loc>https://aqrun.com/diary/poem-share-data-to-graphql/</loc>
         <lastmod>2023-07-26</lastmod>
     </url>
@@ -430,6 +434,9 @@
     </url>
     <url>
         <loc>https://aqrun.com/tags/grid/</loc>
+    </url>
+    <url>
+        <loc>https://aqrun.com/tags/he-bing/</loc>
     </url>
     <url>
         <loc>https://aqrun.com/tags/helix/</loc>
