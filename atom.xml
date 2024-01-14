@@ -28,7 +28,7 @@ procedural macros — Rust code that generates Rust code.&lt;&#x2F;em&gt;&lt;&#x
 the 5 projects here, 3 are macros that I have personally implemented in
 industrial codebases for work, and the other 2 exist as libraries on crates.io
 by other authors.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;em&gt;这些项目中的都来自的真实项目用例。共有5个项目，其中3个是我自己基于工作中代码实现的，另外两个是其它作者实现的作为库存在于create.io上。&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;这些项目都来自的真实项目用例。共有5个项目，其中3个是我自己基于工作中代码实现的，另外两个是其它作者实现的作为库存在于 create.io 上。&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
 &lt;br&gt;
 &lt;h2 id=&quot;contents&quot;&gt;Contents&lt;&#x2F;h2&gt;
 &lt;h2 id=&quot;nei-rong-mu-lu&quot;&gt;内容目录&lt;&#x2F;h2&gt;
@@ -58,14 +58,14 @@ by other authors.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;xian-jue-tiao-jian&quot;&gt;先决条件&lt;&#x2F;h2&gt;
 &lt;p&gt;This workshop covers attribute macros, derive macros, and function-like
 procedural macros.&lt;&#x2F;p&gt;
-&lt;p&gt;这个项目涉及属性宏、派生宏和类函数过程宏。&lt;&#x2F;p&gt;
+&lt;p&gt;该项目涉及属性宏、派生宏和类函数过程宏。&lt;&#x2F;p&gt;
 &lt;p&gt;Be aware that the content of the workshop and the explanations in this repo will
 assume a working understanding of structs, enums, traits, trait impls, generic
 parameters, and trait bounds. You are welcome to dive into the workshop with any
 level of experience with Rust, but you may find that these basics are far easier
 to learn for the first time outside of the context of macros.&lt;&#x2F;p&gt;
-&lt;p&gt;请注意，本项目内容和文档中的解释假设你已经理解结构体、枚举、特型、特型 impls、泛型参数等知识。
-任何Rust经验层级的开发都可以深入到本项目，但你会发现相比宏内容这些基础知识要简单的多。&lt;&#x2F;p&gt;
+&lt;p&gt;请注意，本项目内容和文档中的解释假设你已经理解结构体、枚举、特型、特型实现、泛型参数等知识。
+任何 Rust 经验层级的开发者都可以深入到本项目，但你会发现相比宏内容这些基础知识要简单的多。&lt;&#x2F;p&gt;
 &lt;br&gt;
 &lt;h2 id=&quot;projects&quot;&gt;Projects&lt;&#x2F;h2&gt;
 &lt;h2 id=&quot;xiang-mu&quot;&gt;项目&lt;&#x2F;h2&gt;
@@ -73,7 +73,7 @@ to learn for the first time outside of the context of macros.&lt;&#x2F;p&gt;
 recommendations for what order to tackle them based on your interests. Note that
 each of these projects goes into more depth than what is described in the
 introduction here.&lt;&#x2F;p&gt;
-&lt;p&gt;下面是对每个项目的介绍。下最下面，我会根据你的兴趣为你提供一些解决问题的顺序建议。请注意,
+&lt;p&gt;下面是对每个项目的介绍。在最后，我会根据你的兴趣为你提供一些解决问题的顺序建议。请注意,
 每个项目实际功能都比这里的描述更深入一些。&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;derive-macro-derive-builder&quot;&gt;Derive macro:&lt;code&gt;derive(Builder)&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
 &lt;h3 id=&quot;pai-sheng-hong-derive-builder&quot;&gt;派生宏： &lt;code&gt;derive(Builder)&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
@@ -81,15 +81,15 @@ introduction here.&lt;&#x2F;p&gt;
 pattern&lt;&#x2F;a&gt; in Rust. Builders are a mechanism for instantiating structs, especially
 structs with many fields, and especially if many of those fields are optional or
 the set of fields may need to grow backward compatibly over time.&lt;&#x2F;p&gt;
-&lt;p&gt;该宏生成实现[构建器模式]所涉及的样板代码模式。构造器是一种实例化结构体的机制具有许多字段的结构，
-特别是如果其中许多字段是可选的或字段集可能需要随着时间的推移向后兼容地增长。&lt;&#x2F;p&gt;
+&lt;p&gt;该宏生成实现Rust中 [构造器模式] 所涉及的样板代码。构造器是一种实例化结构体的机制，特别是具有许多字段的结构体，
+且如果其中许多字段是可选的或字段集可能需要随着时间的推移向后兼容地增长。&lt;&#x2F;p&gt;
 &lt;p&gt;There are a few different possibilities for expressing builders in Rust. Unless
 you have a strong pre-existing preference, to keep things simple for this
 project I would recommend following the example of the standard library&#x27;s
 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;process&#x2F;struct.Command.html&quot;&gt;&lt;code&gt;std::process::Command&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; builder in which the setter methods each receive and
 return &lt;code&gt;&amp;amp;mut self&lt;&#x2F;code&gt; to allow chained method calls.&lt;&#x2F;p&gt;
-&lt;p&gt;Rust中构建器模式有几种不同的实现方式，除非你有特殊的癖好，为了这个项目的简洁，我建议遵循标准库的
-&lt;code&gt;std::process:Command&lt;&#x2F;code&gt;构建器，基中setter方法逐个接收和返回 &lt;code&gt;&amp;amp;mut self&lt;&#x2F;code&gt; 以方便链式调用。&lt;&#x2F;p&gt;
+&lt;p&gt;Rust中构造器模式有几种不同的实现方式，除非你有特殊的癖好，为了这个项目的简洁，我建议遵循标准库的
+&lt;code&gt;std::process:Command&lt;&#x2F;code&gt; 构造器，基中setter方法逐个接收和返回 &lt;code&gt;&amp;amp;mut self&lt;&#x2F;code&gt; 以方便链式调用。&lt;&#x2F;p&gt;
 &lt;p&gt;Callers will invoke the macro as follows.&lt;&#x2F;p&gt;
 &lt;p&gt;调用者会按如下方式使用宏。&lt;&#x2F;p&gt;
 &lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;derive_builder&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Builder&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;

@@ -96,7 +96,7 @@ procedural macros — Rust code that generates Rust code.</em></p>
 the 5 projects here, 3 are macros that I have personally implemented in
 industrial codebases for work, and the other 2 exist as libraries on crates.io
 by other authors.</em></p>
-<p><em>这些项目中的都来自的真实项目用例。共有5个项目，其中3个是我自己基于工作中代码实现的，另外两个是其它作者实现的作为库存在于create.io上。</em></p>
+<p><em>这些项目都来自的真实项目用例。共有5个项目，其中3个是我自己基于工作中代码实现的，另外两个是其它作者实现的作为库存在于 create.io 上。</em></p>
 <br>
 <h2 id="contents">Contents</h2>
 <h2 id="nei-rong-mu-lu">内容目录</h2>
@@ -126,14 +126,14 @@ by other authors.</em></p>
 <h2 id="xian-jue-tiao-jian">先决条件</h2>
 <p>This workshop covers attribute macros, derive macros, and function-like
 procedural macros.</p>
-<p>这个项目涉及属性宏、派生宏和类函数过程宏。</p>
+<p>该项目涉及属性宏、派生宏和类函数过程宏。</p>
 <p>Be aware that the content of the workshop and the explanations in this repo will
 assume a working understanding of structs, enums, traits, trait impls, generic
 parameters, and trait bounds. You are welcome to dive into the workshop with any
 level of experience with Rust, but you may find that these basics are far easier
 to learn for the first time outside of the context of macros.</p>
-<p>请注意，本项目内容和文档中的解释假设你已经理解结构体、枚举、特型、特型 impls、泛型参数等知识。
-任何Rust经验层级的开发都可以深入到本项目，但你会发现相比宏内容这些基础知识要简单的多。</p>
+<p>请注意，本项目内容和文档中的解释假设你已经理解结构体、枚举、特型、特型实现、泛型参数等知识。
+任何 Rust 经验层级的开发者都可以深入到本项目，但你会发现相比宏内容这些基础知识要简单的多。</p>
 <br>
 <h2 id="projects">Projects</h2>
 <h2 id="xiang-mu">项目</h2>
@@ -141,7 +141,7 @@ to learn for the first time outside of the context of macros.</p>
 recommendations for what order to tackle them based on your interests. Note that
 each of these projects goes into more depth than what is described in the
 introduction here.</p>
-<p>下面是对每个项目的介绍。下最下面，我会根据你的兴趣为你提供一些解决问题的顺序建议。请注意,
+<p>下面是对每个项目的介绍。在最后，我会根据你的兴趣为你提供一些解决问题的顺序建议。请注意,
 每个项目实际功能都比这里的描述更深入一些。</p>
 <h3 id="derive-macro-derive-builder">Derive macro:<code>derive(Builder)</code></h3>
 <h3 id="pai-sheng-hong-derive-builder">派生宏： <code>derive(Builder)</code></h3>
@@ -149,15 +149,15 @@ introduction here.</p>
 pattern</a> in Rust. Builders are a mechanism for instantiating structs, especially
 structs with many fields, and especially if many of those fields are optional or
 the set of fields may need to grow backward compatibly over time.</p>
-<p>该宏生成实现[构建器模式]所涉及的样板代码模式。构造器是一种实例化结构体的机制具有许多字段的结构，
-特别是如果其中许多字段是可选的或字段集可能需要随着时间的推移向后兼容地增长。</p>
+<p>该宏生成实现Rust中 [构造器模式] 所涉及的样板代码。构造器是一种实例化结构体的机制，特别是具有许多字段的结构体，
+且如果其中许多字段是可选的或字段集可能需要随着时间的推移向后兼容地增长。</p>
 <p>There are a few different possibilities for expressing builders in Rust. Unless
 you have a strong pre-existing preference, to keep things simple for this
 project I would recommend following the example of the standard library's
 <a rel="noopener" target="_blank" href="https://doc.rust-lang.org/std/process/struct.Command.html"><code>std::process::Command</code></a> builder in which the setter methods each receive and
 return <code>&amp;mut self</code> to allow chained method calls.</p>
-<p>Rust中构建器模式有几种不同的实现方式，除非你有特殊的癖好，为了这个项目的简洁，我建议遵循标准库的
-<code>std::process:Command</code>构建器，基中setter方法逐个接收和返回 <code>&amp;mut self</code> 以方便链式调用。</p>
+<p>Rust中构造器模式有几种不同的实现方式，除非你有特殊的癖好，为了这个项目的简洁，我建议遵循标准库的
+<code>std::process:Command</code> 构造器，基中setter方法逐个接收和返回 <code>&amp;mut self</code> 以方便链式调用。</p>
 <p>Callers will invoke the macro as follows.</p>
 <p>调用者会按如下方式使用宏。</p>
 <pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">derive_builder<span class="z-punctuation z-accessor z-rust">::</span></span>Builder<span class="z-punctuation z-terminator z-rust">;</span>
