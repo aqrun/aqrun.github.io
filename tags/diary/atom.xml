@@ -5,8 +5,502 @@
     <link href="https://aqrun.com/tags/diary/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="https://aqrun.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2024-01-02T00:00:00+00:00</updated>
+    <updated>2024-01-14T00:00:00+00:00</updated>
     <id>https://aqrun.com/tags/diary/atom.xml</id>
+    <entry xml:lang="en">
+        <title>(译文)Rust 拉丁美州：过程宏工坊</title>
+        <published>2024-01-14T00:00:00+00:00</published>
+        <updated>2024-01-14T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://aqrun.com/diary/syn-procedural-macros-workshop-readme/" type="text/html"/>
+        <id>https://aqrun.com/diary/syn-procedural-macros-workshop-readme/</id>
+        
+        <content type="html">&lt;h1 id=&quot;rust-latam-procedural-macros-workshop&quot;&gt;Rust Latam: procedural macros workshop&lt;&#x2F;h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;proc-macro-workshop&quot;&gt;原文档链接《Syn 过程宏工坊项目 ReadMe》&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;&lt;em&gt;This repo contains a selection of projects designed to learn to write Rust
+procedural macros — Rust code that generates Rust code.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;这个repo包含了一些旨在学习编写 Rust 的项目过程宏;生成 Rust 代码的 Rust 代码&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;Each of these projects is drawn closely from a compelling real use case. Out of
+the 5 projects here, 3 are macros that I have personally implemented in
+industrial codebases for work, and the other 2 exist as libraries on crates.io
+by other authors.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;这些项目中的都来自的真实项目用例。共有5个项目，其中3个是我自己基于工作中代码实现的，另外两个是其它作者实现的作为库存在于create.io上。&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;br&gt;
+&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;nei-rong-mu-lu&quot;&gt;内容目录&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#rust-latam-procedural-macros-workshop&quot;&gt;Rust 拉丁美州：过程宏工坊&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#contents&quot;&gt;内容&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#suggested-prerequisites&quot;&gt;先决条件&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#projects&quot;&gt;项目&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#derive-macro-derive-builder&quot;&gt;派生宏 Derive macro: &lt;code&gt;derive(Builder)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#derive-macro-derive-customdebug&quot;&gt;派生宏 Derive macro: &lt;code&gt;derive(CustomDebug)&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#function-like-macro-seq&quot;&gt;类函数宏 Function-like macro: &lt;code&gt;seq!&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#attribute-macro-sorted&quot;&gt;属性宏 Attribute macro: &lt;code&gt;#[sorted]&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#attribute-macro-bitfield&quot;&gt;属性宏 Attribute macro: &lt;code&gt;#[bitfield]&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#project-recommendations&quot;&gt;项目建议 Project recommendations&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#test-harness&quot;&gt;测试工具&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#workflow&quot;&gt;工作流&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;aqrun.com&#x2F;diary&#x2F;syn-procedural-macros-workshop-readme&#x2F;#debugging-tips&quot;&gt;调试建议&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;br&gt;
+&lt;h2 id=&quot;suggested-prerequisites&quot;&gt;Suggested prerequisites&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;xian-jue-tiao-jian&quot;&gt;先决条件&lt;&#x2F;h2&gt;
+&lt;p&gt;This workshop covers attribute macros, derive macros, and function-like
+procedural macros.&lt;&#x2F;p&gt;
+&lt;p&gt;这个项目涉及属性宏、派生宏和类函数过程宏。&lt;&#x2F;p&gt;
+&lt;p&gt;Be aware that the content of the workshop and the explanations in this repo will
+assume a working understanding of structs, enums, traits, trait impls, generic
+parameters, and trait bounds. You are welcome to dive into the workshop with any
+level of experience with Rust, but you may find that these basics are far easier
+to learn for the first time outside of the context of macros.&lt;&#x2F;p&gt;
+&lt;p&gt;请注意，本项目内容和文档中的解释假设你已经理解结构体、枚举、特型、特型 impls、泛型参数等知识。
+任何Rust经验层级的开发都可以深入到本项目，但你会发现相比宏内容这些基础知识要简单的多。&lt;&#x2F;p&gt;
+&lt;br&gt;
+&lt;h2 id=&quot;projects&quot;&gt;Projects&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;xiang-mu&quot;&gt;项目&lt;&#x2F;h2&gt;
+&lt;p&gt;Here is an introduction to each of the projects. At the bottom, I give
+recommendations for what order to tackle them based on your interests. Note that
+each of these projects goes into more depth than what is described in the
+introduction here.&lt;&#x2F;p&gt;
+&lt;p&gt;下面是对每个项目的介绍。下最下面，我会根据你的兴趣为你提供一些解决问题的顺序建议。请注意,
+每个项目实际功能都比这里的描述更深入一些。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;derive-macro-derive-builder&quot;&gt;Derive macro:&lt;code&gt;derive(Builder)&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;pai-sheng-hong-derive-builder&quot;&gt;派生宏： &lt;code&gt;derive(Builder)&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This macro generates the boilerplate code involved in implementing the &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Builder_pattern&quot;&gt;builder
+pattern&lt;&#x2F;a&gt; in Rust. Builders are a mechanism for instantiating structs, especially
+structs with many fields, and especially if many of those fields are optional or
+the set of fields may need to grow backward compatibly over time.&lt;&#x2F;p&gt;
+&lt;p&gt;该宏生成实现[构建器模式]所涉及的样板代码模式。构造器是一种实例化结构体的机制具有许多字段的结构，
+特别是如果其中许多字段是可选的或字段集可能需要随着时间的推移向后兼容地增长。&lt;&#x2F;p&gt;
+&lt;p&gt;There are a few different possibilities for expressing builders in Rust. Unless
+you have a strong pre-existing preference, to keep things simple for this
+project I would recommend following the example of the standard library&#x27;s
+&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;process&#x2F;struct.Command.html&quot;&gt;&lt;code&gt;std::process::Command&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; builder in which the setter methods each receive and
+return &lt;code&gt;&amp;amp;mut self&lt;&#x2F;code&gt; to allow chained method calls.&lt;&#x2F;p&gt;
+&lt;p&gt;Rust中构建器模式有几种不同的实现方式，除非你有特殊的癖好，为了这个项目的简洁，我建议遵循标准库的
+&lt;code&gt;std::process:Command&lt;&#x2F;code&gt;构建器，基中setter方法逐个接收和返回 &lt;code&gt;&amp;amp;mut self&lt;&#x2F;code&gt; 以方便链式调用。&lt;&#x2F;p&gt;
+&lt;p&gt;Callers will invoke the macro as follows.&lt;&#x2F;p&gt;
+&lt;p&gt;调用者会按如下方式使用宏。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;derive_builder&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Builder&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;Builder&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-struct z-rust&quot;&gt;struct&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-entity z-name z-struct z-rust&quot;&gt;Command&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;executable&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; String,
+    &lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;builder&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;each &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;arg&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;args&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-support z-type z-rust&quot;&gt;Vec&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-type z-rust&quot;&gt;String&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;,
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;current_dir&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-support z-type z-rust&quot;&gt;Option&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-type z-rust&quot;&gt;String&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;,
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; command &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Command&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;builder&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+        &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;executable&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;cargo&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;to_owned&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+        &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;arg&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;build&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;to_owned&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+        &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;arg&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;--release&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;to_owned&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+        &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;build&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+        &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;unwrap&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;assert_eq!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;command&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;executable&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;cargo&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This project covers:&lt;&#x2F;p&gt;
+&lt;p&gt;本项目涉及：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;traversing syntax trees;&lt;&#x2F;li&gt;
+&lt;li&gt;遍历语法树&lt;&#x2F;li&gt;
+&lt;li&gt;constructing output source code;&lt;&#x2F;li&gt;
+&lt;li&gt;构造输出源代码&lt;&#x2F;li&gt;
+&lt;li&gt;processing helper attributes to customize the generated code.&lt;&#x2F;li&gt;
+&lt;li&gt;处理帮助器属性来自定义生成的代码。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Project skeleton is located under the &lt;kbd&gt;builder&lt;&#x2F;kbd&gt; directory.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;项目结构位于 &lt;kbd&gt;builder&lt;&#x2F;dbd&gt; 目录。&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;derive-macro-derive-customdebug&quot;&gt;Derive macro: &lt;code&gt;derive(CustomDebug)&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;pai-sheng-hong-derive-customdebug&quot;&gt;派生宏：&lt;code&gt;derive(CustomDebug)&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This macro implements a derive for the standard library &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;fmt&#x2F;trait.Debug.html&quot;&gt;&lt;code&gt;std::fmt::Debug&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+trait that is more customizable than the similar &lt;code&gt;Debug&lt;&#x2F;code&gt; derive macro exposed by
+the standard library.&lt;&#x2F;p&gt;
+&lt;p&gt;该宏实现了标准库的 &lt;code&gt;std::fmt::Debug&lt;&#x2F;code&gt; 特型，但相比标准库的 &lt;code&gt;Debug&lt;&#x2F;code&gt; 派生宏更灵活。&lt;&#x2F;p&gt;
+&lt;p&gt;In particular, we&#x27;d like to be able to select the formatting used for individual
+struct fields by providing a format string in the style expected by Rust string
+formatting macros like &lt;code&gt;format!&lt;&#x2F;code&gt; and &lt;code&gt;println!&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;特别是，我们希望能够为每个字段指定像标准库格式化宏 &lt;code&gt;formt!&lt;&#x2F;code&gt; 和 &lt;code&gt;println!&lt;&#x2F;code&gt; 一样的格式化字段串。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;derive_debug&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;CustomDebug&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;CustomDebug&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-struct z-rust&quot;&gt;struct&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-entity z-name z-struct z-rust&quot;&gt;Field&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;name&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; String,
+    &lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;debug&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;0b{:08b}&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;bitmask&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;,
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here, one possible instance of the struct above might be printed by its
+generated &lt;code&gt;Debug&lt;&#x2F;code&gt; impl like this:&lt;&#x2F;p&gt;
+&lt;p&gt;这里，上面结构体的某个实例会使用它的 &lt;code&gt;Debug&lt;&#x2F;code&gt; 实现打印如下信息：&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;console&quot; class=&quot;language-console z-code&quot;&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Field { name: &amp;quot;st0&amp;quot;, bitmask: 0b00011100 }
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This project covers:&lt;&#x2F;p&gt;
+&lt;p&gt;本项目涉及：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;traversing syntax trees;&lt;&#x2F;li&gt;
+&lt;li&gt;遍历语法树&lt;&#x2F;li&gt;
+&lt;li&gt;constructing output source code;&lt;&#x2F;li&gt;
+&lt;li&gt;构造输出源代码&lt;&#x2F;li&gt;
+&lt;li&gt;processing helper attributes;&lt;&#x2F;li&gt;
+&lt;li&gt;处理帮助器属性&lt;&#x2F;li&gt;
+&lt;li&gt;dealing with lifetime parameters and type parameters;&lt;&#x2F;li&gt;
+&lt;li&gt;处理生命周期参数和类型参数&lt;&#x2F;li&gt;
+&lt;li&gt;inferring trait bounds on generic parameters of trait impls;&lt;&#x2F;li&gt;
+&lt;li&gt;根据特型实现（impls）中的泛型参数推断特型约束&lt;&#x2F;li&gt;
+&lt;li&gt;limitations of derive&#x27;s ability to emit universally correct trait bounds.&lt;&#x2F;li&gt;
+&lt;li&gt;根据特型能力的局限性派生出通用正确的特型约束&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Project skeleton is located under the &lt;kbd&gt;debug&lt;&#x2F;kbd&gt; directory.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;项目结构位于 &lt;kbd&gt;debug&lt;&#x2F;kbd&gt; 目录&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;function-like-macro-seq&quot;&gt;Function-like macro: &lt;code&gt;seq!&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;lei-han-shu-hong-seq&quot;&gt;类函数宏：&lt;code&gt;seq!&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This macro provides a syntax for stamping out sequentially indexed copies of an
+arbitrary chunk of code.&lt;&#x2F;p&gt;
+&lt;p&gt;该宏提供了一种语法，用于消除按顺序索引的重复性的任意代码块。&lt;&#x2F;p&gt;
+&lt;p&gt;For example our application may require an enum with sequentially numbered
+variants like &lt;code&gt;Cpu0&lt;&#x2F;code&gt; &lt;code&gt;Cpu1&lt;&#x2F;code&gt; &lt;code&gt;Cpu2&lt;&#x2F;code&gt; ... &lt;code&gt;Cpu511&lt;&#x2F;code&gt;. But note that the same &lt;code&gt;seq!&lt;&#x2F;code&gt;
+macro should work for any sort of compile-time loop; there is nothing specific
+to emitting enum variants. A different caller might use it for generating an
+expression like &lt;code&gt;tuple.0 + tuple.1 + ... + tuple.511&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;例如我们的应用可能需要一个顺序编号的枚举如：&lt;code&gt;Cpu0&lt;&#x2F;code&gt; &lt;code&gt;Cpu1&lt;&#x2F;code&gt; &lt;code&gt;Cpu2&lt;&#x2F;code&gt; ... &lt;code&gt;Cpu511&lt;&#x2F;code&gt;。
+但请注意同样的 &lt;code&gt;seq!&lt;&#x2F;code&gt; 宏应该适用于任何类型的编译时循环，生成枚举变量没什么特殊的。
+其它调用者可能用他生成表达式：&lt;code&gt;tuple.0 + tuple1 + ... + tuple.511&lt;&#x2F;code&gt;。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;seq&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;seq&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;seq!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;N &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-range z-rust&quot;&gt;..&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;512&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;Copy&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; Clone&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; PartialEq&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; Debug&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-enum z-rust&quot;&gt;enum&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-enum z-rust&quot;&gt;Processor&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+        &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;
+            Cpu&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;~&lt;&#x2F;span&gt;N&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+        &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt;
+    &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; cpu &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Processor&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Cpu8&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;assert_eq!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;cpu &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;as&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;assert_eq!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;cpu&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Processor&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Cpu8&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This project covers:&lt;&#x2F;p&gt;
+&lt;p&gt;该项目涉及：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;parsing custom syntax;&lt;&#x2F;li&gt;
+&lt;li&gt;解析自定义语法&lt;&#x2F;li&gt;
+&lt;li&gt;low-level representation of token streams;&lt;&#x2F;li&gt;
+&lt;li&gt;记法流的低级表示&lt;&#x2F;li&gt;
+&lt;li&gt;constructing output source code.&lt;&#x2F;li&gt;
+&lt;li&gt;构建生成源代码&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Project skeleton is located under the &lt;kbd&gt;seq&lt;&#x2F;kbd&gt; directory.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;该项目位于 &lt;kdb&gt;seq&lt;&#x2F;kdb&gt; 目录&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;attribute-macro-sorted&quot;&gt;Attribute macro: &lt;code&gt;#[sorted]&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;shu-xing-hong-sorted&quot;&gt;属性宏: &lt;code&gt;#[sorted]&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;A macro for when your coworkers (or you yourself) cannot seem to keep enum
+variants in sorted order when adding variants or refactoring. The macro will
+detect unsorted variants at compile time and emit an error pointing out which
+variants are out of order.&lt;&#x2F;p&gt;
+&lt;p&gt;当你给枚举体添加成员或改造时枚举成员没有按顺序存放，该宏会在编译期检测出未排序的成员，
+并报错指出哪个成员顺序有误。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;sorted&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;Debug&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-enum z-rust&quot;&gt;enum&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-enum z-rust&quot;&gt;Error&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    BlockSignal&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;signal&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    CreateCrasClient&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;libcras&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    CreateEventFd&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;sys_util&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    CreateSignalFd&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;sys_util&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;SignalFdError&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    CreateSocket&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;io&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    DetectImageType&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;qcow&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    DeviceJail&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;io_jail&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    NetDeviceNew&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;virtio&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;NetError&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+    SpawnVcpu&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;io&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;Error&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This project covers:&lt;&#x2F;p&gt;
+&lt;p&gt;该项目涉及：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;compile-time error reporting;&lt;&#x2F;li&gt;
+&lt;li&gt;编译器错误报告&lt;&#x2F;li&gt;
+&lt;li&gt;application of visitor pattern to traverse a syntax tree;&lt;&#x2F;li&gt;
+&lt;li&gt;使用访问者模式遍历语法树&lt;&#x2F;li&gt;
+&lt;li&gt;limitations of the currently stable macro API and some ways to work around
+them.&lt;&#x2F;li&gt;
+&lt;li&gt;当前稳定的宏API的局限和一些相关解决办法。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Project skeleton is located under the &lt;kbd&gt;sorted&lt;&#x2F;kbd&gt; directory.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;该项目位于 &lt;kbd&gt;sorted&lt;&#x2F;kbd&gt; 目录&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;attribute-macro-bitfield&quot;&gt;Attribute macro: &lt;code&gt;#[bitfield]&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;shu-xing-hong-bitfield&quot;&gt;属性宏：&lt;code&gt;#[bitfield]&lt;&#x2F;code&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;This macro provides a mechanism for defining structs in a packed binary
+representation with access to ranges of bits, similar to the language-level
+support for &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.cppreference.com&#x2F;w&#x2F;cpp&#x2F;language&#x2F;bit_field&quot;&gt;bit fields in C&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;该宏提供了一种在打包的二进制文件中定义结构体的机制，可以访问位范围的表示。类似于语言级别支持[位字段在C]&lt;&#x2F;p&gt;
+&lt;p&gt;The macro will conceptualize one of these structs as a sequence of bits 0..N.
+The bits are grouped into fields in the order specified by a struct written by
+the caller. The &lt;code&gt;#[bitfield]&lt;&#x2F;code&gt; attribute rewrites the caller&#x27;s struct into a
+private byte array representation with public getter and setter methods for each
+field.&lt;&#x2F;p&gt;
+&lt;p&gt;该宏将这些结构体概念化为0到N的位序列。这些位按照结构体指定的顺序分组到字段中。
+&lt;code&gt;#[bitfield]&lt;&#x2F;code&gt; 属性将调用者的结构体重写为私有字节数组表示，每个字段都有公开的getter和setter方法。&lt;&#x2F;p&gt;
+&lt;p&gt;The total number of bits N is required to be a multiple of 8 (this will be
+checked at compile time).&lt;&#x2F;p&gt;
+&lt;p&gt;总比特数N需要是8的倍数（这将在编译时检查）。&lt;&#x2F;p&gt;
+&lt;p&gt;For example, the following invocation builds a struct with a total size of 32
+bits or 4 bytes. It places field &lt;code&gt;a&lt;&#x2F;code&gt; in the least significant bit of the first
+byte, field &lt;code&gt;b&lt;&#x2F;code&gt; in the next three least significant bits, field &lt;code&gt;c&lt;&#x2F;code&gt; in the
+remaining four most significant bits of the first byte, and field &lt;code&gt;d&lt;&#x2F;code&gt; spanning
+the next three bytes.&lt;&#x2F;p&gt;
+&lt;p&gt;例如下面的调用构建了一个总大小为32位4比特的结构体。它将字段&lt;code&gt;a&lt;&#x2F;code&gt;放在第一个字段的最低有效位字节，
+字段&lt;code&gt;b&lt;&#x2F;code&gt;在后面三个最低有效位，字段&lt;code&gt;c&lt;&#x2F;code&gt;在第一个字节剩余的四个最高有效位，以及字段&lt;code&gt;d&lt;&#x2F;code&gt;的跨度接下来的三个字节&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;bitfield&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;bitfield&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-struct z-rust&quot;&gt;struct&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-entity z-name z-struct z-rust&quot;&gt;MyFourBytes&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-struct z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;a&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; B1,
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;b&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; B3,
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;c&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; B4,
+    &lt;span class=&quot;z-variable z-other z-member z-rust&quot;&gt;d&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-type z-rust&quot;&gt;:&lt;&#x2F;span&gt; B24,
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;text&quot; class=&quot;language-text z-code&quot;&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;                               least significant bit of third byte
+                                 ┊           most significant
+                                 ┊             ┊
+                                 ┊             ┊
+║  first byte   ║  second byte  ║  third byte   ║  fourth byte  ║
+╟───────────────╫───────────────╫───────────────╫───────────────╢
+║▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒║
+╟─╫─────╫───────╫───────────────────────────────────────────────╢
+║a║  b  ║   c   ║                       d                       ║
+                 ┊                                             ┊
+                 ┊                                             ┊
+               least significant bit of d         most significant
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The code emitted by the &lt;code&gt;#[bitfield]&lt;&#x2F;code&gt; macro for this struct would be as follows.
+Note that the field getters and setters use whichever of &lt;code&gt;u8&lt;&#x2F;code&gt;, &lt;code&gt;u16&lt;&#x2F;code&gt;, &lt;code&gt;u32&lt;&#x2F;code&gt;,
+&lt;code&gt;u64&lt;&#x2F;code&gt; is the smallest while being at least as large as the number of bits in
+the field.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;#[bitfield]&lt;&#x2F;code&gt; 宏对这个结构体生成的代码如下，请注意字段的getters和setters使用 &lt;code&gt;u8&lt;&#x2F;code&gt;, &lt;code&gt;u16&lt;&#x2F;code&gt;, &lt;code&gt;u32&lt;&#x2F;code&gt;,
+&lt;code&gt;u64&lt;&#x2F;code&gt; 是最小的，至少与字段的位数一样大。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-impl z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-impl z-rust&quot;&gt;impl&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-impl z-rust&quot;&gt;&lt;span class=&quot;z-entity z-name z-impl z-rust&quot;&gt;MyFourBytes&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-impl z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; Initializes all fields to 0.
+&lt;&#x2F;span&gt;    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;new&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;Self&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+
+    &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; Field getters and setters:
+&lt;&#x2F;span&gt;    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;get_a&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;set_a&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;, &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;val&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;get_b&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;set_b&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;, &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;val&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;get_c&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;set_c&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;, &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;val&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;get_d&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+    &lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;set_d&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;&amp;amp;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;self&lt;&#x2F;span&gt;, &lt;span class=&quot;z-variable z-parameter z-rust&quot;&gt;val&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This project covers:&lt;&#x2F;p&gt;
+&lt;p&gt;该项目涉及：&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;traversing syntax trees;&lt;&#x2F;li&gt;
+&lt;li&gt;遍历语法树;&lt;&#x2F;li&gt;
+&lt;li&gt;processing helper attributes;&lt;&#x2F;li&gt;
+&lt;li&gt;处理帮助属性;&lt;&#x2F;li&gt;
+&lt;li&gt;constructing output source code;&lt;&#x2F;li&gt;
+&lt;li&gt;构建输出的源代码;&lt;&#x2F;li&gt;
+&lt;li&gt;interacting with traits and structs other than from the standard library;&lt;&#x2F;li&gt;
+&lt;li&gt;与标准库之外的特型和结构体交互;&lt;&#x2F;li&gt;
+&lt;li&gt;techniques for compile-time assertions that require type information, by
+leveraging the trait system in interesting ways from generated code;&lt;&#x2F;li&gt;
+&lt;li&gt;用于需要类型信息的编译时断言技术，从生成的代码中以有趣的方式利用特型系统;&lt;&#x2F;li&gt;
+&lt;li&gt;tricky code.&lt;&#x2F;li&gt;
+&lt;li&gt;棘手的代码。&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;em&gt;Project skeleton is located under the &lt;kbd&gt;bitfield&lt;&#x2F;kbd&gt; directory.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;该项目拉于 &lt;kbd&gt;bitfield&lt;&#x2F;kbd&gt; 目录&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;project-recommendations&quot;&gt;Project recommendations&lt;&#x2F;h3&gt;
+&lt;h3 id=&quot;xiang-mu-jian-yi&quot;&gt;项目建议&lt;&#x2F;h3&gt;
+&lt;p&gt;If this is your first time working with procedural macros, I would recommend
+starting with the &lt;code&gt;derive(Builder)&lt;&#x2F;code&gt; project. This will get you comfortable with
+traversing syntax trees and constructing output source code. These are the two
+fundamental components of a procedural macro.&lt;&#x2F;p&gt;
+&lt;p&gt;如果你是过程性宏新手，建议你从 &lt;code&gt;derive(Builder)&lt;&#x2F;code&gt; 项目开始。该项目会让你适应语法树遍历和构建输出源代码。
+这些是过程宏的2个基础。&lt;&#x2F;p&gt;
+&lt;p&gt;After that, it would be equally reasonable to jump to any of
+&lt;code&gt;derive(CustomDebug)&lt;&#x2F;code&gt;, &lt;code&gt;seq!&lt;&#x2F;code&gt;, or &lt;code&gt;#[sorted]&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;随后这三个项目可以随意选中一个查看。&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Go for &lt;code&gt;derive(CustomDebug)&lt;&#x2F;code&gt; if you are interested in exploring how macros
+manipulate trait bounds, which is one of the most complicated aspects of
+code generation in Rust involving generic code like &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;serde.rs&#x2F;&quot;&gt;Serde&lt;&#x2F;a&gt;. This project
+provides an approachable introduction to trait bounds and digs into many of
+the challenging aspects.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;选择 &lt;code&gt;derive(CustomDebug)&lt;&#x2F;code&gt;, 如果你想了解宏如何操作特型约束，这是Rust中利用泛型生成代码最复杂的一面，像 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;serde.rs&#x2F;&quot;&gt;Serde&lt;&#x2F;a&gt; 一样。这个项目提供了一个平易近人的特型约束介绍，并深入研究了许多具有挑战性的方面&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Go for &lt;code&gt;seq!&lt;&#x2F;code&gt; if you are interested in parsing a custom input syntax yourself.
+The other projects will all mostly rely on parsers that have already been
+written and distributed as a library, since their input is ordinary Rust
+syntax.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;选择 &lt;code&gt;seq!&lt;&#x2F;code&gt;，如果你想了解解析自定义语法。其他项目都将主要依赖于已经存在的解析器并已作为库分发，因为它们的输入是普通的Rust语法&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Go for &lt;code&gt;#[sorted]&lt;&#x2F;code&gt; if you are interested in generating diagnostics (custom
+errors) via a macro. Part of this project also covers a different way of
+processing input syntax trees; the other projects will do most things through
+&lt;code&gt;if let&lt;&#x2F;code&gt;. The visitor approach is better suited to certain types of macros
+involving statements or expressions as we&#x27;ll see here when checking that
+&lt;code&gt;match&lt;&#x2F;code&gt; arms are sorted.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;选择 &lt;code&gt;#[sorted]&lt;&#x2F;code&gt;， 如果你想了解通过宏生成诊断信息（自定义错误）。这个项目还涵盖了不同的方式处理输入语法树;其他项目大部分情况会使用 &lt;code&gt;if let&lt;&#x2F;code&gt;。 访问者方法更适合某些类型的宏包括语句或表达式，就像我们在这里检查时看到的那样 &lt;code&gt;match&lt;&#x2F;code&gt; 的手臂是排序的。&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I would recommend starting on &lt;code&gt;#[bitfield]&lt;&#x2F;code&gt; only after you feel you have a
+strong grasp on at least two of the other projects. Note that completing the
+full intended design will involve writing at least one of all three types of
+procedural macros and substantially more code than the other projects.&lt;&#x2F;p&gt;
+&lt;p&gt;我建议只有在你至少掌握最少2个项目时才开始 &lt;code&gt;#[bitfield]&lt;&#x2F;code&gt;。请注意，完成完整的预期设计将包括编写所有三种类型中的至少一种
+过程宏和比其他项目多得多的代码。&lt;&#x2F;p&gt;
+&lt;br&gt;
+&lt;h2 id=&quot;test-harness&quot;&gt;Test harness&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;ce-shi-yong-li&quot;&gt;测试用例&lt;&#x2F;h2&gt;
+&lt;p&gt;Testing macros thoroughly tends to be tricky. Rust and Cargo have a built-in
+testing framework via &lt;code&gt;cargo test&lt;&#x2F;code&gt; which can work for testing the success cases,
+but we also really care that our macros produce good error message when they
+detect a problem at compile time; Cargo isn&#x27;t able to say that failing to
+compile is considered a success, and isn&#x27;t able to compare that the error
+message produced by the compiler is exactly what we expect.&lt;&#x2F;p&gt;
+&lt;p&gt;彻底测试宏往往很棘手。Rust和Cargo有一个内置的 &lt;code&gt;cargo test&lt;&#x2F;code&gt; 测试框架，可用于测试成功案例;
+但是，我们也很关心宏在编译时检测到一个问题问题是否能产生良好的错误消息;Cargo不能说错误编译被认为是成功的，
+并且不能比对编译器错误正是我们所期望的。&lt;&#x2F;p&gt;
+&lt;p&gt;The project skeletons in this repository use an alternative test harness called
+&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;trybuild&quot;&gt;trybuild&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;该项目使用了一个可选的测试工具：&lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;trybuild&quot;&gt;trybuild&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;#test-harness&quot;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;2024&#x2F;test-harness.png&quot; width=&quot;600&quot;&gt;
+&lt;&#x2F;a&gt;
+&lt;&#x2F;p&gt;
+&lt;p&gt;The test harness is geared toward iterating on the implementation of a
+procedural macro, observing the errors emitted by failed executions of the
+macro, and testing that those errors are as expected.&lt;&#x2F;p&gt;
+&lt;p&gt;测试工具是为了迭代过程宏的实现，观察由于宏执行失败而发出的错误，并测试这些错误是否如预期的那样。&lt;&#x2F;p&gt;
+&lt;br&gt;
+&lt;h2 id=&quot;workflow&quot;&gt;Workflow&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;gong-zuo-liu&quot;&gt;工作流&lt;&#x2F;h2&gt;
+&lt;p&gt;Every project has a test suite already written under its &lt;kbd&gt;tests&lt;&#x2F;kbd&gt;
+directory. (But feel free to add more tests, remove tests for functionality you
+don&#x27;t want to implement, or modify tests as you see fit to align with your
+implementation.)&lt;&#x2F;p&gt;
+&lt;p&gt;每个项目在tests目录都有已实现的测试用例。（但是可以随意添加测试，删除不想实现的功能测试，修改测试以适应你的实现）&lt;&#x2F;p&gt;
+&lt;p&gt;Run &lt;code&gt;cargo test&lt;&#x2F;code&gt; inside any of the 5 top-level project directories to run the
+test suite for that project.&lt;&#x2F;p&gt;
+&lt;p&gt;在5个顶级项目根目录中运行 &lt;code&gt;Cargo test&lt;&#x2F;code&gt; 来执行测试用例。&lt;&#x2F;p&gt;
+&lt;p&gt;Initially every projects starts with all of its tests disabled. Open up the
+project&#x27;s &lt;em&gt;tests&#x2F;progress.rs&lt;&#x2F;em&gt; file and enable tests one at a time as you work
+through the implementation. &lt;strong&gt;The test files (for example &lt;em&gt;tests&#x2F;01-parse.rs&lt;&#x2F;em&gt;)
+each contain a comment explaining what functionality is tested and giving some
+tips for how to implement it.&lt;&#x2F;strong&gt; I recommend working through tests in numbered
+order, each time enabling one more test and getting it passing before moving on.&lt;&#x2F;p&gt;
+&lt;p&gt;默认每个项目的测试用例都是禁用的。在你实现的过程中打开项目的 &lt;em&gt;tests&#x2F;progress.rs&lt;&#x2F;em&gt; 文件并一次只启用一个测试。
+&lt;strong&gt;每个测试文件（如 &lt;em&gt;tests&#x2F;01-parse.rs&lt;&#x2F;em&gt;）都有注释解释测试的功能并提示如何实现它。&lt;&#x2F;strong&gt; 我建议按数字编号完成测试，
+每次启动一个测试，并使其通过，然后再继续。&lt;&#x2F;p&gt;
+&lt;p&gt;Tests come in two flavors: tests that should compile+run successfully, and tests
+that should fail to compile with a specific error message.&lt;&#x2F;p&gt;
+&lt;p&gt;测试有两种类型：应用成功编译+运行的测试，以及编译失败并显示特定的错误信息。&lt;&#x2F;p&gt;
+&lt;p&gt;If a test should compile and run successfully, but fails, the test runner will
+surface the compiler error or runtime error output.&lt;&#x2F;p&gt;
+&lt;p&gt;如果测试应用成功编译并运行，但失败时，测试运行程序将显示编译器错误或运行时错误。&lt;&#x2F;p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;#workflow&quot;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;2024&#x2F;workflow.png&quot; width=&quot;600&quot;&gt;
+&lt;&#x2F;a&gt;
+&lt;&#x2F;p&gt;
+&lt;p&gt;For tests that should fail to compile, we compare the compilation output against
+a file of expected errors for that test. If those errors match, the test is
+considered to pass. If they do not match, the test runner will surface the
+expected and actual output.&lt;&#x2F;p&gt;
+&lt;p&gt;对于应该无法编译的测试，我们将比对编译输出与该测试的预期错误文件。如果这些错误匹配，
+则测试是被认为通过的，如果它们不匹配，则测试运行器将显示预期和实际产出。&lt;&#x2F;p&gt;
+&lt;p&gt;Expected output goes in a file with the same name as the test except with an
+extension of &lt;em&gt;*.stderr&lt;&#x2F;em&gt; instead of &lt;em&gt;*.rs&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;期望的输出放在与测试同名的文件中，只是扩展名是 &lt;em&gt;*.stderr&lt;&#x2F;em&gt; 而不是 &lt;em&gt;*.rs&lt;&#x2F;em&gt;。&lt;&#x2F;p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;#workflow&quot;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;2024&#x2F;workflow2.png&quot; width=&quot;600&quot;&gt;
+&lt;&#x2F;a&gt;
+&lt;&#x2F;p&gt;
+&lt;p&gt;If there is no &lt;em&gt;*.stderr&lt;&#x2F;em&gt; file for a test that is supposed to fail to compile,
+the test runner will save the compiler&#x27;s output into a directory called
+&lt;kbd&gt;wip&lt;&#x2F;kbd&gt; adjacent to the &lt;kbd&gt;tests&lt;&#x2F;kbd&gt; directory. So the way to update
+the &amp;quot;expected&amp;quot; output is to delete the existing &lt;em&gt;*.stderr&lt;&#x2F;em&gt; file, run the tests
+again so that the output is written to &lt;em&gt;wip&lt;&#x2F;em&gt;, and then move the new output from
+&lt;em&gt;wip&lt;&#x2F;em&gt; to &lt;em&gt;tests&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;如果用于编译失败的测试没有生成 &lt;em&gt;*.stderr&lt;&#x2F;em&gt; 文件，测试运行程序将会保存编译器输出到紧邻 &lt;kbd&gt;tests&lt;&#x2F;kbd&gt;
+的 &lt;kbd&gt;wip&lt;&#x2F;kbd&gt; 目录。所以更新&amp;quot;期望&amp;quot;的输入的方法是删除存在的 &lt;em&gt;.*.stderr&lt;&#x2F;em&gt; 文件，再运行一次测试会
+把输出写入 &lt;em&gt;wip&lt;&#x2F;em&gt;，再移动把新生成的输出从 &lt;em&gt;wip&lt;&#x2F;em&gt; 移到 &lt;em&gt;tests&lt;&#x2F;em&gt; 。&lt;&#x2F;p&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;#workflow&quot;&gt;
+&lt;img src=&quot;https:&#x2F;&#x2F;cdn.oicnp.com&#x2F;images&#x2F;2024&#x2F;workflow3.png&quot; width=&quot;600&quot;&gt;
+&lt;&#x2F;a&gt;
+&lt;&#x2F;p&gt;
+&lt;br&gt;
+&lt;h2 id=&quot;debugging-tips&quot;&gt;Debugging tips&lt;&#x2F;h2&gt;
+&lt;h2 id=&quot;diao-shi-jian-yi&quot;&gt;调试建议&lt;&#x2F;h2&gt;
+&lt;p&gt;To look at what code a macro is expanding into, install the &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;cargo-expand&quot;&gt;cargo expand&lt;&#x2F;a&gt; Cargo
+subcommand and then run &lt;code&gt;cargo expand&lt;&#x2F;code&gt; in the repository root (outside of any of
+the project directories) to expand the main.rs file in that directory. You can
+copy any of the test cases into this main.rs and tweak it as you iterate on the
+macro.&lt;&#x2F;p&gt;
+&lt;p&gt;要查看宏展开的代码，安装 Cargo 子命令 &lt;a rel=&quot;noopener&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;cargo-expand&quot;&gt;cargo expand&lt;&#x2F;a&gt; 然后在根目录（在任何项目目录之外）执行 &lt;code&gt;cargo expand&lt;&#x2F;code&gt; 
+来扩展目录的 main.rs 文件。你可以将任何测试用例复制到这个 main.rs 中。并在迭代时进行调整宏。&lt;&#x2F;p&gt;
+&lt;p&gt;If a macro is emitting syntactically invalid code (not just code that fails
+type-checking) then cargo expand will not be able to show it. Instead have the
+macro print its generated TokenStream to stderr before returning the tokens.&lt;&#x2F;p&gt;
+&lt;p&gt;如果宏发出语法上无效的代码(不仅仅是失败代码的类型检查)则货 cargo  expand 将无法显示它。
+取而代之的是宏在返回令牌之前将其生成的 TokenStream 打印到标签错误输出。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;eprintln!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;TOKENS: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; tokens&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then a &lt;code&gt;cargo check&lt;&#x2F;code&gt; in the repository root (if you are iterating using main.rs)
+or &lt;code&gt;cargo test&lt;&#x2F;code&gt; in the corresponding project directory will display this output
+during macro expansion.&lt;&#x2F;p&gt;
+&lt;p&gt;然后在根目录下运行 &lt;code&gt;cargo check&lt;&#x2F;code&gt; （如何你正在使用 main.rs），或在宏扩展期间在对应项目目录执行 &lt;code&gt;cargo test&lt;&#x2F;code&gt;
+也会显示此输出&lt;&#x2F;p&gt;
+&lt;p&gt;Stderr is also a helpful way to see the structure of the syntax tree that gets
+parsed from the input of the macro.&lt;&#x2F;p&gt;
+&lt;p&gt;Stderr 标准输出也是查看从宏的输入解析得到的语法树结构的有用方法&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;eprintln!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;INPUT: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{:#?}&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; syntax_tree&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note that in order for Syn&#x27;s syntax tree types to provide Debug impls, you will
+need to set &lt;code&gt;features = [&amp;quot;extra-traits&amp;quot;]&lt;&#x2F;code&gt; on the dependency on Syn. This is
+because adding hundreds of Debug impls adds an appreciable amount of compile
+time to Syn, and we really only need this enabled while doing development on a
+macro rather than when the finished macro is published to users.&lt;&#x2F;p&gt;
+&lt;p&gt;请注意，为了让 Syn 的语法树类型提供 Debug 实现，您需要需要在 Syn 依赖上设置 &lt;code&gt;features = [&amp;quot;extra-traits&amp;quot;]&lt;&#x2F;code&gt;
+因为添加数百个 Debug 实现会增加相当数量的编译时间，主要我们只是在开发时需要启用这个功能
+而不是在完成的宏发布给用户时。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Rust JSON操作之合并两个JSON对象</title>
         <published>2024-01-02T00:00:00+00:00</published>
