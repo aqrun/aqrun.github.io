@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="https://aqrun.com/theme.min.js" integrity="sha384-IpIaa84kOKgkF5EJ0fD/kBe2wtIIsIB60ANGmuJxeA0dz5bSRfwBwp2/QybtQpU2"></script>
+  <link rel="stylesheet" href="https://aqrun.com/abridge-switcher.css?h=4e5c90d051658432e152" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script defer src="https://aqrun.com/abridge-bundle.min.js?h=f0e7958f46d06221e99d" integrity="sha384-nUzn1rJBMPtXHTJcP76DAl7M3pn9hUVGWBMq6iYleX0NZ/ec+/xQ6nl8iXbBLfCs"></script>
+  <meta name="base" content="https://aqrun.com" />
+  <link rel="alternate" type="application/atom+xml" title="Atom/RSS Feed" href="https://aqrun.com/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Rust 宏开发之属性参数解析 | 光鹿跑冰</title>
+  <meta name="author" content="子十" />
+  <meta name="copyright" content="光鹿跑冰" />
+  <meta name="description" content="开发过程宏时经常需要处理结构体或枚举体上的属性参数" />
+  <link rel="canonical" href="https://aqrun.com/rust/macro-parse-attributes/" />
+  <meta name="keywords" content="子十,Aqrun, Zola, Theme, Zola Theme, getzola" />
+  <meta property="og:url" content="https://aqrun.com/rust/macro-parse-attributes/" />
+  <meta name="twitter:url" content="https://aqrun.com/rust/macro-parse-attributes/" />
+  <meta property="og:description" content="开发过程宏时经常需要处理结构体或枚举体上的属性参数" />
+  <meta name="twitter:description" content="开发过程宏时经常需要处理结构体或枚举体上的属性参数" />
+  <meta property="og:title" content="Rust 宏开发之属性参数解析 | 光鹿跑冰" />
+  <meta name="twitter:title" content="Rust 宏开发之属性参数解析 | 光鹿跑冰" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:image" content="https://aqrun.com/banner.png" />
+  <meta property="og:site_name" content="光鹿跑冰" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:updated_time" content="2024-01-22" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="manifest" href="https://aqrun.com/site.webmanifest" />
+  <link rel="mask-icon" href="https://aqrun.com/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://aqrun.com/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://aqrun.com/favicon.ico" />
+  <noscript><link rel="stylesheet" href="https://aqrun.com/nojs.css" /></noscript><div id="wx_pic" style="margin:0 auto;display:none;"><img src="https://cdn.oicnp.com/images/2023/pic300.jpg" />
+</div><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?1595a1ffd0fb91f5014d44a66c02dfbd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script></head>
+<body>
+  <header>
+    <nav>
+      <div><h1 class="oic-header-logfile">
+            <a
+               href="https://aqrun.com/"
+               title="子十个人博客"
+            ><img src="https://aqrun.com/icons/logo_default.svg" alt="光鹿跑冰" width="22" height="22" />光鹿跑冰</a>
+          </h1></div>
+      <div>
+        <ul><li> <h2><a href="https://aqrun.com/">首页</a></h2> </li><li> <h2><a href="https://aqrun.com/posts/">全部内容</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/">分类</a></h2> </li><li> <h2><a href="https://aqrun.com/tags/">标签</a></h2> </li><li> <h2><a href="https://aqrun.com/categories/diary/">每日随笔</a></h2> </li><li class="js"><i type="reset" id="mode" class="svgs adjust"></i></li></ul>
+      </div>
+      <div>
+        <form autocomplete=off class="js" name="goSearch" id="searchbox">
+          <div class="searchd">
+            <input id="searchinput" type="text" placeholder="内容搜索" title="Search" />
+            <button type="submit" title="Search"><i class="svgs search"></i></button>
+          </div>
+          <div><div id="suggestions"></div></div>
+        </form>
+      </div>
+    </nav>
+  </header>
+  <main>
+  <div class="oic-content-block">
+    <article class="oic-page">
+        <h1><a href="https://aqrun.com/rust/macro-parse-attributes/">Rust 宏开发之属性参数解析</a></h1>
+        <span class="s95"> 子十<span class="hpad"> </span> 2024-01-22<span class="hpad"> </span>
+          [<a href="https://aqrun.com/categories/rust/">
+                Rust 语言
+            </a>]
+           #<a href="https://aqrun.com/tags/rust/">rust</a>  #<a href="https://aqrun.com/tags/yu-fa-shu/">语法树</a>  #<a href="https://aqrun.com/tags/shu-xing-can-shu/">属性参数</a> </span>
+
+    <h2 id="chang-jing">场景</h2>
+<p>开发过程宏时经常需要处理结构体或枚举体上的属性参数，如下 Command 结构体的 <code>args</code> 字段有属性 <code>each = &quot;arg&quot;</code>,</p>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">derive</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">Builder</span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+<span class="z-meta z-struct z-rust"><span class="z-storage z-modifier z-rust">pub</span> <span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">Command</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+    <span class="z-variable z-other z-member z-rust">executable</span><span class="z-punctuation z-separator z-type z-rust">:</span> String,
+    <span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">builder</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">each <span class="z-keyword z-operator z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>arg<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+    <span class="z-variable z-other z-member z-rust">args</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Vec</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span><span class="z-support z-type z-rust">String</span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>,
+    <span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">builder</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">each <span class="z-keyword z-operator z-rust">=</span> <span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>env<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+    <span class="z-variable z-other z-member z-rust">env</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Vec</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span><span class="z-support z-type z-rust">String</span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>,
+    <span class="z-variable z-other z-member z-rust">current_dir</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Option</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span><span class="z-support z-type z-rust">String</span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>,
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<h2 id="ast">AST</h2>
+<p>对应的语法树结构：</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-double-slash z-genconfig">// Command 语法树
+</span></span><span class="z-storage z-type z-genconfig">DeriveInput </span>{
+<span class="z-meta z-comment z-genconfig">    <span class="z-comment z-line z-double-slash z-genconfig">// Command 结构体属性 当前没有
+</span></span><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">attrs</span><span class="z-keyword z-operator z-genconfig">:</span></span> []<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">vis</span><span class="z-keyword z-operator z-genconfig">:</span></span> Visibility<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Public</span>(</span>
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">Pub</span></span><span class="z-keyword z-operator z-genconfig">,</span>
+    )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">    <span class="z-comment z-line z-double-slash z-genconfig">// 结构体名称
+</span></span><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> Ident {
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;Command&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(206..213),
+</span></span>    }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">generics</span><span class="z-keyword z-operator z-genconfig">:</span></span> Generics {
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">lt_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">params</span><span class="z-keyword z-operator z-genconfig">:</span></span> []<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">gt_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">where_clause</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+    }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">data</span><span class="z-keyword z-operator z-genconfig">:</span></span> Data<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Struct {
+<span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">struct_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> Struct<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">        <span class="z-comment z-line z-double-slash z-genconfig">// Fields::Named字段集合
+</span></span><span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">fields</span><span class="z-keyword z-operator z-genconfig">:</span></span> Fields<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Named {
+<span class="z-meta z-param z-genconfig">            <span class="z-variable z-parameter z-genconfig">brace_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> Brace<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">            <span class="z-variable z-parameter z-genconfig">named</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-meta z-comment z-genconfig">                <span class="z-comment z-line z-double-slash z-genconfig">// executable 字段
+</span></span><span class="z-storage z-type z-genconfig">                Field </span>{
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">attrs</span><span class="z-keyword z-operator z-genconfig">:</span></span> []<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">vis</span><span class="z-keyword z-operator z-genconfig">:</span></span> Visibility<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Inherited<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">mutability</span><span class="z-keyword z-operator z-genconfig">:</span></span> FieldMutability<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">                    <span class="z-comment z-line z-double-slash z-genconfig">// 字段名 executable
+</span></span><span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Some</span>(</span>
+<span class="z-storage z-type z-genconfig">                        Ident </span>{
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;executable&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(220..230),
+</span></span>                        }<span class="z-keyword z-operator z-genconfig">,</span>
+                    )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">colon_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Some</span>(</span>
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">Colon</span></span><span class="z-keyword z-operator z-genconfig">,</span>
+                    )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">                    <span class="z-comment z-line z-double-slash z-genconfig">// 字段类型 String
+</span></span><span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">ty</span><span class="z-keyword z-operator z-genconfig">:</span></span> Type<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Path {
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">qself</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">path</span><span class="z-keyword z-operator z-genconfig">:</span></span> Path {
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">leading_colon</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">segments</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-storage z-type z-genconfig">                                PathSegment </span>{
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> Ident {
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;String&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(232..238),
+</span></span>                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">arguments</span><span class="z-keyword z-operator z-genconfig">:</span></span> PathArguments<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+                                }<span class="z-keyword z-operator z-genconfig">,</span>
+                            ]<span class="z-keyword z-operator z-genconfig">,</span>
+                        }<span class="z-keyword z-operator z-genconfig">,</span>
+                    }<span class="z-keyword z-operator z-genconfig">,</span>
+                }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                <span class="z-variable z-parameter z-genconfig">Comma</span></span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">                <span class="z-comment z-line z-double-slash z-genconfig">// args 字段
+</span></span><span class="z-storage z-type z-genconfig">                Field </span>{
+<span class="z-meta z-comment z-genconfig">                    <span class="z-comment z-line z-double-slash z-genconfig">// 字段指定的属性参数集合
+</span></span><span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">attrs</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-storage z-type z-genconfig">                        Attribute </span>{
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">pound_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> Pound<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">style</span><span class="z-keyword z-operator z-genconfig">:</span></span> AttrStyle<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Outer<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">bracket_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> Bracket<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">meta</span><span class="z-keyword z-operator z-genconfig">:</span></span> Meta<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>List {
+<span class="z-meta z-comment z-genconfig">                                <span class="z-comment z-line z-double-slash z-genconfig">// 属性名称 builder
+</span></span><span class="z-meta z-param z-genconfig">                                <span class="z-variable z-parameter z-genconfig">path</span><span class="z-keyword z-operator z-genconfig">:</span></span> Path {
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">leading_colon</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">segments</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-storage z-type z-genconfig">                                        PathSegment </span>{
+<span class="z-meta z-param z-genconfig">                                            <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> Ident {
+<span class="z-meta z-param z-genconfig">                                                <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;builder&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                                <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(246..253),
+</span></span>                                            }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                            <span class="z-variable z-parameter z-genconfig">arguments</span><span class="z-keyword z-operator z-genconfig">:</span></span> PathArguments<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+                                        }<span class="z-keyword z-operator z-genconfig">,</span>
+                                    ]<span class="z-keyword z-operator z-genconfig">,</span>
+                                }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                <span class="z-variable z-parameter z-genconfig">delimiter</span><span class="z-keyword z-operator z-genconfig">:</span></span> MacroDelimiter<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Paren</span>(</span>
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">Paren</span></span><span class="z-keyword z-operator z-genconfig">,</span>
+                                )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                <span class="z-variable z-parameter z-genconfig">tokens</span><span class="z-keyword z-operator z-genconfig">:</span></span> TokenStream [
+<span class="z-meta z-comment z-genconfig">                                    <span class="z-comment z-line z-double-slash z-genconfig">// 第一个属性 key = each
+</span></span><span class="z-storage z-type z-genconfig">                                    Ident </span>{
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;each&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(254..258),
+</span></span>                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-storage z-type z-genconfig">                                    Punct </span>{
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">ch</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-signle z-genconfig">&#39;=&#39;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">spacing</span><span class="z-keyword z-operator z-genconfig">:</span></span> Alone<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(259..260),
+</span></span>                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">                                    <span class="z-comment z-line z-double-slash z-genconfig">// 第一个属性 value = arg
+</span></span><span class="z-storage z-type z-genconfig">                                    Literal </span>{
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">kind</span><span class="z-keyword z-operator z-genconfig">:</span></span> Str<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">symbol</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;arg&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">suffix</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(261..266),
+</span></span>                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+                                ]<span class="z-keyword z-operator z-genconfig">,</span>
+                            }<span class="z-keyword z-operator z-genconfig">,</span>
+                        }<span class="z-keyword z-operator z-genconfig">,</span>
+                    ]<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">vis</span><span class="z-keyword z-operator z-genconfig">:</span></span> Visibility<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Inherited<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">mutability</span><span class="z-keyword z-operator z-genconfig">:</span></span> FieldMutability<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">                    <span class="z-comment z-line z-double-slash z-genconfig">// 字段名 args
+</span></span><span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Some</span>(</span>
+<span class="z-storage z-type z-genconfig">                        Ident </span>{
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;args&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(273..277),
+</span></span>                        }<span class="z-keyword z-operator z-genconfig">,</span>
+                    )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">colon_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Some</span>(</span>
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">Colon</span></span><span class="z-keyword z-operator z-genconfig">,</span>
+                    )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">                    <span class="z-comment z-line z-double-slash z-genconfig">// 字段类型 Vec&lt;String&gt;
+</span></span><span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">ty</span><span class="z-keyword z-operator z-genconfig">:</span></span> Type<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>Path {
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">qself</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">path</span><span class="z-keyword z-operator z-genconfig">:</span></span> Path {
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">leading_colon</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">segments</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-storage z-type z-genconfig">                                PathSegment </span>{
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> Ident {
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;Vec&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(279..282),
+</span></span>                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                    <span class="z-variable z-parameter z-genconfig">arguments</span><span class="z-keyword z-operator z-genconfig">:</span></span> PathArguments<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>AngleBracketed {
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">colon2_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">lt_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> Lt<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">args</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-meta z-param z-genconfig">                                            <span class="z-variable z-parameter z-genconfig">GenericArgument</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Type</span>(</span>
+<span class="z-meta z-param z-genconfig">                                                <span class="z-variable z-parameter z-genconfig">Type</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-keyword z-operator z-genconfig">:</span>Path {
+<span class="z-meta z-param z-genconfig">                                                    <span class="z-variable z-parameter z-genconfig">qself</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                                    <span class="z-variable z-parameter z-genconfig">path</span><span class="z-keyword z-operator z-genconfig">:</span></span> Path {
+<span class="z-meta z-param z-genconfig">                                                        <span class="z-variable z-parameter z-genconfig">leading_colon</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                                        <span class="z-variable z-parameter z-genconfig">segments</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-storage z-type z-genconfig">                                                            PathSegment </span>{
+<span class="z-meta z-param z-genconfig">                                                                <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> Ident {
+<span class="z-meta z-param z-genconfig">                                                                    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;String&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                                                    <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(283..289),
+</span></span>                                                                }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                                                <span class="z-variable z-parameter z-genconfig">arguments</span><span class="z-keyword z-operator z-genconfig">:</span></span> PathArguments<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+                                                            }<span class="z-keyword z-operator z-genconfig">,</span>
+                                                        ]<span class="z-keyword z-operator z-genconfig">,</span>
+                                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+                                                }<span class="z-keyword z-operator z-genconfig">,</span>
+                                            )<span class="z-keyword z-operator z-genconfig">,</span>
+                                        ]<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                                        <span class="z-variable z-parameter z-genconfig">gt_token</span><span class="z-keyword z-operator z-genconfig">:</span></span> Gt<span class="z-keyword z-operator z-genconfig">,</span>
+                                    }<span class="z-keyword z-operator z-genconfig">,</span>
+                                }<span class="z-keyword z-operator z-genconfig">,</span>
+                            ]<span class="z-keyword z-operator z-genconfig">,</span>
+                        }<span class="z-keyword z-operator z-genconfig">,</span>
+                    }<span class="z-keyword z-operator z-genconfig">,</span>
+                }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">    <span class="z-comment z-line z-double-slash z-genconfig">// 其它字段省略  
+</span></span></span></code></pre>
+<h2 id="hong-ru-kou">宏入口</h2>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">proc_macro<span class="z-punctuation z-accessor z-rust">::</span></span>TokenStream<span class="z-punctuation z-terminator z-rust">;</span>
+<span class="z-keyword z-other z-rust">use</span> <span class="z-meta z-path z-rust">syn<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>parse_macro_input<span class="z-punctuation z-separator z-rust">,</span> DeriveInput</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+
+
+<span class="z-meta z-annotation z-rust"><span class="z-punctuation z-definition z-annotation z-rust">#</span><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-variable z-annotation z-rust">proc_macro_derive</span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust">Builder<span class="z-punctuation z-separator z-rust">,</span> <span class="z-meta z-function-call z-rust"><span class="z-variable z-function z-rust">attributes</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span></span><span class="z-meta z-function-call z-rust">builder</span><span class="z-meta z-function-call z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span></span></span><span class="z-meta z-annotation z-parameters z-rust"><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span>
+<span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-modifier z-rust">pub</span> <span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">builder_derive</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span><span class="z-variable z-parameter z-rust">input</span><span class="z-punctuation z-separator z-rust">:</span> TokenStream</span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> <span class="z-meta z-function z-return-type z-rust"><span class="z-punctuation z-separator z-rust">-&gt;</span> TokenSteam</span> </span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+  <span class="z-storage z-type z-rust">let</span> input <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-function z-rust">parse_macro_input</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>input <span class="z-keyword z-operator z-rust">as</span> DeriveInput</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+  <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 从 data中获取 fields 字段数据集合
+</span>  <span class="z-storage z-type z-rust">let</span> fields <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-keyword z-operator z-range z-rust">...</span><span class="z-punctuation z-terminator z-rust">;</span>
+
+  <span class="z-storage z-type z-rust">let</span> setter_fns <span class="z-keyword z-operator z-assignment z-rust">=</span> fields<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">iter</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">map</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-meta z-function z-closure z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">|</span></span></span><span class="z-meta z-function z-closure z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-variable z-parameter z-rust">f</span><span class="z-punctuation z-section z-parameters z-end z-rust">|</span></span> </span><span class="z-meta z-function z-closure z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+    <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 无属性参数时功能处理
+</span>    <span class="z-keyword z-control z-rust">if</span> f<span class="z-punctuation z-accessor z-dot z-rust">.</span>attrs<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">is_empty</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span> <span class="z-keyword z-control z-rust">return</span> <span class="z-support z-macro z-rust">quote!</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span></span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span> </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+
+    <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 遍历属性参数
+</span>    <span class="z-keyword z-control z-rust">for</span> attr <span class="z-keyword z-operator z-rust">in</span> f<span class="z-punctuation z-accessor z-dot z-rust">.</span>attrs<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">iter</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+      <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> parse_builder_attr 解析当前的属性数据
+</span>      <span class="z-storage z-type z-rust">let</span> arguments <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-function z-rust">parse_builder_attr</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>attr</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+      <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> 根据属性参数再处理其它处理
+</span>    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+  </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<h2 id="shu-xing-jie-xi-shi-xian">属性解析实现</h2>
+<pre data-lang="rust" class="language-rust z-code"><code class="language-rust" data-lang="rust"><span class="z-source z-rust"><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> builder 属性参数数据类型
+</span><span class="z-meta z-struct z-rust"><span class="z-storage z-type z-struct z-rust">struct</span> </span><span class="z-meta z-struct z-rust"><span class="z-entity z-name z-struct z-rust">BuilderAttribute</span> </span><span class="z-meta z-struct z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 属性Key
+</span>  <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">key</span> <span class="z-punctuation z-separator z-type z-rust">:</span> String,
+  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 属性值
+</span>  <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">value</span><span class="z-punctuation z-separator z-type z-rust">:</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Option</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span><span class="z-support z-type z-rust">String</span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span>,
+  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 属性meta path, 用于错误提示位置显示
+</span>  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 类似：
+</span>  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span>   --&gt; main.rs:14:7
+</span>  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span>    |
+</span>  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span>  14|    #[builder(each = &quot;arg&quot;)]
+</span>  <span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span>    |      ^^^^^^^^^^^^^^^^^^^^
+</span>  <span class="z-storage z-modifier z-rust">pub</span> <span class="z-variable z-other z-member z-rust">meta</span><span class="z-punctuation z-separator z-type z-rust">:</span> Meta,
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+
+<span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 属性参数解析
+</span><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> #[builder(each = &quot;env&quot;)]
+</span><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> 转为
+</span><span class="z-comment z-line z-documentation z-rust"><span class="z-punctuation z-definition z-comment z-rust">///</span> [BuilderAttribute { key: &quot;each&quot;, value: Some(&quot;env&quot;), meta: syn::Meta }]
+</span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-rust"><span class="z-storage z-type z-function z-rust">fn</span> </span><span class="z-entity z-name z-function z-rust">parse_builder_attr</span></span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-begin z-rust">(</span><span class="z-variable z-parameter z-rust">attr</span><span class="z-punctuation z-separator z-rust">:</span> <span class="z-keyword z-operator z-rust">&amp;</span><span class="z-meta z-path z-rust">syn<span class="z-punctuation z-accessor z-rust">::</span></span>Attribute</span><span class="z-meta z-function z-rust"><span class="z-meta z-function z-parameters z-rust"><span class="z-punctuation z-section z-parameters z-end z-rust">)</span></span></span></span><span class="z-meta z-function z-rust"> <span class="z-meta z-function z-return-type z-rust"><span class="z-punctuation z-separator z-rust">-&gt;</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Vec</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>BuilderAttribute<span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span></span> </span><span class="z-meta z-function z-rust"><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+    <span class="z-storage z-type z-rust">let</span> <span class="z-storage z-modifier z-rust">mut</span> arguments <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-type z-rust">Vec</span><span class="z-meta z-path z-rust"><span class="z-punctuation z-accessor z-rust">::</span></span>new<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+
+    <span class="z-keyword z-control z-rust">if</span> attr<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">path</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">is_ident</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-string z-quoted z-double z-rust"><span class="z-punctuation z-definition z-string z-begin z-rust">&quot;</span>builder<span class="z-punctuation z-definition z-string z-end z-rust">&quot;</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+        <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> parse_args_with 参考:
+</span>        <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> https://docs.rs/syn/2.0.48/syn/struct.Attribute.html#alternatives
+</span>        <span class="z-comment z-line z-double-slash z-rust"><span class="z-punctuation z-definition z-comment z-rust">//</span> nested 类型 Vec&lt;Meta::NameValue&gt;
+</span>        <span class="z-keyword z-control z-rust">if</span> <span class="z-storage z-type z-rust">let</span> <span class="z-support z-type z-rust">Ok</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>nested</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> attr<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">parse_args_with</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-meta z-path z-rust">Punctuated<span class="z-punctuation z-accessor z-rust">::</span></span><span class="z-meta z-generic z-rust"><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span>Meta, Token<span class="z-invalid z-illegal z-rust">!</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">[</span><span class="z-punctuation z-separator z-rust">,</span><span class="z-punctuation z-section z-group z-end z-rust">]</span></span><span class="z-keyword z-operator z-comparison z-rust">&gt;</span><span class="z-meta z-path z-rust"><span class="z-punctuation z-accessor z-rust">::</span></span>parse_terminated</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+            <span class="z-keyword z-control z-rust">for</span> meta <span class="z-keyword z-operator z-rust">in</span> <span class="z-keyword z-operator z-bitwise z-rust">&amp;</span>nested <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+                <span class="z-keyword z-control z-rust">if</span> <span class="z-storage z-type z-rust">let</span> <span class="z-support z-type z-rust">Some</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>ident</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> meta<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">path</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">get_ident</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+                    <span class="z-storage z-type z-rust">let</span> key <span class="z-keyword z-operator z-assignment z-rust">=</span> ident<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">to_string</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+                    <span class="z-storage z-type z-rust">let</span> <span class="z-storage z-modifier z-rust">mut</span> value<span class="z-punctuation z-separator z-rust">:</span> <span class="z-meta z-generic z-rust"><span class="z-support z-type z-rust">Option</span><span class="z-punctuation z-definition z-generic z-begin z-rust">&lt;</span><span class="z-support z-type z-rust">String</span><span class="z-punctuation z-definition z-generic z-end z-rust">&gt;</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-support z-type z-rust">None</span><span class="z-punctuation z-terminator z-rust">;</span>
+
+                    <span class="z-keyword z-control z-rust">if</span> <span class="z-storage z-type z-rust">let</span> <span class="z-meta z-path z-rust">Meta<span class="z-punctuation z-accessor z-rust">::</span></span>NameValue<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>name_value</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> meta <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+                        <span class="z-keyword z-control z-rust">if</span> <span class="z-storage z-type z-rust">let</span> <span class="z-meta z-path z-rust">Expr<span class="z-punctuation z-accessor z-rust">::</span></span>Lit<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-storage z-modifier z-rust">ref</span> expr_lit</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-assignment z-rust">=</span> name_value<span class="z-punctuation z-accessor z-dot z-rust">.</span>value <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+                            value <span class="z-keyword z-operator z-assignment z-rust">=</span> <span class="z-keyword z-control z-rust">match</span> expr_lit<span class="z-punctuation z-accessor z-dot z-rust">.</span>lit <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+                                <span class="z-meta z-path z-rust">Lit<span class="z-punctuation z-accessor z-rust">::</span></span>Str<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-storage z-modifier z-rust">ref</span> lit_str</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-rust">=&gt;</span> <span class="z-support z-type z-rust">Some</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>lit_str<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">value</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+                                <span class="z-meta z-path z-rust">Lit<span class="z-punctuation z-accessor z-rust">::</span></span>Bool<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-storage z-modifier z-rust">ref</span> lit_bool</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-rust">=&gt;</span> <span class="z-support z-type z-rust">Some</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>lit_bool<span class="z-punctuation z-accessor z-dot z-rust">.</span>value<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">to_string</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+                                <span class="z-meta z-path z-rust">Lit<span class="z-punctuation z-accessor z-rust">::</span></span>Int<span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span><span class="z-storage z-modifier z-rust">ref</span> lit_int</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span> <span class="z-keyword z-operator z-rust">=&gt;</span> <span class="z-support z-type z-rust">Some</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>lit_int<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">base10_digits</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">to_owned</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+                                <span class="z-keyword z-operator z-rust">_</span> <span class="z-keyword z-operator z-rust">=&gt;</span> <span class="z-support z-type z-rust">None</span><span class="z-punctuation z-separator z-rust">,</span>
+                            </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+                        </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+                    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+
+                    arguments<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">push</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span>BuilderAttribute <span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-begin z-rust">{</span>
+                        key<span class="z-punctuation z-separator z-rust">,</span>
+                        value<span class="z-punctuation z-separator z-rust">,</span>
+                        meta<span class="z-punctuation z-separator z-rust">:</span> attr<span class="z-punctuation z-accessor z-dot z-rust">.</span>meta<span class="z-punctuation z-accessor z-dot z-rust">.</span><span class="z-support z-function z-rust">clone</span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-begin z-rust">(</span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-separator z-rust">,</span>
+                    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span><span class="z-meta z-group z-rust"><span class="z-punctuation z-section z-group z-end z-rust">)</span></span><span class="z-punctuation z-terminator z-rust">;</span>
+                </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+            </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+        </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+    </span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span>
+
+    arguments
+</span><span class="z-meta z-block z-rust"><span class="z-punctuation z-section z-block z-end z-rust">}</span></span></span>
+</span></code></pre>
+<h2 id="jie-xi-jie-guo">解析结果</h2>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig">[
+<span class="z-storage z-type z-genconfig">    BuilderAttribute </span>{
+<span class="z-meta z-comment z-genconfig">        <span class="z-comment z-line z-double-slash z-genconfig">// 属性键
+</span></span><span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">key</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;each&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">        <span class="z-comment z-line z-double-slash z-genconfig">// 属性值
+</span></span><span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">value</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Some</span>(</span>
+            <span class="z-string z-quoted z-double z-genconfig">&quot;arg&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+        )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-comment z-genconfig">        <span class="z-comment z-line z-double-slash z-genconfig">// Meta
+</span></span><span class="z-meta z-param z-genconfig">        <span class="z-variable z-parameter z-genconfig">meta</span><span class="z-keyword z-operator z-genconfig">:</span></span> Meta<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span>List {
+<span class="z-meta z-param z-genconfig">            <span class="z-variable z-parameter z-genconfig">path</span><span class="z-keyword z-operator z-genconfig">:</span></span> Path {
+<span class="z-meta z-param z-genconfig">                <span class="z-variable z-parameter z-genconfig">leading_colon</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                <span class="z-variable z-parameter z-genconfig">segments</span><span class="z-keyword z-operator z-genconfig">:</span></span> [
+<span class="z-storage z-type z-genconfig">                    PathSegment </span>{
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> Ident {
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;builder&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                            <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(246..253),
+</span></span>                        }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                        <span class="z-variable z-parameter z-genconfig">arguments</span><span class="z-keyword z-operator z-genconfig">:</span></span> PathArguments<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+                    }<span class="z-keyword z-operator z-genconfig">,</span>
+                ]<span class="z-keyword z-operator z-genconfig">,</span>
+            }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">            <span class="z-variable z-parameter z-genconfig">delimiter</span><span class="z-keyword z-operator z-genconfig">:</span></span> MacroDelimiter<span class="z-keyword z-operator z-genconfig">:</span><span class="z-keyword z-operator z-genconfig">:</span><span class="z-meta z-function z-genconfig"><span class="z-entity z-name z-function z-genconfig">Paren</span>(</span>
+<span class="z-meta z-param z-genconfig">                <span class="z-variable z-parameter z-genconfig">Paren</span></span><span class="z-keyword z-operator z-genconfig">,</span>
+            )<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">            <span class="z-variable z-parameter z-genconfig">tokens</span><span class="z-keyword z-operator z-genconfig">:</span></span> TokenStream [
+<span class="z-storage z-type z-genconfig">                Ident </span>{
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">ident</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;each&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(254..258),
+</span></span>                }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-storage z-type z-genconfig">                Punct </span>{
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">ch</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-signle z-genconfig">&#39;=&#39;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">spacing</span><span class="z-keyword z-operator z-genconfig">:</span></span> Alone<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(259..260),
+</span></span>                }<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-storage z-type z-genconfig">                Literal </span>{
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">kind</span><span class="z-keyword z-operator z-genconfig">:</span></span> Str<span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">symbol</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;arg&quot;</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">suffix</span><span class="z-keyword z-operator z-genconfig">:</span></span> <span class="z-constant z-language z-genconfig">None</span><span class="z-keyword z-operator z-genconfig">,</span>
+<span class="z-meta z-param z-genconfig">                    <span class="z-variable z-parameter z-genconfig">span</span><span class="z-keyword z-operator z-genconfig">:</span></span><span class="z-meta z-comment z-genconfig"> <span class="z-comment z-line z-number-sign z-genconfig">#0 bytes(261..266),
+</span></span>                }<span class="z-keyword z-operator z-genconfig">,</span>
+            ]<span class="z-keyword z-operator z-genconfig">,</span>
+        }<span class="z-keyword z-operator z-genconfig">,</span>
+    }<span class="z-keyword z-operator z-genconfig">,</span>
+]
+</span></code></pre>
+
+<p><b><a href="#">返回顶部</a></b></p>
+    </article>
+    <div class="toc" aria-hidden="true">
+      <div class="toc-sticky">
+        <h3>目录</h3>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/macro-parse-attributes/#chang-jing">场景</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/macro-parse-attributes/#ast">AST</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/macro-parse-attributes/#hong-ru-kou">宏入口</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/macro-parse-attributes/#shu-xing-jie-xi-shi-xian">属性解析实现</a>
+        </div>
+        <div class="toc-item">
+          <a class="subtext" href="https://aqrun.com/rust/macro-parse-attributes/#jie-xi-jie-guo">解析结果</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oic-comment-wrapper"><script src="https://giscus.app/client.js"
+  data-repo="aqrun/aqrun.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkxNzA4Njk2MA=="
+  data-category="blog-comments"
+  data-category-id="DIC_kwDOAQS58M4CZAme"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="preferred_color_scheme"
+  data-lang="zh-CN"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
+  </div>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav>
+        <ul><li><a href="https://aqrun.com/atom.xml" target="_blank" title="Atom/RSS Feed"><i type="Button" class="svg rss" title="Atom/RSS Feed"></i></a></li><li class="js"><a class="m-protected" href="#YXFydW5Ac2luYS5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a></li><li><a href="https://github.com/aqrun/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a></li></ul>
+      </nav>
+      <p class="s90">Copyright &copy; 2014-2024 光鹿跑冰</p>
+      <nav>
+        <ul><li class="s90"> <a href="https://aqrun.com/about/"> 关于我 </a> </li><li class="s90"> <a href="https://aqrun.com/contact/"> 联系我 </a> </li><li class="s90"> <a href="https://aqrun.com/privacy/"> 保护权益 </a> </li><li class="s90"> <a href="https://aqrun.com/sitemap.xml" target="_blank"> 网站地图 </a> </li></ul>
+      </nav>
+      <p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> 和 <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+<span class="topout">
+    <span class="topleft"> </span>
+    <a href="#" class="top" title="Back to Top">
+        <i class="svgs svgh angu"></i>
+    </a>
+</span>
+</body>
+</html>
