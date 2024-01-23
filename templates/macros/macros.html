@@ -66,6 +66,7 @@
   async>
 </script>
 {%- endif %}
+<script src="{{ get_url(path='main.js', trailing_slash=false, cachebust=true) | safe }}"></script>
 {%- endmacro %}
 
 {#- 百度统计 #}
