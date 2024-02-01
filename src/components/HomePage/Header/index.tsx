@@ -4,7 +4,7 @@ import { MenuToggleButton } from './MenuToggleButton';
 
 export const Header = () => {
   return (
-    <section className='oic-header-section mb-6 overflow-hidden transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent'>
+    <section className='oic-header-section mb-6 overflow-hidden transition-colors duration-500 lg:z-50 shadow-md shadow-indigo-100/[0.6] dark:shadow-slate-100/[0.6] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent'>
       <div className='h-auto w-screen'>
         {/* <!-- NAVBAR --> */}
         <nav className='font-inter mx-auto h-auto w-full max-w-[1600px] lg:relative lg:top-0'>
