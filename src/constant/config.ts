@@ -2,7 +2,7 @@ export const siteConfig = {
   title: '光鹿跑冰',
   description:
     '子十个人博客,光鹿跑冰,rust语言开发,服务器,html,css,js,nextjs,tailwindcss',
-  /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
+  /** Without additional '/' on the end*/
   url: 'https://aqrun.com',
 };
 

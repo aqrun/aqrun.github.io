@@ -39,13 +39,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [`${siteConfig.url}/images/og.jpg`],
     // creator: '@th_clarence',
-  },
-  // authors: [
-  //   {
-  //     name: 'Theodorus Clarence',
-  //     url: 'https://theodorusclarence.com',
-  //   },
-  // ],
+  }
 };
 
 export default function RootLayout({
@@ -56,7 +50,7 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <Script src="/baidu.js" strategy="beforeInteractive" />
+        <Script src="/baidu.js?v1" strategy="beforeInteractive" />
         {children}
       </body>
     </html>
