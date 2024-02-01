@@ -1,9 +1,7 @@
+# Blog
 
-# dev
-
-zola serve -i 0.0.0.0 -u 192.168.31.243
-
-# deploy
-
-brew install zola
-pnpm install
+- https://daisyui.com/
+- https://tailspark.co/components
+- https://mambaui.com/components/header
+- heroicons.com
+- pnpm install esbuild --registry https://registry.npmmirror.com

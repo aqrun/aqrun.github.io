@@ -1,0 +1,24 @@
+[package]
+name = "oicnp_cmd"
+version = "0.0.1"
+authors = ["Aqrun <aqrun@sina.com>"]
+edition = "2021"
+default-run = "main"
+
+[dependencies]
+serde = { version = "^1", features = ["derive"] }
+serde_json = { version = "^1" }
+tokio = { version = "^1", features = [
+  "macros",
+  "rt-multi-thread",
+  "sync",
+  "parking_lot",
+] }
+regex = "^1"
+gray_matter = "^0"
+rand = "^0"
+scru128 = "^3"
+lazy_static = "^1"
+anyhow = "^1"
+log = "^0"
+chrono = { version = "^0", features = ["serde"] }
