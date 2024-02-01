@@ -130,11 +130,11 @@ export const Footer = () => {
             光鹿跑冰
           </p>
           <nav className='font-inter lg:text-center text-sm text-gray-500'>
-            <ul className='flex flex-row justify-center items-center'>
+            <ul className='flex flex-row justify-start lg:justify-center items-center'>
               <li className='s90'>
                 <a
                   href='/about/'
-                  className='px-1 py-1 block hover:text-violet-500'
+                  className='mr-2 py-1 block hover:text-violet-500'
                 >
                   关于我
                 </a>
@@ -142,13 +142,13 @@ export const Footer = () => {
               <li className='s90'>
                 <a
                   href='/contact/'
-                  className='px-1 py-1 block hover:text-violet-500'
+                  className='mr-2 py-1 block hover:text-violet-500'
                 >
                   联系我
                 </a>
               </li>
               <li className='s90'>
-                <a href='#' className='px-1 py-1 block hover:text-violet-500'>
+                <a href='#' className='mr-2 py-1 block hover:text-violet-500'>
                   保护权益
                 </a>
               </li>
@@ -156,7 +156,7 @@ export const Footer = () => {
                 <a
                   href='#'
                   target='_blank'
-                  className='px-1 py-1 block hover:text-violet-500'
+                  className='mr-2 py-1 block hover:text-violet-500'
                 >
                   网站地图
                 </a>

@@ -1,7 +1,6 @@
-import Head from 'next/head';
 import React from 'react';
 
-import { Footer, Header, HeaderBg, SideBar } from '@/components/HomePage';
+import { Footer, Header, HeaderBg } from '@/components/HomePage';
 
 export interface SinglePageProps {
   title: string;
@@ -16,28 +15,25 @@ export const SinglePage: React.FC<React.PropsWithChildren<SinglePageProps>> = ({
 }) => {
   return (
     <main>
-      <Head>
-        <title>Hi</title>
-      </Head>
       <Header />
       <HeaderBg />
 
       <section className='bg-white'>
         <div className='layout py-12 flex flex-row gap-8'>
           <div
-            className='flex flex-1 flex-col'
-            style={{
-              width: 'calc(100% - 22rem)',
-            }}
+            className='flex flex-1 flex-col overflow-auto'
+            // style={{
+            //   width: 'calc(100% - 22rem)',
+            // }}
           >
-            <h1 className='text-[2.67rem] mb-[1.3rem] text-slate-800'>
+            <h1 className='text-[1.8rem] lg:text-[2.67rem] mb-[1.3rem] text-slate-800 lg:leading-[2.67rem] lg:text-center'>
               {title}
             </h1>
-            <article className='prose lg:prose-lg'>{children}</article>
+            <article className='prose lg:prose-lg max-w-full break-words'>{children}</article>
           </div>
-          <div className='lg:w-80'>
+          {/* <div className='lg:w-80'>
             <SideBar />
-          </div>
+          </div> */}
         </div>
       </section>
 

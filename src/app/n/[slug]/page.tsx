@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Head from 'next/head';
 import React from 'react';
 
 import { Footer, Header, HeaderBg } from '@/components/HomePage';
@@ -62,9 +61,6 @@ export default async function NodeDetailPage(props: NodeDetailPageProps) {
 
   return (
     <main>
-      <Head>
-        <title>Hi</title>
-      </Head>
       <Header />
       <HeaderBg />
 
@@ -89,13 +85,11 @@ export default async function NodeDetailPage(props: NodeDetailPageProps) {
                 {node?.data?.date?.toLocaleDateString()}
               </span>
             </div>
-            <article className='prose lg:prose-lg max-w-full'>
+            <article className='prose lg:prose-lg max-w-full break-words'>
               <Content />
             </article>
           </div>
-          {/* <div className='lg:w-80'>
-            <SideBar />
-          </div> */}
+          {/* sidebar */}
         </div>
       </section>
 
@@ -103,3 +97,7 @@ export default async function NodeDetailPage(props: NodeDetailPageProps) {
     </main>
   );
 }
+
+{/* <div className='lg:w-80'>
+            <SideBar />
+          </div> */}
