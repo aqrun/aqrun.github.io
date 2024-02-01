@@ -10,14 +10,11 @@ taxonomies:
 
 modules/image/image.module
 
-<pre class="line-numbers">
-    <code class="language-php">
+```php
+function image_style_url($style_name, $path) {...}
 
-    function image_style_url($style_name, $path) {...}
+//example:
+$imgItem = field_get_items('node', $node, 'field_image');
+$imgUrl = image_style_url("com_introduce", $imgItem[0]['uri']);
 
-    //example:
-    $imgItem = field_get_items('node', $node, 'field_image');
-    $imgUrl = image_style_url("com_introduce", $imgItem[0]['uri']);
-
-</code>
-</pre>
+```

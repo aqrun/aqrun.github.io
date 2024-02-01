@@ -21,7 +21,7 @@ taxonomies:
 
 ## 标签动态增加 loading class
 
-<div class="some-container loading">
+`<div class="some-container loading"></div>`
 
 ```less
 .some-container {

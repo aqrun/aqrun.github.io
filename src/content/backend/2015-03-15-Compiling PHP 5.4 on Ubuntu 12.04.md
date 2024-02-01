@@ -18,50 +18,45 @@ So where to start. Dependencies first I think
 
 Ubuntu allows you to install dependencies for building source apt-get build-deps. We will use this and install any extras we may need.
 
-<pre class="line-numbers">
-    <code class="language-shell">
-
-    apt-get install \
-    libxml2 \
-    libxml2-dev \
-    libssl-dev \
-    pkg-config \
-    curl \
-    libcurl4-nss-dev \
-    enchant \
-    libenchant-dev \
-    libjpeg8 \
-    libjpeg8-dev \
-    libpng12-0 \
-    libpng12-dev \
-    libvpx1 \
-    libvpx-dev \
-    libfreetype6 \
-    libfreetype6-dev \
-    libt1-5 \
-    libt1-dev \
-    libgmp10 \
-    libgmp-dev \
-    libicu48 \
-    libicu-dev \
-    mcrypt \
-    libmcrypt4 \
-    libmcrypt-dev \
-    libpspell-dev \
-    libedit2 \
-    libedit-dev \
-    libsnmp15 \
-    libsnmp-dev \
-    libxslt1.1 \
-    libxslt1-dev
-        
-</code></pre>
+```sh
+apt-get install \
+libxml2 \
+libxml2-dev \
+libssl-dev \
+pkg-config \
+curl \
+libcurl4-nss-dev \
+enchant \
+libenchant-dev \
+libjpeg8 \
+libjpeg8-dev \
+libpng12-0 \
+libpng12-dev \
+libvpx1 \
+libvpx-dev \
+libfreetype6 \
+libfreetype6-dev \
+libt1-5 \
+libt1-dev \
+libgmp10 \
+libgmp-dev \
+libicu48 \
+libicu-dev \
+mcrypt \
+libmcrypt4 \
+libmcrypt-dev \
+libpspell-dev \
+libedit2 \
+libedit-dev \
+libsnmp15 \
+libsnmp-dev \
+libxslt1.1 \
+libxslt1-dev
+```
 
 And now the configure
 
-<pre class="line-numbers">
-    <code class="language-shell">
-
+```sh
     ./configure \
     --prefix=/usr/local/php \
     --with-apxs2=/usr/local/apache2/bin/apxs \
@@ -115,9 +110,7 @@ And now the configure
     --with-pear \
     --enable-zend-signals \
     --enable-maintainer-zts
-
-</code>
-</pre>
+```
 
 Once these are done then we follow the standard make process. Notice we are also running make test… very important as it givges more data for the developers to work with.
 

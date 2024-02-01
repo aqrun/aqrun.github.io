@@ -10,9 +10,8 @@ taxonomies:
 
 EntityFieldQuery 获取指定类型的内容列表
 
-<pre class="line-numbers">
-    <code class="language-php">
 
+```php showLineNumbers
 //先获取指定类型内容nid列表
 $query = new EntityFieldQuery();
 $entities = $query->entityCondition('entity_type', 'node')
@@ -28,7 +27,6 @@ $nodesData = node_load_multiple($nids);  //获取指定nid内容对象列表
 foeach($nodesData as $n){
    //处理相关数据
 }
-
-</code></pre>
+```
 
 EntityFieldQuery 类在 entity.inc 文件
