@@ -39,6 +39,7 @@ export const BigNews = () => {
               className='inline-block h-full w-full object-cover'
               width={1100}
               height={500}
+              unoptimized
               // style={{
               //   backgroundImage:
               //     'url("https://source.unsplash.com/random/1100x500?mountain")',

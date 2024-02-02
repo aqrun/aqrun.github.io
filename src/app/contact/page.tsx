@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Metadata } from 'next';
 import React from 'react';
 
-import { SinglePage } from '@/components/layouts';
+import { NodeDetailPage } from '@/components/layouts';
 
 import { pages_path, parseMdx } from '@/utils';
 
@@ -16,8 +16,8 @@ export default async function AboutPage() {
   const Content = await parseMdx(file_data);
 
   return (
-    <SinglePage title='联系我'>
+    <NodeDetailPage title='联系我'>
       <Content />
-    </SinglePage>
+    </NodeDetailPage>
   );
 }

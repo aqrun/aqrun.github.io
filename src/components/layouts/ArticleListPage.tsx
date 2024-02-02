@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import React from 'react';
 
 import {
@@ -29,9 +28,6 @@ export const ArticleListPage: React.FC<ArticleListPageProps> = ({
 }) => {
   return (
     <main>
-      <Head>
-        <title>Hi</title>
-      </Head>
       <Header />
       <HeaderBg />
 

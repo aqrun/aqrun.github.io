@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import React from 'react';
 
-import { Footer, Header, HeaderBg } from '@/components/HomePage';
+import { NodeDetailPage as BaseNodeDetailPage } from '@/components/layouts';
 
 import { siteConfig } from '@/constant';
 import { parseMdx } from '@/utils';
@@ -60,44 +60,15 @@ export default async function NodeDetailPage(props: NodeDetailPageProps) {
   const Content = await parseMdx(node?.content || '');
 
   return (
-    <main>
-      <Header />
-      <HeaderBg />
-
-      <section className='bg-white'>
-        <div className='layout py-12 flex flex-row gap-8'>
-          <div
-            className='flex flex-1 flex-col overflow-auto'
-            // style={{
-            //   width: 'calc(100% - 22rem)',
-            // }}
-          >
-            <h1 className='text-[1.8rem] lg:text-[2.67rem] mb-[1.3rem] text-slate-800 lg:leading-[2.67rem] lg:text-center'>
-              {node?.data?.title}
-            </h1>
-            <div className='node-metas mb-10 text-gray-400 lg:text-center'>
-              <a href={category?.href}>
-                <i className='iconfont icon-benshubook122 mr-1' />
-                {category?.name}
-              </a>
-              <span className='ml-4'>
-                <i className='iconfont icon-date mr-1' />
-                {node?.data?.date?.toLocaleDateString()}
-              </span>
-            </div>
-            <article className='prose lg:prose-lg max-w-full break-words'>
-              <Content />
-            </article>
-          </div>
-          {/* sidebar */}
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+    <BaseNodeDetailPage
+      hasArticleMeta
+      title={node?.data?.title || ''}
+      categoryName={category?.name}
+      categoryUrl={category?.href}
+      date={node?.data?.date?.toLocaleDateString()}
+    >
+      <Content />
+    </BaseNodeDetailPage>
   );
 }
 
-{/* <div className='lg:w-80'>
-            <SideBar />
-          </div> */}
