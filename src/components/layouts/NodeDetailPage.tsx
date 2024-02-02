@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Footer, Header, HeaderBg } from '@/components/HomePage';
+import { TableOfContent } from '@/components';
 
 export interface NodeDetailPageProps {
   title: string;
@@ -46,17 +47,17 @@ export const NodeDetailPage: React.FC<React.PropsWithChildren<NodeDetailPageProp
                 </span>
               </div>
             )}
-            <article className='prose lg:prose-lg max-w-full break-words'>
+            <article className='oic-article-detail prose lg:prose-lg max-w-full break-words'>
               {children}
             </article>
           </div>
+          <TableOfContent />
           {/* sidebar */}
           {/* <div className='lg:w-80'>
             <SideBar />
           </div> */}
         </div>
       </section>
-
       <Footer />
     </main>
   );

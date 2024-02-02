@@ -1,4 +1,4 @@
-@import '//at.alicdn.com/t/c/font_3063613_mx8r4aut8y.css';
+@import '//at.alicdn.com/t/c/font_3063613_4x5q73vey1g.css';
 
 @tailwind base;
 @tailwind components;
@@ -217,4 +217,9 @@ code[data-line-numbers-max-digits='2'] > [data-line]::before {
 
 code[data-line-numbers-max-digits='3'] > [data-line]::before {
   width: 3rem;
+}
+
+.oic-toc {
+  width: calc(100% - 3rem);
+  max-width: 25rem;
 }
