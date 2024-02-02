@@ -11,7 +11,7 @@ export interface HeaderData {
 }
 
 export interface TableOfContent {
-
+  _?: string;
 }
 
 export const TableOfContent: React.FC<TableOfContent> = () => {
