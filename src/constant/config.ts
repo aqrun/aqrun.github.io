@@ -37,4 +37,9 @@ export const MAIN_MENUS = [
     vid: 'diary',
     href: '/category/diary/',
   },
+  {
+    name: '阅读小记',
+    vid: 'reading',
+    href: '/reading/',
+  },
 ];

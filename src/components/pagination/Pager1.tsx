@@ -23,7 +23,7 @@ export const Pager1: React.FC<PagerProps> = ({
   }
 
   return (
-    <div className='flex justify-center flex-wrap space-x-1 text-slate-800'>
+    <div className='flex justify-center flex-wrap space-x-1 text-slate-800 mt-6'>
       {page > 1 && (
         <a
           href={`${baseUrl}/${page - 1}`}
@@ -85,3 +85,4 @@ export const Pager1: React.FC<PagerProps> = ({
     </div>
   );
 };
+

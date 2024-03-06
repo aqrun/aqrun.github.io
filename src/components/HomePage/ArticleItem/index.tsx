@@ -12,7 +12,7 @@ export interface ArticleItemProps {
 export const ArticleItem: React.FC<ArticleItemProps> = ({ node }) => {
   const category = getCategory(node?.data?.taxonomies?.categories?.[0] || '');
   return (
-    <div className='h-90 w-full mb-6'>
+    <div className='w-full'>
       <div className='overflow-hidden rounded-lg hover:shadow-lg hover:shadow-violet-100 hover:border-violet-400 cursor-pointer border border-slate-200 border-solid'>
         <a
           href={`/n/${node?.data?.slug}`}
@@ -55,3 +55,4 @@ export const ArticleItem: React.FC<ArticleItemProps> = ({ node }) => {
     </div>
   );
 };
+
