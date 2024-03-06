@@ -14,6 +14,7 @@ const REG_DATE = /\d{4}-\d{2}-\d{2}/i;
 
 export const content_path = path.join(process.cwd(), 'src/content');
 export const pages_path = path.join(content_path, 'pages');
+export const reading_path = path.join(content_path, 'reading');
 
 export interface Node {
   content?: string;
@@ -27,6 +28,9 @@ export interface Node {
     slug?: string;
     /** 图片 */
     thumb?: string;
+    weight?: number;
+    startedAt?: string;
+    book?: string;
     taxonomies?: {
       categories?: string[];
       tags?: string[];
@@ -34,38 +38,113 @@ export interface Node {
   };
 }
 
+/**
+ * 获取读书列表数据
+ */
+export const getBookList = () => {
+  const bookInfos = fs.readdirSync(reading_path)?.map((bookItem) => {
+    const book_path = path.join(reading_path, bookItem);
+    const infoFile = path.join(book_path, '_index.md');
+
+    const info_content = fs.readFileSync(infoFile, 'utf-8');
+    const matterResults = matter(info_content);
+
+    const nodeItem: Node = {
+      file_path: book_path,
+      data: {
+        ...matterResults.data,
+        book: bookItem,
+      },
+    };
+
+    return nodeItem;
+  });
+  return bookInfos;
+};
+
+/**
+ * 获取书籍所有页
+ */
+export const getBookPages = (bookName: string) => {
+  const pages: Node[] = [];
+
+  const bookDir = path.join(reading_path, bookName)
+  fs.readdirSync(bookDir)?.filter((item) => {
+    return !item?.startsWith('_index.md');
+  })?.forEach((fileName) => {
+    const file_path = path.join(bookDir, fileName);
+
+    const info_content = fs.readFileSync(file_path, 'utf-8');
+    const matterResults = matter(info_content);
+    const file_name_meta = parseFileName(fileName);
+
+    pages.push({
+      ...matterResults,
+      file_path,
+      data: {
+        ...(matterResults?.data || {}),
+        date: matterResults?.data?.date || file_name_meta?.date,
+        slug: matterResults?.data?.slug || file_name_meta?.slug,
+        book: bookName,
+      },
+    });
+  });
+  return pages;
+};
+
+/**
+ * 递归遍历目录
+ */
+const getAllNodeFilesRecursive = (
+  dir: string, // 目录路径
+  callback: (file: string, dir_name: string, file_name: string) => void
+) => {
+  const state = fs.statSync(dir);
+
+  if (state.isFile()) {
+    const full_dir_name = path.dirname(dir);
+    const contentIndex = full_dir_name.indexOf('/content/');
+    const dir_arr = full_dir_name.slice(contentIndex)?.split('/');
+    dir_arr.shift(); // ''
+    dir_arr.shift(); // content
+
+    const dir_name = dir_arr.shift() || '';
+    const file_name = path.normalize(dir)?.split('/')?.pop() || '';
+    callback(dir, dir_name, file_name);
+  } else if (state.isDirectory()) {
+    fs.readdirSync(dir)?.forEach((subItem) => {
+      const newDir = path.join(dir, subItem);
+      getAllNodeFilesRecursive(newDir, callback);
+    });
+  }
+}
+
 export const getAllNodes = () => {
   const all_matter_results: Node[] = [];
 
-  fs.readdirSync(content_path)
-    ?.filter((item) => {
-      return CATEGORIES?.includes(item);
-    })
-    ?.forEach((cat) => {
-      const category_path = path.join(content_path, cat);
-      // 遍历文件
-      fs.readdirSync(category_path)
-        ?.filter((item) => {
-          return !item?.startsWith('_index.md');
-        })
-        .forEach((fileName) => {
-          const file_path = path.join(category_path, fileName);
-          const file_contents = fs.readFileSync(file_path, 'utf-8');
+  getAllNodeFilesRecursive(content_path, (file_path: string, dir_name: string, file_name: string) => {
+    if (!CATEGORIES?.includes(dir_name)) {
+      return;
+    }
+    if (file_name?.startsWith('_index.md')) {
+      return;
+    }
 
-          const matterResults = matter(file_contents);
-          const file_name_meta = parseFileName(fileName);
+    const file_contents = fs.readFileSync(file_path, 'utf-8');
 
-          all_matter_results.push({
-            ...matterResults,
-            file_path,
-            data: {
-              ...(matterResults?.data || {}),
-              date: matterResults?.data?.date || file_name_meta?.date,
-              slug: matterResults?.data?.slug || file_name_meta?.slug,
-            },
-          });
-        });
+    const matterResults = matter(file_contents);
+    const file_name_meta = parseFileName(file_name);
+  
+    all_matter_results.push({
+      ...matterResults,
+      file_path,
+      data: {
+        ...(matterResults?.data || {}),
+        date: matterResults?.data?.date || file_name_meta?.date,
+        slug: matterResults?.data?.slug || file_name_meta?.slug,
+      },
     });
+  });
 
   return all_matter_results;
 };
@@ -271,3 +350,4 @@ export const parseMarkdown = async (content: string) => {
 
   return String(data);
 };
+

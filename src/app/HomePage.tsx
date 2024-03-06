@@ -39,7 +39,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className='bg-white'>
         <div className='layout py-12 flex flex-col lg:flex-row gap-8'>
           <div className='flex flex-col w-[calc(100% - 22rem)]'>
-            <div className='relative flex flex-wrap items-center justify-center  flex-row'>
+            <div className='relative flex flex-wrap flex-row gap-2'>
               {nodes?.map((item) => {
                 return <ArticleItem key={item?.data?.title} node={item} />;
               })}
