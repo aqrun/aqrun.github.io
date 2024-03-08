@@ -79,6 +79,9 @@ export const Footer = () => {
               <a href='' className='font-inter font-light text-gray-500'>
                 习相远
               </a>
+              <a href='/climb' className='font-inter font-light text-gray-500'>
+                秦岭
+              </a>
             </div>
             {/* <!-- LINK BLOCK --> */}
             <div className='mb-5 mr-8 flex max-w-[200px] grow basis-[100px] flex-col space-y-5 lg:mx-10'>
