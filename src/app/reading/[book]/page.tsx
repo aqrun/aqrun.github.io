@@ -5,7 +5,7 @@ import { BookDetailPage as BaseNodeDetailPage } from '@/components/layouts';
 
 import { siteConfig } from '@/constant';
 import { parseMdx } from '@/utils';
-import { getAllNodes, getCategory, getBookPages } from '@/utils/blog';
+import { getCategory, getBookPages } from '@/utils/blog';
 
 export interface MetaProps {
   params: {

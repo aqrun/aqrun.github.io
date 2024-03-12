@@ -5,7 +5,7 @@ import { BookDetailPage as BaseNodeDetailPage } from '@/components/layouts';
 
 import { siteConfig } from '@/constant';
 import { parseMdx } from '@/utils';
-import { getAllNodes, getCategory, getBookList, getBookPages } from '@/utils/blog';
+import { getCategory, getBookList, getBookPages } from '@/utils/blog';
 
 export interface MetaProps {
   params: {
@@ -20,10 +20,11 @@ export interface MetaProps {
 }
 
 export const generateMetadata = async (props: MetaProps): Promise<Metadata> => {
-  const slug = props?.params?.book;
-  const all_nodes = getAllNodes();
+  const book = props?.params?.book;
+  const bookPage = props?.params?.bookPage;
+  const all_nodes = getBookPages(book);
   const node = all_nodes?.find((item) => {
-    return item?.data?.slug === slug;
+    return item?.data?.slug === bookPage;
   });
   const category = getCategory(node?.data?.taxonomies?.categories);
 
