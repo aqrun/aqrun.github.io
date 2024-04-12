@@ -71,14 +71,7 @@ export const MountainList: React.FC<MountainListProps> = ({
   });
 
   return (
-    <div>
-      <div>
-        <h4
-          className="leading-8 mb-2 text-gray-500"
-        >
-          Mountains
-        </h4>
-      </div>
+    <div className="mt-4">
       <div
         className="mountain-filters"
       >

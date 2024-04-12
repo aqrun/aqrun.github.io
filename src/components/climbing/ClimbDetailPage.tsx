@@ -5,18 +5,23 @@ import {
   SideBar,
 } from '@/components/HomePage';
 
+import { Aotai } from './Aotai';
 import {
   MountainList,
 } from './MountainList';
 import {
   mountains,
 } from './mountains';
+import { Tabs } from './Tabs';
 
 export interface ClimbDetailPageProps {
-  _?: string;
+  tab?: 'index' | 'aotai';
 }
 
-export const ClimbDetailPage: React.FC<ClimbDetailPageProps> = () => {
+export const ClimbDetailPage: React.FC<ClimbDetailPageProps> = ({
+  tab,
+}) => {
+  const validTab = tab || 'index';
   return (
     <main>
       <Header />
@@ -25,10 +30,16 @@ export const ClimbDetailPage: React.FC<ClimbDetailPageProps> = () => {
       <section className='bg-white'>
         <div className='layout py-12 flex flex-col lg:flex-row gap-8'>
           <div className='oic-layout-content flex flex-col w-[calc(100% - 22rem)]'>
-            
-            <MountainList
-              mountains={mountains}
-            />
+            <Tabs tab={validTab} />
+
+            {validTab === 'index' && (
+              <MountainList
+                mountains={mountains}
+              />
+            )}
+            {validTab === 'aotai' && (
+              <Aotai />
+            )}
 
           </div>
           <div className='lg:w-80'>

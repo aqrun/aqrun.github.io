@@ -4,11 +4,12 @@ import React from 'react';
 import { ClimbDetailPage } from '@/components/climbing';
 
 export const metadata: Metadata = {
-  title: '秦岭群峰',
+  title: '鳌太路线-秦岭群峰',
 };
 
 export default function ClimbPage() {
   return (
-    <ClimbDetailPage />
+    <ClimbDetailPage tab="aotai" />
   );
 }
+
