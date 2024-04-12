@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import * as React from 'react';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
 
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body>
         <Script src="/baidu.js?v1" strategy="beforeInteractive" />
         {children}
+        <Analytics />
       </body>
     </html>
   );
