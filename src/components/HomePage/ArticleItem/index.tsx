@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { getCategory, Node } from '@/utils';
+import { getCategory, Node, formatDate } from '@/utils';
 
 export interface ArticleItemProps {
   node?: Node;
@@ -23,13 +23,19 @@ export const ArticleItem: React.FC<ArticleItemProps> = ({ node }) => {
               alt={node?.data?.title || ''}
               src='/images/big-news1.jpeg'
               className='object-cover w-full max-h-40 bg-slate-100 md:w-80 md:max-h-full'
-              width={100}
-              height={100}
+              width={180}
+              height={180}
             />
           )}
           <div className='w-full p-4 bg-white dark:bg-gray-800'>
-            <p className='font-medium text-indigo-500 text-md'>
+            <p className='font-light text-gray-400 text-md'>
+              <i className='iconfont icon-benshubook122 mr-1' />
               {category?.name}
+              &nbsp;
+              <span className="ml-2 text-gray-400 font-light">
+                <i className='iconfont icon-date mr-1' />
+                {formatDate(node?.data?.date)}
+              </span>
             </p>
             <p className='mb-2 text-xl font-medium text-gray-800 dark:text-white'>
               {node?.data?.title}

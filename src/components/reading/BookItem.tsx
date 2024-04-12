@@ -32,8 +32,8 @@ export const BookItem: React.FC<BookItemProps> = ({ node }) => {
                   'max-w-full max-h-full bg-slate-100',
                   'min-w-28 min-h-28'
                 )}
-                width={100}
-                height={100}
+                width={180}
+                height={140}
               />
             </div>
           )}
