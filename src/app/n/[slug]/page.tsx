@@ -4,7 +4,7 @@ import React from 'react';
 import { NodeDetailPage as BaseNodeDetailPage } from '@/components/layouts';
 
 import { siteConfig } from '@/constant';
-import { parseMdx } from '@/utils';
+import { parseMdx, formatDate } from '@/utils';
 import { getAllNodes, getCategory } from '@/utils/blog';
 
 export interface MetaProps {
@@ -65,7 +65,7 @@ export default async function NodeDetailPage(props: NodeDetailPageProps) {
       title={node?.data?.title || ''}
       categoryName={category?.name}
       categoryUrl={category?.href}
-      date={node?.data?.date?.toLocaleDateString()}
+      date={formatDate(node?.data?.date)}
     >
       <Content />
     </BaseNodeDetailPage>
