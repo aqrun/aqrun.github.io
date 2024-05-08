@@ -12,10 +12,11 @@ import {
 import {
   mountains,
 } from './mountains';
+import { OilCalculator } from './OilCalculator';
 import { Tabs } from './Tabs';
 
 export interface ClimbDetailPageProps {
-  tab?: 'index' | 'aotai';
+  tab?: 'index' | 'aotai' | 'oil';
 }
 
 export const ClimbDetailPage: React.FC<ClimbDetailPageProps> = ({
@@ -39,6 +40,9 @@ export const ClimbDetailPage: React.FC<ClimbDetailPageProps> = ({
             )}
             {validTab === 'aotai' && (
               <Aotai />
+            )}
+            {validTab === 'oil' && (
+              <OilCalculator />
             )}
 
           </div>

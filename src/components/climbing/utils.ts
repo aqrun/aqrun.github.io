@@ -2,6 +2,16 @@ import {
   Mountain,
 } from './mountains';
 
+export enum EnumOrder {
+  asc = 'asc',
+  desc = 'desc',
+}
+
+export interface OrderData {
+  orderBy: string;
+  order?: EnumOrder;
+}
+
 export interface LocationData {
   name: string;
   amount: number;

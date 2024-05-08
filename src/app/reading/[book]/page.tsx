@@ -4,8 +4,8 @@ import React from 'react';
 import { BookDetailPage as BaseNodeDetailPage } from '@/components/layouts';
 
 import { siteConfig } from '@/constant';
-import { parseMdx } from '@/utils';
-import { getCategory, getBookPages } from '@/utils/blog';
+import { formatDate,parseMdx } from '@/utils';
+import { getBookPages,getCategory } from '@/utils/blog';
 
 export interface MetaProps {
   params: {
@@ -55,7 +55,7 @@ export default async function BookDetailPage(props: BookDetailPageProps) {
       title={node?.data?.title || ''}
       categoryName={category?.name}
       categoryUrl={category?.href}
-      date={node?.data?.date?.toLocaleDateString()}
+      date={formatDate(node?.data?.date)}
       allPages={all_nodes}
       pageSlug={node?.data?.slug}
     >

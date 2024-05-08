@@ -1,8 +1,9 @@
 import React from "react";
 
 const tabList = [
-  { id: 'index', name: '群峰概览', href: '/climb'},
+  { id: 'index', name: '秦岭群峰', href: '/climb'},
   { id: 'aotai', name: '鳌太路线', href: '/climb/aotai'},
+  { id: 'oil', name: '车费估算', href: '/climb/oil'},
 ];
 
 export interface TabsProps {
