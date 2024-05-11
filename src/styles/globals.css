@@ -1,4 +1,5 @@
 @import '//at.alicdn.com/t/c/font_3063613_fp85xf6l6h9.css';
+@import '~react-photo-view/dist/react-photo-view.css';
 
 @tailwind base;
 @tailwind components;
@@ -240,4 +241,8 @@ code[data-line-numbers-max-digits='3'] > [data-line]::before {
 .oic-toc {
   width: calc(100% - 3rem);
   max-width: 25rem;
+}
+
+.PhotoView-Slider__Backdrop {
+  opacity: 0.7;
 }
