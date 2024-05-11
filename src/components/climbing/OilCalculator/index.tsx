@@ -129,7 +129,7 @@ export const OilCalculator = () => {
               总油耗 {totalOil.toFixed(2)} = 总里程 {totalRoads} * 百公里油耗 {oilPerHundred} / 100
             </p>
             <p>
-              总油费 {totalOilCost.toFixed(2)} = 总油耗 {totalOil.toFixed(2)} * 当前油价 {oilData.oilPrice.toFixed(2)}
+              总油费 {totalOilCost.toFixed(2)} = 总油耗 {totalOil.toFixed(2)} * 当前油价 {oilPrice.toFixed(2)}
             </p>
             <p>
               总计 {totalCost.toFixed(2)} = 高速过路费 {highwayCost.toFixed(2)} + 总油费 {totalOilCost.toFixed(2)} + 附加费用 {extraCost.toFixed(2)}
