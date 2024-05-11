@@ -26,7 +26,7 @@ export const InputItem: React.FC<InputItemProps> = ({
 
     if (typeof onChange !== 'undefined') {
       onChange({
-        [name]: Number(val) || 0,
+        [name]: val,
       });
     }
   });

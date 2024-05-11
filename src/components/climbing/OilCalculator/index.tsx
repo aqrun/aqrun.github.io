@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { InputItem } from './InputItem';
 import { ResultItem } from './ResultItem';
-import { EnumOilName,OilFormData, OilFormDataDefaultValue } from './types';
+import { EnumOilName, getData, OilFormData, OilFormDataDefaultValue } from './types';
 
 /**
  * 油费计算
@@ -20,14 +20,21 @@ export const OilCalculator = () => {
     });
   });
 
+  const totalRoads = getData(oilData.totalRoads);
+  const oilPerHundred = getData(oilData.oilPerHundred);
+  const oilPrice = getData(oilData.oilPrice);
+  const highwayCost = getData(oilData.highwayCost);
+  const extraCost = getData(oilData.extraCost);
+  const people = getData(oilData.people, 1);
+
   // 总油耗
-  const totalOil = oilData.totalRoads * oilData.oilPerHundred / 100;
+  const totalOil = totalRoads * oilPerHundred / 100;
   // 总油费
-  const totalOilCost = totalOil * oilData.oilPrice;
+  const totalOilCost = totalOil * oilPrice;
   // 总计
-  const totalCost = oilData.highwayCost + totalOilCost + oilData.extraCost;
+  const totalCost = highwayCost + totalOilCost + extraCost;
   // 每人平均
-  const costPerPeople = totalCost / oilData.people;
+  const costPerPeople = totalCost /people;
 
   return (
     <div className="mt-4">
@@ -119,16 +126,16 @@ export const OilCalculator = () => {
           </div>
           <div className="mt-2 leading-6">
             <p>
-              总油耗 {totalOil.toFixed(2)} = 总里程 {oilData.totalRoads} * 百公里油耗 {oilData.oilPerHundred} / 100
+              总油耗 {totalOil.toFixed(2)} = 总里程 {totalRoads} * 百公里油耗 {oilPerHundred} / 100
             </p>
             <p>
               总油费 {totalOilCost.toFixed(2)} = 总油耗 {totalOil.toFixed(2)} * 当前油价 {oilData.oilPrice.toFixed(2)}
             </p>
             <p>
-              总计 {totalCost.toFixed(2)} = 高速过路费 {oilData.highwayCost.toFixed(2)} + 总油费 {totalOilCost.toFixed(2)} + 附加费用 {oilData.extraCost.toFixed(2)}
+              总计 {totalCost.toFixed(2)} = 高速过路费 {highwayCost.toFixed(2)} + 总油费 {totalOilCost.toFixed(2)} + 附加费用 {extraCost.toFixed(2)}
             </p>
             <p>
-              人均 {costPerPeople.toFixed(2)} = 高速过路费 {totalCost.toFixed(2)} / 人数 {oilData.people}
+              人均 {costPerPeople.toFixed(2)} = 高速过路费 {totalCost.toFixed(2)} / 人数 {people}
             </p>
           </div>
         </div>

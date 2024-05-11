@@ -32,3 +32,8 @@ export const OilFormDataDefaultValue: OilFormData = {
   extraCost: 0,
   people: 1,
 }
+
+export const getData = (data: number | undefined, defaultValue = 0) => {
+  if (!data) return defaultValue || 0;
+  return Number(data) || 0;
+};
