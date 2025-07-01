@@ -214,6 +214,11 @@ article figure {
   overflow: auto;
 }
 
+article p img {
+  margin: 0 auto;
+  max-width: 80%;
+}
+
 code[data-line-numbers] {
   counter-reset: line;
 }
@@ -245,4 +250,11 @@ code[data-line-numbers-max-digits='3'] > [data-line]::before {
 
 .PhotoView-Slider__Backdrop {
   opacity: 0.7;
+}
+
+@media (min-width: 1000px) {
+  article p img {
+    margin: 0 auto;
+    max-width: 20%;
+  }
 }
